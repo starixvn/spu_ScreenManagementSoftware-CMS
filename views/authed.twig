@@ -24,16 +24,19 @@
                         {% if currentUser.routeViewable("/layout") %}
                         <li class="sidebar-list"><a href="{{ urlFor("layout.view") }}">{% trans "Layouts" %}</a></li>
                         {% endif %}
-
+						
+						{#
                         {% if currentUser.routeViewable("/template") %}
                         <li class="sidebar-list"><a href="{{ urlFor("template.view") }}">{% trans "Templates" %}</a></li>
                         {% endif %}
+						#}
 
                         {% if currentUser.routeViewable("/resolution") %}
                         <li class="sidebar-list"><a href="{{ urlFor("resolution.view") }}">{% trans "Resolutions" %}</a></li>
                         {% endif %}
                     {% endif %}
-
+					
+					{#
                     {% if currentUser.routeViewable("/library") or currentUser.routeViewable("/dataset") %}
                         <li class="sidebar-title"><a>{% trans "Library" %}</a></li>
                         {% if currentUser.routeViewable("/library") %}
@@ -44,6 +47,7 @@
                         <li class="sidebar-list"><a href="{{ urlFor("dataSet.view") }}">{% trans "DataSets" %}</a></li>
                         {% endif %}
                     {% endif %}
+					#}
 
                     {% if currentUser.routeViewable("/display") or currentUser.routeViewable("/displaygroup") or currentUser.routeViewable("/stats") or currentUser.routeViewable("/displayprofile") %}
                         <li class="sidebar-title"><a>{% trans "Displays" %}</a></li>
@@ -89,21 +93,23 @@
                         <li class="sidebar-list"><a href="{{ urlFor("admin.view") }}">{% trans "Settings" %}</a></li>
                         {% endif %}
 
-                        {% if currentUser.routeViewable("/application") %}
+                        {#
+						{% if currentUser.routeViewable("/application") %}
                         <li class="sidebar-list"><a href="{{ urlFor("application.view") }}">{% trans "Applications" %}</a></li>
                         {% endif %}
+						#}
 
-                        {% if currentUser.routeViewable("/module") %}
+                        {# {% if currentUser.routeViewable("/module") %}
                         <li class="sidebar-list"><a href="{{ urlFor("module.view") }}">{% trans "Modules" %}</a></li>
-                        {% endif %}
+                        {% endif %} #}
 
-                        {% if currentUser.routeViewable("/transition") %}
+                        {# {% if currentUser.routeViewable("/transition") %}
                         <li class="sidebar-list"><a href="{{ urlFor("transition.view") }}">{% trans "Transitions" %}</a></li>
-                        {% endif %}
+                        {% endif %} #}
 
-                        {% if currentUser.routeViewable("/task") %}
+                        {# {% if currentUser.routeViewable("/task") %}
                         <li class="sidebar-list"><a href="{{ urlFor("task.view") }}">{% trans "Tasks" %}</a></li>
-                        {% endif %}
+                        {% endif %} #}
                     {% endif %}
 
                     {% if currentUser.routeViewable("/log") or currentUser.routeViewable("/sessions") or currentUser.routeViewable("/auditlog") or currentUser.routeViewable("/fault") or currentUser.routeViewable("/help") %}
@@ -124,9 +130,9 @@
                         <li class="sidebar-list"><a href="{{ urlFor("fault.view") }}">{% trans "Report Fault" %}</a></li>
                         {% endif %}
 
-                        {% if currentUser.routeViewable("/help") %}
+                        {# {% if currentUser.routeViewable("/help") %}
                         <li class="sidebar-list"><a href="{{ urlFor("help.view") }}">{% trans "Help Links" %}</a></li>
-                        {% endif %}
+                        {% endif %} #}
                     {% endif %}
                 </ul>
 
