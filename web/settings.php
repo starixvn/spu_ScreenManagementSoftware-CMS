@@ -15,9 +15,9 @@ global $dbuser;
 global $dbpass;
 global $dbname;
 
-$dbhost = '10.18.200.240';
-$dbuser = 'xibologin';
-$dbpass = '1234qwer!';
+$dbhost = '10.19.10.2';
+$dbuser = 'xcuocao';
+$dbpass = '25121209';
 $dbname = 'xibo';
 
 define('SECRET_KEY', '7kCmh1do7Uq4');
