@@ -1,5 +1,5 @@
 {
-	"listenOn": "tcp://localhost:50001",
-	"pubOn": ["tcp://localhost:9505", "tcp://localhost:50002"],
+	"listenOn": "tcp://127.0.0.1:50001",
+	"pubOn": ["tcp://127.0.0.1:9505", "tcp://127.0.0.1:50002"],
 	"debug": true
 }
