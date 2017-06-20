@@ -1,5 +1,5 @@
 update setting
-set value = 'resources\\' where settingid=33;
+set value = '\\\\10.70.70.242\\www\\SPU\\SMS_Library\\' where settingid=33;
 
 update setting
 set value = '123456' where settingid=34;
