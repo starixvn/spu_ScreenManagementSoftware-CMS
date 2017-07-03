@@ -1,11 +1,13 @@
 var xiboNexcel = {
     domElements: {
+        pageWrapper: null,
         sidebarWrapper: null,
         sidebar: null,
         sidebarMenuTitle: null,
         sidebarMenuItem: null, 
         colexpIcon: null, 
         submenuItem: null,
+        menuTitleCollapse: null
     }, 
 
     init: function() {
@@ -14,6 +16,7 @@ var xiboNexcel = {
     },
 
     storeElements: function() {
+        xiboNexcel.domElements.pageWrapper = $('#page-wrapper');
         xiboNexcel.domElements.sidebarWrapper = $('#sidebar-wrapper');
         xiboNexcel.domElements.sidebar = $('.sidebar');
         xiboNexcel.domElements.sidebarMenuItem = $('.menu-item');
@@ -21,32 +24,26 @@ var xiboNexcel = {
         xiboNexcel.domElements.sidebarMenuItem = $('.sub-menu');
         xiboNexcel.domElements.colexpIcon = $('.colexp');
         xiboNexcel.domElements.submenuItem = $('.sidebar-list');
+        xiboNexcel.domElements.menuTitleCollapse = $('.menu-title.collapse');
+        
     }, 
 
     bindEvents: function() {
-        xiboNexcel.domElements.sidebarMenuTitle.click(function(e){
-            $this = $(this);
-            if($this.hasClass('collapsed')) {
-                $this.next().slideDown('fast');
-                $this.removeClass('collapsed');
-            }
-            else {
-                 $this.next().slideUp('fast');
-                $this.addClass('collapsed');
-            }
-            
-        });
+        $('.collapse').collapse();
 
         xiboNexcel.domElements.colexpIcon.click(function(e){
-            if(!xiboNexcel.domElements.sidebarWrapper.hasClass('collapsed')){
-                xiboNexcel.domElements.sidebarWrapper.addClass('collapsed');
-                xiboNexcel.sidebarCollpased();
+            if(!xiboNexcel.domElements.pageWrapper.hasClass('collapsed')){
+                xiboNexcel.domElements.pageWrapper.addClass('collapsed');
+                xiboNexcel.domElements.sidebarMenuTitle.removeAttr('data-toggle');
+                xiboNexcel.domElements.menuTitleCollapse.removeClass('hidden').addClass('show');
+
             }
             else {
-                xiboNexcel.domElements.sidebarWrapper.removeClass('collapsed');
+                xiboNexcel.domElements.pageWrapper.removeClass('collapsed');
+                xiboNexcel.domElements.sidebarMenuTitle.attr('data-toggle', 'collapse');
+                 xiboNexcel.domElements.menuTitleCollapse.removeClass('show').addClass('hidden');
             }
         });
-
         xiboNexcel.domElements.submenuItem.hover(
             function(){
                 $this = $(this);
@@ -61,11 +58,9 @@ var xiboNexcel = {
                 ele.addClass('fa-circle-o');
             }
         );
-    },
 
-     sidebarCollpased: function() {
-        
-     }
+    }
+
 };
 
 $(function () {

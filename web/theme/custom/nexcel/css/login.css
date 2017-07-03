@@ -73,9 +73,12 @@ a:hover {
     border-bottom: 1px solid #485485;
     transition: all 0.3s;
 }
-.input-field input[type="password"] {
-    font-size: 32px;
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .input-field input[type="password"] {
+        font-size: 20px;
+    }
 }
+
 .input-field input:focus + label,
 .input-field input.active:not(focus) + label {
     top: -14px;
@@ -129,7 +132,7 @@ a:hover {
     height: 16px;
     width: 16px;
     background-color: transparent;
-    border: 2px solid #5a5a5a;
+    border: 2px solid var(--text-color);
     top: 3px;
     z-index: 0;
 }
@@ -176,4 +179,13 @@ input:-webkit-autofill:active {
 }
 .forgot-password:hover {
     color: #4c81ff;
+}
+
+.alert.alert-danger {
+    color: #f24c36;
+    background: transparent;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+    padding: 0;
 }

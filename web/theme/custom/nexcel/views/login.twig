@@ -27,14 +27,14 @@
                <input id="password" class="input-block-level" name="password" type="password" autocomplete="new-password">
                <label for="password">Password</label>
             </div>
-            <div class=field>
-                <input type="checkbox" id="chbSignin" />
-                <label for="chbSignin">Keep me signed in </label>
-            </div>
 
             {% if flash.login_message %}
             <div class="alert alert-danger">{{ flash.login_message }}</div>
             {% endif %}
+            <div class=field>
+                <input type="checkbox" id="chbSignin" />
+                <label for="chbSignin">Keep me signed in </label>
+            </div>
 
             <button class="btn btn-login" type="submit">{% trans "Login" %}</button>
             <div class="text-center"><a class="forgot-password" href="javascript:;">Forgot Password?</a></div>
