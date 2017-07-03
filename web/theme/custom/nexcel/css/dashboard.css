@@ -13,9 +13,14 @@
     --font-size: 13px;
     --height-item-menu: 36px;
     --menu-item-color-hover: #ee5b5c;
+    --sidebar-collapse-width: 64px;
+    --padding-left-menu-item: 16px;
 }
 a:hover, a:focus, a:active, a:visited {
   text-decoration: none;
+}
+ul {
+  list-style-type: none;
 }
 
 body {
@@ -48,15 +53,15 @@ div.input-mask {
 }
 
 /* Sidebar */
-ul.sidebar {
+.sidebar {
   position: absolute;
   top: 64px;
   bottom: 0;
   padding: 12px 0 0;
   margin: 0;
   list-style: none;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: auto;
+  width: 100%;
 }
 
 .logo-section {
@@ -64,51 +69,52 @@ ul.sidebar {
   -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.35);
   box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.35);
   height: 64px;
-  line-height: 64px;
 }
-ul.sidebar .menu-title  {
+.logo-section .xibo-logo {
+  background: url("../img/logo.png") no-repeat;
+  width: 147px;
+  height: 34px;
+  position: relative;
+  top: 15px;
+}
+.sidebar .menu-title  {
   cursor: pointer;
   color: #fff;
   display: block;
   text-decoration: none;
-  width: var(--sidebar-width);
-  padding-left: 16px;
+  padding-left: var(--padding-left-menu-item);
   height: var(--height-item-menu);
   line-height: var(--height-item-menu);
+  font-size: 14px;
 }
-ul.sidebar .menu-title [class^="fa"] {
+.sidebar .menu-title [class^="fa"] {
   padding-right: 16px;
   font-size: 18px;
 }
 
-ul.sidebar .menu-title .fa-angle-down {
+.sidebar .menu-title .fa-angle-down {
   float: right;
   line-height: var(--height-item-menu);
   font-size: var(--font-size);
 }
-ul.sidebar .sub-menu {
+.sidebar .sub-menu {
   padding: 0;
 }
 
-ul.sidebar .sidebar-list  a {
-  color: #fff;
-  line-height: var(--height-item-menu);
-  font-weight: 300;
-  padding-left: 52px;
-}
-
-ul.sidebar .sidebar-list a {
-  height: var(--height-item-menu);
+.sidebar .sidebar-list  a {
+  color: #fff; 
   display: block;
+  font-weight: 300;
+  padding: 9px 0 9px 52px;
 }
 
-ul.sidebar .sidebar-list a:hover {
+.sidebar .sidebar-list a:hover {
   text-decoration: none;
   background: #131624;
   color: var(--menu-item-color-hover);
 }
 
-ul.sidebar .sidebar-list a [class^="fa"] {
+.sidebar .sidebar-list a [class^="fa"] {
   font-size: 4px;
   font-weight: 400;
   margin-right: 12px;
@@ -438,9 +444,55 @@ ul.sidebar .sidebar-main a,
   -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.35);
   -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.35);
   box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.35);
+   -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 
 }
+#page-wrapper.collapsed {
+  padding-left: var(--sidebar-collapse-width);
+}
+#page-wrapper.collapsed #sidebar-wrapper {
+  width: var(--sidebar-collapse-width);
+}
+#page-wrapper.collapsed #sidebar-wrapper .sidebar {
+  overflow: unset;
+  padding-top: 0;
+}
+#page-wrapper.collapsed #sidebar-wrapper .sidebar .menu-title .text,
+#page-wrapper.collapsed #sidebar-wrapper .sidebar .menu-title .fa-angle-down,
+#page-wrapper.collapsed #sidebar-wrapper .sidebar .menu-item .sub-menu {
+  display: none;
+}
+#page-wrapper.collapsed #sidebar-wrapper .logo-section .xibo-logo {
+  background: url(../img/logo-login.svg) no-repeat;
+  width: 42px;
+}
+#page-wrapper.collapsed #sidebar-wrapper .sidebar .menu-title {
+  --padding-left-menu-item: 20px;
+  --height-item-menu: 50px;
+}
+#page-wrapper.collapsed .sidebar .menu-item {
+  position: relative;
+}
+#page-wrapper.collapsed  #sidebar-wrapper .sidebar .menu-item:hover{
+  background: #191c2e;
+}
+#page-wrapper.collapsed  #sidebar-wrapper .sidebar .menu-item:hover .sub-menu  {
+  display: block;
+  position: absolute;
+  left: var(--sidebar-collapse-width);
+  top: 0;
+  z-index: 9999;
+  min-width: 240px;
+  background: #191c2e;
+  height: auto !important;
+}
 
+#page-wrapper.collapsed  #sidebar-wrapper .sidebar .menu-item:hover .sub-menu .sidebar-list a{
+  padding-left: 16px;
+}
 .news-widget div.article {
   padding-top: 15px;
 }
