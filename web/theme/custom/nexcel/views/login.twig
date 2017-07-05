@@ -18,7 +18,7 @@
         <form id="login-form" class="form-signin" action="{{ urlFor("login") }}" method="post" autocomplete="off">
             <input name="priorRoute" type="hidden" value="{{ flash.priorRoute }}" />
             <input type="hidden" name="{{ csrfKey }}" value="{{ csrfToken }}" />
-            <p class="logo-section"><a href="{{ theme.getThemeConfig("theme_url") }}"><img src="{{ theme.uri("img/logo-login.svg") }}" width="100px"><span class="text">Screen Management Software</span></a></p>
+            <p class="logo-section"><a href="{{ theme.getThemeConfig("theme_url") }}"><img src="{{ theme.uri("img/SMS.svg") }}"></a></p>
             <div class="input-field">
                <input id="username" class="input-block-level" name="username" type="text"  >
                <label for="username">Username</label>
