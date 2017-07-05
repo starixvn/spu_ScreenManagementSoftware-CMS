@@ -29,7 +29,7 @@ body {
   font-size: var(--font-size);
 }
 .row > div {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 .alerts-container .alert:last-child {
   margin-bottom: 0px;
@@ -70,11 +70,20 @@ div.input-mask {
   height: 64px;
 }
 .logo-section .xibo-logo {
-  background: url("../img/logo.png") no-repeat;
-  width: 147px;
-  height: 34px;
+  background: url("../img/SMS.svg") no-repeat;
+  background-size: 150px 36px;
   position: relative;
-  top: 15px;
+  top: 14px;
+  height: 64px
+}
+.logo-section .text-logo {
+  color: #fff;
+  display: inline-block;
+  width: 50px;
+  position: relative;
+  top: -10px;
+  line-height: initial;
+  font-size: 12px;
 }
 .sidebar .menu-title  {
   cursor: pointer;
@@ -471,14 +480,17 @@ ul.sidebar .sidebar-main a,
   overflow: unset;
   padding-top: 0;
 }
+#page-wrapper.collapsed #sidebar-wrapper .logo-section .text-logo,
 #page-wrapper.collapsed #sidebar-wrapper .sidebar .menu-title .text,
 #page-wrapper.collapsed #sidebar-wrapper .sidebar .menu-title .fa-angle-down,
 #page-wrapper.collapsed #sidebar-wrapper .sidebar .menu-item .sub-menu {
   display: none;
 }
 #page-wrapper.collapsed #sidebar-wrapper .logo-section .xibo-logo {
-  background: url(../img/logo-login.svg) no-repeat;
-  width: 42px;
+  background: url(../img/SMS_logo.svg) no-repeat;
+  background-size: 42px 36px;
+  top: 14px;
+  margin-left: 11px;
 }
 #page-wrapper.collapsed #sidebar-wrapper .sidebar .menu-title {
   --padding-left-menu-item: 20px;
