@@ -679,7 +679,7 @@ class Display extends Base
 
         if ($display->defaultLayoutId != null) {
             try {
-                $layouts = array_merge([$this->layoutFactory->getById($display->defaultLayoutId)], $layouts);
+                $layouts = array_unique(array_merge([$this->layoutFactory->getById($display->defaultLayoutId)], $layouts));
             } catch (NotFoundException $e) {
                 $this->getLog()->error('Default layoutId ' . $display->defaultLayoutId . ' not found for displayId ' . $display->displayId);
             }
