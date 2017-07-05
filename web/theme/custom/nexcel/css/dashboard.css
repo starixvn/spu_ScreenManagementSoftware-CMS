@@ -24,7 +24,6 @@ ul {
 }
 
 body {
-  background: #f3f3f3;
   color: #333333 !important;
   font-family: var(--font-family);
   font-size: var(--font-size);
@@ -322,11 +321,14 @@ div.input-mask {
 .widget .widget-body {
   padding: 20px;
 }
-.widget .widget-body table thead * {
+/*.widget .widget-body table thead * {
   font-size: 14px !important;
+}*/
+.widget .widget-body table tbody .glyphicon-remove {
+  color: #de4839;
 }
-.widget .widget-body table tbody * {
-  font-size: 13px !important;
+.widget .widget-body table tbody .glyphicon-ok {
+  color: #439711;
 }
 .widget .widget-body table tbody .btn-tag { 
     padding: 0px 5px;
@@ -406,6 +408,15 @@ div.input-mask {
   font-size: 20px;
   position: relative;
   top: 3px;
+}
+.row-dashboard [class^='col'] {
+  padding: 0 8px;
+}
+.row-dashboard [class^='col']:first-child {
+  padding-left: 15px;
+}
+.row-dashboard [class^='col']:last-child {
+  padding-right: 15px;
 }
 .tbl-display {
   margin-top: 16px;
