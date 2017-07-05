@@ -127,7 +127,7 @@
 
                 {% set title %}{% trans "Duration" %}{% endset %}
                 {% set helpText %}{% trans "The duration in seconds this should be displayed" %}{% endset %}
-                {{ forms.number("duration", title, module.getModule().defaultDuration, helpText, "duration-fields", "required") }}
+                {{ forms.number("duration", title, module.getModule().defaultDuration, helpText, "duration-fields", "required min=0 max=86400") }}
                 
                 {% set title %}{% trans "Options" %}{% endset %}
                 {% set helpText %}{% trans "How should this web page be embedded?" %}{% endset %}

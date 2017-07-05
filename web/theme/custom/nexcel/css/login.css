@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400');
+
+:root {
+    --font-family: 'Montserrat';
+    --text-color: #8aa1ff;
+    --font-size: 13px;
+}
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    background-color: #181e36;
+}
+a:hover {
+    text-decoration: none;
+}
+
+.form-signin {
+    max-width: 300px;
+    margin: 170px auto 0;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.logo-section {
+    margin-bottom: 36px;
+}
+.logo-section a {
+    display: table;
+    width: 220px;
+    margin: auto;
+}
+.logo-section a img {
+    position: relative;
+    top: 16px;
+}
+.logo-section a img, .logo-section a .text {
+    display: table-cell;
+    vertical-align: bottom;
+}
+.logo-section a .text {
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+    text-align: left;
+    padding-left: 10px;
+}
+.input-field, .field {
+    position: relative;
+    margin-bottom: 12px;
+}
+.input-field label {
+    color: #8aa1ff;
+    position: absolute;
+    top: 5px;
+    cursor: text;
+    font-weight: 300;
+    left: 0;
+    transition: .2s ease-out;
+}
+.input-field input:focus {
+    outline: none;
+    border-bottom: 2px solid #fff;
+}
+.input-field input {
+    color: #fff;
+    height: 32px;
+    margin-bottom: 15px;
+    padding: 5px 0;
+    width: 300px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #485485;
+    transition: all 0.3s;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .input-field input[type="password"] {
+        font-size: 20px;
+    }
+}
+
+.input-field input:focus + label,
+.input-field input.active:not(focus) + label {
+    top: -14px;
+    font-size: 10px;
+}
+.input-field input:focus + label:after {
+    transition: .2s opacity ease-out, .2s color ease-out;
+}
+
+
+[type="checkbox"]+label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    color: #8aa1ff;
+    font-weight: 300;
+}
+
+[type="checkbox"]:checked+label:before {
+    top: 3px;
+    left: 0;
+    width: 8px;
+    height: 13px;
+    border-top: 3px solid transparent;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #181e36;
+    border-bottom: 3px solid #181e36;
+    -webkit-transform: rotateZ(37deg);
+    transform: rotateZ(37deg);
+    -webkit-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+}
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+}
+[type="checkbox"]:checked+label:after {
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #8aa1ff;
+    background-color: #8aa1ff;
+    z-index: 0;
+    border-radius: 3px;
+}
+[type="checkbox"]:not(:checked)+label:after {
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    border: 2px solid var(--text-color);
+    top: 3px;
+    z-index: 0;
+}
+[type="checkbox"]+label:before, [type="checkbox"]+label:after {
+    content: '';
+    left: 0;
+    position: absolute;
+    /*transition: border .25s, background-color .25s, width .20s .1s, height .20s .1s, top .20s .1s, left .20s .1s;*/
+    z-index: 1;
+}
+.btn-login {
+    background: #3860c0;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 20px;
+    height: 40px;
+    width: 300px;
+    text-align: center;
+    margin: 24px 0 36px ;
+}
+.btn-login:hover {
+    color: #fff;
+    background: #4d74d1;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0;
+    border: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+    transition-delay: background-color 5000s, color 5000s;
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: #455180;
+    display: block;
+    padding-top: 12px;
+    border-top: 1px solid #455180;
+}
+.forgot-password:hover {
+    color: #4c81ff;
+}
+
+.alert.alert-danger {
+    color: #f24c36;
+    background: transparent;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+    padding: 0;
+}
