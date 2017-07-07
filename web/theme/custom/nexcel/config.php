@@ -22,8 +22,8 @@
 
 $config = array(
     'view_path' => '../web/theme/custom/nexcel/views',
-    'theme_name' => 'Screen Management Software',
-    'theme_title' => 'Screen Management Software',
+    'theme_name' => 'Nexcel Theme',
+    'theme_title' => 'Screen Management System',
     'app_name' => 'Xibo',
     'theme_url' => 'http://xibo.org.uk',
     'cms_source_url' => 'https://github.com/xibosignage/xibo/',
