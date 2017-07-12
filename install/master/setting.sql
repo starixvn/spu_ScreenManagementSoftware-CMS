@@ -19,3 +19,12 @@ where userid=1;
 
 UPDATE `module` SET `Enabled`='0' WHERE `ModuleID` <> 5;
 UPDATE `module` SET `Enabled`='1' WHERE `ModuleID` IN (5);
+
+INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
+(100, 'UPGRADE_LOCATION', '\\\\10.70.70.242\\www\\SPU\\SMS_UpgradeVersion\\', 'text', 'The fully qualified path to the CMS upgrade location.', NULL, 'upgrade', 1, 'Upgrade Location', 'required', 10, '', 1, 'string');
+
+INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
+(101, 'SMS_CLIENT_VERSION', '1.8.1.130', 'text', 'The upgrade package version.', NULL, 'upgrade', 1, 'Upgrade Version', 'required', 10, '', 1, 'string');
+
+INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
+(102, 'SMS_CLIENT_FILENAME', 'SMSClientInstaller.zip', 'text', 'The upgrade package name.', NULL, 'upgrade', 1, 'Upgrade Filename', 'required', 10, '', 1, 'string');
