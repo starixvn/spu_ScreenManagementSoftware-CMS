@@ -1,13 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400');
 
-:root {
-    --font-family: 'Montserrat';
-    --text-color: #8aa1ff;
-    --font-size: 13px;
-}
+
 body {
-    font-family: var(--font-family);
-    font-size: var(--font-size);
+    font-family: 'Montserrat';
+    font-size: 13px;
     background-color: #181e36;
 }
 a:hover {
@@ -22,29 +18,7 @@ a:hover {
 .form-signin .checkbox {
     margin-bottom: 10px;
 }
-/*.logo-section {
-    margin-bottom: 36px;
-}
-.logo-section a {
-    display: table;
-    width: 220px;
-    margin: auto;
-}
-.logo-section a img {
-    position: relative;
-    top: 16px;
-}
-.logo-section a img, .logo-section a .text {
-    display: table-cell;
-    vertical-align: bottom;
-}
-.logo-section a .text {
-    color: #fff;
-    font-weight: 700;
-    font-size: 17px;
-    text-align: left;
-    padding-left: 10px;
-}*/
+
 .logo-section {
     text-align: center;
     margin-bottom: 32px;
@@ -139,7 +113,7 @@ a:hover {
     height: 16px;
     width: 16px;
     background-color: transparent;
-    border: 2px solid var(--text-color);
+    border: 2px solid #8aa1ff;
     top: 3px;
     z-index: 0;
 }
@@ -159,6 +133,10 @@ a:hover {
     width: 300px;
     text-align: center;
     margin: 24px 0 36px ;
+    -webkit-transition: background 0.3s ease 0s;  
+    -moz-transition: background 0.3s ease 0s;  
+    -o-transition: background 0.3s ease 0s;  
+    transition: background 0.3s ease 0s;
 }
 .btn-login:hover {
     color: #fff;
