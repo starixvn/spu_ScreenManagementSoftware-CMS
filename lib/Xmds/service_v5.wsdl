@@ -40,6 +40,13 @@
     <message name="GetFileResponse">
         <part name="file" type="xsd:base64Binary" />
     </message>
+	<message name="UpgradeRequest">
+        <part name="currentVersion" type="xsd:string" />
+        <part name="isForced" type="xsd:boolean" />
+    </message>
+    <message name="UpgradeResponse">
+        <part name="file" type="xsd:base64Binary" />
+    </message>
     <message name="ScheduleRequest">
         <part name="serverKey" type="xsd:string" />
         <part name="hardwareKey" type="xsd:string" />
@@ -123,6 +130,11 @@
             <input message="tns:GetFileRequest"/>
             <output message="tns:GetFileResponse"/>
         </operation>
+		<operation name="CheckAndUpgradeNewVersion">
+            <documentation>Gets the upgrade file</documentation>
+            <input message="tns:UpgradeRequest"/>
+            <output message="tns:UpgradeResponse"/>
+        </operation>
         <operation name="Schedule">
             <documentation>Gets the schedule</documentation>
             <input message="tns:ScheduleRequest"/>
@@ -186,6 +198,15 @@
         </operation>
         <operation name="GetFile">
             <soap:operation soapAction="urn:xmds#GetFile" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:xmds" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:xmds" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+		<operation name="CheckAndUpgradeNewVersion">
+            <soap:operation soapAction="urn:xmds#CheckAndUpgradeNewVersion" style="rpc"/>
             <input>
                 <soap:body use="encoded" namespace="urn:xmds" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>

@@ -7,7 +7,127 @@
                 <div class="logo-section">
                     <div class="xibo-logo"></div>
                 </div>
-                <ul class="sidebar mCustomScrollbar" data-mcs-theme="minimal">
+                <ul class="sidebar sidebar-expand mCustomScrollbar" data-mcs-theme="minimal">
+
+                    {% if currentUser.routeViewable("/campaign") or currentUser.routeViewable("/layout") or currentUser.routeViewable("/template") or currentUser.routeViewable("/resolution") %}
+                        <li class="menu-item">
+                            <a class="menu-title" data-toggle="collapse" href="#collapseDesign">
+                                <span class="fa fa-pencil-square-o menu-item-icon"></span>
+                                <span class="text">{% trans "Design" %}</span>
+                                <span class="fa fa-angle-down"></span>
+                            </a>
+                            <ul class="sub-menu collapse" id="collapseDesign">
+                                <li class="menu-title collapse hidden">{% trans "Design" %}</li>
+                                 {% if currentUser.routeViewable("/campaign") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("campaign.view") }}"><span class="fa fa-circle-o"></span>{% trans "Campaigns" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/layout") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("layout.view") }}"><span class="fa fa-circle-o"></span>{% trans "Layouts" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/resolution") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("resolution.view") }}"><span class="fa fa-circle-o"></span>{% trans "Resolutions" %}</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+
+                    {% if currentUser.routeViewable("/display") or currentUser.routeViewable("/displaygroup") or currentUser.routeViewable("/stats") or currentUser.routeViewable("/displayprofile") %}
+                        <li class="menu-item">
+                            <a class="menu-title" data-toggle="collapse" href="#collapseDisplays">
+                                <span class="fa fa-desktop menu-item-icon"></span>
+                                <span class="text">{% trans "Displays" %}</span>
+                                <span class="fa fa-angle-down"></span>
+                            </a>
+                            <ul class="sub-menu collapse" id="collapseDisplays">
+                                <li class="menu-title collapse hidden">{% trans "Displays" %}</li>
+                                {% if currentUser.routeViewable("/display") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("display.view") }}"><span class="fa fa-circle-o"></span>{% trans "Displays" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/displaygroup") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("displayGroup.view") }}"><span class="fa fa-circle-o"></span>{% trans "Display Groups" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/stats") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("stats.view") }}"><span class="fa fa-circle-o"></span>{% trans "Statistics" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/displayprofile") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("displayProfile.view") }}"><span class="fa fa-circle-o"></span>{% trans "Display Settings" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/command") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("command.view") }}"><span class="fa fa-circle-o"></span>{% trans "Commands" %}</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+
+                    {% endif %}
+
+                    {% if currentUser.routeViewable("/user") and (currentUser.isGroupAdmin() or currentUser.isSuperAdmin()) %}
+                        {% set userMenuViewable = true %}
+                    {% else %}
+                        {% set userMenuViewable = false %}
+                    {% endif %}
+
+                    {% if userMenuViewable or currentUser.routeViewable("/usergroup") or currentUser.routeViewable("/admin") or currentUser.routeViewable("/application") or currentUser.routeViewable("/module") or currentUser.routeViewable("/transition") %}
+                        <li class="menu-item">
+                            <a class="menu-title" data-toggle="collapse" href="#collapseAdmin">
+                                <span class="fa fa-address-card-o menu-item-icon"></span>
+                                <span class="text">{% trans "Administration" %}</span>
+                                <span class="fa fa-angle-down"></span>
+                            </a>
+                            <ul class="sub-menu collapse" id="collapseAdmin">
+                                <li class="menu-title collapse hidden">{% trans "Administration" %}</li>
+                                {% if userMenuViewable %}
+                                <li class="sidebar-list"><a href="{{ urlFor("user.view") }}"><span class="fa fa-circle-o"></span>{% trans "Users" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/group") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("group.view") }}"><span class="fa fa-circle-o"></span>{% trans "User Groups" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/admin") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("admin.view") }}"><span class="fa fa-circle-o"></span>{% trans "Settings" %}</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+
+                        
+                    {% endif %}
+
+                    {% if currentUser.routeViewable("/log") or currentUser.routeViewable("/sessions") or currentUser.routeViewable("/auditlog") or currentUser.routeViewable("/fault") or currentUser.routeViewable("/help") %}
+                        <li class="menu-item">
+                            <a class="menu-title" data-toggle="collapse" href="#collapseAdvance">
+                                <span class="fa fa-cogs menu-item-icon"></span>
+                                <span class="text">{% trans "Advanced" %}</span>
+                                <span class="fa fa-angle-down"></span>
+                            </a>
+                            <ul class="sub-menu collapse" id="collapseAdvance">
+                                 <li class="menu-title collapse hidden">{% trans "Advanced" %}</li>
+                                {% if currentUser.routeViewable("/log") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("log.view") }}"><span class="fa fa-circle-o"></span>{% trans "Log" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/sessions") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("sessions.view") }}"><span class="fa fa-circle-o"></span>{% trans "Sessions" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/auditlog") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("auditLog.view") }}"><span class="fa fa-circle-o"></span>{% trans "Audit Trail" %}</a></li>
+                                {% endif %}
+
+                                {% if currentUser.routeViewable("/fault") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("fault.view") }}"><span class="fa fa-circle-o"></span>{% trans "Report Fault" %}</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        
+                    {% endif %}
+                </ul>
+                 <ul class="sidebar sidebar-collapse hidden">
 
                     {% if currentUser.routeViewable("/campaign") or currentUser.routeViewable("/layout") or currentUser.routeViewable("/template") or currentUser.routeViewable("/resolution") %}
                         <li class="menu-item">

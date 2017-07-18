@@ -233,4 +233,36 @@ class Soap5 extends Soap4
     {
         return $this->doSchedule($serverKey, $hardwareKey, ['dependentsAsNodes' => true, 'includeOverlays' => true]);
     }
+	
+	function CheckAndUpgradeNewVersion($currentVersion = null, $isForced = false)
+    {
+        $this->logProcessor->setRoute('CheckAndUpgradeNewVersion');
+
+        $upgradeLocation = $this->getConfig()->GetSetting('UPGRADE_LOCATION');
+		$smsClientVersion = $this->getConfig()->GetSetting('SMS_CLIENT_VERSION');
+		$smsClientFilename = $this->getConfig()->GetSetting('SMS_CLIENT_FILENAME');
+
+		$file = null;
+		$f = null;
+		$filename = $upgradeLocation . '\\' . $smsClientFilename;
+		
+		if($currentVersion == null || $isForced == true || $currentVersion != null && $currentVersion != $smsClientVersion)
+		{
+			try {
+				if (!file_exists($filename))
+					throw new NotFoundException('UPGRADE_LOCATION exists but file missing. ' . $upgradeLocation);
+
+				if (!$f = fopen($filename, 'r'))
+					throw new NotFoundException('Unable to get file pointer');
+
+				$file = fread($f, filesize($filename));
+				fclose($f);
+			}
+			catch (NotFoundException $e) {
+				throw new \SoapFault('Receiver', 'Requested an invalid file.');
+			}
+		}
+
+        return $file;
+    }
 }

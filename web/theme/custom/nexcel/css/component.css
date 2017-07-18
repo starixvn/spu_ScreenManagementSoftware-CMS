@@ -1,0 +1,113 @@
+
+.nav-pills {
+    position: absolute;
+    right: 16px;
+    top: 52px;
+    z-index: 99;
+} 
+.widget > .widget-body {
+    padding-top: 48px;
+}
+.widget.box .widget-body {
+    padding: 20px;
+}
+.nav-pills .btn {
+    margin-left: 16px;
+}
+.nav-pills>li>a {
+    padding: 5px 15px;
+}
+.nav-tabs>li>a {
+    color: #808080;
+    font-size: 14px;
+    padding: 4px 15px;
+    border: none;
+}
+/*.nav-tabs>li {
+    margin-bottom: unset;
+}*/
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    border: none;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus,
+.nav-tabs>li>a:hover {
+    color: #ee5b5c;
+    border-bottom: 2px solid #ee5b5c;
+}
+
+/*****************************************Table******************************************/
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../libraries/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../libraries/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../libraries/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../libraries/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../libraries/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../libraries/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.table>caption+thead>tr:first-child>th, 
+.table>colgroup+thead>tr:first-child>th,
+.table>thead:first-child>tr:first-child>th, 
+.table>caption+thead>tr:first-child>td, 
+.table>colgroup+thead>tr:first-child>td, 
+.table>thead:first-child>tr:first-child>td{
+    border-top: 1px solid #dcdcdc;
+}
+table.dataTable {
+    margin-top: 0 !important;
+    width: 100% !important;
+}
+.dataTable > thead > tr > th,
+.dataTable > tbody > tr > td {
+    border: 1px solid #dcdcdc;
+    vertical-align: middle;
+}
+
+.dataTable > thead > tr > th {
+    color: #545454;
+}
+
+table.dataTable thead .sorting:after {
+    content: '\f0dc';
+    font-family: 'FontAwesome';
+    color: #545454;
+    opacity: 1;
+    font-size: 12px;
+}
+
+#layouts_wrapper .row > div {
+    margin-bottom: 0;
+}
+
+/*****************************************Textbox******************************************/
+/*.XiboFilter.well {
+    background: transparent;
+    border-radius: 2px;
+    box-shadow: none;
+}
+.XiboFilter .form-group {
+    margin-right: 16px;
+}
+
+.form-control,
+input[type='text'].form-control,
+.form-control .btn.btn-default {
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding-left: 0;
+    font-size: 13px;
+    color: #545454;
+    height: 30px;
+}
+
+#layouts_wrapper .row:first-child {
+    background: #e6ecee;
+    margin: 0;
+}*/
+
+/*****************************************Button******************************************/
+/*.dt-buttons .dt-button {
+    position: relative;
+    top: 3px;
+}*/

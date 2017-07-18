@@ -19,6 +19,8 @@ var xiboNexcel = {
         xiboNexcel.domElements.pageWrapper = $('#page-wrapper');
         xiboNexcel.domElements.sidebarWrapper = $('#sidebar-wrapper');
         xiboNexcel.domElements.sidebar = $('.sidebar');
+        xiboNexcel.domElements.sidebarExpand = $('.sidebar.sidebar-expand');
+        xiboNexcel.domElements.sidebarCollapse = $('.sidebar.sidebar-collapse');
         xiboNexcel.domElements.sidebarMenuItem = $('.menu-item');
         xiboNexcel.domElements.sidebarMenuTitle = $('.menu-title');
         xiboNexcel.domElements.sidebarMenuItem = $('.sub-menu');
@@ -36,12 +38,17 @@ var xiboNexcel = {
                 xiboNexcel.domElements.pageWrapper.addClass('collapsed');
                 xiboNexcel.domElements.sidebarMenuTitle.removeAttr('data-toggle');
                 xiboNexcel.domElements.menuTitleCollapse.removeClass('hidden').addClass('show');
+                xiboNexcel.domElements.sidebarCollapse.removeClass('hidden').addClass('show');
+                xiboNexcel.domElements.sidebarExpand.addClass('hidden');
 
             }
             else {
                 xiboNexcel.domElements.pageWrapper.removeClass('collapsed');
                 xiboNexcel.domElements.sidebarMenuTitle.attr('data-toggle', 'collapse');
                  xiboNexcel.domElements.menuTitleCollapse.removeClass('show').addClass('hidden');
+                 xiboNexcel.domElements.sidebarExpand.removeClass('hidden').addClass('show');
+                 xiboNexcel.domElements.sidebarCollapse.addClass('hidden');
+
             }
         });
         xiboNexcel.domElements.submenuItem.hover(
