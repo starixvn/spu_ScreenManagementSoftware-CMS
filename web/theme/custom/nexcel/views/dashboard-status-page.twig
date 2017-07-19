@@ -8,6 +8,7 @@
 #}
 {% extends "authed.twig" %}
 {% import "inline.twig" as inline %}
+
 {% block pageContent %}
 <div class="widget ex-widget">
     <div class="widget-title">{% trans "Dashboard" %}</div>
@@ -15,7 +16,7 @@
         <div class="row row-dashboard">
             <div class="col-lg-3 col-md-6 col-xs-12">
                 <div class="widget box orange-bg">
-                    <div class="widget-body box-body ">
+                    <div class="widget-body box-body">
                         <div class="widget-icon pull-left">
                             <i class="fa fa-desktop"></i>
                         </div>
@@ -30,7 +31,7 @@
             <div class="col-lg-3 col-md-6 col-xs-12">
                 <div class="widget box blue-bg">
                     <div class="widget-body box-body">
-                        <div class="widget-icon pull-left">
+                        <div class="widget-icon red pull-left">
                             <i class="fa fa-tasks"></i>
                         </div>
                         <div class="widget-content pull-right">
@@ -85,11 +86,11 @@
                             {% trans %}Bandwidth Usage ({{ bandwidthSuffix }}){% endtrans %}
                         {% endif %}
                         {% if currentUser.routeViewable("/stats") %}
-                        <a class="pull-right statistic" href="{{ urlFor("stats.view") }}">{% trans "More Statistics" %}</a>
+                        <a class="pull-right" href="{{ urlFor("stats.view") }}">{% trans "More Statistics" %}</a>
                         {% endif %}
                         <div class="clearfix"></div>
                     </div>
-                    <div class="widget-body box-body medium no-padding">
+                    <div class="widget-body medium no-padding">
                         <div id="bandwidthChart" class="morrisChart" style="width:99%; height: 230px;"></div>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="widget-body box-body medium no-padding">
-                        <div class="table-responsive ">
+                        <div class="table-responsive">
                             <table class="table tbl-display">
                                 <thead>
                                 <tr>
@@ -153,7 +154,7 @@
             <div class="col-lg-6">
                 <div class="widget box news-widget other">
                     <div class="widget-title box-title">
-                        <i class="fa fa-newspaper-o"></i>
+                        <i class="fa fa-book"></i>
                         {% trans "Latest News" %}
                         <div class="clearfix"></div>
                     </div>
@@ -172,7 +173,6 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 {% block javaScript %}

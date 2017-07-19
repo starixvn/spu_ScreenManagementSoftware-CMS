@@ -61,7 +61,6 @@
                         </select>
                     </div>
                     <div class="progress pull-right"><span id="calendar-progress"></span></div>
-                    
                 </div>         
             </div>
             <div class="row">
@@ -70,7 +69,7 @@
                     <input id="timePicker" data-slider-id='timePickerSlider' type="text" data-slider-min="0" data-slider-max="1439" data-slider-step="1" data-slider-value="0" data-slider-handle="square" />
                 </div> 
             </div> 
-            <h1 class="col-sm-12 page-header"></h1> 
+            <h1 class="col-sm-12 page-header"></h1>
             <div class="row">
                 <div id="CalendarContainer" data-event-source="{{ urlFor("schedule.calendar.data") }}" data-agenda-link="{{ urlFor("schedule.events") }}" data-calendar-type="{{ settings.CALENDAR_TYPE }}" class="col-sm-12">
                     <div id="Calendar"></div>
@@ -110,7 +109,7 @@
                     <div class="span11 col-xs-11">
                         <% _.each(all_day, function(event){ %>
                         <%
-                        var eventTitle = (event.event.dayPartId == 1) ? event.title : "[" + moment(event.scheduleEvent.fromDt).format(jsDateFormat) + " - " + moment(event.scheduleEvent.toDt).format(jsDateFormat) + "] " + event.title;
+                        var eventTitle = (event.event.dayPartId == 1) ? event.title : "[" + moment(event.scheduleEvent.fromDt, systemDateFormat).format(jsDateFormat) + " - " + moment(event.scheduleEvent.toDt, systemDateFormat).format(jsDateFormat) + "] " + event.title;
                         %>
                         <div class="day-highlight dh-<%= event['class'] %>">
                             <a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" class="event-item">
@@ -150,7 +149,7 @@
 
                     <% _.each(by_hour, function(event){ %>
                     <div class="pull-left day-event day-highlight dh-<%= event['class'] %>" style="margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px"
-                        <% if (event.lines < 2) { %>data-toggle="popover" data-content="<%= event.title %>" title="<%= event.start_hour %> - <%= event.end_hour %>"<% } %>
+                    <% if (event.lines < 2) { %>data-toggle="popover" data-html="true" data-content="<a href='<%= event.url ? event.url : "javascript:void(0)" %>'><%= event.title %></a>" title="<%= event.start_hour %> - <%= event.end_hour %>"<% } %>
                     >
                     <span class="cal-hours"><%= event.start_hour %> - <%= event.end_hour %></span>
                     <a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
