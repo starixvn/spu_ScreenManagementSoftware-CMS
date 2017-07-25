@@ -21,6 +21,13 @@
     </message>
     <message name="RegisterDisplayResponse">
         <part name="ActivationMessage" type="xsd:string" />
+    </message>	
+	  <message name="IsAuthorisedRequest">
+        <part name="serverKey" type="xsd:string" />
+        <part name="hardwareKey" type="xsd:string" />
+    </message>
+	  <message name="IsAuthorisedResponse">	
+		  <part name="success" type="xsd:boolean" />
     </message>
     <message name="RequiredFilesRequest">
         <part name="serverKey" type="xsd:string" />
@@ -40,7 +47,7 @@
     <message name="GetFileResponse">
         <part name="file" type="xsd:base64Binary" />
     </message>
-	<message name="UpgradeRequest">
+	  <message name="UpgradeRequest">
         <part name="currentVersion" type="xsd:string" />
         <part name="isForced" type="xsd:boolean" />
     </message>
@@ -120,6 +127,11 @@
             <input message="tns:RegisterDisplayRequest"/>
             <output message="tns:RegisterDisplayResponse"/>
         </operation>
+		    <operation name="IsAuthorised">
+            <documentation>Check the Display is authorised</documentation>
+            <input message="tns:IsAuthorisedRequest"/>
+            <output message="tns:IsAuthorisedResponse"/>
+        </operation>
         <operation name="RequiredFiles">
             <documentation>The files required by the requesting display</documentation>
             <input message="tns:RequiredFilesRequest"/>
@@ -130,7 +142,7 @@
             <input message="tns:GetFileRequest"/>
             <output message="tns:GetFileResponse"/>
         </operation>
-		<operation name="CheckAndUpgradeNewVersion">
+		    <operation name="CheckAndUpgradeNewVersion">
             <documentation>Gets the upgrade file</documentation>
             <input message="tns:UpgradeRequest"/>
             <output message="tns:UpgradeResponse"/>
@@ -180,6 +192,15 @@
         <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="RegisterDisplay">
             <soap:operation soapAction="urn:xmds#RegisterDisplay" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:xmds" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:xmds" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+		    <operation name="IsAuthorised">
+            <soap:operation soapAction="urn:xmds#IsAuthorised" style="rpc"/>
             <input>
                 <soap:body use="encoded" namespace="urn:xmds" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
