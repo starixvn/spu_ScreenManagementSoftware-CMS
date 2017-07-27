@@ -224,6 +224,7 @@ $app->put('/display/:id', '\Xibo\Controller\Display:edit')->name('display.edit')
 $app->delete('/display/:id', '\Xibo\Controller\Display:delete')->name('display.delete');
 $app->post('/display/wol/:id', '\Xibo\Controller\Display:wakeOnLan')->name('display.wol');
 $app->put('/display/requestscreenshot/:id', '\Xibo\Controller\Display:requestScreenShot')->name('display.requestscreenshot');
+$app->put('/display/authorise/:id', '\Xibo\Controller\Display:authoriseDisplay')->name('display.authorisedisplay');
 $app->get('/display/screenshot/:id', '\Xibo\Controller\Display:screenShot')->name('display.screenShot');
 $app->post('/display/:id/displaygroup/assign', '\Xibo\Controller\Display:assignDisplayGroup')->name('display.assign.displayGroup');
 
@@ -254,6 +255,7 @@ $app->post('/displaygroup/:id/action/changeLayout', '\Xibo\Controller\DisplayGro
 $app->post('/displaygroup/:id/action/overlayLayout', '\Xibo\Controller\DisplayGroup:overlayLayout')->name('displayGroup.action.overlayLayout');
 $app->post('/displaygroup/:id/action/revertToSchedule', '\Xibo\Controller\DisplayGroup:revertToSchedule')->name('displayGroup.action.revertToSchedule');
 $app->post('/displaygroup/:id/action/command', '\Xibo\Controller\DisplayGroup:command')->name('displayGroup.action.command');
+$app->post('/displaygroup/:id/action/restart', '\Xibo\Controller\DisplayGroup:restart')->name('displayGroup.action.restart');
 
 /**
  * Display Profile
