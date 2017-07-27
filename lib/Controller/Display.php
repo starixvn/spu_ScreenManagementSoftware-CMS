@@ -571,6 +571,32 @@ class Display extends Base
                         array('name' => 'rowtitle', 'value' => $display->display)
                     )
                 );
+                
+                // Authorise
+                $display->buttons[] = array(
+                    'id' => 'display_button_authorise',
+                    'multi-select' => true,
+                    'dataAttributes' => array(
+                        array('name' => 'commit-url', 'value' => $this->urlFor('display.authorisedisplay', ['id' => $display->displayId])),
+                        array('name' => 'commit-method', 'value' => 'put'),
+                        array('name' => 'id', 'value' => 'display_button_authorise'),
+                        array('name' => 'text', 'value' => __('Authorise')),
+                        array('name' => 'rowtitle', 'value' => $display->display)
+                    )
+                );
+                
+                // Restart
+                $display->buttons[] = array(
+                    'id' => 'displaygroup_button_command_restart',
+                    'multi-select' => true,
+                    'dataAttributes' => array(
+                        array('name' => 'commit-url', 'value' => $this->urlFor('displayGroup.action.restart', ['id' => $display->displayGroupId])),
+                        array('name' => 'commit-method', 'value' => 'post'),
+                        array('name' => 'id', 'value' => 'displaygroup_button_command_restart'),
+                        array('name' => 'text', 'value' => __('Restart')),
+                        array('name' => 'rowtitle', 'value' => $display->display)
+                    )
+                );
 
                 $display->buttons[] = ['divider' => true];
             }
@@ -1185,6 +1211,22 @@ class Display extends Base
         // Return
         $this->getState()->hydrate([
             'message' => sprintf(__('Request sent for %s'), $display->display),
+            'id' => $display->displayId
+        ]);
+    }
+    
+    public function authoriseDisplay($displayId)
+    {
+        $display = $this->displayFactory->getById($displayId);
+
+        if (!$this->getUser()->checkViewable($display))
+            throw new AccessDeniedException();
+
+        $display->authorise();
+
+        // Return
+        $this->getState()->hydrate([
+            'message' => sprintf(__('Authorsed for %s'), $display->display),
             'id' => $display->displayId
         ]);
     }

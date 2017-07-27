@@ -593,6 +593,16 @@ class Display implements \JsonSerializable
 
         $this->getLog()->audit('Display', $this->displayId, 'Display Deleted', ['displayId' => $this->displayId]);
     }
+    
+    public function authorise()
+    {
+        $this->load();
+
+        // Authorise the display
+        $this->getStore()->update('UPDATE `display` SET licensed = :licensed WHERE displayId = :displayId', ['displayId' => $this->displayId, 'licensed' => true]);
+
+        $this->getLog()->audit('Display', $this->displayId, 'Display Authorised', ['displayId' => $this->displayId]);
+    }
 
     private function add()
     {

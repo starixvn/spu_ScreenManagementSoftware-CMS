@@ -1683,4 +1683,30 @@ class DisplayGroup extends Base
             'id' => $displayGroup->displayGroupId
         ]);
     }
+    
+    public function restart($displayGroupId)
+    {
+        $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
+
+        if (!$this->getUser()->checkEditable($displayGroup))
+            throw new AccessDeniedException();
+
+        $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
+
+        $this->playerAction->sendAction($displays, (new CommandAction())->setCommandCode('RestartClient'));
+
+        // Update the flag
+        foreach ($displays as $display) {
+            /* @var \Xibo\Entity\Display $display */
+            $display->lastCommandSuccess = 0;
+            $display->save(['validate' => false, 'audit' => false]);
+        }
+
+        // Return
+        $this->getState()->hydrate([
+            'httpStatus' => 204,
+            'message' => sprintf(__('Restart Client Command Sent to %s'), $displayGroup->displayGroup),
+            'id' => $displayGroup->displayGroupId
+        ]);
+    }
 }
