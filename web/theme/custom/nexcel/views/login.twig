@@ -50,6 +50,11 @@
     <script type="text/javascript">
         $(document).ready(function(){
             
+            $('.input-field input').each(function() {
+                $this = $(this);
+                checkInput($this);
+            });
+            
             function checkInput(ele) {
                 if(ele.val().length > 0) {
                     ele.addClass('active');

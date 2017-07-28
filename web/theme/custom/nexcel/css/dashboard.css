@@ -532,6 +532,12 @@ ul.sidebar .sidebar-main a,
   padding-top: 15px;
 }
 
+.selected-menu{
+    text-decoration: none;
+    background: #131624;
+    color: #ee5b5c !important;
+}
+
 @media all and (max-width: 1264px) {
   .widget .widget-content .comment {
     font-size: 13px;

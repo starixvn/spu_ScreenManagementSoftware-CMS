@@ -208,7 +208,7 @@
                                     <li><span class="fa fa-info-circle"></span><a href="{{ urlFor("welcome.wizard") }}">{% trans "Reshow welcome" %}</a></li>
                                     <li><span class="fa fa-futbol-o"></span><a class="XiboHelpButton" href="{{ help.page }}">{% trans "Help" %}</a></li>
                                     <li class="divider"></li>
-                                    <li><span class="fa fa-sign-out"></span><a title="{% trans "Logout" %}" href="{{ logoutUrl }}">{% trans "Logout" %}</a></li>
+                                    <li id="btnLogout"><span class="fa fa-sign-out"></span><a title="{% trans "Logout" %}" href="{{ logoutUrl }}">{% trans "Logout" %}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -265,7 +265,6 @@
 {% endblock %}
 
 {% block javaScriptTemplates %}
-
     <script type="text/javascript">
         {% set userPreferences = currentUser.userOptions %}
         var userPreferences = {{ userPreferences|json_encode|raw }};
@@ -481,4 +480,21 @@
         </form>
     </script>
 
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            var selectedMenu = GetCookie("menu");
+            if (selectedMenu != "") {
+                $(".sidebar-list a:contains('"+selectedMenu+"')").addClass('selected-menu');
+            }
+        });
+        
+        $('.sidebar-list a').click(function () {
+            var selectedMenu = $(this).text();
+            SetCookie("menu", selectedMenu, 7);
+        });
+        
+        $('#btnLogout').click(function(){
+            SetCookie("menu", "", 0);
+        });
+    </script>
 {% endblock %}
