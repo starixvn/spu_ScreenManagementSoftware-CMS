@@ -339,19 +339,19 @@
 
     <script type="text/javascript">
         $( document ).ready(function() {
-            var selectedMenu = GetCookie("menu");
+            var selectedMenu = GetCookie("smsMenu");
             if (selectedMenu != "") {
-                $(".sidebar-list a:contains('"+selectedMenu+"')").addClass('selected-menu');
+                $(".sidebar-list a[href='"+selectedMenu+"']").addClass('selected-menu');
             }
         });
-        
+
         $('.sidebar-list a').click(function () {
-            var selectedMenu = $(this).text();
-            SetCookie("menu", selectedMenu, 7);
+            var selectedMenu = $(this).attr('href');
+            SetCookie("smsMenu", selectedMenu, 7);
         });
-        
+
         $('#btnLogout').click(function(){
-            SetCookie("menu", "", 0);
+            SetCookie("smsMenu", "", 0);
         });
     </script>
 {% endblock %}
