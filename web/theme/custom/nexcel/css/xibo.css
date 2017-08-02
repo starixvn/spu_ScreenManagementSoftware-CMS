@@ -709,6 +709,52 @@ i.fa.fa-ban.fa-stack-2x {
 .bttm-fix {
     margin-top: 16px;
 }
+.bttm-fix .btn {
+    padding: 2px 12px;
+    font-size: 12px;
+}
+.utility {
+    font-size: 12px;
+    color: #545454;
+}
+.utility .btn {
+    color: #545454;
+}
+.clock  {
+    border: 1px solid #2b77d6;
+    border-radius: 3px;
+    display: inline-block;
+    padding-right: 4px;
+}
+.clock i {
+    background: #2b77d6;
+    display: inline-block;
+    color: #fff;
+    padding: 4px 5px;
+    margin-right: 2px;
+}
+.design-tab-content {
+    margin-top: 16px;
+    border: 1px solid #e3e3e3;
+}
+.design-tab-content .tab-pane {
+    padding-top: 16px;
+}
+.btn-group-design .btn-group,
+.btn-group-design .designer-control-panel-checkbox{
+    display: inline-block;
+    margin-right: 8px;
+}
+.btn-group-design .btn {
+    padding: 6px 10px !important;
+}
+
+.btn-group-right {
+    text-align: right;
+}
+.btn-group-right .btn-group {
+    margin-left: 8px;
+}
 /*.panel.with-nav-tabs .panel-heading {
     padding: 5px 5px 0 5px;
 }
@@ -777,19 +823,11 @@ i.fa.fa-ban.fa-stack-2x {
 .alert.no-pad {
     padding: 4px !important;
 }
-
-ul li.tab-design:hover a {
-    color: #ccc !important;
-}
-
+/*
 li.active.tab-design {
     background: white;
     border-radius: 3px;
-}
-
-ul li.active.tab-design:hover a {
-    color: #666 !important;
-}
+}*/
 
 .big-duration {
     font-size: 14px;
