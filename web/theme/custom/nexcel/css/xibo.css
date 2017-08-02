@@ -1019,3 +1019,7 @@ ul li.active.tab-design:hover a {
     font-weight: 300;
     float: right;
 }
+
+.display_button_multiple_no_display {
+    display: none;
+}

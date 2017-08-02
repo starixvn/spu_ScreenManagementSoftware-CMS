@@ -574,7 +574,7 @@ class Display extends Base
                 
                 // Authorise
                 $display->buttons[] = array(
-                    'id' => 'display_button_authorise',
+                    'id' => 'display_button_multiple_no_display',
                     'multi-select' => true,
                     'dataAttributes' => array(
                         array('name' => 'commit-url', 'value' => $this->urlFor('display.authorisedisplay', ['id' => $display->displayId])),
@@ -587,13 +587,27 @@ class Display extends Base
                 
                 // Restart
                 $display->buttons[] = array(
-                    'id' => 'displaygroup_button_command_restart',
+                    'id' => 'display_button_multiple_no_display',
                     'multi-select' => true,
                     'dataAttributes' => array(
                         array('name' => 'commit-url', 'value' => $this->urlFor('displayGroup.action.restart', ['id' => $display->displayGroupId])),
                         array('name' => 'commit-method', 'value' => 'post'),
                         array('name' => 'id', 'value' => 'displaygroup_button_command_restart'),
                         array('name' => 'text', 'value' => __('Restart')),
+                        array('name' => 'rowtitle', 'value' => $display->display)
+                    )
+                );
+                
+                // Schedule Now
+                $display->buttons[] = array(
+                    'id' => 'display_button_multiple_no_display',
+                    'multi-select' => true,
+                    'dataAttributes' => array(
+                        array('name' => 'commit-url', 'value' => $this->urlFor('multiple.schedule.now.form')),
+                        array('name' => 'commit-method', 'value' => 'get'),
+                        array('name' => 'commit-id', 'value' => $display->displayGroupId),
+                        array('name' => 'id', 'value' => 'display_button_schedulenow_multiple'),
+                        array('name' => 'text', 'value' => __('Schedule Now')),
                         array('name' => 'rowtitle', 'value' => $display->display)
                     )
                 );
