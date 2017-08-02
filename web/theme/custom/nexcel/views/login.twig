@@ -31,13 +31,13 @@
             {% if flash.login_message %}
             <div class="alert alert-danger">{{ flash.login_message }}</div>
             {% endif %}
-            <div class=field>
+            {#<div class=field>
                 <input type="checkbox" id="chbSignin" />
                 <label for="chbSignin">Keep me signed in </label>
-            </div>
+            </div>#}
 
             <button class="btn btn-login" type="submit">{% trans "Login" %}</button>
-            <div class="text-center"><a class="forgot-password" href="javascript:;">Forgot Password?</a></div>
+            {#<div class="text-center"><a class="forgot-password" href="javascript:;">Forgot Password?</a></div>#}
         </form>
 
         <!-- p class="text-center">{% trans %}Version {{ version }}{% endtrans %}
