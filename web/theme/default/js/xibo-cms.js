@@ -1369,9 +1369,9 @@ function ToggleFilterView(div) {
     }
 }
 
-function SetCookie(cname, cvalue, exdays) {
+function SetCookie(cname, cvalue, exminutes) {
     var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    d.setTime(d.getTime() + (exminutes * 60 * 1000));
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }

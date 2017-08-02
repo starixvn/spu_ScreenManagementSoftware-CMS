@@ -76,7 +76,7 @@
 {% block javaScript %}
     <script type="text/javascript">
         var table = $("#displays").DataTable({
-                "dom": '<"btn-function">t<"bottom"ipl>',
+                "dom": '<"btn-refresh"><"btn-function">t<"bottom"ipl>',
                 "language": dataTablesLanguage,
                 serverSide: true, stateSave: true,
                 filter: false,
@@ -248,14 +248,22 @@
         
         $(document).ready(function() {
             var dataTable = $('#displays').DataTable();
+            $('div.btn-refresh').html('<b>Thêm cái Nút refresh ở đây nè !</b>');
             
             dataTable.button().add( 0, {
+                init: function (dt, node, config) {
+                    
+                },
                 action: function ( e, dt, button, config ) {
                     dt.ajax.reload(null, false);
                 },
-                text: '<img src="#"/>Refresh',
+                text: '<img src="#"/>10s',
                 className: 'auto-refresh'
             });
-        });
+            
+            var intervalId = setInterval(function(){ 
+                $(".auto-refresh").click();
+            }, 5000);
+        });               
     </script>
 {% endblock %}

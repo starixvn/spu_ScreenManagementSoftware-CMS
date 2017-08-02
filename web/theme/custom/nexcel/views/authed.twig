@@ -338,20 +338,11 @@
     </script>
 
     <script type="text/javascript">
-        $( document ).ready(function() {
-            var selectedMenu = GetCookie("smsMenu");
+        $(document).ready(function() {
+            var selectedMenu = window.location.pathname;
             if (selectedMenu != "") {
                 $(".sidebar-list a[href='"+selectedMenu+"']").addClass('selected-menu');
             }
-        });
-
-        $('.sidebar-list a').click(function () {
-            var selectedMenu = $(this).attr('href');
-            SetCookie("smsMenu", selectedMenu, 7);
-        });
-
-        $('#btnLogout').click(function(){
-            SetCookie("smsMenu", "", 0);
         });
     </script>
 {% endblock %}
