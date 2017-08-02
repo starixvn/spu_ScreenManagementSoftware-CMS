@@ -1064,3 +1064,7 @@ li.active.tab-design {
     font-weight: 300;
     float: right;
 }
+
+.display_button_multiple_no_display {
+    display: none;
+}

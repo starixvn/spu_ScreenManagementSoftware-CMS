@@ -85,6 +85,7 @@ $app->get('/schedule/form/add', '\Xibo\Controller\Schedule:addForm')->name('sche
 $app->get('/schedule/form/edit/:id', '\Xibo\Controller\Schedule:editForm')->name('schedule.edit.form');
 $app->get('/schedule/form/delete/:id', '\Xibo\Controller\Schedule:deleteForm')->name('schedule.delete.form');
 $app->get('/schedule/form/now/:from/:id', '\Xibo\Controller\Schedule:scheduleNowForm')->name('schedule.now.form');
+$app->get('/schedule/form/now/:ids', '\Xibo\Controller\Schedule:multipleScheduleNowForm')->name('multiple.schedule.now.form');
 
 //
 // notification

@@ -1225,4 +1225,35 @@ class Schedule extends Base
             'help' => $this->getHelp()->link('Schedule', 'ScheduleNow')
         ]);
     }
+    
+    public function multipleScheduleNowForm($ids)
+    {
+        $groups = array();
+        $displays = array();
+        $displayGroupIds = explode(',', $ids);
+        $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
+
+        foreach ($this->displayGroupFactory->query(null, ['isDisplaySpecific' => -1]) as $displayGroup) {
+            /* @var \Xibo\Entity\DisplayGroup $\Xibo\Entity\DisplayGroup */
+
+            // Can't schedule with view, but no edit permissions
+            if (!$scheduleWithView && !$this->getUser()->checkEditable($displayGroup))
+                continue;
+
+            if ($displayGroup->isDisplaySpecific == 1) {
+                $displays[] = $displayGroup;
+            } else {
+                $groups[] = $displayGroup;
+            }
+        }
+
+        $this->getState()->template = 'multiple-schedule-form-now';
+        $this->getState()->setData([
+            'campaignId' => 0,
+            'displayGroupId' => $displayGroupIds,
+            'displays' => $displays,
+            'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1]),
+            'help' => $this->getHelp()->link('Schedule', 'ScheduleNow')
+        ]);
+    }
 }
