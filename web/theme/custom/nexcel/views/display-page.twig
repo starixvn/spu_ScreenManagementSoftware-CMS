@@ -75,8 +75,7 @@
 
 {% block javaScript %}
     <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $("#displays").DataTable({
+        var table = $("#displays").DataTable({
                 "dom": '<"btn-function">t<"bottom"ipl>',
                 "language": dataTablesLanguage,
                 serverSide: true, stateSave: true,
@@ -243,9 +242,20 @@
                 ]
             });
 
-            table.on('draw', dataTableDraw);
-            table.on('processing.dt', dataTableProcessing);
-            dataTableAddButtons(table, $('#displays_wrapper').find('.btn-function'));
+        table.on('draw', dataTableDraw);
+        table.on('processing.dt', dataTableProcessing);
+        dataTableAddButtons(table, $('#displays_wrapper').find('.btn-function'));
+        
+        $(document).ready(function() {
+            var dataTable = $('#displays').DataTable();
+            
+            dataTable.button().add( 0, {
+                action: function ( e, dt, button, config ) {
+                    dt.ajax.reload(null, false);
+                },
+                text: '<img src="#"/>Refresh',
+                className: 'auto-refresh'
+            });
         });
     </script>
 {% endblock %}
