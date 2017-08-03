@@ -11,6 +11,7 @@ namespace Xibo\Xmds;
 
 use Xibo\Entity\Bandwidth;
 use Xibo\Entity\Display;
+use Xibo\Entity\ClientResourceUsage;
 use Xibo\Exception\NotFoundException;
 
 class Soap5 extends Soap4
@@ -295,4 +296,28 @@ class Soap5 extends Soap4
   		
   		return $result;
 	}
+    
+    function StoreClientCpuRamUsage($hardwareKey, $cpuUsage, $ramTotal, $ramAvailable)
+    {
+        $displayId = 0;
+        try {
+            $display = $this->displayFactory->getByLicence($hardwareKey);
+            $displayId = $display->displayId;
+            
+            $logdate = date("Y-m-d H:i:s");
+            $this->getStore()->insert('
+                INSERT INTO clientresourceusage (displayid, logdate, cpuusage, ramtotal, ramavailable)
+                  VALUES (:displayid, :logdate, :cpuusage, :ramtotal, :ramavailable)
+            ', [
+                'displayid' => $this->displayId,
+                'logdate' => $logdate->getTimestamp(),
+                'cpuusage' => $this->cpuUsage,
+                'ramtotal' => $this->ramTotal,
+                'ramavailable' => $this->ramAvailable,
+            ]);
+        }
+        catch (NotFoundException $e){
+                throw new NotFoundException('Unable to get status');
+        }
+    }
 }
