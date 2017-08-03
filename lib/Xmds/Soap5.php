@@ -299,9 +299,12 @@ class Soap5 extends Soap4
     
     function StoreClientCpuRamUsage($hardwareKey, $cpuUsage, $ramTotal, $ramAvailable)
     {
-        $displayId = 0;
+        $this->logProcessor->setRoute('StoreClientCpuRamUsage');
+
+        // Sanitize
+        $hardwareKeySanitized = $this->getSanitizer()->string($hardwareKey);
         try {
-            $display = $this->displayFactory->getByLicence($hardwareKey);
+            $display = $this->displayFactory->getByLicence($hardwareKeySanitized);
             $displayId = $display->displayId;
             
             $logdate = date("Y-m-d H:i:s");
@@ -309,15 +312,19 @@ class Soap5 extends Soap4
                 INSERT INTO clientresourceusage (displayid, logdate, cpuusage, ramtotal, ramavailable)
                   VALUES (:displayid, :logdate, :cpuusage, :ramtotal, :ramavailable)
             ', [
-                'displayid' => $this->displayId,
+                'displayid' => $displayId,
                 'logdate' => $logdate->getTimestamp(),
-                'cpuusage' => $this->cpuUsage,
-                'ramtotal' => $this->ramTotal,
-                'ramavailable' => $this->ramAvailable,
+                'cpuusage' => $cpuUsage,
+                'ramtotal' => $ramTotal,
+                'ramavailable' => $ramAvailable
             ]);
+            
+            return TRUE;
         }
         catch (NotFoundException $e){
-                throw new NotFoundException('Unable to get status');
+            throw new NotFoundException('Unable to get status');
         }
+            
+        return FALSE;
     }
 }
