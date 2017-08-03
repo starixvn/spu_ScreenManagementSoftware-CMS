@@ -434,20 +434,24 @@ input[type='checkbox']:checked:after, .radio:checked:after {
 .nav-pills li.btn.btn-info {
     background-color: #2b77d6;
 }
-
-.dt-button.btn-auto-refresh {
+.btn-function {
+    float: right;
+}
+.btn-auto-refresh {
+    cursor: pointer;
     color: #fff;
     background: #24b251;
     border: none;
     padding: 6px 24px 5px 8px;
     border: 1px solid #24b251;
     margin-bottom: -1px;
+    border-radius: 2px;
+    float: left;
+    position: relative;
+    font-size: 11px;
 }
 
-.dt-button.btn-auto-refresh:hover:not(.disabled),
-.dt-button.btn-auto-refresh:focus:not(.disabled),
-.dt-button.btn-auto-refresh:active:not(.disabled):hover:not(.disabled),
-.dt-button.btn-auto-refresh:active:not(.disabled):hover:not(.disabled)
+.btn-auto-refresh:hover
  {
     background: #29cc5c;
     border: 1px solid #29cc5c;
@@ -462,5 +466,6 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     content: '\f0d7';
     font-family: 'FontAwesome';
     position: absolute;
-    right: 8px;
+    right: 6px;
+    top: 5px;
 }
