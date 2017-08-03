@@ -257,12 +257,12 @@
                 action: function ( e, dt, button, config ) {
                     dt.ajax.reload(null, false);
                 },
-                text: '<img src="#"/>10s',
-                className: 'auto-refresh'
+                text: '<i class="fa fa-repeat"></i>10s',
+                className: 'btn-auto-refresh'
             });
             
             var intervalId = setInterval(function(){ 
-                $(".auto-refresh").click();
+                $(".btn-auto-refresh").click();
             }, 5000);
         });               
     </script>
