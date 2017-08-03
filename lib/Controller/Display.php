@@ -610,8 +610,8 @@ class Display extends Base
                         array('name' => 'text', 'value' => __('Schedule Now')),
                         array('name' => 'rowtitle', 'value' => $display->display)
                     )
-                );
-
+                );               
+                               
                 $display->buttons[] = ['divider' => true];
             }
 
@@ -650,11 +650,20 @@ class Display extends Base
                     'url' => $this->urlFor('display.wol.form', ['id' => $display->displayId]),
                     'text' => __('Wake on LAN')
                 );
-
+                
+                // Send Command
                 $display->buttons[] = array(
                     'id' => 'displaygroup_button_command',
                     'url' => $this->urlFor('displayGroup.command.form', ['id' => $display->displayGroupId]),
-                    'text' => __('Send Command')
+                    'text' => __('Send Command'),
+                    'multi-select' => true,
+                    'dataAttributes' => array(
+                        array('name' => 'commit-url', 'value' => $this->urlFor('displayGroup.command.form', ['id' => $display->displayGroupId])),
+                        array('name' => 'commit-method', 'value' => 'post'),
+                        array('name' => 'id', 'value' => 'displaygroup_button_command'),
+                        array('name' => 'text', 'value' => __('Send Command')),
+                        array('name' => 'rowtitle', 'value' => $display->display)
+                    )
                 );
             }
         }
