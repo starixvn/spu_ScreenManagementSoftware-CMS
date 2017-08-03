@@ -76,7 +76,7 @@
 {% block javaScript %}
     <script type="text/javascript">
         var table = $("#displays").DataTable({
-                "dom": '<"btn-auto-refresh"><"btn-function">t<"bottom"ipl>',
+                "dom": '<"auto-refresh-box"><"btn-function">t<"bottom"ipl>',
                 "language": dataTablesLanguage,
                 serverSide: true, stateSave: true,
                 filter: false,
@@ -248,7 +248,17 @@
         
         $(document).ready(function() {
             var dataTable = $('#displays').DataTable();
-            $('div.btn-auto-refresh').html('<span><i class="fa fa-repeat"></i>10s</span>');
+            $('div.auto-refresh-box').html('<div class="btn-group">\
+                                            <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+                                                <i class="fa fa-repeat"></i>10s\
+                                            </button>\
+                                            <ul class="dropdown-menu">\
+                                                <li><a href="#">10s</a></li>\
+                                                <li><a href="#">15s</a></li>\
+                                                <li><a href="#">20s</a></li>\
+                                                <li><a href="#">No Refresh</a></li>\
+                                            </ul>\
+                                        </div>');
             
             dataTable.button().add( 0, {
                 init: function (dt, node, config) {
