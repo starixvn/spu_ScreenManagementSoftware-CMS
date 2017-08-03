@@ -436,19 +436,22 @@ input[type='checkbox']:checked:after, .radio:checked:after {
 }
 .btn-function {
     float: right;
+    margin-bottom: 4px;
 }
-.btn-auto-refresh {
+.auto-refresh-box {
+    float: left;
+}
+.auto-refresh-box button{
     cursor: pointer;
     color: #fff;
     background: #24b251;
     border: none;
-    padding: 6px 24px 5px 8px;
+    padding: 5px 24px 4px 8px;
     border: 1px solid #24b251;
     margin-bottom: -1px;
     border-radius: 2px;
-    float: left;
     position: relative;
-    font-size: 11px;
+    margin-left: 0 !important;
 }
 
 .btn-auto-refresh:hover
@@ -458,14 +461,21 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     text-shadow: none;
 }
 
-.btn-auto-refresh .fa {
+.auto-refresh-box .fa {
     margin-right: 8px;
 }
 
-.btn-auto-refresh:after {
+.auto-refresh-box button:after {
     content: '\f0d7';
     font-family: 'FontAwesome';
     position: absolute;
     right: 6px;
-    top: 5px;
+    top: 6px;
+}
+.auto-refresh-box .dropdown-menu>li>a {
+    font-size: 12px;
+    padding: 3px 8px;
+}
+.auto-refresh-box .dropdown-menu>li>a:hover, .auto-refresh-box .dropdown-menu>li>a:focus {
+    background: #e2e5e9;
 }
