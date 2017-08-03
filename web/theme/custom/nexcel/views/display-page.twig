@@ -256,22 +256,28 @@
 													<option>No Refresh</option>\
 												</select>\
 											</span>');
-            
-            dataTable.button().add( 0, {
+            var delaySecond = 5;
+           {# dataTable.button().add( 0, {
                 init: function (dt, node, config) {
                     
                 },
                 action: function ( e, dt, button, config ) {
                     dt.ajax.reload(null, false);
                 }
-                {#text: '<i class="fa fa-repeat"></i>10s',
+                text: '<i class="fa fa-repeat"></i>10s',
                 className: 'btn-auto-refresh'
-                #}
-            });
+            });#}
             
             var intervalId = setInterval(function(){ 
                 $(".btn-auto-refresh").click();
-            }, 5000);
+            }, delaySecond * 1000);
+            
+            setInterval(function(parameters) {
+                var startTime = $('#testID').text();
+                if (startTime > 0) {
+                    $('#testID').text(startTime - 1);
+                }
+            }, 1000);
         });               
     </script>
 {% endblock %}
