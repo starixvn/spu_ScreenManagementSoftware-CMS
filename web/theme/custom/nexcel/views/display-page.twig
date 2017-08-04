@@ -247,37 +247,46 @@
         dataTableAddButtons(table, $('#displays_wrapper').find('.btn-function'));
         
         $(document).ready(function() {
-            var dataTable = $('#displays').DataTable();
             $('div.auto-refresh-box').html('<span class="custom-dropdown">\
-												<select>\
-													<option>10s</option>\
-													<option>15s</option>\
-													<option>20s</option>\
-													<option>No Refresh</option>\
-												</select>\
-											</span>');
-            var delaySecond = 5;
-           {# dataTable.button().add( 0, {
-                init: function (dt, node, config) {
-                    
-                },
-                action: function ( e, dt, button, config ) {
-                    dt.ajax.reload(null, false);
+                                                    <select id="autoRefresh">\
+                                                            <option value="-1">No Refresh</option>\
+                                                            <option value="10">10s</option>\
+                                                            <option value="15">15s</option>\
+                                                            <option value="20">20s</option>\
+                                                    </select>\
+                                            </span>');                          
+            var intervalId;            
+            $( "#autoRefresh" ).change(function() {
+                var startTime = $('#autoRefresh').val();
+                var originalTime = $('#autoRefresh').val();
+                if (intervalId != null) {
+                    clearInterval(intervalId);
                 }
-                text: '<i class="fa fa-repeat"></i>10s',
-                className: 'btn-auto-refresh'
-            });#}
-            
-            var intervalId = setInterval(function(){ 
-                $(".btn-auto-refresh").click();
-            }, delaySecond * 1000);
-            
-            setInterval(function(parameters) {
-                var startTime = $('#testID').text();
-                if (startTime > 0) {
-                    $('#testID').text(startTime - 1);
+                
+                if ( $('#autoRefresh').val() !== -1) {
+                    intervalId = setInterval(function() {
+                        if (startTime > 0) {
+                            $('#autoRefresh option[value="'+originalTime+'"]').text(startTime - 1 + 's');
+                            startTime = startTime - 1;
+                        }
+                        else if (startTime == 0) {
+                            var dataTable = $('#displays').DataTable();
+                            dataTable.ajax.reload(null, false);
+                            startTime = $('#autoRefresh').val();
+                            $('#autoRefresh option[value="'+originalTime+'"]').text(startTime + 's');
+                            clearInterval(intervalId);
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+                else{
+                    clearInterval(intervalId);
+                }
+            });
+            
+            $('#displays').on( 'xhr.dt', function () {
+                
+            });
+            
         });               
     </script>
 {% endblock %}
