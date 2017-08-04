@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
 .nav-pills {
     position: absolute;
@@ -343,6 +343,11 @@ td #tagDiv .btn {
 .bootstrap-select .dropdown-toggle:focus {
     outline: none !important;
 }
+
+.bs-searchbox .form-control {
+    height: 30px;
+    border-radius: 16px;
+}
 /*****************************************Checkbox******************************************/
 
 input[type='checkbox'], .radio{
@@ -473,3 +478,13 @@ input[type='checkbox']:checked:after, .radio:checked:after {
   .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {    
         padding: 5px 12px 4px;
   }
+
+/*****************************************Calendar******************************************/
+ .table-condensed {
+     font-family: 'Roboto';
+ }
+.table-condensed .thead .prev:before,
+.table-condensed .thead .next:before
+{
+    font-family: 'FontAwesome';
+}

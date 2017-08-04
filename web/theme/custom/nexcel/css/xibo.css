@@ -755,6 +755,13 @@ i.fa.fa-ban.fa-stack-2x {
 .btn-group-right .btn-group {
     margin-left: 8px;
 }
+
+.action-box {
+    padding: 0 30px;
+}
+.layout-status {
+    float: right;
+}
 /*.panel.with-nav-tabs .panel-heading {
     padding: 5px 5px 0 5px;
 }
