@@ -574,7 +574,7 @@ class Display extends Base
                 
                 // Authorise
                 $display->buttons[] = array(
-                    'id' => 'display_button_multiple_no_display',
+                    'id' => 'display_button_multiple_no_display display_button_authorise',
                     'multi-select' => true,
                     'dataAttributes' => array(
                         array('name' => 'commit-url', 'value' => $this->urlFor('display.authorisedisplay', ['id' => $display->displayId])),
@@ -587,7 +587,7 @@ class Display extends Base
                 
                 // Restart
                 $display->buttons[] = array(
-                    'id' => 'display_button_multiple_no_display',
+                    'id' => 'display_button_multiple_no_display displaygroup_button_command_restart',
                     'multi-select' => true,
                     'dataAttributes' => array(
                         array('name' => 'commit-url', 'value' => $this->urlFor('displayGroup.action.restart', ['id' => $display->displayGroupId])),
@@ -600,7 +600,7 @@ class Display extends Base
                 
                 // Schedule Now
                 $display->buttons[] = array(
-                    'id' => 'display_button_multiple_no_display',
+                    'id' => 'display_button_multiple_no_display display_button_schedulenow_multiple',
                     'multi-select' => true,
                     'dataAttributes' => array(
                         array('name' => 'commit-url', 'value' => $this->urlFor('multiple.schedule.now.form')),
