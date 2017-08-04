@@ -103,26 +103,24 @@
                         </div>
                     </div>
                     <div class="tab-pane fade row" id="tab2primary">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <div class="btn-group btn-group-design" role="group" aria-label="...">
-                                    <div class="btn-group" role="group">
-                                        <a class="btn-design-style" role="button" href="{{ urlFor("layout.preview", {id: layout.layoutId}) }}" target="_blank"><span><i class="fa fa-eye" aria-hidden="true"></i> {% trans "Preview Layout" %}</span></a>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <a class="XiboFormButton btn-design-style" id="schedule-btn" role="button" href="{{ urlFor("schedule.now.form", {id: layout.campaignId, from: "Campaign"}) }}"><span><i class="fa fa-clock-o" aria-hidden="true"></i> {% trans "Schedule Now" %}</span></a>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <a class="XiboFormButton btn-design-style" role="button" href="{{ urlFor("template.from.layout.form", {id: layout.layoutId}) }}"><span><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans "Save Template" %}</span></a>
-                                    </div>
-                                    {% if layout.schemaVersion < 2 %}
-                                        <div class="btn-group" role="group">
-                                            <a class="XiboFormButton btn-design-style" role="button" href="{{ urlFor("layout.upgrade.form", {id: layout.layoutId}) }}"><span><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans "Upgrade Layout" %}</span></a>
-                                        </div>
-                                    {% endif %}
+                        <div class="action-box">
+                            <div class="btn-group btn-group-design" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <a class="btn-design-style" role="button" href="{{ urlFor("layout.preview", {id: layout.layoutId}) }}" target="_blank"><span><i class="fa fa-eye" aria-hidden="true"></i> {% trans "Preview Layout" %}</span></a>
                                 </div>
+                                <div class="btn-group" role="group">
+                                    <a class="XiboFormButton btn-design-style" id="schedule-btn" role="button" href="{{ urlFor("schedule.now.form", {id: layout.campaignId, from: "Campaign"}) }}"><span><i class="fa fa-clock-o" aria-hidden="true"></i> {% trans "Schedule Now" %}</span></a>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a class="XiboFormButton btn-design-style" role="button" href="{{ urlFor("template.from.layout.form", {id: layout.layoutId}) }}"><span><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans "Save Template" %}</span></a>
+                                </div>
+                                {% if layout.schemaVersion < 2 %}
+                                    <div class="btn-group" role="group">
+                                        <a class="XiboFormButton btn-design-style" role="button" href="{{ urlFor("layout.upgrade.form", {id: layout.layoutId}) }}"><span><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans "Upgrade Layout" %}</span></a>
+                                    </div>
+                                {% endif %}
                             </div>
-                            <div class="col-md-6">
+                            <div class="layout-status">
                                 {% if isTemplate %}
                                     <div class="alert no-pad alert-info text-right">{% trans "Editing a Template will only affect future Layouts." %}</div>
                                 {% else %}
