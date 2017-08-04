@@ -13,6 +13,7 @@ use Xibo\Entity\Bandwidth;
 use Xibo\Entity\Display;
 use Xibo\Entity\ClientResourceUsage;
 use Xibo\Exception\NotFoundException;
+use Xibo\Exception\XiboException;
 
 class Soap5 extends Soap4
 {
@@ -300,31 +301,20 @@ class Soap5 extends Soap4
     function StoreClientCpuRamUsage($hardwareKey, $cpuUsage, $ramTotal, $ramAvailable)
     {
         $this->logProcessor->setRoute('StoreClientCpuRamUsage');
-/*
+
         // Sanitize
         $hardwareKeySanitized = $this->getSanitizer()->string($hardwareKey);
         try {
             $display = $this->displayFactory->getByLicence($hardwareKeySanitized);
-            $displayId = $display->displayId;
+            $clientResourceUsage = $this->clientResourceUsageFactory->create($display->displayId, $cpuUsage, $ramTotal, $ramAvailable);
+            $clientResourceUsage->insert();
             
-            $logdate = date("Y-m-d H:i:s");
-            $this->getStore()->insert('
-                INSERT INTO clientresourceusage (displayid, logdate, cpuusage, ramtotal, ramavailable)
-                  VALUES (:displayid, :logdate, :cpuusage, :ramtotal, :ramavailable)
-            ', [
-                'displayid' => $displayId,
-                'logdate' => $logdate->getTimestamp(),
-                'cpuusage' => $cpuUsage,
-                'ramtotal' => $ramTotal,
-                'ramavailable' => $ramAvailable
-            ]);
-            
-            return TRUE;
+            return true;
         }
         catch (NotFoundException $e){
-            throw new NotFoundException('Unable to get status');
+            throw new XiboException('Unable to store Client CPU and RAM usage');
         }
-    */        
-        return FALSE;
+          
+        return false;
     }
 }
