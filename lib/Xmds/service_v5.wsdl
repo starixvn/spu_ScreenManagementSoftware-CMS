@@ -32,8 +32,8 @@
     <message name="StoreClientCpuRamUsageRequest">
         <part name="hardwareKey" type="xsd:string" />
         <part name="cpuUsage" type="xsd:int" />
-        <part name="ramTotal" type="xsd:int" />
-        <part name="ramAvailable" type="xsd:int" />
+        <part name="ramTotal" type="xsd:long" />
+        <part name="ramAvailable" type="xsd:long" />
     </message>
     <message name="StoreClientCpuRamUsageResponse">	
         <part name="success" type="xsd:boolean" />
@@ -137,7 +137,7 @@
             <output message="tns:RegisterDisplayResponse"/>
         </operation>
         <operation name="StoreClientCpuRamUsage">
-            <documentation>Store the Clients CPU & RAM usage</documentation>
+            <documentation>Store the Clients CPU and RAM usage</documentation>
             <input message="tns:StoreClientCpuRamUsageRequest"/>
             <output message="tns:StoreClientCpuRamUsageResponse"/>
         </operation>

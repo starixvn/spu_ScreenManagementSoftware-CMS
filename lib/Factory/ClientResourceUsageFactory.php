@@ -22,6 +22,7 @@
 
 namespace Xibo\Factory;
 
+use Xibo\Entity\ClientResourceUsage;
 use Xibo\Entity\Display;
 use Xibo\Entity\User;
 use Xibo\Exception\NotFoundException;
@@ -40,17 +41,19 @@ class ClientResourceUsageFactory extends BaseFactory
      * @param StorageServiceInterface $store
      * @param LogServiceInterface $log
      * @param SanitizerServiceInterface $sanitizerService
-     * @param User $user
-     * @param UserFactory $userFactory
-     * @param DisplayNotifyServiceInterface $displayNotifyService
-     * @param ConfigServiceInterface $config
-     * @param DisplayGroupFactory $displayGroupFactory
-     * @param DisplayProfileFactory $displayProfileFactory
      */
-    public function __construct($store, $log, $sanitizerService, $user, $userFactory)
+    public function __construct($store, $log, $sanitizerService)
     {
         $this->setCommonDependencies($store, $log, $sanitizerService);
-        $this->setAclDependencies($user, $userFactory);
+    }
+
+    /**
+     * Create Empty Display Object
+     * @return Display
+     */
+    public function create($displayId, $cpuUsage, $ramTotal, $ramAvailable)
+    {
+        return new ClientResourceUsage($this->getStore(), $this->getLog(), $displayId, $cpuUsage, $ramTotal, $ramAvailable);
     }
 
     /**

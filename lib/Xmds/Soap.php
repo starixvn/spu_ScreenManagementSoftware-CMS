@@ -15,6 +15,7 @@ use Jenssegers\Date\Date;
 use Slim\Log;
 use Stash\Interfaces\PoolInterface;
 use Xibo\Entity\Bandwidth;
+use Xibo\Entity\ClientResourceUsage;
 use Xibo\Entity\Display;
 use Xibo\Entity\Playlist;
 use Xibo\Entity\Region;
@@ -27,6 +28,7 @@ use Xibo\Exception\DeadlockException;
 use Xibo\Exception\NotFoundException;
 use Xibo\Exception\XiboException;
 use Xibo\Factory\BandwidthFactory;
+use Xibo\Factory\ClientResourceUsageFactory;
 use Xibo\Factory\DataSetFactory;
 use Xibo\Factory\DayPartFactory;
 use Xibo\Factory\DisplayEventFactory;
@@ -124,6 +126,9 @@ class Soap
 
     /** @var  DayPartFactory */
     protected $dayPartFactory;
+    
+    /** @var  ClientResourceUsageFactory */
+    protected $clientResourceUsageFactory;
 
     /**
      * Soap constructor.
@@ -148,6 +153,7 @@ class Soap
      * @param DisplayEventFactory $displayEventFactory
      * @param ScheduleFactory $scheduleFactory
      * @param DayPartFactory $dayPartFactory
+     * @param ClientResourceUsageFactory $clientResourceUsageFactory
      */
     public function __construct($logProcessor, $pool, $store, $log, $date, $sanitizer, $config, $requiredFileFactory, $moduleFactory, $layoutFactory, $dataSetFactory, $displayFactory, $userGroupFactory, $bandwidthFactory, $mediaFactory, $widgetFactory, $regionFactory, $notificationFactory, $displayEventFactory, $scheduleFactory, $dayPartFactory)
     {
@@ -172,6 +178,7 @@ class Soap
         $this->displayEventFactory = $displayEventFactory;
         $this->scheduleFactory = $scheduleFactory;
         $this->dayPartFactory = $dayPartFactory;
+        $this->clientResourceUsageFactory = new ClientResourceUsageFactory($store, $log, $sanitizer);
     }
 
     /**

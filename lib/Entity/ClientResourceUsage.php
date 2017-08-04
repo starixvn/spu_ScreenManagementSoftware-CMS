@@ -87,9 +87,13 @@ class ClientResourceUsage implements \JsonSerializable
      * @param DisplayProfileFactory $displayProfileFactory
      * @param DisplayFactory $displayFactory
      */
-    public function __construct($store, $log)
+    public function __construct($store, $log, $displayId, $cpuUsage, $ramTotal, $ramAvailable)
     {
         $this->setCommonDependencies($store, $log);
+        $this->displayId = $displayId;
+        $this->cpuUsage = $cpuUsage;
+        $this->ramTotal = $ramTotal;
+        $this->ramAvailable = $ramAvailable;
     }
 
     /**
@@ -100,19 +104,17 @@ class ClientResourceUsage implements \JsonSerializable
         // temporary do nothing
     }
 
-    private function add()
+    public function add()
     {
-        $logdate = date("Y-m-d H:i:s");
         $this->getStore()->insert('
-            INSERT INTO clientresourceusage (displayid, logdate, cpuusage, ramtotal, ramavailable)
-              VALUES (:displayid, :logdate, :cpuusage, :ramtotal, :ramavailable)
-        ', [
-            'displayid' => $this->displayId,
-            'logdate' => $logdate->getTimestamp(),
-            'cpuusage' => $this->cpuUsage,
-            'ramtotal' => $this->ramTotal,
-            'ramavailable' => $this->ramAvailable,
-        ]);
+                INSERT INTO clientresourceusage (displayid, logdate, cpuusage, ramtotal, ramavailable)
+                  VALUES (:displayid, UNIX_TIMESTAMP(NOW()), :cpuusage, :ramtotal, :ramavailable)
+            ', [
+                'displayid' => $this->displayId,
+                'cpuusage' => $this->cpuUsage,
+                'ramtotal' => $this->ramTotal,
+                'ramavailable' => $this->ramAvailable,
+            ]);
     }
 
     private function getByDisplayId($displayId)
