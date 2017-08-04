@@ -137,7 +137,7 @@
             <output message="tns:RegisterDisplayResponse"/>
         </operation>
         <operation name="StoreClientCpuRamUsage">
-            <documentation>Store the Client's CPU & RAM usage</documentation>
+            <documentation>Store the Clients CPU & RAM usage</documentation>
             <input message="tns:StoreClientCpuRamUsageRequest"/>
             <output message="tns:StoreClientCpuRamUsageResponse"/>
         </operation>

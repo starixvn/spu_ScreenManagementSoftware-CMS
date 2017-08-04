@@ -300,7 +300,7 @@ class Soap5 extends Soap4
     function StoreClientCpuRamUsage($hardwareKey, $cpuUsage, $ramTotal, $ramAvailable)
     {
         $this->logProcessor->setRoute('StoreClientCpuRamUsage');
-
+/*
         // Sanitize
         $hardwareKeySanitized = $this->getSanitizer()->string($hardwareKey);
         try {
@@ -324,7 +324,7 @@ class Soap5 extends Soap4
         catch (NotFoundException $e){
             throw new NotFoundException('Unable to get status');
         }
-            
+    */        
         return FALSE;
     }
 }
