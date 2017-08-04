@@ -515,9 +515,10 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     color: #fff;
     position: relative;
     border: 1px solid #24b251;
-    padding: 4px 12px 5px 28px;
-    margin-bottom: -1px;
+    padding: 3px 12px 4px 28px;
     border-radius: 2px;
+    display: inline-block;
+    width: 60px;
 }
 .btn-auto-refresh:hover
  {
