@@ -1625,6 +1625,20 @@ class DisplayGroup extends Base
             'commands' => $this->commandFactory->query()
         ]);
     }
+    
+    public function commandFormForMultiple($displayGroupIds)
+    {
+        $displayGroup = $this->displayGroupFactory->getById($displayGroupIds);
+
+        if (!$this->getUser()->checkEditable($displayGroup))
+            throw new AccessDeniedException();
+
+        $this->getState()->template = 'displaygroup-form-command';
+        $this->getState()->setData([
+            'displayGroup' => $displayGroup,
+            'commands' => $this->commandFactory->query()
+        ]);
+    }
 
     /**
      * @param $displayGroupId
