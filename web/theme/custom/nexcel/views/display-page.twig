@@ -283,6 +283,11 @@
             });
             
             $('#displays').on( 'xhr.dt', function () {
+                if (intervalId != null) {
+                    clearInterval(intervalId);
+                    refreshTime = $('#autoRefresh').val();
+                }
+                
                 if (refreshTime != -1) {   
                     $('#lblAutoRefresh').text($('#autoRefresh').val() + 's')
                     intervalId = setInterval(function() {
@@ -297,11 +302,10 @@
                         }    
                     }, 1000);
                 }
-            });
+            });                     
             
             $( "#lblAutoRefresh" ).click(function() {
-                clearInterval(intervalId);
-                refreshTime = $('#autoRefresh').val();
+                
                 table.ajax.reload(null, false);
             });
         });               
