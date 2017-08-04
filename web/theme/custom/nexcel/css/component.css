@@ -499,20 +499,22 @@ input[type='checkbox']:checked:after, .radio:checked:after {
 }
 .auto-refresh-box {
     float: left;
-}
-.auto-refresh-box button{
-    cursor: pointer;
-    color: #fff;
-    background: #24b251;
-    border: none;
-    padding: 5px 24px 4px 8px;
-    border: 1px solid #24b251;
-    margin-bottom: -1px;
-    border-radius: 2px;
-    position: relative;
     margin-left: 0 !important;
 }
+.auto-refresh-box select{
+   height: 26px;
+}
 
+.btn-auto-refresh {
+    background: #24b251;
+    cursor: pointer;
+    color: #fff;
+    position: relative;
+    border: 1px solid #24b251;
+    padding: 4px 12px 5px 28px;
+    margin-bottom: -1px;
+    border-radius: 2px;
+}
 .btn-auto-refresh:hover
  {
     background: #29cc5c;
@@ -520,21 +522,10 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     text-shadow: none;
 }
 
-.auto-refresh-box .fa {
-    margin-right: 8px;
-}
-
-.auto-refresh-box button:after {
-    content: '\f0d7';
+.btn-auto-refresh:before {
+    content: '\f01e';
     font-family: 'FontAwesome';
     position: absolute;
-    right: 6px;
-    top: 6px;
-}
-.auto-refresh-box .dropdown-menu>li>a {
-    font-size: 12px;
-    padding: 3px 8px;
-}
-.auto-refresh-box .dropdown-menu>li>a:hover, .auto-refresh-box .dropdown-menu>li>a:focus {
-    background: #e2e5e9;
+    left: 8px;
+    top: 5px;
 }
