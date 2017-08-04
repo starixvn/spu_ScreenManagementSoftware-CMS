@@ -247,14 +247,13 @@
         dataTableAddButtons(table, $('#displays_wrapper').find('.btn-function'));
         
         $(document).ready(function() {
-            $('div.auto-refresh-box').html('<span class="custom-dropdown">\
-                                                    <select id="autoRefresh">\
-                                                            <option value="-1">No Refresh</option>\
-                                                            <option value="10">10s</option>\
-                                                            <option value="15">15s</option>\
-                                                            <option value="20">20s</option>\
-                                                    </select>\
-                                            </span>');                          
+            $('div.auto-refresh-box').html('<span class="btn-auto-refresh">10s</span>\
+												<select>\
+													<option>10s</option>\
+													<option>15s</option>\
+													<option>20s</option>\
+													<option>No Refresh</option>\
+												</select>');                    
             var intervalId;            
             $( "#autoRefresh" ).change(function() {
                 var startTime = $('#autoRefresh').val();
