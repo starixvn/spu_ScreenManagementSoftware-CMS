@@ -1001,33 +1001,33 @@ function SMSMultiSelectScheduleNow(items)
     }
 }
 
-function SMSMultiSendCommand(items) {
-    if(items.length > 0)
-    {
-        var url = $(items[0]).data().commitUrl;
-        var data = [];
-        for(var i = 0; i < items.length; i++)
-        {
-            data.push($(items[i]).data().commitId);
-        }
-        
-        XiboFormRender(url.replace(':ids', data.join(',')));
-    }
-    else
-    {
-        // Open a Dialog containing all the items we have identified.
-        var dialog = bootbox.dialog({
-                message: translations.multiselectNoItemsMessage,
-                title: translations.multiselect,
-                animate: false
-            });
-
-        // Append a footer to the dialog
-        var footer = $("<div>").addClass("modal-footer");
-        dialog.find(".modal-content").append(footer);
-        footer.append($('<button class="btn">').html(translations.close).addClass('btn-default'));
-    }
-}
+//function SMSMultiSendCommand(items) {
+//    if(items.length > 0)
+//    {
+//        var url = $(items[0]).data().commitUrl;
+//        var data = [];
+//        for(var i = 0; i < items.length; i++)
+//        {
+//            data.push($(items[i]).data().commitId);
+//        }
+//        
+//        XiboFormRender(url.replace(':ids', data.join(',')));
+//    }
+//    else
+//    {
+//        // Open a Dialog containing all the items we have identified.
+//        var dialog = bootbox.dialog({
+//                message: translations.multiselectNoItemsMessage,
+//                title: translations.multiselect,
+//                animate: false
+//            });
+//
+//        // Append a footer to the dialog
+//        var footer = $("<div>").addClass("modal-footer");
+//        dialog.find(".modal-content").append(footer);
+//        footer.append($('<button class="btn">').html(translations.close).addClass('btn-default'));
+//    }
+//}
 
 function XiboHelpRender(url) {
     window.open(url);
