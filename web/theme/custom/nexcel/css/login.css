@@ -21,14 +21,14 @@ a:hover {
 
 .logo-section {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 .logo-section a img {
     height: 54px;
 }
 .input-field, .field {
     position: relative;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 .input-field label {
     color: #8aa1ff;
