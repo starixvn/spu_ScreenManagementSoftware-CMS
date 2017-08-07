@@ -44,6 +44,7 @@ use Xibo\Service\SanitizerServiceInterface;
 use Xibo\Storage\StorageServiceInterface;
 use Xibo\XMR\RekeyAction;
 use Xibo\XMR\ScreenShotAction;
+use Xibo\XMR\CollectNowAction;
 
 /**
  * Class Display
@@ -1247,6 +1248,8 @@ class Display extends Base
             throw new AccessDeniedException();
 
         $display->authorise();
+        
+        $this->playerAction->sendAction($display, new CollectNowAction());
 
         // Return
         $this->getState()->hydrate([
