@@ -19,109 +19,114 @@
 {% block pageContent %}
 
     {% set displayFilterOptions = [{displayId: null, display: ""}]|merge(displays) %}
-
     <div class="widget">
-        <div class="widget-title">{% trans "Bandwidth" %}</div>
-        <div class="widget-body">
-            <div class="XiboGrid" id="{{ random() }}">
-                <div class="XiboFilter">
-                    <div class="FilterDiv" id="bandwidthFilter">
-                        <form class="form-inline">
-							{% set title %}{% trans "From Date" %}{% endset %}
-                            {{ inline.dateMonth("bandwidthFromDt", title, defaults.fromDate, "", "", "", "") }}
-							
-							{% set title %}{% trans "To Date" %}{% endset %}
-                            {{ inline.dateMonth("bandwidthToDt", title, defaults.toDate, "", "", "", "") }}
-							
-							{% set title %}{% trans "Display" %}{% endset %}
-                            {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
-                        </form>
+        <div class="widget-title">{% trans "Statistics" %}</div>
+        <div class="widget-body statistic">
+            <div class="widget box other">
+                <div class="widget-title box-title"><i class="fa fa-tasks"></i>{% trans "Bandwidth" %}</div>
+                <div class="widget-body">
+                    <div class="XiboGrid" id="{{ random() }}">
+                        <div class="XiboFilter">
+                            <div class="FilterDiv" id="bandwidthFilter">
+                                <form class="form-inline">
+                                    {% set title %}{% trans "From Date" %}{% endset %}
+                                    {{ inline.dateMonth("bandwidthFromDt", title, defaults.fromDate, "", "", "", "") }}
+                                    
+                                    {% set title %}{% trans "To Date" %}{% endset %}
+                                    {{ inline.dateMonth("bandwidthToDt", title, defaults.toDate, "", "", "", "") }}
+                                    
+                                    {% set title %}{% trans "Display" %}{% endset %}
+                                    {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
+                                </form>
+                            </div>
+                        </div>
+                        <div class="XiboData">
+                            <div id="bandwidthChart" style="clear:both; height: 230px;"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="XiboData">
-                    <div id="bandwidthChart" style="clear:both; height: 230px;"></div>
+            </div>
+            <div class="widget box other">
+                <div class="widget-title box-title"><i class="fa fa-clock-o"></i>{% trans "Time Disconnected" %}</div>
+                <div class="widget-body">
+                    <div class="XiboGrid" id="{{ random() }}">
+                        <div class="XiboFilter">
+                            <div class="FilterDiv" id="availabilityFilter">
+                                <form class="form-inline">
+                                    {% set title %}{% trans "From Date" %}{% endset %}
+                                    {{ inline.date("availabilityFromDt", title, defaults.fromDate, "", "", "", "") }}
+
+                                    {% set title %}{% trans "To Date" %}{% endset %}
+                                    {{ inline.date("availabilityToDt", title, defaults.toDate, "", "", "", "") }}
+
+                                    {% set title %}{% trans "Display" %}{% endset %}
+                                    {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
+
+                                    {% set title %}{% trans "Only show currently logged in?" %}{% endset %}
+                                    {{ inline.checkbox("onlyLoggedIn", title) }}
+                                </form>
+                            </div>
+                        </div>
+                        <div class="XiboData">
+                            <div id="availabilityChart" style="clear:both; height: 230px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget box other">
+                <div class="widget-title box-title"><i class="fa fa-history"></i>{% trans "Proof of Play" %}</div>
+                <div class="widget-body">
+                    <div class="XiboGrid" id="{{ random() }}" data-grid-name="statsView">
+                        <div class="XiboFilter">
+                            <div class="FilterDiv" id="Filter">
+                                <form class="form-inline">
+                                    {% set title %}{% trans "From Date" %}{% endset %}
+                                    {{ inline.date("statsFromDt", title, defaults.fromDateOneDay, "", "", "", "") }}
+
+                                    {% set title %}{% trans "To Date" %}{% endset %}
+                                    {{ inline.date("statsToDt", title, defaults.toDate, "", "", "", "") }}
+
+                                    {% set title %}{% trans "Display" %}{% endset %}
+                                    {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
+
+                                    {% set title %}{% trans "Layout" %}{% endset %}
+                                    {% set layoutFilterOptions = [{layoutId: null, layout: ""}]|merge(layouts) %}
+                                    {{ inline.dropdown("layoutId[]", "dropdownmulti", title, "", layoutFilterOptions, "layoutId", "layout", "", "selectPicker", "", "m", "", [{name: "data-live-search", value:"true"}, {name: "data-selected-text-format", value: "count > 3"}]) }}
+
+                                    {% set title %}{% trans "Media" %}{% endset %}
+                                    {% set mediaFilterOptions = [{mediaId: null, name: ""}]|merge(media) %}
+                                    {{ inline.dropdown("mediaId[]", "dropdownmulti", title, "", mediaFilterOptions, "mediaId", "name", "", "selectPicker", "", "m", "", [{name: "data-live-search", value:"true"}, {name: "data-selected-text-format", value: "count > 3"}]) }}
+                                </form>
+                            </div>
+                        </div>
+                        <div class="XiboData proof-play">
+                            <table id="stats" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Type" %}</th>
+                                        <th>{% trans "Display" %}</th>
+                                        <th>{% trans "Layout ID" %}</th>
+                                        <th>{% trans "Layout" %}</th>
+                                        <th>{% trans "Widget ID" %}</th>
+                                        <th>{% trans "Media" %}</th>
+                                        <th>{% trans "Number of Plays" %}</th>
+                                        <th>{% trans "Total Duration (s)" %}</th>
+                                        <th>{% trans "Total Duration" %}</th>
+                                        <th>{% trans "First Shown" %}</th>
+                                        <th>{% trans "Last Shown" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="widget">
-        <div class="widget-title">{% trans "Time Disconnected" %}</div>
-        <div class="widget-body">
-            <div class="XiboGrid" id="{{ random() }}">
-                <div class="XiboFilter">
-                    <div class="FilterDiv" id="availabilityFilter">
-                        <form class="form-inline">
-                            {% set title %}{% trans "From Date" %}{% endset %}
-                            {{ inline.date("availabilityFromDt", title, defaults.fromDate, "", "", "", "") }}
 
-                            {% set title %}{% trans "To Date" %}{% endset %}
-                            {{ inline.date("availabilityToDt", title, defaults.toDate, "", "", "", "") }}
-
-                            {% set title %}{% trans "Display" %}{% endset %}
-                            {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
-
-                            {% set title %}{% trans "Only show currently logged in?" %}{% endset %}
-                            {{ inline.checkbox("onlyLoggedIn", title) }}
-                        </form>
-                    </div>
-                </div>
-                <div class="XiboData">
-                    <div id="availabilityChart" style="clear:both; height: 230px;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="widget">
-        <div class="widget-title">{% trans "Proof of Play" %}</div>
-        <div class="widget-body">
-            <div class="XiboGrid" id="{{ random() }}" data-grid-name="statsView">
-                <div class="XiboFilter">
-                    <div class="FilterDiv" id="Filter">
-                        <form class="form-inline">
-                            {% set title %}{% trans "From Date" %}{% endset %}
-                            {{ inline.date("statsFromDt", title, defaults.fromDateOneDay, "", "", "", "") }}
-
-                            {% set title %}{% trans "To Date" %}{% endset %}
-                            {{ inline.date("statsToDt", title, defaults.toDate, "", "", "", "") }}
-
-                            {% set title %}{% trans "Display" %}{% endset %}
-                            {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
-
-                            {% set title %}{% trans "Layout" %}{% endset %}
-                            {% set layoutFilterOptions = [{layoutId: null, layout: ""}]|merge(layouts) %}
-                            {{ inline.dropdown("layoutId[]", "dropdownmulti", title, "", layoutFilterOptions, "layoutId", "layout", "", "selectPicker", "", "m", "", [{name: "data-live-search", value:"true"}, {name: "data-selected-text-format", value: "count > 3"}]) }}
-
-                            {% set title %}{% trans "Media" %}{% endset %}
-                            {% set mediaFilterOptions = [{mediaId: null, name: ""}]|merge(media) %}
-                            {{ inline.dropdown("mediaId[]", "dropdownmulti", title, "", mediaFilterOptions, "mediaId", "name", "", "selectPicker", "", "m", "", [{name: "data-live-search", value:"true"}, {name: "data-selected-text-format", value: "count > 3"}]) }}
-                        </form>
-                    </div>
-                </div>
-                <div class="XiboData">
-                    <table id="stats" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>{% trans "Type" %}</th>
-                                <th>{% trans "Display" %}</th>
-                                <th>{% trans "Layout ID" %}</th>
-                                <th>{% trans "Layout" %}</th>
-                                <th>{% trans "Widget ID" %}</th>
-                                <th>{% trans "Media" %}</th>
-                                <th>{% trans "Number of Plays" %}</th>
-                                <th>{% trans "Total Duration (s)" %}</th>
-                                <th>{% trans "Total Duration" %}</th>
-                                <th>{% trans "First Shown" %}</th>
-                                <th>{% trans "Last Shown" %}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
 
 {% block javaScript %}
@@ -129,7 +134,7 @@
 
         $(document).ready(function() {
             var table = $("#stats").DataTable({
-                "dom": 't<"bottom"ipl>',
+                 "dom": 't<"bottom"ipl>',
                 "language": dataTablesLanguage,
                 serverSide: true, stateSave: true,
                 filter: false,
