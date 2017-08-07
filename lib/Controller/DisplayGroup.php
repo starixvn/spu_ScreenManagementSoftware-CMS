@@ -1629,17 +1629,16 @@ class DisplayGroup extends Base
     public function commandFormForMultiple($ids)
     {
         $displayGroupIds = explode(',', $ids);
-        foreach ($array as $value) {
-            
-        }
-        $displayGroup = $this->displayGroupFactory->getById($displayGroupIds);
-
+        $displayGroup = $this->displayGroupFactory->getById($displayGroupIds[0]);
+        
         if (!$this->getUser()->checkEditable($displayGroup))
             throw new AccessDeniedException();
 
-        $this->getState()->template = 'displaygroup-form-command';
+        $this->getState()->template = 'displaygroup-form-command-multiple';
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
+            'displayGroupIds' => $ids,
+            'screenQuantity' => count($displayGroupIds),
             'commands' => $this->commandFactory->query()
         ]);
     }
@@ -1700,6 +1699,42 @@ class DisplayGroup extends Base
             'message' => sprintf(__('Command Sent to %s'), $displayGroup->displayGroup),
             'id' => $displayGroup->displayGroupId
         ]);
+    }
+    
+    public function commandForMultiple($ids)
+    {
+        $displayGroupIds = explode(',', $ids);
+        $successScreens = 0;
+
+        foreach ($displayGroupIds as $displayGroupId) {
+            try {
+                $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
+
+                if (!$this->getUser()->checkEditable($displayGroup))
+                    throw new AccessDeniedException();
+
+                $command = $this->commandFactory->getById($this->getSanitizer()->getInt('commandId'));
+                $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
+
+                $this->playerAction->sendAction($displays, (new CommandAction())->setCommandCode($command->code));
+
+                // Update the flag
+                foreach ($displays as $display) {
+                    /* @var \Xibo\Entity\Display $display */
+                    $display->lastCommandSuccess = 0;
+                    $display->save(['validate' => false, 'audit' => false]);
+                }
+                $successScreens += 1;
+            } catch (Exception $ex) {
+                $this->getLog()->error($ex);
+            }
+        }
+        
+        // Return
+            $this->getState()->hydrate([
+                'httpStatus' => 204,
+                'message' => sprintf(__("Command Sent to %s screens"), $successScreens)
+            ]);
     }
     
     public function restart($displayGroupId)

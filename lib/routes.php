@@ -255,6 +255,7 @@ $app->post('/displaygroup/:id/action/changeLayout', '\Xibo\Controller\DisplayGro
 $app->post('/displaygroup/:id/action/overlayLayout', '\Xibo\Controller\DisplayGroup:overlayLayout')->name('displayGroup.action.overlayLayout');
 $app->post('/displaygroup/:id/action/revertToSchedule', '\Xibo\Controller\DisplayGroup:revertToSchedule')->name('displayGroup.action.revertToSchedule');
 $app->post('/displaygroup/:id/action/command', '\Xibo\Controller\DisplayGroup:command')->name('displayGroup.action.command');
+$app->post('/displaygroup/:id/action/command/multiple', '\Xibo\Controller\DisplayGroup:commandForMultiple')->name('multiple.displayGroup.action.command');
 $app->post('/displaygroup/:id/action/restart', '\Xibo\Controller\DisplayGroup:restart')->name('displayGroup.action.restart');
 
 /**
