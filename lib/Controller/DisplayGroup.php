@@ -1626,8 +1626,12 @@ class DisplayGroup extends Base
         ]);
     }
     
-    public function commandFormForMultiple($displayGroupIds)
+    public function commandFormForMultiple($ids)
     {
+        $displayGroupIds = explode(',', $ids);
+        foreach ($array as $value) {
+            
+        }
         $displayGroup = $this->displayGroupFactory->getById($displayGroupIds);
 
         if (!$this->getUser()->checkEditable($displayGroup))
