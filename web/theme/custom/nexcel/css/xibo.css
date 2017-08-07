@@ -1023,3 +1023,11 @@ ul li.active.tab-design:hover a {
 .display_button_multiple_no_display {
     display: none;
 }
+
+.statistic .widget {
+    margin-bottom: 16px;
+}
+
+.proof-play {
+    margin-top: 16px;
+}

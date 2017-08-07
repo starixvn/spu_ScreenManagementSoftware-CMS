@@ -241,7 +241,7 @@ td #tagDiv .btn {
     font-size: 13px;
     color: #545454;
     height: 30px;
-    min-width: 150px;
+    min-width: 120px;
 }
 
 #layouts_wrapper .row:first-child {
@@ -408,6 +408,7 @@ input[type='checkbox'], .radio{
   height: 14px;
   width: 14px;
   position: relative;
+  cursor: pointer;
 }
 
 input[type='checkbox']:after, .radio:after{
@@ -435,6 +436,15 @@ input[type='checkbox']:checked:after, .radio:checked:after {
   background-color: #545454;
 }
 
+.checkbox input[type="checkbox"] {
+    margin: 0 4px 0 0;
+}
+
+.XiboFilter .form-group .checkbox .form-control {
+    height: 14px;
+    width: 14px;
+    min-width: initial;
+}
 
 /*****************************************Button******************************************/
 .btn-xibo {

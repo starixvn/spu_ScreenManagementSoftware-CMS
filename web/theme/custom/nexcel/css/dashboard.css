@@ -455,10 +455,6 @@ div.input-mask {
   font-weight: 400;
   border: 1px solid #fff;
 }
-.statistic {
-  text-transform: initial;
-  color: #007eff;
-}
 .widget.orange-bg,
 .widget-icon.orange-bg {
   background: rgb(233, 134, 85);
