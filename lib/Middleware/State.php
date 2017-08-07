@@ -61,7 +61,7 @@ class State extends Middleware
             // If we are behind a load balancer we should look at HTTP_X_FORWARDED_PROTO
             // if a whitelist of IP address is provided, we should check it, otherwise trust
             $whiteListLoadBalancers = $app->configService->GetSetting('WHITELIST_LOAD_BALANCERS');
-            $originIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+            $originIp = $this->getIp();
             $forwardedProtoHttps = (
                 strtolower($app->request()->headers('HTTP_X_FORWARDED_PROTO', 'http')) === 'https'
                 && $originIp != ''
@@ -1472,5 +1472,20 @@ class State extends Middleware
                 $container->sanitizerService
             );
         });
+    }
+    
+    private function getIp()
+    {
+        $clientIp = '';
+
+        $keys = array('X_FORWARDED_FOR', 'HTTP_X_FORWARDED_FOR', 'CLIENT_IP', 'REMOTE_ADDR');
+        foreach ($keys as $key) {
+            if (isset($_SERVER[$key])) {
+                $clientIp = $_SERVER[$key];
+                break;
+            }
+        }
+
+        return $clientIp;
     }
 }
