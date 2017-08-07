@@ -659,7 +659,8 @@ class Display extends Base
                     'multi-select' => true,
                     'dataAttributes' => array(
                         array('name' => 'commit-url', 'value' => $this->urlFor('multiple.displayGroup.command.form', ['id' => $display->displayGroupId])),
-                        array('name' => 'commit-method', 'value' => 'post'),
+                        array('name' => 'commit-method', 'value' => 'get'),
+                        array('name' => 'commit-id', 'value' => $display->displayGroupId),
                         array('name' => 'id', 'value' => 'displaygroup_button_command'),
                         array('name' => 'text', 'value' => __('Send Command')),
                         array('name' => 'rowtitle', 'value' => $display->display)

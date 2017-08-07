@@ -593,8 +593,7 @@ function dataTableAddButtons(table, filter) {
  * @param {Object} sourceObj
  * @param {Object} data
  */
-function XiboFormRender(sourceObj, data) {
-    
+function XiboFormRender(sourceObj, data) {    
     var formUrl = "";
     if (typeof sourceObj === "string" || sourceObj instanceof String) {
         formUrl = sourceObj;
@@ -838,8 +837,13 @@ function XiboMultiSelectFormRender(button) {
     
     if(buttonId === 'display_button_schedulenow_multiple')
     {
-        SMSMultiSelectScheduleNow(matches);
-        
+        SMSMultiSelectScheduleNow(matches);        
+        return;
+    }
+    
+    if(buttonId === 'displaygroup_button_command')
+    {
+        SMSMultiSelectScheduleNow(matches);        
         return;
     }
 
@@ -970,6 +974,34 @@ function XiboMultiSelectFormRender(button) {
 
 function SMSMultiSelectScheduleNow(items)
 {
+    if(items.length > 0)
+    {
+        var url = $(items[0]).data().commitUrl;
+        var data = [];
+        for(var i = 0; i < items.length; i++)
+        {
+            data.push($(items[i]).data().commitId);
+        }
+        
+        XiboFormRender(url.replace(':ids', data.join(',')));
+    }
+    else
+    {
+        // Open a Dialog containing all the items we have identified.
+        var dialog = bootbox.dialog({
+                message: translations.multiselectNoItemsMessage,
+                title: translations.multiselect,
+                animate: false
+            });
+
+        // Append a footer to the dialog
+        var footer = $("<div>").addClass("modal-footer");
+        dialog.find(".modal-content").append(footer);
+        footer.append($('<button class="btn">').html(translations.close).addClass('btn-default'));
+    }
+}
+
+function SMSMultiSendCommand(items) {
     if(items.length > 0)
     {
         var url = $(items[0]).data().commitUrl;
