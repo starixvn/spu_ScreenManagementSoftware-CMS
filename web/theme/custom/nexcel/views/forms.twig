@@ -86,6 +86,15 @@
     </div>
 {% endmacro %}
 
+{% macro numberWithReadonly(name, title, value, helpText, groupClass, validation, accessKey) %}
+    <div class="form-group {{ groupClass }}">
+        <label class="col-md-3 col-lg-2 control-label" for="{{ name }}" accesskey="{{ accessKey }}">{{ title }}</label>
+        <div class="col-sm-6">
+            <input class="form-control" name="{{ name }}" type="number" id="{{ name }}" value="{{ value }}" {{ validation }} readonly/>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro email(name, title, value, helpText, groupClass, validation, accessKey) %}
     <div class="form-group {{ groupClass }}">
         <label class="col-md-3 col-lg-2 control-label" for="{{ name }}" accesskey="{{ accessKey }}">{{ title }}</label>
