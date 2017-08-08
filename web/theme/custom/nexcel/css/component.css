@@ -411,7 +411,7 @@ td #tagDiv .btn {
 input[type='checkbox'], .radio{
   height: 14px;
   width: 14px;
-  position: relative;
+  position: relative !important;
   cursor: pointer;
 }
 

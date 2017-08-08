@@ -227,6 +227,20 @@ function XiboInitialise(scope) {
         }
     });
 
+    $(scope + ' .btn.dropdown-toggle').on('click', function(e) {
+        //$(this).parent().addClass('dropup');
+        var dropdown =  $(this).next(),
+            heightDropdown = dropdown.height(),
+            paddingDropdown = parseInt(dropdown.css('padding-top')) + parseInt(dropdown.css('padding-bottom')),
+            totalHeightDropdown = heightDropdown + paddingDropdown + 2 + 10,
+            mouseY = e.pageY,
+            menuVisY = $(window).height() - (mouseY + totalHeightDropdown);
+
+        if(menuVisY < 10) {
+            $(this).parent().addClass('dropup');
+        }
+    });
+
     // Date time controls
     $(scope + ' .dateTimePicker').each(function(){
 
