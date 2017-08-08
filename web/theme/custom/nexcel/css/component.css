@@ -403,6 +403,9 @@ td #tagDiv .btn {
 }
 
 /*****************************************Checkbox******************************************/
+.radio label, .checkbox label {
+    padding-left: 0;
+}
 
 input[type='checkbox'], .radio{
   height: 14px;
