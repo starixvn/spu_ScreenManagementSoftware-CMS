@@ -88,9 +88,9 @@
 
 {% macro numberWithReadonly(name, title, value, helpText, groupClass, validation, accessKey) %}
     <div class="form-group {{ groupClass }}">
-        <label class="col-md-3 col-lg-2 control-label" for="{{ name }}" accesskey="{{ accessKey }}">{{ title }}</label>
+        <label class="col-md-3 col-lg-2" for="{{ name }}" accesskey="{{ accessKey }}">{{ title }}</label>
         <div class="col-sm-6">
-            <input class="form-control" name="{{ name }}" type="number" id="{{ name }}" value="{{ value }}" {{ validation }} readonly/>
+            <span>{{ value }}</span>
         </div>
     </div>
 {% endmacro %}
