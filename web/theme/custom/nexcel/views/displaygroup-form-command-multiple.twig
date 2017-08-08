@@ -28,7 +28,7 @@
                 {% set helpText %}{% trans "Pick a command to send to the Player. If the CMS has XMR enabled this will be sent immediately, otherwise it will show an error." %}{% endset %}
                 {{ forms.dropdown("commandId", "single", title, "", commands, "commandId", "command", helpText) }}
 
-                {{ forms.number("multicommand", "Selected Screens", ~ screenQuantity, "helpText") }}
+                {{ forms.number("multicommand", "Selected Screens", screenQuantity) }}
             </form>
         </div>
     </div>
