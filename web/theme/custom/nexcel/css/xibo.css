@@ -733,12 +733,18 @@ i.fa.fa-ban.fa-stack-2x {
     padding: 4px 5px;
     margin-right: 2px;
 }
+#tab2primary .btn-group-design {
+    margin-bottom: 0;
+}
 .design-tab-content {
     margin-top: 16px;
     border: 1px solid #e3e3e3;
 }
 .design-tab-content .tab-pane {
     padding-top: 16px;
+}
+.btn-group-design {
+    margin-bottom: 16px;
 }
 .btn-group-design .btn-group,
 .btn-group-design .designer-control-panel-checkbox{
@@ -749,13 +755,12 @@ i.fa.fa-ban.fa-stack-2x {
     padding: 6px 10px !important;
 }
 
-.btn-group-right {
-    text-align: right;
-}
 .btn-group-right .btn-group {
     margin-left: 8px;
 }
-
+.btn-group-right .btn-group:first-child {
+    margin-left: 0;
+}
 .action-box {
     padding: 0 30px;
 }

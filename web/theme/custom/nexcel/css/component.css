@@ -510,6 +510,27 @@ input[type='checkbox']:checked:after, .radio:checked:after {
 .nav-pills li.btn.btn-info {
     background-color: #2b77d6;
 }
+
+.btn-design-style {
+    border: 1px solid #2b77d6;
+    padding: 4px 15px;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #2b77d6;
+    background: transparent;
+    display: inline-block;
+}
+
+.btn-design-style .fa {
+    font-size: 16px;
+    margin-right: 6px;
+}
+.btn-group-feature .btn {
+    background: #2b77d6;
+    color: #fff;
+    border-radius: 3px;
+    border: none;
+}
 .btn-function {
     float: right;
     margin-bottom: 4px;
@@ -531,8 +552,6 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     padding: 3px 12px 4px 28px;
     border-radius: 2px;
     display: inline-block;
-    width: 60px;
-}
 .btn-auto-refresh:hover
  {
     background: #29cc5c;
@@ -580,9 +599,23 @@ input[type='checkbox']:checked:after, .radio:checked:after {
 
 .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
  .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
+ .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
+     font-size: 14px;
+     color: #545454;
+ }
+
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on {
+    line-height: 20px;
+}
+
+/*.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
+ .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on {
+    width: 60px;
+}
   .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {    
         padding: 5px 12px 4px;
-  }
+  }*/
 
 /*****************************************Calendar******************************************/
  .table-condensed {
@@ -592,4 +625,25 @@ input[type='checkbox']:checked:after, .radio:checked:after {
 .table-condensed .thead .next:before
 {
     font-family: 'FontAwesome';
+}
+
+@media all and (min-width: 1280px) {
+    .col-xl-9 {
+        float:left;
+        padding: 0 15px;
+        width: 75%;
+    }
+    .col-xl-3 {
+        float: left;
+        padding: 0 15px;
+        width: 25%;
+    }
+    
+    .btn-group-right {
+        text-align: right;
+    }
+
+    #tab1primary > [class^=col] {
+        margin-bottom: 0;
+    }
 }
