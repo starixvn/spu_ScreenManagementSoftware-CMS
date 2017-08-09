@@ -227,8 +227,7 @@ function XiboInitialise(scope) {
         }
     });
 
-    $('.btn.dropdown-toggle').on('click', function(e) {
-        debugger;
+    $('.btn.dropdown-toggle').on('click', function(e) {        
         //$(this).parent().addClass('dropup');
         var dropdown =  $(this).next(),
             heightDropdown = dropdown.height(),
