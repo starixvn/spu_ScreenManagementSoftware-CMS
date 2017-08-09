@@ -690,6 +690,9 @@ function XiboFormRender(sourceObj, data) {
                             if (i == count) {
                                 extrabutton.addClass('btn-primary save-button');
                             }
+                            else if(extrabutton.text() === 'Help'){
+                                extrabutton.addClass('hide-table');
+                            }
                             else {
                                 extrabutton.addClass('btn-default');
                             }
