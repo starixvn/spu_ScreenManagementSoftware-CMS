@@ -509,6 +509,11 @@ var setupScheduleNowForm = function(form) {
         $(form).find("#dayPartId").val(always ? 1 : 0);
 
         $(form).find(".duration-part").toggle();
+        
+            // Hide the seconds input option unless seconds are enabled in the date format
+        if (dateFormat.indexOf("s") <= -1) {
+            $(form).find(".schedule-now-seconds-field").hide();
+        }
     })
 
     var evaluateDates = $.debounce(500, function() {

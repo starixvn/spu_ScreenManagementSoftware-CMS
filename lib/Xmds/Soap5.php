@@ -11,7 +11,9 @@ namespace Xibo\Xmds;
 
 use Xibo\Entity\Bandwidth;
 use Xibo\Entity\Display;
+use Xibo\Entity\ClientResourceUsage;
 use Xibo\Exception\NotFoundException;
+use Xibo\Exception\XiboException;
 
 class Soap5 extends Soap4
 {
@@ -295,4 +297,24 @@ class Soap5 extends Soap4
   		
   		return $result;
 	}
+    
+    function StoreClientCpuRamUsage($hardwareKey, $cpuUsage, $ramTotal, $ramAvailable)
+    {
+        $this->logProcessor->setRoute('StoreClientCpuRamUsage');
+
+        // Sanitize
+        $hardwareKeySanitized = $this->getSanitizer()->string($hardwareKey);
+        try {
+            $display = $this->displayFactory->getByLicence($hardwareKeySanitized);
+            $clientResourceUsage = $this->clientResourceUsageFactory->create($display->displayId, $cpuUsage, $ramTotal, $ramAvailable);
+            $clientResourceUsage->insert();
+            
+            return true;
+        }
+        catch (NotFoundException $e){
+            throw new XiboException('Unable to store Client CPU and RAM usage');
+        }
+          
+        return false;
+    }
 }

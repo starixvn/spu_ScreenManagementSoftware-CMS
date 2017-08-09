@@ -416,8 +416,12 @@ div.dt-buttons {
 
 ul li a.btns {
     color: #fff !important;
-    font-size: 1.1em;
+    font-size: 14px;
 
+}
+
+.nav-pills .btn-xibo {
+    margin-left: 16px;
 }
 
 /* WIZARD ASSISTANT  */
@@ -433,22 +437,26 @@ ul li a.btns {
     position: relative;
     /* border-bottom: 0; */
     /* width: 80%; */
-
-    margin: 40px auto;
     margin-bottom: 0;
     box-sizing: border-box;
 }
-
 p.narrow {
-    width: 60%;
-    margin: 10px auto;
+    color: #545454;
+    font-size: 14px;
+}
+.alert-warning.narrow {
+    color: #976e1e;
+    border: 1px solid #b3a035;
+    background: #f7f5eb;
+    padding: 10px 15px;
+    display: inline-block;
 }
 
 .liner {
     height: 2px;
-    background: #ddd;
+    background: #3862c2;
     position: absolute;
-    width: 80%;
+    width: 83%;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -456,7 +464,7 @@ p.narrow {
     z-index: 1;
 }
 
-.layout-toolbox .nav-tabs > li.active > a,
+/*.layout-toolbox .nav-tabs > li.active > a,
 .layout-toolbox .nav-tabs > li.active > a:hover,
 .layout-toolbox .nav-tabs > li.active > a:focus {
     color: #fff;
@@ -464,12 +472,12 @@ p.narrow {
     background-color: #428bca;
     border: 0;
     border-bottom-color: transparent;
-}
+}*/
 
 span.round-tabs {
-    width: 70px;
-    height: 70px;
-    line-height: 70px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
     display: inline-block;
     border-radius: 100px;
     background: white;
@@ -478,15 +486,24 @@ span.round-tabs {
     left: 0;
     text-align: center;
     font-size: 25px;
+    border: 2px solid #3862c2;
+    color: #3862c2;
 }
 
-span.round-tabs.one {
+.board .tab-pane  p:first-child{
+    font-size: 16px;
+    color: #545454;
+}
+
+.board .tab-content .tab-pane .btn {
+    padding: 4px 15px;
+}
+/*span.round-tabs.one {
     color: #283858;
     border: 2px solid #283858;
 }
 
 li.active span.round-tabs.one {
-    background: #fff !important;
     border: 2px solid #283858;
     color: #283858;
 }
@@ -555,10 +572,12 @@ li.active span.round-tabs.seven {
     background: #fff !important;
     border: 2px solid #77d903;
     color: #77d903;
-}
+}*/
 
 .nav-tabs > li.active > a span.round-tabs {
-    background: #fafafa;
+    background: #3862c2;
+    color: #fff;
+    border-color: #3862c2;
 }
 
 .nav-tabs > li {
@@ -566,7 +585,7 @@ li.active span.round-tabs.seven {
 }
 
 i.fa.fa-ban.fa-stack-2x {
-    margin-top: 8px;
+    margin: 3px 0 0 1px;
 }
 
 /* Fault Page */
@@ -602,15 +621,15 @@ i.fa.fa-ban.fa-stack-2x {
     left: 45%;
     opacity: 1;
     margin: 5px auto;
-    bottom: 0px;
+    bottom: -4px;
     border: 10px solid transparent;
-    border-bottom-color: #ddd;
+    border-bottom-color: #dcdcdc;
 }
 
 .board .nav-tabs > li a {
-    width: 70px;
-    height: 70px;
-    margin: 20px auto;
+    width: 60px;
+    height: 60px;
+    margin: 20px auto 25px;
     border-radius: 100%;
     padding: 0;
 }
@@ -625,13 +644,15 @@ i.fa.fa-ban.fa-stack-2x {
 .board .tab-pane {
     position: relative;
     /*padding-top: 50px;*/
+    text-align: center;
 }
 
 .board .tab-content .head {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 25px;
+    font-size: 24px;
     text-transform: uppercase;
     padding-bottom: 10px;
+    color: #545454;
+    margin: 0;
 }
 
 .board .btn-outline-rounded {
@@ -685,8 +706,10 @@ i.fa.fa-ban.fa-stack-2x {
 .locks {
     font-size: 75% !important;
 }
-
-.panel.with-nav-tabs .panel-heading {
+.bttm-fix {
+    margin-top: 16px;
+}
+/*.panel.with-nav-tabs .panel-heading {
     padding: 5px 5px 0 5px;
 }
 
@@ -725,7 +748,7 @@ i.fa.fa-ban.fa-stack-2x {
 
 .layout-toolbox .nav-tabs > li {
     margin-bottom: -5px !important;
-}
+}*/
 
 .col-md-2 ul.list-group {
     box-shadow: none !important;
@@ -777,16 +800,17 @@ ul li.active.tab-design:hover a {
 }
 
 /*** CHECKBOX **/
-
+.funkyradio {
+    margin-bottom: 30px;
+}
 .funkyradio div {
     clear: both;
     overflow: hidden;
 }
 
 .funkyradio label {
-    width: 100%;
-    border-radius: 3px;
-    border: 1px solid #D1D3D4;
+    width: 560px;    
+    border: 1px solid #82a2c9;
     font-weight: normal;
 }
 
@@ -796,7 +820,7 @@ ul li.active.tab-design:hover a {
 
 .funkyradio input[type="checkbox"]:empty ~ label {
     position: relative;
-    line-height: 2.5em;
+    line-height: 28px;
     text-indent: 3.25em;
     /* margin-top: 2em;*/
     cursor: pointer;
@@ -813,9 +837,8 @@ ul li.active.tab-design:hover a {
     bottom: 0;
     left: 0;
     content: '';
-    width: 2.5em;
+    width: 30px;
     background: #D1D3D4;
-    border-radius: 3px 0 0 3px;
 }
 
 .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
@@ -829,12 +852,13 @@ ul li.active.tab-design:hover a {
 }
 
 .funkyradio input[type="checkbox"]:checked ~ label {
-    color: #777;
+    color: #545454;
+    text-align: left;
+    font-size: 14px;
 }
 
 .funkyradio input[type="checkbox"]:checked ~ label:before {
-    content: '\2714';
-    text-indent: .9em;
+    text-indent: 8px;
     color: #333;
     background-color: #ccc;
 }
@@ -850,7 +874,8 @@ ul li.active.tab-design:hover a {
 
 .funkyradio-primary input[type="checkbox"]:checked ~ label:before {
     color: #fff;
-    background-color: #337ab7;
+    background-color: #2b77d6;
+    border: 1px solid #2b77d6;
 }
 
 .funkyradio-success input[type="checkbox"]:checked ~ label:before {
@@ -916,4 +941,93 @@ ul li.active.tab-design:hover a {
     display: inline;
     width: auto;
     padding-right: 0;
+}
+
+/****************************Notification************************************/
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../libraries/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../libraries/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../libraries/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../libraries/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../libraries/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../libraries/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.notification-drawer {
+    padding: 0 16px;
+
+}
+.notification-drawer .dropdown-header {
+    font-size: 14px;
+    color: #444;
+    text-transform: uppercase;
+    font-weight: 300;
+    line-height: 24px;
+    padding: 7px 0;
+}
+.notification-drawer .divider {
+    margin: 0 -16px;
+}
+
+.notification-drawer .notification {
+    line-height: 42px;
+    margin-top: 12px;
+    height: 42px;
+    box-sizing: border-box;
+}
+.notification-drawer .notification .XiboFormButton {
+    width: 100%;
+    padding-right: 12px !important;
+    border: 1px solid #dcdcdc;
+   -webkit-transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s;
+}
+
+.notification-drawer .notification:last-child {
+    margin-bottom: 12px;
+}
+.notification-drawer .notification .XiboFormButton:hover {
+    border: none;
+    box-shadow: 0 3px 6px #dcdcdc;
+}
+.notification-drawer .notification:hover .notification-unread {
+    color: #327bd7;
+}
+.notification-drawer li:last-child {
+    line-height: 42px;
+}
+.row.header .user  .notification-drawer li:last-child a {
+    font-size: 14px;
+    color: #2b77d6;
+    padding-left: 0;
+}
+.row.header .user  .notification-drawer li:last-child a:before {
+    content: '\f0a2';
+    font-family: 'FontAwesome';
+    margin-right: 4px;
+    font-size: 16px;
+}
+.notification-read {
+    font-size: 14px;
+    color: #545454;
+    font-weight: 400;
+}
+.notification-date {
+    font-size: 11px;
+    color: #a6a6a6;
+    font-weight: 300;
+    float: right;
+}
+
+.display_button_multiple_no_display {
+    display: none;
+}
+
+.statistic .widget {
+    margin-bottom: 16px;
+}
+
+.proof-play {
+    margin-top: 16px;
 }

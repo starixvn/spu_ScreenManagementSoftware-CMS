@@ -1,4 +1,5 @@
 
+
 .nav-pills {
     position: absolute;
     right: 16px;
@@ -52,17 +53,22 @@
     border-top: 1px solid #dcdcdc;
 }
 table.dataTable {
+    margin: 0 !important;
+}
+.table {
     margin-top: 0 !important;
     width: 100% !important;
 }
-.dataTable > thead > tr > th,
-.dataTable > tbody > tr > td {
+.table > thead > tr > th,
+.table > tbody > tr > td {
     border: 1px solid #dcdcdc;
     vertical-align: middle;
 }
 
-.dataTable > thead > tr > th {
+.table > thead > tr > th {
     color: #545454;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
 table.dataTable thead .sorting:after {
@@ -72,13 +78,136 @@ table.dataTable thead .sorting:after {
     opacity: 1;
     font-size: 12px;
 }
-
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after {
+    color: #2b77d6;
+}
 #layouts_wrapper .row > div {
     margin-bottom: 0;
 }
 
-/*****************************************Textbox******************************************/
-/*.XiboFilter.well {
+.table .fa-check {
+    color: #439711;
+}
+
+.table .fa-times {
+    color: #de4839;
+}
+
+.table td .btn-group .btn {
+    background: transparent;
+}
+.btn-group.open .dropdown-toggle {
+    box-shadow: none;
+}
+.table .btn .fa-caret-down:before {
+    content: '\f044';
+    font-size: 20px;
+    color: #2b77d6;
+}
+.table td .btn-group .dropdown-menu {
+    box-shadow: 0px 4px 7px 0px rgba(0,0,0,0.2);
+    border: none;
+    border-radius: 0;
+}
+
+.table td .btn-group .dropdown-menu>li>a {
+    font-size: 14px;
+    color: #545454;
+}
+.table td .btn-group .dropdown-menu>li>a:hover{
+    background: #d9d9d9;
+}
+
+#displaysMembersTable.table td  input[type='checkbox']:after {
+    top: 3px;
+}
+.XiboData {
+    font-size: 12px;
+    color: #545454;
+}
+.pagination .paginate_button a {
+    padding: 2px 9px 3px;
+}
+.pagination .paginate_button.next a,
+.pagination .paginate_button.previous a
+ {
+    font-size: 0;
+    padding: 0 8px;
+}
+.pagination .paginate_button.previous a:before,
+.pagination .paginate_button.next a:after {
+    position: relative;
+    top: -1px;
+    font-family: 'FontAwesome';
+    font-size: 16px;
+}
+.pagination .paginate_button.next a:after {
+    content: '\f105';
+}
+.pagination .paginate_button.previous a:before {
+    content: '\f104';
+}
+.pagination>li>a, .pagination>li>span {
+    color: #545454;
+}
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    background: #2b77d6;
+    color: #fff;
+}
+td #tagDiv .btn {
+    margin-right: 4px;
+}
+.bottom .dataTables_info {
+    padding-top: 2px;
+}
+.dataTables_info .btn {    
+    padding: 3px 12px;
+    font-size: 12px;
+}
+.dataTables_info .btn.select-all {
+    background: #2b77d6;
+    border-radius: 3px;
+    color: #fff;
+}
+.dataTables_info {
+    float: left;
+}
+.dataTables_length, .dataTables_paginate{
+    float: right;
+}
+.dataTables_length {
+    margin-right: 20px;
+}
+.dataTables_length select{
+    height: 26px;
+    line-height: 26px;
+    padding: 0 8px;
+    margin: 0 4px;
+}
+.dataTables_wrapper .bottom {
+    padding: 12px 16px 8px;
+    border: 1px  solid #dcdcdc;
+    border-top: none;
+    height: 52px;
+}
+#displaysGroupsMembersTable input[type='checkbox']:after {
+    top: 3px;
+}
+/*****************************************Others******************************************/
+.funkyradio input[type="checkbox"]:checked ~ label:before {
+    content: '\f00c';
+    font-family: 'FontAwesome';
+}
+
+.fa-chevron-left:before {
+    margin-right: 4px;
+}
+.fa-chevron-right:before {
+    margin-left: 4px;
+}
+/*****************************************Filter******************************************/
+.XiboFilter.well {
     background: transparent;
     border-radius: 2px;
     box-shadow: none;
@@ -87,9 +216,22 @@ table.dataTable thead .sorting:after {
     margin-right: 16px;
 }
 
-.form-control,
-input[type='text'].form-control,
-.form-control .btn.btn-default {
+.XiboFilter .form-group label.control-label {
+    font-size: 12px;
+    color: #7a7a7a;
+    font-weight: 300;
+}
+
+.XiboFilter .form-group .bootstrap-select.form-control .btn {
+    padding-left: 0;
+}
+.XiboFilter .bootstrap-select.btn-group .dropdown-toggle .caret {
+    right: 2px;
+}
+.XiboFilter .form-group .form-control,
+.XiboFilter input[type='text'].form-control,
+.XiboFilter .form-control .btn.btn-default,
+.XiboFilter .bootstrap-tagsinput.form-control {
     border: none;
     border-bottom: 1px solid #dcdcdc;
     background: transparent;
@@ -99,15 +241,307 @@ input[type='text'].form-control,
     font-size: 13px;
     color: #545454;
     height: 30px;
+    min-width: 120px;
 }
 
 #layouts_wrapper .row:first-child {
     background: #e6ecee;
     margin: 0;
-}*/
+}
+
+/***************************************Badge********************************************/
+.badge {
+    position: relative;
+    top: -10px;
+    left: -15px;
+    font-size: 10px;
+    font-weight: normal;
+    padding: 3px 5px;
+}
+.badge.red {
+    background: #ee5b5c;
+}
+
+/*****************************************Modal******************************************/
+.modal .modal-dialog .modal-header {
+    padding: 10px 15px;
+}
+.modal .modal-dialog .modal-title {
+    font-size: 14px;
+    color: #444;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.modal .modal-dialog .modal-footer .btn {
+    min-width: 72px;
+}
+.modal .modal-dialog .modal-footer .btn {
+    padding: 4px 12px;
+    border-radius: 3px;
+    border: 1px solid #d9d9d9;
+}
+.modal .modal-dialog .modal-footer .btn.btn-primary {
+    background: #2b77d6;
+}
+/*****************************************Form******************************************/
+.form-group .control-label {
+    text-align: left;
+}
+
+.form-group .form-control {
+    height: 32px;
+    border-radius: 3px;
+    border: 1px solid #d9d9d9;
+    box-shadow: none;
+}
+.form-group .help-block {
+    font-size: 11px;
+    color: #808080;
+    margin-bottom: 0;
+}
+
+.form-group .checkbox ~ .help-block {
+    margin-top: 0;
+    font-size: 13px;
+}
+
+.form-group .checkbox label {
+    color: #444;
+}
+
+ .dateTimePicker.starttime-control div[class^='col']:before {
+     content: '\f073';
+    font-family: 'FontAwesome';
+    position: absolute;
+    color: #2b77d6;
+    top: 5px;
+    left: 188px;
+    font-size: 16px;
+ }
+
+  .dateTimePicker.starttime-control div[class^='col']:after {
+    font-family: 'FontAwesome';
+    position: absolute;
+    color: #2b77d6;
+    top: 4px;
+    content: '\f017';
+    left: 385px;
+    font-size: 18px;
+  }
+  /**********select box *************/
+  .form-group .bootstrap-select.form-control {
+      border: none;
+  }
+
+  .form-group .bootstrap-select.form-control .btn {
+      padding: 5px 25px 5px 12px;
+  }
+   .form-group .bootstrap-select.form-control .btn:hover {
+       background: transparent;
+   }
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: none !important;
+}
+
+.custom-dropdown {
+    position: relative;
+}
+.custom-dropdown select {
+  background-color: #24b251;
+  color: #fff;
+  font-size: inherit;
+  padding: 6px 2px 5px 24px;
+  padding-right: 2.5em;	
+  border: 0;
+  margin: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  height: 28px;
+  /*Hiding the select arrow for firefox*/
+  -moz-appearance: none;
+  /*Hiding the select arrow for chrome*/
+  -webkit-appearance:none;
+  /*Hiding the select arrow default implementation*/
+  appearance: none;
+}
+
+/*Hiding the select arrow for IE10*/
+.custom-dropdown select::-ms-expand {
+    display: none;
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.custom-dropdown option {
+    padding: 4px;
+    background: #fff;
+    color: #545454;
+    height: 28px;
+}
+.custom-dropdown::after { /*  Custom dropdown arrow */
+  content: '\f0d7';
+  color: #fff;
+  font-family: 'FontAwesome';
+  position: absolute;
+  right: 8px;
+  top: 0;
+}
+
+.custom-dropdown::before { /*  Custom dropdown arrow cover */
+  content: '\f01e';
+  color: #fff;
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: -1px;
+  left: 6px;
+}
+
+/*****************************************Checkbox******************************************/
+.radio label, .checkbox label {
+    padding-left: 0;
+}
+
+input[type='checkbox'], .radio{
+  height: 14px;
+  width: 14px;
+  position: relative !important;
+  cursor: pointer;
+  top: 3px;
+}
+
+input[type='checkbox']:after, .radio:after{
+  content: '\f00c';
+  font-family: 'FontAwesome';
+  color: #fff;
+  display: block;
+  background: white;
+  pointer-events: none;
+  font-size: 10px;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 14px;
+  width: 14px;
+  transition: .25s all ease-in-out;
+  border-radius: 3px;
+  line-height: 13px;
+  border: 1px solid #545454;
+  padding-left: 1px;
+
+}
+.radio:after{ border-radius: 50%; }
+input[type='checkbox']:checked:after, .radio:checked:after {
+  background-color: #545454;
+}
+
+.checkbox input[type="checkbox"] {
+    margin: 0 4px 0 0;
+}
+
+.XiboFilter .form-group .checkbox .form-control {
+    height: 14px;
+    width: 14px;
+    min-width: initial;
+    top: 0;
+}
 
 /*****************************************Button******************************************/
-/*.dt-buttons .dt-button {
+.btn-xibo {
+    border-radius: 3px;
+    font-size: 14px;
+    color: #fafafa;
+}
+.btn-xibo-default {
+    background: white;
+    color: #545454;
+    padding: 4px 12px;
+}
+.btn-xibo-primary {
+    background-color: #2b77d6;
+}
+.btn-xibo-second {
+    background-color: #24b251;
+}
+.btn-add-notification:before {
+    content: '\f055';
+    font-family: 'FontAwesome';
+    margin-right: 6px;
+}
+
+.nav > li > a.btn-add-notification, 
+.nav > li > a.btn-add-notification:hover {
+    background: #24b251 !important;
+    color: #fafafa;
+}
+
+.tab-content .tab-pane .btn{
+    padding: 5px 15px;
+}
+.tab-content .btn-save {
+    padding: 4px 15px;
+    min-width: 72px;
+    background-color: #2b77d6;
+    color: #fafafa;
+}
+
+.nav-pills li.btn {
+    border-radius: 3px;
+    font-size: 14px;
+    color: #fafafa;
+    line-height: unset;
+    padding: 0;
+    border: none;
+}
+
+.tab-content .btn.btn-success,
+.nav-pills li.btn.btn-success {
+    background-color: #24b251;
+}
+
+.tab-content .btn.btn-info,
+.nav-pills li.btn.btn-info {
+    background-color: #2b77d6;
+}
+.btn-function {
+    float: right;
+    margin-bottom: 4px;
+}
+.auto-refresh-box {
+    float: left;
+    margin-left: 0 !important;
+}
+.auto-refresh-box select{
+   height: 26px;
+}
+
+.btn-auto-refresh {
+    background: #24b251;
+    cursor: pointer;
+    color: #fff;
     position: relative;
-    top: 3px;
-}*/
+    border: 1px solid #24b251;
+    padding: 3.5px 12px 3.75px 28px;
+    border-radius: 2px;
+    display: inline-block;
+    width: 60px;
+}
+.btn-auto-refresh:hover
+ {
+    background: #29cc5c;
+    border: 1px solid #29cc5c;
+    text-shadow: none;
+}
+
+.btn-auto-refresh:before {
+    content: '\f01e';
+    font-family: 'FontAwesome';
+    position: absolute;
+    left: 8px;
+    top: 5px;
+}

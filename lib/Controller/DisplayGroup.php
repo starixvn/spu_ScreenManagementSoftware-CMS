@@ -1625,6 +1625,23 @@ class DisplayGroup extends Base
             'commands' => $this->commandFactory->query()
         ]);
     }
+    
+    public function commandFormForMultiple($ids)
+    {
+        $displayGroupIds = explode(',', $ids);
+        $displayGroup = $this->displayGroupFactory->getById($displayGroupIds[0]);
+        
+        if (!$this->getUser()->checkEditable($displayGroup))
+            throw new AccessDeniedException();
+
+        $this->getState()->template = 'displaygroup-form-command-multiple';
+        $this->getState()->setData([
+            'displayGroup' => $displayGroup,
+            'displayGroupIds' => $ids,
+            'screenQuantity' => count($displayGroupIds),
+            'commands' => $this->commandFactory->query()
+        ]);
+    }
 
     /**
      * @param $displayGroupId
@@ -1680,6 +1697,68 @@ class DisplayGroup extends Base
         $this->getState()->hydrate([
             'httpStatus' => 204,
             'message' => sprintf(__('Command Sent to %s'), $displayGroup->displayGroup),
+            'id' => $displayGroup->displayGroupId
+        ]);
+    }
+    
+    public function commandForMultiple($ids)
+    {
+        $displayGroupIds = explode(',', $ids);
+        $successScreens = 0;
+
+        foreach ($displayGroupIds as $displayGroupId) {
+            try {
+                $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
+
+                if (!$this->getUser()->checkEditable($displayGroup))
+                    throw new AccessDeniedException();
+
+                $command = $this->commandFactory->getById($this->getSanitizer()->getInt('commandId'));
+                $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
+
+                $this->playerAction->sendAction($displays, (new CommandAction())->setCommandCode($command->code));
+
+                // Update the flag
+                foreach ($displays as $display) {
+                    /* @var \Xibo\Entity\Display $display */
+                    $display->lastCommandSuccess = 0;
+                    $display->save(['validate' => false, 'audit' => false]);
+                }
+                $successScreens += 1;
+            } catch (Exception $ex) {
+                $this->getLog()->error($ex);
+            }
+        }
+        
+        // Return
+            $this->getState()->hydrate([
+                'httpStatus' => 204,
+                'message' => sprintf(__("Command Sent to %s screens"), $successScreens)
+            ]);
+    }
+    
+    public function restart($displayGroupId)
+    {
+        $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
+
+        if (!$this->getUser()->checkEditable($displayGroup))
+            throw new AccessDeniedException();
+
+        $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
+
+        $this->playerAction->sendAction($displays, (new CommandAction())->setCommandCode('RestartClient'));
+
+        // Update the flag
+        foreach ($displays as $display) {
+            /* @var \Xibo\Entity\Display $display */
+            $display->lastCommandSuccess = 0;
+            $display->save(['validate' => false, 'audit' => false]);
+        }
+
+        // Return
+        $this->getState()->hydrate([
+            'httpStatus' => 204,
+            'message' => sprintf(__('Restart Client Command Sent to %s'), $displayGroup->displayGroup),
             'id' => $displayGroup->displayGroupId
         ]);
     }

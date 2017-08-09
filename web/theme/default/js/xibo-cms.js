@@ -29,7 +29,6 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
 });
 
 $(document).ready(function() {
-
     buttonsTemplate = null;
 
     // Code from: http://stackoverflow.com/questions/7585351/testing-for-console-log-statements-in-ie/7585409#7585409
@@ -225,6 +224,20 @@ function XiboInitialise(scope) {
     $(scope + ' .dropdown-menu').on('click', function(e) {
         if($(this).hasClass('dropdown-menu-form')) {
             e.stopPropagation();
+        }
+    });
+
+    $('.btn.dropdown-toggle').on('click', function(e) {
+        //$(this).parent().addClass('dropup');
+        var dropdown =  $(this).next(),
+            heightDropdown = dropdown.height(),
+            paddingDropdown = parseInt(dropdown.css('padding-top')) + parseInt(dropdown.css('padding-bottom')),
+            totalHeightDropdown = heightDropdown + paddingDropdown + 2 + 10,
+            mouseY = e.pageY,
+            menuVisY = $(window).height() - (mouseY + totalHeightDropdown);
+
+        if(menuVisY < 10) {
+            $(this).parent().addClass('dropup');
         }
     });
 
@@ -594,8 +607,7 @@ function dataTableAddButtons(table, filter) {
  * @param {Object} sourceObj
  * @param {Object} data
  */
-function XiboFormRender(sourceObj, data) {
-    
+function XiboFormRender(sourceObj, data) {    
     var formUrl = "";
     if (typeof sourceObj === "string" || sourceObj instanceof String) {
         formUrl = sourceObj;
@@ -677,6 +689,9 @@ function XiboFormRender(sourceObj, data) {
 
                             if (i == count) {
                                 extrabutton.addClass('btn-primary save-button');
+                            }
+                            else if(extrabutton.text() === 'Help'){
+                                extrabutton.addClass('hide-table');
                             }
                             else {
                                 extrabutton.addClass('btn-default');
@@ -836,6 +851,18 @@ function XiboMultiSelectFormRender(button) {
             matches.push($(this));
         }
     });
+    
+    if(buttonId === 'display_button_schedulenow_multiple')
+    {
+        SMSHandleShowFormForMultiple(matches);        
+        return;
+    }
+    
+    if(buttonId === 'displaygroup_button_command')
+    {
+        SMSHandleShowFormForMultiple(matches);        
+        return;
+    }
 
     var message;
 
@@ -960,6 +987,35 @@ function XiboMultiSelectFormRender(button) {
 
     footer.append(extrabutton);
 
+}
+
+function SMSHandleShowFormForMultiple(items)
+{
+    if(items.length > 0)
+    {
+        var url = $(items[0]).data().commitUrl;
+        var data = [];
+        for(var i = 0; i < items.length; i++)
+        {
+            data.push($(items[i]).data().commitId);
+        }
+        
+        XiboFormRender(url.replace(':ids', data.join(',')));
+    }
+    else
+    {
+        // Open a Dialog containing all the items we have identified.
+        var dialog = bootbox.dialog({
+                message: translations.multiselectNoItemsMessage,
+                title: translations.multiselect,
+                animate: false
+            });
+
+        // Append a footer to the dialog
+        var footer = $("<div>").addClass("modal-footer");
+        dialog.find(".modal-content").append(footer);
+        footer.append($('<button class="btn">').html(translations.close).addClass('btn-default'));
+    }
 }
 
 function XiboHelpRender(url) {
@@ -1368,4 +1424,26 @@ function ToggleFilterView(div) {
     else {
         $(div).fadeOut("slow");
     }
+}
+
+function SetCookie(cname, cvalue, exminutes) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exminutes * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function GetCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
