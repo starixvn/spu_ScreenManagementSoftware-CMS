@@ -412,6 +412,7 @@ input[type='checkbox'], .radio{
   width: 14px;
   position: relative !important;
   cursor: pointer;
+  top: 3px;
 }
 
 input[type='checkbox']:after, .radio:after{
@@ -447,6 +448,7 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     height: 14px;
     width: 14px;
     min-width: initial;
+    top: 0;
 }
 
 /*****************************************Button******************************************/
