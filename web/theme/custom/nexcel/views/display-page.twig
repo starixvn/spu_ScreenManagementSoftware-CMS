@@ -75,7 +75,9 @@
 
 {% block javaScript %}
     <script type="text/javascript">
-        var table = $("#displays").DataTable({
+        var intervalId, refreshTime = -1;  
+        function InitDataTable() {    
+            var table = $("#displays").DataTable({
                 "dom": '<"auto-refresh-box"><"btn-function">t<"bottom"ipl>',
                 "language": dataTablesLanguage,
                 serverSide: true, stateSave: true,
@@ -242,12 +244,13 @@
                 ]
             });
 
-        table.on('draw', dataTableDraw);
-        table.on('processing.dt', dataTableProcessing);
-        dataTableAddButtons(table, $('#displays_wrapper').find('.btn-function'));
-        
-        var intervalId, refreshTime = -1;        
+            table.on('draw', dataTableDraw);
+            table.on('processing.dt', dataTableProcessing);
+            dataTableAddButtons(table, $('#displays_wrapper').find('.btn-function'));
+        }
+              
         $(document).ready(function() {
+            InitDataTable();
             $('div.auto-refresh-box').html('<span id="lblAutoRefresh" class="btn-auto-refresh">-</span>\
                                                 <select id="autoRefresh">\
                                                         <option value="-1">No Refresh</option>\
@@ -259,6 +262,7 @@
             $( "#autoRefresh" ).change(function() {
                 $('#lblAutoRefresh').text($('#autoRefresh').val() + 's')
                 refreshTime = $('#autoRefresh').val();
+                SetCookie("RefreshScreenDataTime",refreshTime,1440);
                 if (intervalId != null) {
                     clearInterval(intervalId);
                 }
@@ -296,16 +300,24 @@
                             $('#lblAutoRefresh').text(refreshTime + 's');
                         }
                         else if (refreshTime == 0) {
-                            table.ajax.reload(null, false);
+                            var dataTable = $('#displays').DataTable();
+                            dataTable.ajax.reload(null, false);
                             refreshTime = $('#autoRefresh').val();
                             clearInterval(intervalId);
                         }    
                     }, 1000);
                 }
+                
+                if (GetCookie("RefreshScreenDataTime") != "") {
+                    var time = GetCookie("RefreshScreenDataTime");
+                    $('#autoRefresh').val(time);
+                    $( "#autoRefresh" ).change();
+                }
             });                     
             
             $( "#lblAutoRefresh" ).click(function() {                
-                table.ajax.reload(null, false);
+                var dataTable = $('#displays').DataTable();
+                dataTable.ajax.reload(null, false);
             });
         });               
     </script>

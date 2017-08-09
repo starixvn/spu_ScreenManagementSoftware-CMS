@@ -526,7 +526,7 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     color: #fff;
     position: relative;
     border: 1px solid #24b251;
-    padding: 3px 12px 4px 28px;
+    padding: 3.5px 12px 3.75px 28px;
     border-radius: 2px;
     display: inline-block;
     width: 60px;
