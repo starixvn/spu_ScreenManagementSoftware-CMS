@@ -28,3 +28,6 @@ INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`,
 
 INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
 (902, 'SMS_CLIENT_FILENAME', 'SMSClientInstaller.zip', 'text', 'The upgrade package name.', NULL, 'upgrade', 1, 'Upgrade Filename', 'required', 10, '', 1, 'string');
+
+ALTER TABLE `display`
+ADD `shop` varchar(200) NULL;

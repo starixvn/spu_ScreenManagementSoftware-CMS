@@ -45,6 +45,10 @@ It is done, I mean this twig is probably fine, the 'name' in the settings at the
                             {{ forms.input("display", title, display.display, helpText, "", "required") }}
                         {% endif %}
                 
+                        {% set title %}{% trans "Shop" %}{% endset %}
+                        {% set helpText %}{% trans "Input the shop name (follow the SOP)." %}{% endset %}
+                        {{ forms.input("shop", title, display.shop, helpText) }}
+                        
                         {% set title %}{% trans "Display's Hardware Key" %}{% endset %}
                         {% set helpText %}{% trans "A unique identifier for this display." %}{% endset %}
                         {{ forms.input("license", title, display.license, helpText, "", "required", "", false) }}

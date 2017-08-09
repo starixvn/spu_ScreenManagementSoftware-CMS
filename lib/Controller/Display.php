@@ -414,6 +414,7 @@ class Display extends Base
         $filter = [
             'displayId' => $this->getSanitizer()->getInt('displayId'),
             'display' => $this->getSanitizer()->getString('display'),
+            'shop' => $this->getSanitizer()->getString('shop'),
             'macAddress' => $this->getSanitizer()->getString('macAddress'),
             'license' => $this->getSanitizer()->getString('hardwareKey'),
             'displayGroupId' => $this->getSanitizer()->getInt('displayGroupId'),
@@ -944,7 +945,8 @@ class Display extends Base
         // Update properties
         if ($this->getConfig()->GetSetting('DISPLAY_LOCK_NAME_TO_DEVICENAME') == 0)
             $display->display = $this->getSanitizer()->getString('display');
-
+        
+        $display->shop = $this->getSanitizer()->getString('shop');
         $display->description = $this->getSanitizer()->getString('description');
         $display->auditingUntil = $this->getSanitizer()->getDate('auditingUntil');
         $display->defaultLayoutId = $this->getSanitizer()->getInt('defaultLayoutId');

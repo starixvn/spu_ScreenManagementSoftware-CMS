@@ -21,14 +21,11 @@
                             {% set title %}{% trans "Name" %}{% endset %}
                             {{ inline.input("display", title) }}
 
-                            {% set title %}{% trans "Mac Address" %}{% endset %}
-                            {{ inline.input("macAddress", title) }}
+                            {% set title %}{% trans "Shop" %}{% endset %}
+                            {{ inline.input("shop", title) }}
 
                             {% set title %}{% trans "Display Group" %}{% endset %}
                             {{ inline.dropdown("displayGroupId", "single", title, "", [{displayGroupId:null, displayGroup:""}]|merge(displayGroups), "displayGroupId", "displayGroup") }}
-
-                            {% set title %}{% trans "Display Profile" %}{% endset %}
-                            {{ inline.dropdown("displayProfileId", "single", title, "", [{displayProfileId:null, name:""}]|merge(displayProfiles), "displayProfileId", "name") }}
                         </form>
                     </div>
                 </div>
@@ -40,7 +37,9 @@
                                 <th>{% trans "Display" %}</th>
                                 <th>{% trans "Status" %}</th>
                                 <th>{% trans "Authorised?" %}</th>
+                                <th>{% trans "Logged In" %}</th>
                                 <th>{% trans "Current Layout" %}</th>
+                                <th>{% trans "Shop" %}</th>
                                 <th>{% trans "Storage Available" %}</th>
                                 <th>{% trans "Storage Total" %}</th>
                                 <th>{% trans "Storage Free %" %}</th>
@@ -48,7 +47,6 @@
                                 <th>{% trans "Default Layout" %}</th>
                                 <th>{% trans "Interleave Default" %}</th>
                                 <th>{% trans "Email Alert" %}</th>
-                                <th>{% trans "Logged In" %}</th>
                                 <th>{% trans "Last Accessed" %}</th>
                                 <th>{% trans "Display Profile" %}</th>
                                 <th>{% trans "Version" %}</th>
@@ -142,7 +140,9 @@
                         }
                     },
                     {"data": "licensed", "render": dataTableTickCrossColumn},
-                    {"data": "currentLayout", "visible": false},
+                    {"data": "loggedIn", "render": dataTableTickCrossColumn},
+                    {"data": "currentLayout"},
+                    {"data": "shop"},
                     {
                         "data": "storageAvailableSpace",
                         "visible": false,
@@ -168,8 +168,7 @@
                     {"data": "defaultLayout", "visible": false},
                     {"data": "incSchedule", "render": dataTableTickCrossColumn, "visible": false},
                     {"data": "emailAlert", "render": dataTableTickCrossColumn, "visible": false},
-                    {"data": "loggedIn", "render": dataTableTickCrossColumn},
-                    {"data": "lastAccessed", "render": dataTableDateFromUnix},
+                    {"data": "lastAccessed", "render": dataTableDateFromUnix, "visible": false},
                     {"data": "displayProfile", "visible": false},
                     {
                         "name": "clientVersion",
@@ -183,7 +182,7 @@
                     },
                     {"data": "deviceName", "visible": false},
                     {"data": "clientAddress", "visible": false},
-                    {"data": "macAddress"},
+                    {"data": "macAddress", "visible": false},
                     {"data": "timeZone", "visible": false},
                     {"data": "screenShotRequested", "render": dataTableTickCrossColumn, "visible": false},
                     {

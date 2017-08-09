@@ -66,6 +66,12 @@ class Display implements \JsonSerializable
      * @var string
      */
     public $display;
+    
+    /**
+     * @SWG\Property(description="The Shop Name of this Display")
+     * @var string
+     */
+    public $shop;
 
     /**
      * @SWG\Property(description="The Description of this Display")
@@ -635,6 +641,7 @@ class Display implements \JsonSerializable
         $this->getStore()->update('
             UPDATE display
                 SET display = :display,
+                    shop = :shop,
                     defaultlayoutid = :defaultLayoutId,
                     inc_schedule = :incSchedule,
                     license = :license,
@@ -671,6 +678,7 @@ class Display implements \JsonSerializable
              WHERE displayid = :displayId
         ', [
             'display' => $this->display,
+            'shop' => $this->shop,
             'defaultLayoutId' => $this->defaultLayoutId,
             'incSchedule' => $this->incSchedule,
             'license' => $this->license,

@@ -156,6 +156,7 @@ class DisplayFactory extends BaseFactory
         $select = '
               SELECT display.displayId,
                   display.display,
+                  display.shop,
                   display.defaultLayoutId,
                   layout.layout AS defaultLayout,
                   display.license,
@@ -275,6 +276,28 @@ class DisplayFactory extends BaseFactory
                         $params['search' . $i] = ltrim(($searchName), '-');
                     } else {
                         $body .= " AND  display.display RLIKE (:search$i) ";
+                        $params['search' . $i] = $searchName;
+                    }
+                }
+            }
+        }
+        
+        // Filter by Shop Name?
+        if ($this->getSanitizer()->getString('shop', $filterBy) != null) {
+            // Convert into commas
+            foreach (explode(',', $this->getSanitizer()->getString('shop', $filterBy)) as $term) {
+
+                // convert into a space delimited array
+                $names = explode(' ', $term);
+
+                foreach ($names as $searchName) {
+                    $i++;
+                    // Not like, or like?
+                    if (substr($searchName, 0, 1) == '-') {
+                        $body .= " AND  display.shop NOT RLIKE (:search$i) ";
+                        $params['search' . $i] = ltrim(($searchName), '-');
+                    } else {
+                        $body .= " AND  display.shop RLIKE (:search$i) ";
                         $params['search' . $i] = $searchName;
                     }
                 }
