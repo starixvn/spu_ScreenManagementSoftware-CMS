@@ -1249,9 +1249,13 @@ class Display extends Base
         if (!$this->getUser()->checkViewable($display))
             throw new AccessDeniedException();
 
-        $display->authorise();
-        
-        $this->playerAction->sendAction($display, new CollectNowAction());
+        if(!$display->licensed){   
+            $display->authorise();
+            
+            if($display->loggedIn){
+                $this->playerAction->sendAction($display, new CollectNowAction());
+            }
+        }
 
         // Return
         $this->getState()->hydrate([

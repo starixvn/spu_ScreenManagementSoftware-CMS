@@ -299,7 +299,6 @@ class Campaign implements \JsonSerializable
      */
     public function save($options = [])
     {
-        
         $options = array_merge([
             'validate' => true,
             'notify' => true,
