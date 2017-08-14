@@ -280,6 +280,15 @@ class Settings extends Base
             }
 
             $this->getConfig()->ChangeSetting($setting['setting'], $value);
+            
+            if ($setting['setting'] == 'TOKEN' && $setting['value'] != $value) {
+                $layouts = $this->layoutFactory->query();
+                
+                foreach ($layouts as $layout){
+                    $layout->status = 3;
+                    $layout->xlfToDisk();
+                }
+            }
         }
 
         // Have we changed log level? If so, were we also provided the elevate until setting?

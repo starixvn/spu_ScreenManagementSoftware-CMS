@@ -960,8 +960,14 @@ class Layout implements \JsonSerializable
 
                             if ($uriInjected && $option->option == 'uri')
                                 continue;
+                            
+                            $token = '';
+                            if($option->option == 'uri'){
+                                if($this->config->GetSetting('TOKEN')){
+                                $token = '?token=' . $this->config->GetSetting('TOKEN');}
+                            }
 
-                            $optionNode = $document->createElement($option->option, $option->value);
+                            $optionNode = $document->createElement($option->option, $option->value . $token);
                             $optionsNode->appendChild($optionNode);
                         }
                     }
