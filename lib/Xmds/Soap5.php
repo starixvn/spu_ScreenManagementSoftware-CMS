@@ -186,7 +186,7 @@ class Soap5 extends Soap4
                 $this->display = $display;
                 $display->display = $displayName;
                 $display->auditingUntil = 0;
-                $display->defaultLayoutId = 4;
+                $display->defaultLayoutId = $this->getConfig()->GetSetting('DEFAULT_LAYOUT');
                 $display->license = $hardwareKey;
                 $display->licensed = 0;
                 $display->incSchedule = 0;
