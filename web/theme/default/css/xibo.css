@@ -918,3 +918,13 @@ ul li.active.tab-design:hover a {
     width: auto;
     padding-right: 0;
 }
+
+.resource-usage-alert
+{
+    color: #FF0000;
+}
+
+.resource-usage-warning
+{
+    color: #00FF00;
+}

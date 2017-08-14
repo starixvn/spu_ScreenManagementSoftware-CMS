@@ -119,7 +119,7 @@ class ClientResourceUsage implements \JsonSerializable
 
     private function getByDisplayId($displayId)
     {
-        $result = $this->getStore()->select('SELECT * FROM clientresourceusage WHERE displayid = :displayid', [
+         $result = $this->getStore()->select('SELECT * FROM clientresourceusage WHERE displayid = :displayid', [
             'displayid' => $this->displayId
         ]);
         

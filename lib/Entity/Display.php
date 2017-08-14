@@ -356,6 +356,16 @@ class Display implements \JsonSerializable
      * @var ScheduleFactory
      */
     private $scheduleFactory;
+    
+    /**
+     * @var $cpuUsage
+     */
+    public $cpuUsage;
+    
+    /**
+     * @var $ramUsage
+     */
+    public $ramUsage;
 
     /**
      * Entity constructor.
@@ -377,6 +387,8 @@ class Display implements \JsonSerializable
         $this->displayGroupFactory = $displayGroupFactory;
         $this->displayProfileFactory = $displayProfileFactory;
         $this->displayFactory = $displayFactory;
+        $this->cpuUsage = 0;
+        $this->ramUsage = 0;
 
         // Initialise extra validation rules
         v::with('Xibo\\Validation\\Rules\\');

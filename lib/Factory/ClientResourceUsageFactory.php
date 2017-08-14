@@ -31,7 +31,7 @@ use Xibo\Service\SanitizerServiceInterface;
 use Xibo\Storage\StorageServiceInterface;
 
 /**
- * Class DisplayFactory
+ * Class ClientResourceUsageFactory
  * @package Xibo\Factory
  */
 class ClientResourceUsageFactory extends BaseFactory
@@ -48,8 +48,8 @@ class ClientResourceUsageFactory extends BaseFactory
     }
 
     /**
-     * Create Empty Display Object
-     * @return Display
+     * Create Empty ClientResourceUsage Object
+     * @return ClientResourceUsage
      */
     public function create($displayId, $cpuUsage, $ramTotal, $ramAvailable)
     {
@@ -57,12 +57,16 @@ class ClientResourceUsageFactory extends BaseFactory
     }
 
     /**
-     * @param array $sortOrder
-     * @param array $filterBy
-     * @return Display[]
+     * @param string $displayIds
+     * @return ClientResourceUsage[]
      */
-    public function query($sortOrder = null, $filterBy = null)
+    public function getByDisplayIds($displayIds)
     {
-        return NULL;
+        $queryString = 'SELECT displayId, MAX( logdate ) , cpuUsage, ramAvailable, ramTotal
+            FROM `xibo`.`clientresourceusage`
+            WHERE displayId IN ('.$displayIds.') GROUP BY displayId';
+        $result = $this->getStore()->select($queryString, []);
+        
+        return $result;
     }
 }

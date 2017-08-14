@@ -34,6 +34,7 @@ use Xibo\Factory\LogFactory;
 use Xibo\Factory\MediaFactory;
 use Xibo\Factory\RequiredFileFactory;
 use Xibo\Factory\ScheduleFactory;
+use Xibo\Factory\ClientResourceUsageFactory;
 use Xibo\Helper\ByteFormatter;
 use Xibo\Helper\WakeOnLan;
 use Xibo\Service\ConfigServiceInterface;
@@ -107,6 +108,9 @@ class Display extends Base
 
     /** @var  RequiredFileFactory */
     private $requiredFileFactory;
+    
+    /** @var  ClientResourceUsageFactory */
+    private $clientResourceUsageFactory;
 
     /**
      * Set common dependencies.
@@ -130,7 +134,7 @@ class Display extends Base
      * @param DisplayEventFactory $displayEventFactory
      * @param RequiredFileFactory $requiredFileFactory
      */
-    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $store, $pool, $playerAction, $displayFactory, $displayGroupFactory, $logFactory, $layoutFactory, $displayProfileFactory, $mediaFactory, $scheduleFactory, $displayEventFactory, $requiredFileFactory)
+    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $store, $pool, $playerAction, $displayFactory, $displayGroupFactory, $logFactory, $layoutFactory, $displayProfileFactory, $mediaFactory, $scheduleFactory, $displayEventFactory, $requiredFileFactory, $clientResourceUsageFactory)
     {
         $this->setCommonDependencies($log, $sanitizerService, $state, $user, $help, $date, $config);
 
@@ -146,6 +150,7 @@ class Display extends Base
         $this->scheduleFactory = $scheduleFactory;
         $this->displayEventFactory = $displayEventFactory;
         $this->requiredFileFactory = $requiredFileFactory;
+        $this->clientResourceUsageFactory = new ClientResourceUsageFactory($store, $log, $sanitizerService); // $clientResourceUsageFactory;
     }
 
     /**
@@ -425,7 +430,33 @@ class Display extends Base
 
         // Get a list of displays
         $displays = $this->displayFactory->query($this->gridRenderSort(), $this->gridRenderFilter($filter));
-
+        
+        // Get Client's resource usage
+        $displayIdsArray = Array();
+        foreach($displays as $displayItem)
+        {
+            $displayIdsArray[] = $displayItem->displayId;
+        }
+        
+        $displayIds = implode(',', $displayIdsArray); $displayIds = $displayIds.',88';
+        $resourceUsage = $this->clientResourceUsageFactory->getByDisplayIds($displayIds);
+        foreach ($displays as $display)
+        {
+            foreach ($resourceUsage as $usage)
+            {                
+                if((int)$usage['cpuUsage'] == $display->displayId)
+                {
+                    $display->cpuUsage = (int)$usage['cpuUsage'];
+                    $display->ramUsage = (int)floor((int)$usage['ramAvailable'] / (int)$usage['ramTotal'] * 100);
+                }                
+            }
+            if($display->displayId == 5)
+            {
+                $display->cpuUsage = 80;
+                $display->ramUsage = 40;
+            }
+        }
+        
         // Get all Display Profiles
         $displayProfiles = [];
         foreach ($this->displayProfileFactory->query() as $displayProfile) {

@@ -53,6 +53,8 @@
                                 <th>{% trans "Device Name" %}</th>
                                 <th>{% trans "IP Address" %}</th>
                                 <th>{% trans "Mac Address" %}</th>
+                                <th>{% trans "CPU" %}</th>
+                                <th>{% trans "RAM" %}</th>
                                 <th>{% trans "Timezone" %}</th>
                                 <th>{% trans "Screen shot?" %}</th>
                                 <th>{% trans "Thumbnail" %}</th>
@@ -183,6 +185,8 @@
                     {"data": "deviceName", "visible": false},
                     {"data": "clientAddress", "visible": false},
                     {"data": "macAddress", "visible": false},
+                    {"data": "cpuUsage", "render": dataTableResourceUsageColumn},
+                    {"data": "ramUsage", "render": dataTableResourceUsageColumn},
                     {"data": "timeZone", "visible": false},
                     {"data": "screenShotRequested", "render": dataTableTickCrossColumn, "visible": false},
                     {

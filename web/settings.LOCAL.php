@@ -15,12 +15,12 @@ global $dbuser;
 global $dbpass;
 global $dbname;
 
-$dbhost = '10.18.200.240';
-$dbuser = 'xibologin';
-$dbpass = '1234qwer!';
-$dbname = 'xibo';
+$dbhost = 'sms-mysql';
+$dbuser = 'sms';
+$dbpass = 'sms_@1234aa';
+$dbname = 'sms';
 
-define('SECRET_KEY', '7kCmh1do7Uq4');
+define('SECRET_KEY', 'h60M9oLCyv17');
 
 // Additional Monolog handlers/processors to be registered
 // $logHandlers = [];

@@ -195,8 +195,10 @@ class DisplayFactory extends BaseFactory
                   `display`.xmrChannel,
                   `display`.xmrPubKey,
                   `display`.lastCommandSuccess, 
-                  `display`.deviceName , 
-                  `display`.timeZone
+                  `display`.deviceName, 
+                  `display`.timeZone,
+                  0 AS cpuUsage,
+                  0 AS ramUsage
               ';
 
         $body = '
@@ -396,7 +398,9 @@ class DisplayFactory extends BaseFactory
                     'mediaInventoryStatus',
                     'clientCode',
                     'screenShotRequested',
-                    'lastCommandSuccess'
+                    'lastCommandSuccess',
+                    'cpuUsage',
+                    'ramUsage'
                 ]
             ]);
         }

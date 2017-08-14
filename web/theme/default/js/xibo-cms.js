@@ -602,6 +602,24 @@ function dataTableAddButtons(table, filter) {
     $(".ColVis_MasterButton").addClass("btn");
 }
 
+function dataTableResourceUsageColumn(data, type, row) {
+    var normalValue = 30;
+    var warninglValue = 80;
+    
+    var cssClass = "";
+    if (parseInt(data) >= warninglValue)
+        cssClass = "red"; // alert
+    else if (parseInt(data) >= normalValue)
+        cssClass = "blue"; // warning
+    else
+        cssClass = ""; // normal
+
+    if(parseInt(data) == 0)
+        return "<span style='color:" + cssClass + "'>-</span>";
+    else
+        return "<span style='color:" + cssClass + "'>" + data + "</span>";
+}
+
 /**
  * Renders the formid provided
  * @param {Object} sourceObj

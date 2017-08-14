@@ -497,7 +497,8 @@ class State extends Middleware
                 $container->mediaFactory,
                 $container->scheduleFactory,
                 $container->displayEventFactory,
-                $container->requiredFileFactory
+                $container->requiredFileFactory,
+                $container->clientResourceUsageFactory
             );
         });
 
@@ -1467,6 +1468,14 @@ class State extends Middleware
 
         $container->singleton('widgetOptionFactory', function($container) {
             return new \Xibo\Factory\WidgetOptionFactory(
+                $container->store,
+                $container->logService,
+                $container->sanitizerService
+            );
+        });
+        
+        $container->singleton('clientResourceUsageFactory', function($container) {
+            return new \Xibo\Factory\ClientResourceUsageFactory(
                 $container->store,
                 $container->logService,
                 $container->sanitizerService
