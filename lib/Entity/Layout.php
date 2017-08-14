@@ -945,6 +945,7 @@ class Layout implements \JsonSerializable
                         $mediaNode->setAttribute('fileId', $media->mediaId);
                     }
 
+                    $smsWebToken = $this->config->GetSetting('TOKEN');
                     foreach ($widget->widgetOptions as $option) {
                         /* @var WidgetOption $option */
                         if (trim($option->value) === '')
@@ -961,13 +962,14 @@ class Layout implements \JsonSerializable
                             if ($uriInjected && $option->option == 'uri')
                                 continue;
                             
-                            $token = '';
-                            if($option->option == 'uri'){
-                                if($this->config->GetSetting('TOKEN')){
-                                $token = '?token=' . $this->config->GetSetting('TOKEN');}
+                            if ($smsWebToken != null && $option->option == "uri" && $option->value != "") {
+                                $authenedUri = $option->value."?token=".$smsWebToken;
+                                $optionNode = $document->createElement($option->option, $authenedUri);
                             }
-
-                            $optionNode = $document->createElement($option->option, $option->value . $token);
+                            else {
+                                $optionNode = $document->createElement($option->option, $option->value);
+                            }
+                            
                             $optionsNode->appendChild($optionNode);
                         }
                     }

@@ -283,8 +283,7 @@ class Settings extends Base
             
             if ($setting['setting'] == 'TOKEN' && $setting['value'] != $value) {
                 $layouts = $this->layoutFactory->query();
-                
-                foreach ($layouts as $layout){
+                foreach ($layouts as $layout) {
                     $layout->status = 3;
                     $layout->xlfToDisk();
                 }
