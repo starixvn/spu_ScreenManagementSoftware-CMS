@@ -236,7 +236,7 @@ class Soap5 extends Soap4
         return $this->doSchedule($serverKey, $hardwareKey, ['dependentsAsNodes' => true, 'includeOverlays' => true]);
     }
 	
-	  function CheckAndUpgradeNewVersion($currentVersion = null, $isForced = false)
+    function CheckAndUpgradeNewVersion($currentVersion = null, $isForced = false)
     {
         $this->logProcessor->setRoute('CheckAndUpgradeNewVersion');
 
@@ -268,9 +268,9 @@ class Soap5 extends Soap4
         return $file;
     }
 	
-	  function IsAuthorised($serverKey, $hardwareKey)
-	  {
-		    $this->logProcessor->setRoute('IsAuthorised');
+    function IsAuthorised($serverKey, $hardwareKey)
+    {
+        $this->logProcessor->setRoute('IsAuthorised');
 
         // Sanitize
         $serverKey = $this->getSanitizer()->string($serverKey);
@@ -290,13 +290,13 @@ class Soap5 extends Soap4
             $display = $this->displayFactory->getByLicence($hardwareKey);
             
   			    $result = $display->licensed;
-    		}
-    		catch (NotFoundException $e){
-    			throw new NotFoundException('Unable to get status');
-  		}
-  		
-  		return $result;
-	}
+        }
+        catch (NotFoundException $e){
+                throw new NotFoundException('Unable to get status');
+        }
+
+        return $result;
+    }
     
     function StoreClientCpuRamUsage($hardwareKey, $cpuUsage, $ramTotal, $ramAvailable)
     {

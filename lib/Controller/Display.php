@@ -150,7 +150,7 @@ class Display extends Base
         $this->scheduleFactory = $scheduleFactory;
         $this->displayEventFactory = $displayEventFactory;
         $this->requiredFileFactory = $requiredFileFactory;
-        $this->clientResourceUsageFactory = new ClientResourceUsageFactory($store, $log, $sanitizerService); // $clientResourceUsageFactory;
+        $this->clientResourceUsageFactory = $clientResourceUsageFactory;
     }
 
     /**
@@ -438,7 +438,7 @@ class Display extends Base
             $displayIdsArray[] = $displayItem->displayId;
         }
         
-        $displayIds = implode(',', $displayIdsArray); $displayIds = $displayIds.',88';
+        $displayIds = implode(',', $displayIdsArray);
         $resourceUsage = $this->clientResourceUsageFactory->getByDisplayIds($displayIds);
         foreach ($displays as $display)
         {
@@ -449,11 +449,6 @@ class Display extends Base
                     $display->cpuUsage = (int)$usage['cpuUsage'];
                     $display->ramUsage = (int)floor((int)$usage['ramAvailable'] / (int)$usage['ramTotal'] * 100);
                 }                
-            }
-            if($display->displayId == 5)
-            {
-                $display->cpuUsage = 80;
-                $display->ramUsage = 40;
             }
         }
         

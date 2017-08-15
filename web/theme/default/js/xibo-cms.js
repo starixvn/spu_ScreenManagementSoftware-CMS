@@ -614,7 +614,7 @@ function dataTableResourceUsageColumn(data, type, row) {
     else
         cssClass = ""; // normal
 
-    if(parseInt(data) == 0)
+    if(parseInt(data) === 0)
         return "<span style='color:" + cssClass + "'>-</span>";
     else
         return "<span style='color:" + cssClass + "'>" + data + "</span>";
