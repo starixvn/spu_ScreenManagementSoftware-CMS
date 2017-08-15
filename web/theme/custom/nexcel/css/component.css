@@ -552,6 +552,8 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     padding: 3px 12px 4px 28px;
     border-radius: 2px;
     display: inline-block;
+}
+
 .btn-auto-refresh:hover
  {
     background: #29cc5c;
@@ -565,40 +567,8 @@ input[type='checkbox']:checked:after, .radio:checked:after {
     position: absolute;
     left: 8px;
     top: 5px;
-}.btn-design-style {
-    border: 1px solid #2b77d6;
-    padding: 4px 15px;
-    border-radius: 3px;
-    font-size: 14px;
-    color: #2b77d6;
-    background: transparent;
-    display: inline-block;
+    }
 
-.btn-design-style .fa {
-    font-size: 16px;
-    margin-right: 6px;
-}
-.btn-group-feature .btn {
-    background: #2b77d6;
-    color: #fff;
-    border-radius: 3px;
-    border: none;
-    display: inline-block;
-}
-
-
- .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
-     font-size: 14px;
-     color: #545454;
- }
-
-.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
-.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on {
-    line-height: 20px;
-}
-
-.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
- .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
  .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
      font-size: 14px;
      color: #545454;
