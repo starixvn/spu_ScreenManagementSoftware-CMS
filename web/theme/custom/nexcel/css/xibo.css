@@ -1081,3 +1081,26 @@ li.active.tab-design {
 .proof-play {
     margin-top: 16px;
 }
+
+.arrayViewer.table {
+    background: #f0f0f0;
+}
+
+/************************************ Screen *************************************/
+.head-manage {
+    background: #e5f6fe;
+    border: 1px solid #84c7e6;
+    color: #0b577a;
+    font-size: 14px;
+    padding: 8px 0 4px;
+    line-height: 28px;
+    margin: 16px 0;
+}
+.head-manage .title {
+    font-size: 20px;
+    margin: 0;
+}
+
+.head-manage p {
+    margin: 0;
+}
