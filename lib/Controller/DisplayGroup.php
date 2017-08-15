@@ -1746,7 +1746,7 @@ class DisplayGroup extends Base
 
         $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
 
-        $this->playerAction->sendAction($displays, (new CommandAction())->setCommandCode('RestartClient'));
+        $this->playerAction->sendAction($displays, (new CommandAction())->setCommandCode('RestartPC'));
 
         // Update the flag
         foreach ($displays as $display) {

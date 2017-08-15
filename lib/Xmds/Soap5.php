@@ -307,7 +307,7 @@ class Soap5 extends Soap4
         try {
             $display = $this->displayFactory->getByLicence($hardwareKeySanitized);
             $clientResourceUsage = $this->clientResourceUsageFactory->create($display->displayId, $cpuUsage, $ramTotal, $ramAvailable);
-            $clientResourceUsage->insert();
+            $clientResourceUsage->add();
             
             return true;
         }

@@ -272,13 +272,16 @@ class DisplayFactory extends BaseFactory
                 $i = 0;
                 foreach ($names as $searchName) {
                     $i++;
-                    // Not like, or like?
-                    if (substr($searchName, 0, 1) == '-') {
-                        $body .= " AND  display.display NOT RLIKE (:search$i) ";
-                        $params['search' . $i] = ltrim(($searchName), '-');
-                    } else {
-                        $body .= " AND  display.display RLIKE (:search$i) ";
-                        $params['search' . $i] = $searchName;
+                    if(trim($searchName) != '')
+                    {
+                        // Not like, or like?                    
+                        if (substr($searchName, 0, 1) == '-') {
+                            $body .= " AND  display.display NOT RLIKE (:search$i) ";
+                            $params['search' . $i] = ltrim(($searchName), '-');
+                        } else {
+                            $body .= " AND  display.display RLIKE (:search$i) ";
+                            $params['search' . $i] = $searchName;
+                        }
                     }
                 }
             }
@@ -294,13 +297,16 @@ class DisplayFactory extends BaseFactory
 
                 foreach ($names as $searchName) {
                     $i++;
-                    // Not like, or like?
-                    if (substr($searchName, 0, 1) == '-') {
-                        $body .= " AND  display.shop NOT RLIKE (:search$i) ";
-                        $params['search' . $i] = ltrim(($searchName), '-');
-                    } else {
-                        $body .= " AND  display.shop RLIKE (:search$i) ";
-                        $params['search' . $i] = $searchName;
+                    if(trim($searchName) != '')
+                    {
+                        // Not like, or like?
+                        if (substr($searchName, 0, 1) == '-') {
+                            $body .= " AND  display.shop NOT RLIKE (:search$i) ";
+                            $params['search' . $i] = ltrim(($searchName), '-');
+                        } else {
+                            $body .= " AND  display.shop RLIKE (:search$i) ";
+                            $params['search' . $i] = $searchName;
+                        }
                     }
                 }
             }

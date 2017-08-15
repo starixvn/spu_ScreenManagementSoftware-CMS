@@ -429,7 +429,8 @@ class Display extends Base
         ];
 
         // Get a list of displays
-        $displays = $this->displayFactory->query($this->gridRenderSort(), $this->gridRenderFilter($filter));
+        $gridSortArray = $this->gridRenderSort();
+        $displays = $this->displayFactory->query($gridSortArray, $this->gridRenderFilter($filter));
         
         // Get Client's resource usage
         $displayIdsArray = Array();
@@ -437,18 +438,20 @@ class Display extends Base
         {
             $displayIdsArray[] = $displayItem->displayId;
         }
-        
-        $displayIds = implode(',', $displayIdsArray);
-        $resourceUsage = $this->clientResourceUsageFactory->getByDisplayIds($displayIds);
-        foreach ($displays as $display)
+        if(count($displayIdsArray) > 0)
         {
-            foreach ($resourceUsage as $usage)
-            {                
-                if((int)$usage['cpuUsage'] == $display->displayId)
-                {
-                    $display->cpuUsage = (int)$usage['cpuUsage'];
-                    $display->ramUsage = (int)floor((int)$usage['ramAvailable'] / (int)$usage['ramTotal'] * 100);
-                }                
+            $displayIds = implode(',', $displayIdsArray);
+            $resourceUsage = $this->clientResourceUsageFactory->getByDisplayIds($displayIds);
+            foreach ($displays as $display)
+            {
+                foreach ($resourceUsage as $usage)
+                {                
+                    if((int)$usage['displayId'] == $display->displayId)
+                    {
+                        $display->cpuUsage = (int)$usage['cpuUsage'];
+                        $display->ramUsage = (int)floor(((int)$usage['ramTotal'] - (int)$usage['ramAvailable']) / (int)$usage['ramTotal'] * 100);
+                    }                
+                }
             }
         }
         
@@ -696,7 +699,25 @@ class Display extends Base
                 );
             }
         }
-
+        
+        if(is_int(strpos($gridSortArray[0], 'Usage')))
+        {    
+            $order = SORT_ASC;
+            $sortOn = str_replace('`', '', $gridSortArray[0]);
+            if(is_int(strpos($sortOn, ' DESC')))
+            {    
+                $order = SORT_DESC;
+                $sortOn = str_replace(' DESC', '', $sortOn);
+            }
+            
+            $resourceUsageValues = array();
+            foreach ($displays as $key => $row) {
+                $resourceUsageValues[$key]  = $row->$sortOn;
+            }
+            
+            array_multisort($resourceUsageValues, $order, $displays);
+        }
+        
         $this->getState()->template = 'grid';
         $this->getState()->recordsTotal = $this->displayFactory->countLast();
         $this->getState()->setData($displays);

@@ -63,7 +63,7 @@ class ClientResourceUsageFactory extends BaseFactory
     public function getByDisplayIds($displayIds)
     {
         $queryString = 'SELECT displayId, MAX( logdate ) , cpuUsage, ramAvailable, ramTotal
-            FROM `xibo`.`clientresourceusage`
+            FROM `clientresourceusage`
             WHERE displayId IN ('.$displayIds.') GROUP BY displayId';
         $result = $this->getStore()->select($queryString, []);
         
