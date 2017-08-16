@@ -582,6 +582,7 @@ li.active span.round-tabs.seven {
 
 .nav-tabs > li {
     /*width: 14%;*/
+    height: 30px;
 }
 
 i.fa.fa-ban.fa-stack-2x {
@@ -1086,6 +1087,18 @@ li.active.tab-design {
     background: #f0f0f0;
 }
 
+.ui-sortable {
+    padding: 0;
+    margin: 0;
+}
+.ui-sortable li {
+    margin: 0 12px 12px 0;
+}
+
+.ui-sortable li .glyphicon {
+    color: #ee5b5c;
+    margin-left: 8px;
+}
 /************************************ Screen *************************************/
 .head-manage {
     background: #e5f6fe;

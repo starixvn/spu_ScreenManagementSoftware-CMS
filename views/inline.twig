@@ -110,7 +110,7 @@
 {% macro dropdown(name, type, title, value, options, optionId, optionValue, helpText, groupClass, validation, accessKey, callBack, dataAttributes, optionGroups) %}
     <div class="form-group {{ groupClass }}">
         <label class="control-label" for="{{ name }}" title="{{ helpText }}" accesskey="{{ accessKey }}">{{ title }}</label>
-        <div class="">
+        <div class="custom-dropdown">
             <select class="form-control" {% if type == "dropdownmulti" %}multiple{% endif %} name="{{ name }}" id="{{ name }}" {{ callBack }}
             {% if dataAttributes|length > 0 %}
             {% for attribute in dataAttributes %}
