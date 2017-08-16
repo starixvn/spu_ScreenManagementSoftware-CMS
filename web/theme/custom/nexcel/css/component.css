@@ -94,6 +94,10 @@ table.dataTable thead .sorting_desc:after {
     color: #de4839;
 }
 
+.table .fa-cloud-download {
+    color: #2b77d6;
+}
+
 .table td .btn-group .btn {
     background: transparent;
 }
