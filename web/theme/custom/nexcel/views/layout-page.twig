@@ -81,7 +81,7 @@
         var table;
         $(document).ready(function() {
             table = $("#layouts").DataTable({
-                "dom": 't<"bottom"ipl>',
+                "dom": '<"btn-function">t<"bottom"ipl>',
                 "language": dataTablesLanguage,
                 "lengthMenu": [10, 25, 50, 100, 250, 500],
                 serverSide: true,
@@ -153,7 +153,7 @@
             table.on('draw', dataTableDraw);
             table.on('draw', { form: $("#layouts").closest(".XiboGrid").find(".FilterDiv form") } ,dataTableCreateTagEvents);
             table.on('processing.dt', dataTableProcessing);
-            dataTableAddButtons(table, $('#layouts_wrapper').find('.col-sm-6').eq(1));
+            dataTableAddButtons(table, $('#layouts_wrapper').find('.btn-function'));
         });
 
         $("#layoutUploadForm").click(function() {
