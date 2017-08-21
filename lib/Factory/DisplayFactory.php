@@ -379,7 +379,18 @@ class DisplayFactory extends BaseFactory
         // Sorting?
         $order = '';
         if (is_array($sortOrder))
-            $order .= 'ORDER BY ' . implode(',', $sortOrder);
+        {
+            $order = 'ORDER BY ';
+            foreach($sortOrder as $orderFactor)
+            {      
+                if (!is_int(strpos($orderFactor, 'currentLayout')))
+                {
+                    $order .= $orderFactor.',';
+                }
+            }
+            
+            $order .= '1';
+        }
 
         $limit = '';
         // Paging
