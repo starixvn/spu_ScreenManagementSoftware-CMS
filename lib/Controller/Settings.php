@@ -305,8 +305,12 @@ class Settings extends Base
     function hanleForUpdateToken() {
         $layouts = $this->layoutFactory->query();
         foreach ($layouts as $layout) {
-            $layout->status = 3;
-            $layout->xlfToDisk();
+            try {
+                $layout->status = 3;
+                $layout->xlfToDisk();
+            } catch (Exception $ex) {
+                $this->getLog()->error($ex);
+            }
         }
     }
 }

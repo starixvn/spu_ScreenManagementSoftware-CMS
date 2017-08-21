@@ -1171,13 +1171,13 @@ li.active.tab-design {
     bottom: 90px;
     left: 235px;
 }
-.error {
+.img-box .error {
     color: #3d556c;
     font-size: 45px;
     font-weight: bold;
     text-align: center;
 }
-.error:before {
+.img-box .error:before {
     content: '404';
     display: block;
     font-size: 118px;
