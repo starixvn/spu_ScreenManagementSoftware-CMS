@@ -31,6 +31,7 @@ class ApplicationState
     public $message;
     public $success;
     public $html;
+    public $updateToken;
     public $buttons;
     public $fieldActions;
     public $dialogTitle;
@@ -97,6 +98,7 @@ class ApplicationState
         $response['fieldActions'] = $this->fieldActions;
         $response['dialogTitle'] = $this->dialogTitle;
         $response['callBack'] = $this->callBack;
+        $response['updateToken'] = $this->updateToken;
 
         $response['success'] = $this->success;
         $response['message'] = $this->message;

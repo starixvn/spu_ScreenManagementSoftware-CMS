@@ -1165,6 +1165,17 @@ function XiboSubmitResponse(response, form) {
         // Success - what do we do now?
         if (response.message != '')
             SystemMessage(response.message, true);
+            if(response.updateToken){
+                $.ajax({
+                    type: "get",
+                    url: '../admin/update/token',
+                    cache: false,
+                    dataType: "json",
+                    success: function(){        
+                        console.log('Update token successfully !');
+                    }
+                });
+            }
 
         // We might need to keep the form open
         if (apply == undefined || !apply) {

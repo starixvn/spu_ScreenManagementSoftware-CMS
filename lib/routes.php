@@ -399,6 +399,7 @@ $app->delete('/help/delete/:id', '\Xibo\Controller\Help:delete')->name('help.del
 // Settings
 //
 $app->put('/admin', '\Xibo\Controller\Settings:update')->name('settings.update');
+$app->get('/admin/update/token', '\Xibo\Controller\Settings:hanleForUpdateToken')->name('settings.update.token');
 
 //
 // Maintenance

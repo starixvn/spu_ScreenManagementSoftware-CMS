@@ -217,6 +217,9 @@ class Settings extends Base
         $currentLogLevel = null;
         $newLogLevel = null;
         $newElevateUntil = null;
+        
+        // Handle for update Token
+        $updateToken = false;
 
         // Go through each setting, validate it and add it to the array
         foreach ($settings as $setting) {
@@ -282,11 +285,7 @@ class Settings extends Base
             $this->getConfig()->ChangeSetting($setting['setting'], $value);
             
             if ($setting['setting'] == 'TOKEN' && $setting['value'] != $value) {
-                $layouts = $this->layoutFactory->query();
-                foreach ($layouts as $layout) {
-                    $layout->status = 3;
-                    $layout->xlfToDisk();
-                }
+                $updateToken = true;
             }
         }
 
@@ -298,7 +297,16 @@ class Settings extends Base
 
         // Return
         $this->getState()->hydrate([
-            'message' => __('Settings Updated')
+            'message' => __('Settings Updated'),
+            'updateToken' => $updateToken
         ]);
+    }
+    
+    function hanleForUpdateToken() {
+        $layouts = $this->layoutFactory->query();
+        foreach ($layouts as $layout) {
+            $layout->status = 3;
+            $layout->xlfToDisk();
+        }
     }
 }
