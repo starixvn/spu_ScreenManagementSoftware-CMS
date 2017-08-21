@@ -848,6 +848,7 @@ li.active.tab-design {
 
 .fault.nav-tabs > li {
     width: 14%;
+    height: initial;
 }
 
 /*** CHECKBOX **/
@@ -1116,4 +1117,153 @@ li.active.tab-design {
 
 .head-manage p {
     margin: 0;
+}
+
+/************************************ Not Found *************************************/
+.img-box {
+
+}
+
+.img-main{
+    background: url("../img/NotFound/UFO.svg") no-repeat;
+    background-size: 580px 442px;
+    width: 580px;
+    height: 442px;
+    margin: 145px auto 0;
+    position: relative;
+}
+.img-main:after, .img-main:before {
+    content: url("../img/NotFound/CLOUD.svg");
+    height: 30px;
+    position: absolute;
+}
+
+.img-main:after {
+    right: 45px;
+    top: 90px;
+   -webkit-animation: cloudmoveright 5s linear infinite; /* Safari 4.0 - 8.0 */
+    animation: cloudmoveright 5s  linear infinite;
+}
+
+.img-main:before {
+    left: 55px;
+    -webkit-animation: cloudmoveleft 5s linear infinite; /* Safari 4.0 - 8.0 */
+    animation: cloudmoveleft 5s  linear infinite;
+}
+.panel1, .panel2, .panel3 {
+     -webkit-animation: panelmove 5s linear infinite; /* Safari 4.0 - 8.0 */
+    animation: panelmove 5s  linear infinite;
+}
+.panel1{
+    position: absolute;
+    bottom: 40px;
+    left: 140px;
+}
+
+.panel2 {
+    position: absolute;
+    bottom: 65px;
+    left: 190px;
+}
+
+.panel3 {
+    position: absolute;
+    bottom: 90px;
+    left: 235px;
+}
+.error {
+    color: #3d556c;
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+}
+.error:before {
+    content: '404';
+    display: block;
+    font-size: 118px;
+    height: 135px;
+    color: #f05a29;
+    letter-spacing: 12px;
+}
+
+.error-text {
+    font-size: 22px;
+    color: #424242;
+    font-weight: 300;
+    text-align: center;
+}
+
+@-webkit-keyframes cloudmoveright {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(50px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Standard syntax */
+@keyframes cloudmoveright {
+     0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(50px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes cloudmoveleft {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-50px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Standard syntax */
+@keyframes cloudmoveleft {
+     0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-50px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes panelmove {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Standard syntax */
+@keyframes panelmove {
+     0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }

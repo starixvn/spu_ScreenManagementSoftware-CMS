@@ -600,24 +600,9 @@ input[type='checkbox']:checked:after, .radio:checked:after {
 }
 
 .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
- .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
- .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
-     font-size: 14px;
-     color: #545454;
- }
-
-.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
 .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on {
     line-height: 20px;
 }
-
-/*.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
- .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on {
-    width: 60px;
-}
-  .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {    
-        padding: 5px 12px 4px;
-  }*/
 
 /*****************************************Calendar******************************************/
  .table-condensed {

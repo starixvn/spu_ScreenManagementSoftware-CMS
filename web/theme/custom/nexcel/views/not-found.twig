@@ -1,0 +1,37 @@
+{#
+/*
+ * Spring Signage Ltd - http://www.springsignage.com
+ * Copyright (C) 2015 Spring Signage Ltd
+ * (${FILE_NAME})
+ */
+#}
+{% extends "base.twig" %}
+
+{% block content %}
+
+    {#<div class="widget">
+        <div class="widget-title">{% trans "Page not found" %}</div>
+        <div class="widget-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>{% trans "Sorry we could not find that page. Please check your URL or press back in your browser" %}</p>
+                    {{ flash.globalError }}
+                    {{ flash.message }}
+                </div>
+            </div>
+        </div>
+    </div>#}
+    <div class="img-box">
+        <div class="img-main">
+            <img src="{{ theme.uri("img/NotFound/PANEL3.svg") }}" class="panel3" height="87px">
+            <img src="{{ theme.uri("img/NotFound/PANEL2.svg") }}" class="panel2" height="66px">
+            <img src="{{ theme.uri("img/NotFound/PANEL1.svg") }}" class="panel1" height="45px">
+        </div>
+        <div class="text">
+            <p class="error">{% trans "Page not found" %}</p>
+            <div class="error-text">{% trans "Sorry we could not find that page. Please check your URL or press back in your browser" %}</div>
+        </div>
+    </div>
+
+
+{% endblock %}
