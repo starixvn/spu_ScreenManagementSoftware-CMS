@@ -400,9 +400,9 @@ function dataTableDraw(e, settings) {
             return false;
         };
 
-        // Bind a click event to our table
+        // Bind a click event to our table        
         if (target.data().initialised == undefined) {
-            target.find("tbody").on("click", "tr", function () {
+            target.find("tbody").unbind('click').on("click", "tr", function () {
                 $(this).toggleClass("selected");
                 target.data().initialised = true;
             });

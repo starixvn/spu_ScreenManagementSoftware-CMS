@@ -111,9 +111,9 @@
                                 <div class="btn-group" role="group">
                                     <a class="XiboFormButton btn-design-style" id="schedule-btn" role="button" href="{{ urlFor("schedule.now.form", {id: layout.campaignId, from: "Campaign"}) }}"><span><i class="fa fa-clock-o" aria-hidden="true"></i> {% trans "Schedule Now" %}</span></a>
                                 </div>
-                                <div class="btn-group" role="group">
+                                {#<div class="btn-group" role="group">
                                     <a class="XiboFormButton btn-design-style" role="button" href="{{ urlFor("template.from.layout.form", {id: layout.layoutId}) }}"><span><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans "Save Template" %}</span></a>
-                                </div>
+                                </div>#}
                                 {% if layout.schemaVersion < 2 %}
                                     <div class="btn-group" role="group">
                                         <a class="XiboFormButton btn-design-style" role="button" href="{{ urlFor("layout.upgrade.form", {id: layout.layoutId}) }}"><span><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans "Upgrade Layout" %}</span></a>

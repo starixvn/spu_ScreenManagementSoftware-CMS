@@ -963,7 +963,7 @@ class Layout implements \JsonSerializable
                                 continue;
                             
                             if ($smsWebToken != null && $option->option == "uri" && $option->value != "") {
-                                $authenedUri = $option->value."?token=".$smsWebToken;
+                                $authenedUri = $option->value."?sport=".$smsWebToken;
                                 $optionNode = $document->createElement($option->option, $authenedUri);
                             }
                             else {
