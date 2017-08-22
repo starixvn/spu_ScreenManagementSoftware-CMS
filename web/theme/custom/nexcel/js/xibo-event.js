@@ -31,7 +31,7 @@ var xiboNexcel = {
     }, 
 
     bindEvents: function() {
-        $('.collapse').collapse();
+        //$('.collapse').collapse();
 
         xiboNexcel.domElements.colexpIcon.click(function(e){
             if(!xiboNexcel.domElements.pageWrapper.hasClass('collapsed')){

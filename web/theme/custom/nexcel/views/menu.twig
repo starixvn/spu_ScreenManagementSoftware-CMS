@@ -5,7 +5,7 @@
                                 <span class="text">{% trans "Design" %}</span>
                                 <span class="fa fa-angle-down"></span>
                             </a>
-                            <ul class="sub-menu collapse" id="collapseDesign">
+                            <ul class="sub-menu collapse in" id="collapseDesign">
                                 <li class="menu-title collapse hidden">{% trans "Design" %}</li>
                                  {% if currentUser.routeViewable("/campaign") %}
                                 <li class="sidebar-list"><a href="{{ urlFor("campaign.view") }}"><span class="fa fa-circle-o"></span>{% trans "Campaigns" %}</a></li>
@@ -41,7 +41,7 @@
                                 <span class="text">{% trans "Displays" %}</span>
                                 <span class="fa fa-angle-down"></span>
                             </a>
-                            <ul class="sub-menu collapse" id="collapseDisplays">
+                            <ul class="sub-menu collapse in" id="collapseDisplays">
                                 <li class="menu-title collapse hidden">{% trans "Displays" %}</li>
                                 {% if currentUser.routeViewable("/display") %}
                                 <li class="sidebar-list"><a href="{{ urlFor("display.view") }}"><span class="fa fa-circle-o"></span>{% trans "Displays" %}</a></li>
@@ -79,7 +79,7 @@
                                 <span class="text">{% trans "Administration" %}</span>
                                 <span class="fa fa-angle-down"></span>
                             </a>
-                            <ul class="sub-menu collapse" id="collapseAdmin">
+                            <ul class="sub-menu collapse in" id="collapseAdmin">
                                 <li class="menu-title collapse hidden">{% trans "Administration" %}</li>
                                 {% if userMenuViewable %}
                                 <li class="sidebar-list"><a href="{{ urlFor("user.view") }}"><span class="fa fa-circle-o"></span>{% trans "Users" %}</a></li>
@@ -120,7 +120,7 @@
                                 <span class="text">{% trans "Advanced" %}</span>
                                 <span class="fa fa-angle-down"></span>
                             </a>
-                             <ul class="sub-menu collapse" id="collapseAdvance">
+                             <ul class="sub-menu collapse in" id="collapseAdvance">
                                  <li class="menu-title collapse hidden">{% trans "Advanced" %}</li>
 
                                 {% if currentUser.routeViewable("/log") %}
