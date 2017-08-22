@@ -59,10 +59,10 @@
                         {% set helpText %}{% trans "Tags for this layout - used when searching for it. Comma delimited. (1 - 250 characters)" %}{% endset %}
                         {{ forms.inputWithTags("tags", title, "", helpText) }}
 
-                        {% set title %}{% trans "Template" %}{% endset %}
+                        {#{% set title %}{% trans "Template" %}{% endset %}
                         {% set helpText %}{% trans "Optionally choose a template you have saved before." %}{% endset %}
                         {% set layouts = [{layoutId: null, layout: ""}]|merge(layouts) %}
-                        {{ forms.dropdown("layoutId", "single", title, "", layouts, "layoutId", "layout", helpText) }}
+                        {{ forms.dropdown("layoutId", "single", title, "", layouts, "layoutId", "layout", helpText) }}#}
 
                         {% set title %}{% trans "Resolution" %}{% endset %}
                         {% set helpText %}{% trans "Choose the resolution this Layout should be designed for." %}{% endset %}
