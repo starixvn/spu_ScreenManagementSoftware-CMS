@@ -1287,7 +1287,7 @@ class DisplayGroup extends Base
     public function version($displayGroupId)
     {
         $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
-         $displayGroup->setChildObjectDependencies($this->displayFactory, $this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
+        $displayGroup->setChildObjectDependencies($this->displayFactory, $this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
 
         if (!$this->getUser()->checkEditable($displayGroup))
             throw new AccessDeniedException();

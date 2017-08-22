@@ -323,7 +323,7 @@ class DisplayGroup implements \JsonSerializable
     public function assignMedia($media)
     {
         $this->load();
-
+        
         if (!in_array($media, $this->media)) {
             $this->media[] = $media;
 

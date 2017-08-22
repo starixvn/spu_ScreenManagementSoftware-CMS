@@ -34,3 +34,15 @@ ADD `shop` varchar(200) NULL;
 
 INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
 (903, 'TOKEN', '', 'text', NULL, NULL, 'configuration', 1, 'Token', '', 200, '', 1, 'string');
+
+CREATE TABLE `clientresourceusage` (
+  `displayid` int(11) NOT NULL,
+  `logdate` int(11) DEFAULT NULL,
+  `cpuusage` tinyint(4) DEFAULT NULL,
+  `ramtotal` bigint(20) DEFAULT NULL,
+  `ramavailable` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+UPDATE `module`
+SET defaultDuration = 86399
+WHERE ModuleID = 5
