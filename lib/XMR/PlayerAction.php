@@ -13,6 +13,7 @@ abstract class PlayerAction implements PlayerActionInterface
 {
     // The action
     public $action;
+    public $actionAdditionalInfo;
 
     // TTL
     public $createdDt;
@@ -49,6 +50,18 @@ abstract class PlayerAction implements PlayerActionInterface
 
         return $this;
     }
+    
+    /**
+     * Set the message actionAdditionalInfo
+     * @param int $actionAdditionalInfo
+     * @return $this
+     */
+    public final function setActionAdditionalInfo($additionalInfo = '')
+    {
+        $this->actionAdditionalInfo = $additionalInfo;
+
+        return $this;
+    }
 
     /**
      * Serialize this object to its JSON representation
@@ -57,7 +70,7 @@ abstract class PlayerAction implements PlayerActionInterface
      */
     public final function serializeToJson($include = [])
     {
-        $include = array_merge(['action', 'createdDt', 'ttl'], $include);
+        $include = array_merge(['action', 'createdDt', 'ttl', 'actionAdditionalInfo'], $include);
 
         $json = [];
         foreach (get_object_vars($this) as $key => $value) {

@@ -46,3 +46,8 @@ CREATE TABLE `clientresourceusage` (
 UPDATE `module`
 SET defaultDuration = 86399
 WHERE ModuleID = 5
+
+INSERT INTO `command` (`commandId`, `command`, `code`, `description`, `userId`) 
+VALUES (1, 'RestartPlayer', 'RestartPlayer', 'RestartPlayer', 1);
+INSERT INTO `command` (`commandId`, `command`, `code`, `description`, `userId`) 
+VALUES (2, 'UpgradeVersion', 'UpgradeVersion', 'UpgradeVersion', 1);

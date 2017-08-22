@@ -1286,7 +1286,40 @@ class DisplayGroup extends Base
      */
     public function version($displayGroupId)
     {
-        $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
+        $fileName = '';
+        try {
+            $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
+
+            if (!$this->getUser()->checkEditable($displayGroup))
+                throw new AccessDeniedException();
+
+            $command = $this->commandFactory->getById(2);
+            $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
+
+            $commandAction = (new CommandAction())->setCommandCode($command->code);
+            $commandAction->setActionAdditionalInfo($fileName);
+            $this->playerAction->sendAction($displays, $commandAction);
+
+            // Update the flag
+            foreach ($displays as $display) {
+                /* @var \Xibo\Entity\Display $display */
+                $display->lastCommandSuccess = 0;
+                $display->save(['validate' => false, 'audit' => false]);
+            }
+            $successScreens += 1;
+        } catch (Exception $ex) {
+            $this->getLog()->error($ex);
+        }
+        
+        // Return
+        $this->getState()->hydrate([
+            'httpStatus' => 204,
+            'message' => sprintf(__("Upgrade Client version for %s screens"), $successScreens)
+        ]);
+            
+        /* CODE FROM XIBO
+         * 
+         * $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
         $displayGroup->setChildObjectDependencies($this->displayFactory, $this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
 
         if (!$this->getUser()->checkEditable($displayGroup))
@@ -1303,7 +1336,6 @@ class DisplayGroup extends Base
 
         // Update each display in the group with the new version
         foreach ($this->displayFactory->getByDisplayGroupId($displayGroupId) as $display) {
-            /* @var Display $display */
             $display->versionInstructions = json_encode(['id' => $media->mediaId, 'file' => $media->storedAs]);
             $display->save(['validate' => false]);
         }
@@ -1317,6 +1349,7 @@ class DisplayGroup extends Base
             'message' => sprintf(__('Version set for %s'), $displayGroup->displayGroup),
             'id' => $displayGroup->displayGroupId
         ]);
+        */
     }
 
     /**

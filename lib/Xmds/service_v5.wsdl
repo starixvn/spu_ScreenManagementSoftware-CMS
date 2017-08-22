@@ -56,8 +56,9 @@
     <message name="GetFileResponse">
         <part name="file" type="xsd:base64Binary" />
     </message>
-	  <message name="UpgradeRequest">
+    <message name="UpgradeRequest">
         <part name="currentVersion" type="xsd:string" />
+        <part name="fileName" type="xsd:string" />
         <part name="isForced" type="xsd:boolean" />
     </message>
     <message name="UpgradeResponse">
