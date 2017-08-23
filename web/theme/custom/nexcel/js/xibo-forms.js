@@ -966,3 +966,15 @@ function regionEditFormSubmit() {
             window.location.reload();
     });
 }
+
+function changeVersionCommand() {
+    $("#commandId").change(function() {
+        var text = $("#commandId option:selected").text().trim();
+        if(text == "UpgradeVersion") {
+            $(".upgrade-version").removeClass("hidden").addClass("show");
+        }
+        else {
+            $(".upgrade-version").removeClass("show").addClass("hidden");
+        }
+    });
+}
