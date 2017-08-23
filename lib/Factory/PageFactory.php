@@ -127,6 +127,11 @@ class PageFactory extends BaseFactory
             $sql .= ' AND `asHome` = :asHome ';
         }
 
+        // SMS customize
+        $sql .= ' AND `name` NOT LIKE "application" ';
+        $sql .= ' AND `name` NOT LIKE "transition" ';        
+        $sql .= ' AND `name` NOT LIKE "dataset" ';  
+        
         // Sorting?
         $sql .= 'ORDER BY ' . implode(',', $sortOrder);
 
