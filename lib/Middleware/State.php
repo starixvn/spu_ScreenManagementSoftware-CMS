@@ -1001,6 +1001,35 @@ class State extends Middleware
                 $container->userFactory
             );
         });
+        
+        $app->container->singleton('\Xibo\Controller\ClientVersion', function($container) {
+            return new \Xibo\Controller\ClientVersion(
+                $container->logService,
+                $container->sanitizerService,
+                $container->state,
+                $container->user,
+                $container->helpService,
+                $container->dateService,
+                $container->configService,
+                $container->store,
+                $container->pool,
+                $container->userFactory,
+                $container->moduleFactory,
+                $container->tagFactory,
+                $container->clientVersionFactory,
+                $container->widgetFactory,
+                $container->permissionFactory,
+                $container->layoutFactory,
+                $container->playlistFactory,
+                $container->userGroupFactory,
+                $container->displayGroupFactory,
+                $container->regionFactory,
+                $container->dataSetFactory,
+                $container->displayFactory,
+                $container->scheduleFactory,
+                $container->dayPartFactory
+            );
+        });
     }
 
     /**
@@ -1479,6 +1508,20 @@ class State extends Middleware
                 $container->store,
                 $container->logService,
                 $container->sanitizerService
+            );
+        });
+        
+        $container->singleton('clientVersionFactory', function($container) {
+            return new \Xibo\Factory\ClientVersionFactory(
+                $container->store,
+                $container->logService,
+                $container->sanitizerService,
+                $container->user,
+                $container->userFactory,
+                $container->configService,
+                $container->permissionFactory,
+                $container->tagFactory,
+                $container->playlistFactory
             );
         });
     }

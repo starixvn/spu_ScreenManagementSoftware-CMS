@@ -129,7 +129,7 @@ class ClientVersion implements \JsonSerializable
         $this->getLog()->audit('Version', $this->version, 'Version Deleted', ['version' => $this->version]);
     }
 
-    private function add($version, $fileName, $description, $creator)
+    public function add($version, $fileName, $description, $creator)
     {
         $this->version = $version;
         $this->fileName = $fileName;
@@ -137,7 +137,7 @@ class ClientVersion implements \JsonSerializable
         $this->uploadOwner = $creator;
         $this->lastUpdateOwner = $creator;
         
-        $this->displayId = $this->getStore()->insert('
+        $this->versionId = $this->getStore()->insert('
             INSERT INTO clientversion (version, fileName, description, uploadDate, uploadOwner, lastUpdateDate, lastUpdateOwner)
               VALUES (:version, :fileName, :description, UNIX_TIMESTAMP(NOW()), :uploadOwner, UNIX_TIMESTAMP(NOW()), :lastUpdateOwner)
         ', [
@@ -149,7 +149,7 @@ class ClientVersion implements \JsonSerializable
         ]);
     }
 
-    private function edit($description, $creator, $retired)
+    public function edit($description, $creator, $retired)
     {                
         if (strlen((string)$description) > 2000) {            
             throw new InvalidArgumentException(sprintf(__('You have exceeded your maximum %d characters of version.'), 2000), 'description');

@@ -100,6 +100,10 @@
                                 {% if currentUser.routeViewable("/admin") %}
                                 <li class="sidebar-list"><a href="{{ urlFor("admin.view") }}"><span class="fa fa-circle-o"></span>{% trans "Settings" %}</a></li>
                                 {% endif %}
+                                
+                                {% if currentUser.routeViewable("/clientversion") %}
+                                <li class="sidebar-list"><a href="{{ urlFor("clientversion.view") }}"><span class="fa fa-circle-o"></span>{% trans "Client Version" %}</a></li>
+                                {% endif %}
                                 {#
                                 {% if currentUser.routeViewable("/application") %}
                                 <li class="sidebar-list"><a href="{{ urlFor("application.view") }}">{% trans "Applications" %}</a></li>

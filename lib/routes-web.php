@@ -362,3 +362,11 @@ $app->get('/task/form/add', '\Xibo\Controller\Task:addForm')->name('task.add.for
 $app->get('/task/form/edit/:id', '\Xibo\Controller\Task:editForm')->name('task.edit.form');
 $app->get('/task/form/delete/:id', '\Xibo\Controller\Task:deleteForm')->name('task.delete.form');
 $app->get('/task/form/runNow/:id', '\Xibo\Controller\Task:runNowForm')->name('task.runNow.form');
+
+//
+// client version control
+//
+$app->get('/clientversion/view', '\Xibo\Controller\ClientVersion:displayPage')->name('clientversion.view');
+$app->get('/clientversion/form/add', '\Xibo\Controller\ClientVersion:addForm')->name('clientversion.add.form');
+$app->get('/clientversion/form/edit/:id', '\Xibo\Controller\ClientVersion:editForm')->name('clientversion.edit.form');
+$app->get('/clientversion/form/delete/:id', '\Xibo\Controller\ClientVersion:deleteForm')->name('clientversion.delete.form');
