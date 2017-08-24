@@ -52,3 +52,16 @@ INSERT INTO `command` (`commandId`, `command`, `code`, `description`, `userId`)
 VALUES (1, 'RestartPlayer', 'RestartPlayer', 'RestartPlayer', 1);
 INSERT INTO `command` (`commandId`, `command`, `code`, `description`, `userId`) 
 VALUES (2, 'UpgradeVersion', 'UpgradeVersion', 'UpgradeVersion', 1);
+
+CREATE TABLE IF NOT EXISTS `clientversion` (
+  `versionId` int(11) NOT NULL AUTO_INCREMENT,
+  `version` varchar(15) NOT NULL,
+  `fileName` varchar(100) NOT NULL,
+  `description` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `uploadDate` int(11) NOT NULL,
+  `uploadOwner` int(11) NOT NULL,
+  `lastUpdateDate` int(11) DEFAULT NULL,
+  `lastUpdateOwner` int(11) DEFAULT NULL,
+  `retired` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`versionId`,`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;

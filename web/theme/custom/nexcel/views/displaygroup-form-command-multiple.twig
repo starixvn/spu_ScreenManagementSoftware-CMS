@@ -29,7 +29,7 @@
                 {% set title %}{% trans "Command" %}{% endset %}
                 {% set helpText %}{% trans "Pick a command to send to the Player. If the CMS has XMR enabled this will be sent immediately, otherwise it will show an error." %}{% endset %}               
                 {{ forms.dropdown("commandId", "single", title, "", commands, "commandId", "command", helpText) }}
-                {{ forms.dropdown("versionCommand", "single", "Version", "", commands, "versionCommand", "command", "", "hidden upgrade-version") }}
+                {{ forms.dropdown("versionFileName", "single", "Version", "", versions, "fileName", "version", "Pick a version to upgrade.", "hidden upgrade-version") }}
                 {{ forms.numberWithReadonly("multicommand", "Selected Screens", screenQuantity) }}
             </form>
         </div>

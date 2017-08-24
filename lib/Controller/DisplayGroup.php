@@ -1651,11 +1651,13 @@ class DisplayGroup extends Base
 
         if (!$this->getUser()->checkEditable($displayGroup))
             throw new AccessDeniedException();
-
+        
+        $commands = $this->commandFactory->query();
         $this->getState()->template = 'displaygroup-form-command';
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
-            'commands' => $this->commandFactory->query()
+            'commands' => $commands,
+            'versions' => $commands
         ]);
     }
     
@@ -1667,12 +1669,14 @@ class DisplayGroup extends Base
         if (!$this->getUser()->checkEditable($displayGroup))
             throw new AccessDeniedException();
 
+        $commands = $this->commandFactory->query();
         $this->getState()->template = 'displaygroup-form-command-multiple';
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
             'displayGroupIds' => $ids,
             'screenQuantity' => count($displayGroupIds),
-            'commands' => $this->commandFactory->query()
+            'commands' => $commands,
+            'versions' => $commands
         ]);
     }
 
@@ -1715,9 +1719,12 @@ class DisplayGroup extends Base
             throw new AccessDeniedException();
 
         $command = $this->commandFactory->getById($this->getSanitizer()->getInt('commandId'));
+        $fileName = $this->getSanitizer()->getString('versionFileName');
         $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
 
-        $this->playerAction->sendAction($displays, (new CommandAction())->setCommandCode($command->code));
+        $commandAction = (new CommandAction())->setCommandCode($command->code);
+        $commandAction->setActionAdditionalInfo($fileName);
+        $this->playerAction->sendAction($displays, $commandAction);
 
         // Update the flag
         foreach ($displays as $display) {
@@ -1737,8 +1744,9 @@ class DisplayGroup extends Base
     public function commandForMultiple($ids)
     {
         $displayGroupIds = explode(',', $ids);
-        $successScreens = 0;
-
+        $successScreens = 0;        
+        $fileName = $this->getSanitizer()->getString('versionFileName');
+                
         foreach ($displayGroupIds as $displayGroupId) {
             try {
                 $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
@@ -1749,7 +1757,9 @@ class DisplayGroup extends Base
                 $command = $this->commandFactory->getById($this->getSanitizer()->getInt('commandId'));
                 $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
 
-                $this->playerAction->sendAction($displays, (new CommandAction())->setCommandCode($command->code));
+                $commandAction = (new CommandAction())->setCommandCode($command->code);
+                $commandAction->setActionAdditionalInfo($fileName);
+                $this->playerAction->sendAction($displays, $commandAction);
 
                 // Update the flag
                 foreach ($displays as $display) {
