@@ -128,13 +128,10 @@ class PageFactory extends BaseFactory
         }
 
         // SMS customize
-        $sql .= ' AND `name` NOT LIKE "application" ';
-        $sql .= ' AND `name` NOT LIKE "transition" ';        
-        $sql .= ' AND `name` NOT LIKE "dataset" ';  
+        $sql .= ' AND `name` NOT IN ("application","transition","dataset","template","task","module","help")';
         
         // Sorting?
         $sql .= 'ORDER BY ' . implode(',', $sortOrder);
-
 
 
         foreach ($this->getStore()->select($sql, $params) as $row) {
