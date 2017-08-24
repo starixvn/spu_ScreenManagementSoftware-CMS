@@ -624,7 +624,7 @@ class Library extends Base
             $validExt = $this->moduleFactory->getValidExtensions(['type' => $media->mediaType]);
         }
         else
-            $validExt = $this->moduleFactory->getValidExtensions();
+            $validExt = $this->moduleFactory->getValidExtensions(['type' => 'video']);
 
         // Make sure there is room in the library
         $libraryLimit = $this->getConfig()->GetSetting('LIBRARY_SIZE_LIMIT_KB') * 1024;
