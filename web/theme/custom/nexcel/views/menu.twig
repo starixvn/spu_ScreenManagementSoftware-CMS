@@ -24,21 +24,21 @@
                      
                     {% if currentUser.routeViewable("/library") or currentUser.routeViewable("/dataset") %}
                         <li class="menu-item">
-                            <a class="menu-title" data-toggle="collapse" href="#collapseLibrary">
-                                <span class="fa fa-desktop menu-item-icon"></span>
+                            <a class="menu-title" {#data-toggle="collapse"#}{# href="#collapseLibrary" #}href="{{ urlFor("library.view") }}">
+                                <span class="fa fa-folder menu-item-icon"></span>
                                 <span class="text">{% trans "Library" %}</span>
-                                <span class="fa fa-angle-down"></span>
+                                {#<span class="fa fa-angle-down"></span>#}
                             </a>
-                            <ul class="sub-menu collapse in" id="collapseLibrary">
+                            {#<ul class="sub-menu collapse in" id="collapseLibrary">
                                 <li class="menu-title collapse hidden">{% trans "Library" %}</li>                                
                                 {% if currentUser.routeViewable("/library") %}
                                     <li class="sidebar-list"><a href="{{ urlFor("library.view") }}"><span class="fa fa-circle-o"></span>{% trans "Media" %}</a></li>
                                 {% endif %}
 
-                                {#{% if currentUser.routeViewable("/dataset") %}
+                                {% if currentUser.routeViewable("/dataset") %}
                                     <li class="sidebar-list"><a href="{{ urlFor("dataset.view") }}"><span class="fa fa-circle-o"></span>{% trans "DataSets" %}</a></li>
-                                {% endif %}#}
-                            </ul>
+                                {% endif %}
+                            </ul>#}
                         </li>
                     {% endif %}
                     
