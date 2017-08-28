@@ -187,7 +187,7 @@ class ClientVersion extends Base
 
         // Return
         $this->getState()->hydrate([
-            'message' => sprintf(__('Edited %s'), $version->versionId),
+            'message' => sprintf(__('Edited %s'), $version->version),
             'id' => $version->versionId,
             'data' => $version
         ]);
