@@ -87,6 +87,11 @@ class DisplayGroup extends Base
      * @var ScheduleFactory
      */
     private $scheduleFactory;
+    
+    /**
+     * @var ClientVersionFactory
+     */
+    private $clientVersionFactory;
 
     /**
      * Set common dependencies.
@@ -106,7 +111,7 @@ class DisplayGroup extends Base
      * @param CommandFactory $commandFactory
      * @param ScheduleFactory $scheduleFactory
      */
-    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $playerAction, $displayFactory, $displayGroupFactory, $layoutFactory, $moduleFactory, $mediaFactory, $commandFactory, $scheduleFactory)
+    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $playerAction, $displayFactory, $displayGroupFactory, $layoutFactory, $moduleFactory, $mediaFactory, $commandFactory, $scheduleFactory, $clientVersionFactory)
     {
         $this->setCommonDependencies($log, $sanitizerService, $state, $user, $help, $date, $config);
 
@@ -118,6 +123,7 @@ class DisplayGroup extends Base
         $this->mediaFactory = $mediaFactory;
         $this->commandFactory = $commandFactory;
         $this->scheduleFactory = $scheduleFactory;
+        $this->clientVersionFactory = $clientVersionFactory;
     }
 
     /**
@@ -1243,13 +1249,14 @@ class DisplayGroup extends Base
         $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
 
         // Possible media files to assign
-        $media = $this->mediaFactory->query(['name'], ['type' => 'genericfile']);
+        //$media = $this->mediaFactory->query(['name'], ['type' => 'genericfile']);        
+        $versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
 
         $this->getState()->template = 'displaygroup-form-version';
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
             'displays' => $displays,
-            'media' => $media,
+            'versions' => $versions,
             'help' => $this->getHelp()->link('DisplayGroup', 'Version')
         ]);
     }
@@ -1294,7 +1301,8 @@ class DisplayGroup extends Base
                 throw new AccessDeniedException();
 
             $command = $this->commandFactory->getById(2);
-            $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);
+            $displays = $this->displayFactory->getByDisplayGroupId($displayGroupId);            
+            $fileName = $this->getSanitizer()->getString('versionFileName');
 
             $commandAction = (new CommandAction())->setCommandCode($command->code);
             $commandAction->setActionAdditionalInfo($fileName);
@@ -1653,11 +1661,12 @@ class DisplayGroup extends Base
             throw new AccessDeniedException();
         
         $commands = $this->commandFactory->query();
+        $versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
         $this->getState()->template = 'displaygroup-form-command';
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
             'commands' => $commands,
-            'versions' => $commands
+            'versions' => $versions
         ]);
     }
     
@@ -1670,13 +1679,14 @@ class DisplayGroup extends Base
             throw new AccessDeniedException();
 
         $commands = $this->commandFactory->query();
+        $versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
         $this->getState()->template = 'displaygroup-form-command-multiple';
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
             'displayGroupIds' => $ids,
             'screenQuantity' => count($displayGroupIds),
             'commands' => $commands,
-            'versions' => $commands
+            'versions' => $versions
         ]);
     }
 

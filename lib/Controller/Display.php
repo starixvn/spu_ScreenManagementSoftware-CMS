@@ -111,6 +111,11 @@ class Display extends Base
     
     /** @var  ClientResourceUsageFactory */
     private $clientResourceUsageFactory;
+    
+    /**
+     * @var ClientVersionFactory
+     */
+    private $clientVersionFactory;
 
     /**
      * Set common dependencies.

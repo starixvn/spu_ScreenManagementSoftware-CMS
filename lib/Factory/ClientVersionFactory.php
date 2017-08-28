@@ -33,15 +33,15 @@ class ClientVersionFactory extends BaseFactory
 
         try {
             $select = '
-            SELECT 	`clientversion`.versionId,
-				`clientversion`.version,
-				`clientversion`.fileName,
-                                `clientversion`.description,
-                                `clientversion`.uploadDate,
-                                `clientversion`.retired,
-                                `clientversion`.lastUpdateOwner,
-                                `clientversion`.lastUpdateDate,
-				`clientversion`.uploadOwner ';
+            SELECT `clientversion`.versionId,
+                `clientversion`.version,
+                `clientversion`.fileName,
+                `clientversion`.description,
+                `clientversion`.uploadDate,
+                `clientversion`.retired,
+                `clientversion`.lastUpdateOwner,
+                `clientversion`.lastUpdateDate,
+                `clientversion`.uploadOwner ';
 
             $body = '
               FROM `clientversion`
