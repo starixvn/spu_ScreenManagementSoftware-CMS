@@ -37,14 +37,16 @@ class ClientVersionFactory extends BaseFactory
                 `clientversion`.version,
                 `clientversion`.fileName,
                 `clientversion`.description,
-                `clientversion`.uploadDate,
+                FROM_UNIXTIME(`clientversion`.uploadDate) AS uploadDate,
                 `clientversion`.retired,
                 `clientversion`.lastUpdateOwner,
                 `clientversion`.lastUpdateDate,
-                `clientversion`.uploadOwner ';
+                `clientversion`.uploadOwner,
+                `user`.UserName AS uploadOwnerName';
 
             $body = '
               FROM `clientversion`
+                INNER JOIN `user` on `clientversion`.uploadOwner = `user`.UserID
              WHERE 1 = 1
             ';
 
