@@ -91,9 +91,26 @@ class ClientVersion implements \JsonSerializable
     public function __construct($store, $log)
     {
         $this->setCommonDependencies($store, $log);
-
+        $this->setPermissionsClass('Xibo\Entity\ClientVersion');
+        
         // Initialise extra validation rules
         v::with('Xibo\\Validation\\Rules\\');
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->versionId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOwnerId()
+    {
+        return $this->uploadOwner;
     }
 
     /**

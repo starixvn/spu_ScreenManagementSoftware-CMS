@@ -136,7 +136,7 @@ class ClientVersion extends Base
         $version = $this->clientVersionFactory->getById($versionId);
         $this->getState()->template = 'version-form-delete';
         $this->getState()->setData([
-            'version' => $version->versionId,
+            'version' => $version,
             'help' => $this->getHelp()->link('Version', 'Delete')
         ]);
     }
@@ -163,8 +163,8 @@ class ClientVersion extends Base
     {
         $version = $this->clientVersionFactory->getById($versionId);
         
-        //if (!$this->getUser()->checkEditable($version))
-        //   throw new AccessDeniedException();
+        if (!$this->getUser()->checkEditable($version))
+           throw new AccessDeniedException();
          
         $this->getState()->template = 'client-version-form-edit';
         $this->getState()->setData([
@@ -180,8 +180,8 @@ class ClientVersion extends Base
         $version->description = $this->getSanitizer()->getString('description');
         $version->retired = $this->getSanitizer()->getCheckbox('retired');
         
-        //if (!$this->getUser()->checkEditable($version))
-        //    throw new AccessDeniedException();
+        if (!$this->getUser()->checkEditable($version))
+            throw new AccessDeniedException();
             
         $version->edit();
 
