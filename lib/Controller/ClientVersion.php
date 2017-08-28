@@ -133,12 +133,30 @@ class ClientVersion extends Base
 
     public function deleteForm($versionId)
     {
-        
+        $version = $this->clientVersionFactory->getById($versionId);
+        $this->getState()->template = 'version-form-delete';
+        $this->getState()->setData([
+            'version' => $version->versionId,
+            'help' => $this->getHelp()->link('Version', 'Delete')
+        ]);
     }
-
-    public function delete($versionId)
+    
+    function delete($versionId)
     {
-        
+        $version = $this->clientVersionFactory->getById($versionId);
+
+        if (!$this->getUser()->checkDeleteable($version))
+            throw new AccessDeniedException();
+
+        $version->delete();
+
+        // Return
+        $this->getState()->hydrate([
+            'httpStatus' => 204,
+            'message' => sprintf(__('Deleted %s'), $version->version),
+            'id' => $version->versionId,
+            'data' => $version
+        ]);
     }
     
     public function editForm($versionId)
