@@ -170,5 +170,7 @@ class ClientVersion implements \JsonSerializable
             'lastUpdateOwner' => $this->lastUpdateOwner,
             'retired' => $this->retired
         ]);
+        
+        $this->getLog()->audit('Version', $this->versionId, 'Update Version Info.', ['versionId' => $this->versionId]);
     }
 }

@@ -62,6 +62,10 @@ CREATE TABLE IF NOT EXISTS `clientversion` (
   `uploadOwner` int(11) NOT NULL,
   `lastUpdateDate` int(11) DEFAULT NULL,
   `lastUpdateOwner` int(11) DEFAULT NULL,
-  `retired` tinyint(4) NOT NULL DEFAULT '1',
+  `retired` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`versionId`,`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+
+UPDATE `pages` SET title = 'Screens' WHERE pageID = 6
+UPDATE `pages` SET title = 'Screen Groups' WHERE pageID = 22
+UPDATE `pages` SET title = 'Screen Profiles' WHERE pageID = 30
