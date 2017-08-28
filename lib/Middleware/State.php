@@ -1014,20 +1014,8 @@ class State extends Middleware
                 $container->store,
                 $container->pool,
                 $container->userFactory,
-                $container->moduleFactory,
-                $container->tagFactory,
                 $container->clientVersionFactory,
-                $container->widgetFactory,
-                $container->permissionFactory,
-                $container->layoutFactory,
-                $container->playlistFactory,
-                $container->userGroupFactory,
-                $container->displayGroupFactory,
-                $container->regionFactory,
-                $container->dataSetFactory,
-                $container->displayFactory,
-                $container->scheduleFactory,
-                $container->dayPartFactory
+                $container->permissionFactory
             );
         });
     }
@@ -1517,11 +1505,7 @@ class State extends Middleware
                 $container->logService,
                 $container->sanitizerService,
                 $container->user,
-                $container->userFactory,
-                $container->configService,
-                $container->permissionFactory,
-                $container->tagFactory,
-                $container->playlistFactory
+                $container->userFactory
             );
         });
     }

@@ -38,7 +38,9 @@ class UpgradeUploadHandler extends BlueImpUploadHandler
             
             $newFileName = $path_parts['filename'] . '_' .$contents[0]. '_' . date("Y-m-d_H:i:s") . '.zip';
             
-            rename($filePath, $path_parts['dirname'] . '\\'. $newFileName);
+            $newFilePath = $path_parts['dirname'] . '/'. $newFileName;
+            
+            rename($filePath, $newFilePath); // not working on Windows!!
             
             $upgradeItem = $controller->getClientVersionFactory()->createEmpty();
             
