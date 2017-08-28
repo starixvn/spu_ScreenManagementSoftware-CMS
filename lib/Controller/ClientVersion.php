@@ -149,6 +149,10 @@ class ClientVersion extends Base
             throw new AccessDeniedException();
 
         $version->delete();
+        
+        $upgradeFolder = $this->getConfig()->GetSetting('UPGRADE_LOCATION');
+        
+        unlink($upgradeFolder . '/' . $version->fileName);
 
         // Return
         $this->getState()->hydrate([
