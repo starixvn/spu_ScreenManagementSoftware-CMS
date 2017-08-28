@@ -113,4 +113,9 @@ class ClientVersionFactory extends BaseFactory
             throw $e;
         }
     }
+    
+    public function getById($versionId)
+    {
+        
+    }
 }

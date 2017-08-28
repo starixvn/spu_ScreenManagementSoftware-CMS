@@ -102,61 +102,41 @@ class ClientVersion extends Base
         $user = $this->getUser();
 
         // Construct the SQL
-        $mediaList = $this->clientVersionFactory->query($this->gridRenderSort(), $this->gridRenderFilter([
+        $versions = $this->clientVersionFactory->query($this->gridRenderSort(), $this->gridRenderFilter([
             'version' => $this->getSanitizer()->getString('version'),
             'retired' => $this->getSanitizer()->getInt('retired')
         ]));
 
         // Add some additional row content
-        foreach ($mediaList as $media) {
-            $media->buttons[] = array(
-                    'id' => 'content_button_edit',
-                    'url' => $this->urlFor('library.edit.form', ['id' => $media->mediaId]),
-                    'text' => __('Edit')
-                );
-
-            // Delete
-                $media->buttons[] = array(
-                    'id' => 'content_button_delete',
-                    'url' => $this->urlFor('library.delete.form', ['id' => $media->mediaId]),
-                    'text' => __('Delete')
-                );
-
-            // Permissions
-                $media->buttons[] = array(
-                    'id' => 'content_button_permissions',
-                    'url' => $this->urlFor('user.permissions.form', ['entity' => 'Media', 'id' => $media->mediaId]),
-                    'text' => __('Permissions')
-                );
-
-            // Download
-            $media->buttons[] = array(
-                'id' => 'content_button_download',
-                'linkType' => '_self', 'external' => true,
-                'url' => $this->urlFor('library.download', ['id' => $media->mediaId]) . '?attachment=' . $media->fileName,
-                'text' => __('Download')
+        foreach ($versions as $version) {
+            $version->includeProperty('buttons');            
+            
+            // Edit
+            $version->buttons[] = array( 
+                'id' => 'content_button_edit',
+                'url' => $this->urlFor('clientversion.edit.form', ['id' => $version->versionId]),
+                'text' => __('Edit')
             );
 
-            $media->buttons[] = ['divider' => true];
-
-            $media->buttons[] = array(
-                'id' => 'usage_report_button',
-                'url' => $this->urlFor('library.usage.form', ['id' => $media->mediaId]),
-                'text' => __('Usage Report')
+            // Delete
+            $version->buttons[] = array(
+                'id' => 'content_button_delete',
+                'url' => $this->urlFor('clientversion.delete.form', ['id' => $version->versionId]),
+                'text' => __('Delete')
             );
         }
 
         $this->getState()->template = 'grid';
         $this->getState()->recordsTotal = $this->clientVersionFactory->countLast();
-        $this->getState()->setData($mediaList);
+        $this->getState()->setData($versions);
     }
 
-    public function deleteForm($mediaId)
+    public function deleteForm($versionId)
     {
         
     }
 
-    public function delete($mediaId)
+    public function delete($versionId)
     {
         
     }
