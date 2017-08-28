@@ -1,0 +1,41 @@
+{#
+/*
+ * Spring Signage Ltd - http://www.springsignage.com
+ * Copyright (C) 2015 Spring Signage Ltd
+ * (${FILE_NAME})
+ */
+
+#}
+
+{% extends "form-base.twig" %}
+{% import "forms.twig" as forms %}
+
+{% block formTitle %}
+    {% trans "Edit Client Version" %}
+{% endblock %}
+
+{% block formButtons %}
+    {% trans "Help" %}, XiboHelpRender("{{ help }}")
+    {% trans "Cancel" %}, XiboDialogClose()
+    {% trans "Save" %}, $("#clientVersionEditForm").submit()
+{% endblock %}
+
+{% block formHtml %}
+    <div class="row">
+        <div class="col-md-12">
+            <form id="clientVersionEditForm" class="XiboForm form-horizontal" method="put" action="{{ urlFor("clientversion.edit", {"id": version.versionId}) }}" data-version-id="{{ version.versionId }}">
+                {% set title %}{% trans "Version" %}{% endset %}
+                {% set helpText %}{% trans "The version of this item" %}{% endset %}
+                {{ forms.disabled("version", title, version.version, helpText) }}
+
+                {% set title %}{% trans "Retire this version?" %}{% endset %}
+                {% set helpText %}{% trans "Retired version remains on existing this page but is not available to Send Commands." %}{% endset %}
+                {{ forms.checkbox("retired", title, version.retired, helpText) }}
+
+                {% set title %}{% trans "Description" %}{% endset %}
+                {% set helpText %}{% trans "Description of this version. This should be a textual description of what version supported." %}{% endset %}
+                {{ forms.textarea("description", title, version.description, helpText) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

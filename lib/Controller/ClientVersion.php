@@ -4,7 +4,7 @@ namespace Xibo\Controller;
 
 use Stash\Interfaces\PoolInterface;
 
-essDeniedException;
+use Xibo\Exception\AccessDeniedException;
 use Xibo\Exception\ConfigurationException;
 use Xibo\Factory\ClientVersionFactory;
 use Xibo\Factory\PermissionFactory;
@@ -139,6 +139,40 @@ class ClientVersion extends Base
     public function delete($versionId)
     {
         
+    }
+    
+    public function editForm($versionId)
+    {
+        $version = $this->clientVersionFactory->getById($versionId);
+        
+        //if (!$this->getUser()->checkEditable($version))
+        //   throw new AccessDeniedException();
+         
+        $this->getState()->template = 'client-version-form-edit';
+        $this->getState()->setData([
+            'version' => $version,
+            'help' => $this->getHelp()->link('Upgrade Client', 'Edit')
+        ]);
+    }
+
+    public function edit($versionId)
+    {
+        $version = $this->clientVersionFactory->getById($versionId);
+        
+        $version->description = $this->getSanitizer()->getString('description');
+        $version->retired = $this->getSanitizer()->getCheckbox('retired');
+        
+        //if (!$this->getUser()->checkEditable($version))
+        //    throw new AccessDeniedException();
+            
+        $version->edit();
+
+        // Return
+        $this->getState()->hydrate([
+            'message' => sprintf(__('Edited %s'), $version->versionId),
+            'id' => $version->versionId,
+            'data' => $version
+        ]);
     }
 
     public function add($options = [])

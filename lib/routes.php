@@ -462,3 +462,5 @@ $app->post('/task/:id/run', '\Xibo\Controller\Task:runNow')->name('task.runNow')
 
 $app->post('/clientversion', '\Xibo\Controller\ClientVersion:add')->name('clientversion.add');
 $app->get('/clientversion', '\Xibo\Controller\ClientVersion:grid')->name('clientversion.search');
+$app->put('/clientversion/:id', '\Xibo\Controller\ClientVersion:edit')->name('clientversion.edit');
+$app->delete('/clientversion/:id', '\Xibo\Controller\ClientVersion:delete')->name('clientversion.delete');

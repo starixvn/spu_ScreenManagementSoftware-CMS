@@ -76,9 +76,14 @@ class ClientVersionFactory extends BaseFactory
                 }
             }
 
-            if ($this->getSanitizer()->getInt('retired', 0, $filterBy) != -1) {
+            if ($this->getSanitizer()->getInt('retired', $filterBy) !== null) {
                 $body .= " AND clientversion.retired = :retired ";
                 $params['retired'] = $this->getSanitizer()->getInt('retired', 0, $filterBy);
+            }
+            
+            if ($this->getSanitizer()->getInt('versionId', $filterBy) !== null) {
+                $body .= ' AND clientversion.versionId = :versionId ';
+                $params['versionId'] = $this->getSanitizer()->getInt('versionId', $filterBy);
             }
 
             // Sorting?
@@ -116,6 +121,11 @@ class ClientVersionFactory extends BaseFactory
     
     public function getById($versionId)
     {
-        
+        $versions = $this->query(null, ['disableUserCheck' => 1, 'versionId' => $versionId]);
+
+        if (count($versions) <= 0)
+            throw new NotFoundException();
+
+        return $versions[0];
     }
 }

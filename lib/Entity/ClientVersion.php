@@ -149,15 +149,11 @@ class ClientVersion implements \JsonSerializable
         ]);
     }
 
-    public function edit($description, $creator, $retired)
+    public function edit()
     {                
         if (strlen((string)$description) > 2000) {            
             throw new InvalidArgumentException(sprintf(__('You have exceeded your maximum %d characters of version.'), 2000), 'description');
         }
-        
-        $this->description = $description;
-        $this->lastUpdateOwner = $creator;
-        $this->retired = $retired;
         
         $this->getStore()->update('
             UPDATE clientversion
@@ -165,10 +161,12 @@ class ClientVersion implements \JsonSerializable
                     lastUpdateDate = UNIX_TIMESTAMP(NOW()),
                     lastUpdateOwner = :lastUpdateOwner,
                     retired = :retired
+            WHERE versionId = :versionId
         ', [
             'description' => $this->description,
             'lastUpdateOwner' => $this->lastUpdateOwner,
-            'retired' => $this->retired
+            'retired' => $this->retired,
+            'versionId' => $this->versionId
         ]);
         
         $this->getLog()->audit('Version', $this->versionId, 'Update Version Info.', ['versionId' => $this->versionId]);
