@@ -36,7 +36,7 @@ class UpgradeUploadHandler extends BlueImpUploadHandler
             
             $path_parts = pathinfo($filePath);
             
-            $newFileName = $path_parts['filename'] . '_' .$contents[0]. '_' . date("Y-m-d_H:i:s") . '.zip';
+            $newFileName = $path_parts['filename'] . '_' . time() . '.zip';
             
             $newFilePath = $path_parts['dirname'] . '/'. $newFileName;
             
