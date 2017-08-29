@@ -462,6 +462,16 @@ function dataTableButtonsColumn(data, type, row, meta) {
     return buttonsTemplate({buttons: data.buttons});
 }
 
+function dataTableButtonsColumnForScreenSettings(data, type, row, meta) {
+    if (type != "display")
+        return "";
+
+    if (buttonsTemplate == null)
+        buttonsTemplate = Handlebars.compile($("#buttons-no-child-menu-template").html());
+
+    return buttonsTemplate({button: data.buttons[0]});
+}
+
 function dataTableTickCrossColumn(data, type, row) {
     if (type != "display")
         return data;

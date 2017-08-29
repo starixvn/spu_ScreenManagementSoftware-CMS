@@ -146,13 +146,13 @@ class DisplayProfile extends Base
                 'text' => __('Edit')
             );
 
-            if ($this->getUser()->checkDeleteable($profile)) {
-                $profile->buttons[] = array(
-                    'id' => 'displayprofile_button_delete',
-                    'url' => $this->urlFor('displayProfile.delete.form', ['id' => $profile->displayProfileId]),
-                    'text' => __('Delete')
-                );
-            }
+//            if ($this->getUser()->checkDeleteable($profile)) {
+//                $profile->buttons[] = array(
+//                    'id' => 'displayprofile_button_delete',
+//                    'url' => $this->urlFor('displayProfile.delete.form', ['id' => $profile->displayProfileId]),
+//                    'text' => __('Delete')
+//                );
+//            }
         }
 
         $this->getState()->template = 'grid';

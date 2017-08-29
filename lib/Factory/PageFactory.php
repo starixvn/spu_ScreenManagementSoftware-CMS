@@ -128,7 +128,7 @@ class PageFactory extends BaseFactory
         }
 
         // SMS customize
-        $sql .= ' AND `name` NOT IN ("application","transition","dataset","template","task","module","help","mediamanager","clock")';
+        $sql .= ' AND `name` NOT IN ("application","transition","dataset","template","task","module","help","mediamanager","clock","manual","playlist")';
         
         // Sorting?
         $sql .= 'ORDER BY ' . implode(',', $sortOrder);
