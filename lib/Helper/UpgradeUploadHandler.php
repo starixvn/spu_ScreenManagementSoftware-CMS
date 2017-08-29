@@ -31,20 +31,16 @@ class UpgradeUploadHandler extends BlueImpUploadHandler
             $filePath = $controller->getConfig()->GetSetting('UPGRADE_LOCATION') . $fileName;
             $user = $controller->getUser();          
             $noteContent = file_get_contents('zip://' . $filePath . '#version.txt');
-            
             $contents = explode(PHP_EOL, $noteContent);
-            
             $path_parts = pathinfo($filePath);
-            
             $newFileName = $path_parts['filename'] . '_' . time() . '.zip';
-            
             $newFilePath = $path_parts['dirname'] . '/'. $newFileName;
-            
             rename($filePath, $newFilePath); // not working on Windows!!
-            
             $upgradeItem = $controller->getClientVersionFactory()->createEmpty();
-            
-            $upgradeItem->add($contents[0], $newFileName, $contents[1], $user->userId);
+            $version = $contents[0];
+            array_shift($contents);
+            $contentString = implode(PHP_EOL, $contents);
+            $upgradeItem->add($version, $newFileName, $contentString, $user->userId);
             
         } catch (Exception $e) {
             $controller->getLog()->error('Error uploading upgrade file: %s', $e->getMessage());
