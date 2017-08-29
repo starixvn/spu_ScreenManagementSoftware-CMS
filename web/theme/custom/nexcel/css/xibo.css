@@ -1120,9 +1120,6 @@ li.active.tab-design {
 }
 
 /************************************ Not Found *************************************/
-.img-box {
-
-}
 
 .img-main{
     background: url("../img/NotFound/UFO.svg") no-repeat;
@@ -1171,13 +1168,13 @@ li.active.tab-design {
     bottom: 90px;
     left: 235px;
 }
-.img-box .error {
+.error-text .title {
     color: #3d556c;
     font-size: 45px;
     font-weight: bold;
     text-align: center;
 }
-.img-box .error:before {
+.img-box .title:before {
     content: '404';
     display: block;
     font-size: 118px;
@@ -1185,12 +1182,22 @@ li.active.tab-design {
     color: #f05a29;
     letter-spacing: 12px;
 }
-
-.error-text {
+.error-text .head {
+    color: #f05a29;
+    letter-spacing: 12px;
+    font-size: 118px;
+    height: 135px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    left: 8px;
+}
+.error-text .content {
     font-size: 22px;
     color: #424242;
     font-weight: 300;
     text-align: center;
+    margin-bottom: 0;
 }
 
 @-webkit-keyframes cloudmoveright {
@@ -1267,3 +1274,22 @@ li.active.tab-design {
         transform: translateY(0);
     }
 }
+
+.error-box {
+    display: table;
+    margin: 200px auto 0;
+}
+
+.error-box .error-img {
+    background: url("../img/error.svg") no-repeat;
+    background-size: 411px 213px;
+    width: 411px;
+    height: 213px;
+    display: table-cell;
+    vertical-align: bottom;
+}
+.error-box .error-text {
+    display: table-cell;
+    vertical-align: bottom;
+}
+

@@ -5,19 +5,14 @@
  * (${FILE_NAME})
  */
 #}
-{% extends "non-authed.twig" %}
+{% extends "base.twig" %}
 
-{% block pageContent %}
-    <div class="widget">
-        <div class="widget-title">{% trans "Error" %}</div>
-        <div class="widget-body">
-            <div class="row">
-                <div class="col-md-12">
-                    {{ flash.globalError }}
-                    {{ flash.message }}
-                </div>
-                <p>Faisall test</p>
-            </div>
+{% block content %}
+    <div class="error-box">
+        <div class="error-text">
+            <p class="head">{% trans "Error" %}</p>
+            <p class="content">{{ flash.globalError }} <br/> {{ flash.message }}</p>
         </div>
+        <div class="error-img"></div>
     </div>
 {% endblock %}
