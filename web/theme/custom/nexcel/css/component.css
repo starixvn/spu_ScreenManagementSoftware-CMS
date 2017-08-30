@@ -357,14 +357,12 @@ td #tagDiv .btn {
 }
 .custom-dropdown select {
   font-size: inherit;
-  padding: 6px 2px 5px 24px;
-  padding-right: 2.5em;	
   border: 0;
   margin: 0;
-  border-radius: 3px;
   text-indent: 0.01px;
   text-overflow: '';
   height: 28px;
+  cursor: pointer;
   /*Hiding the select arrow for firefox*/
   -moz-appearance: none;
   /*Hiding the select arrow for chrome*/
@@ -390,6 +388,7 @@ td #tagDiv .btn {
   position: absolute;
   right: 0;
   top: 7px;
+  pointer-events:none;
 }
 
 .custom-dropdown .caret {
@@ -398,6 +397,10 @@ td #tagDiv .btn {
 
 .custom-dropdown .dropdown-menu {
     font-size: 12px;
+}
+
+.assign-file .custom-dropdown::after {
+    right: 8px;
 }
 /*****************************************Checkbox******************************************/
 .radio label, .checkbox label {
