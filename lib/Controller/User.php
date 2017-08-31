@@ -605,7 +605,8 @@ class User extends Base
             'options' => [
                 'homepage' => $this->pageFactory->query(null, ['asHome' => 1]),
                 'groups' => $this->userGroupFactory->query(),
-                'userTypes' => ($this->getUser()->isSuperAdmin()) ? $this->userTypeFactory->getAllRoles() : $this->userTypeFactory->getNonAdminRoles()
+                'userTypes' => ($this->getUser()->isSuperAdmin()) ? $this->userTypeFactory->getAllRoles() : $this->userTypeFactory->getNonAdminRoles(),
+                'selectedUserTypes' => $this->userTypeFactory->getDefaultSettings()
             ],
             'help' => [
                 'add' => $this->getHelp()->link('User', 'Add')

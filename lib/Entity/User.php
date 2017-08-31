@@ -1264,7 +1264,10 @@ class User implements \JsonSerializable
         {
             $policyError = $this->configService->GetSetting('USER_PASSWORD_ERROR');
             $policyError = ($policyError == '') ? __('Your password does not meet the required complexity') : $policyError;
-
+            
+            //$test = preg_match('[a-zA-Z]', 'password', $matches);
+            $test = preg_match($policy, $password, $matches);
+            
             if(!preg_match($policy, $password, $matches))
                 throw new \InvalidArgumentException($policyError);
         }

@@ -50,8 +50,8 @@
 
                         {% set title %}{% trans "User Type" %}{% endset %}
                         {% set helpText %}{% trans "What is this users type?" %}{% endset %}
-                        {{ forms.dropdown("userTypeId", "single", title, 3, options.userTypes, "userTypeId", "userType", helpText) }}
-
+                        {{ forms.dropdown("userTypeId", "single", title, options.selectedUserTypes.userTypeId, options.userTypes, "userTypeId", "userType", helpText) }}
+                         
                         {% set title %}{% trans "Library Quota" %}{% endset %}
                         {% set helpText %}{% trans "The quota that should be applied. Enter 0 for no quota." %}{% endset %}
                         <div class="form-group">

@@ -56,6 +56,23 @@ class UserTypeFactory extends BaseFactory
     {
         return $this->query(null, ['userOnly' => 1]);
     }
+    
+    public function getDefaultSettings()
+    {
+        try {
+            $sql = 'SELECT userTypeId, userType  FROM setting INNER JOIN usertype ON setting.value = usertype.userType';
+            foreach ($this->getStore()->select($sql, null) as $row) {
+                $entries[] = $this->createEmpty()->hydrate($row);
+            }
+
+            return $entries[0];
+        } catch (\Exception $e) {
+            
+            $this->getLog()->error($e);
+
+            throw new NotFoundException();
+        }
+    }
 
     /**
      * @param array $sortOrder

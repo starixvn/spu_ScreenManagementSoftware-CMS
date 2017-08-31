@@ -36,10 +36,6 @@
                         {% set helpText %}{% trans "The Login Name of the user." %}{% endset %}
                         {{ forms.input("userName", title, user.userName, helpText, "", "required maxlength='50'") }}
 
-                        {% set title %}{% trans "Email" %}{% endset %}
-                        {% set helpText %}{% trans "The Email Address for this user." %}{% endset %}
-                        {{ forms.email("email", title, user.email, helpText) }}
-
                         {% if currentUser.userTypeId == 1 %}
                             {# This is an admin user and can therefore change the users password #}
                             {% set title %}{% trans "New Password" %}{% endset %}
@@ -50,6 +46,10 @@
                             {% set helpText %}{% trans "Repeat the new Password for this user." %}{% endset %}
                             {{ forms.password("retypeNewPassword", title, "", helpText) }}
                         {% endif %}
+                            
+                        {% set title %}{% trans "Email" %}{% endset %}
+                        {% set helpText %}{% trans "The Email Address for this user." %}{% endset %}
+                        {{ forms.email("email", title, user.email, helpText) }}
 
                         {% set title %}{% trans "Homepage" %}{% endset %}
                         {% set helpText %}{% trans "Homepage for this user. This is the page they will be taken to when they login." %}{% endset %}
