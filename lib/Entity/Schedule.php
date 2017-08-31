@@ -73,6 +73,14 @@ class Schedule implements \JsonSerializable
     public $commandId;
 
     /**
+	 * @SWG\Property(
+	 *  description="version file name"
+	 * )
+	 * @var string
+	 */
+    public $versionFileName;
+
+    /**
      * @SWG\Property(
      *  description="Display Groups assigned to this Scheduled Event.",
      *  type="array",

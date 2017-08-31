@@ -8,7 +8,7 @@
  * Xibo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * any later version. 
+ * any later version.
  *
  * Xibo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -35,6 +35,7 @@ use Xibo\Service\ConfigServiceInterface;
 use Xibo\Service\DateServiceInterface;
 use Xibo\Service\LogServiceInterface;
 use Xibo\Service\SanitizerServiceInterface;
+use Xibo\XMR\CommandAction;
 
 /**
  * Class Schedule
@@ -83,6 +84,11 @@ class Schedule extends Base
     private $dayPartFactory;
 
     /**
+	 * @var ClientVersionFactory
+	 */
+    private $clientVersionFactory;
+
+    /**
      * Set common dependencies.
      * @param LogServiceInterface $log
      * @param SanitizerServiceInterface $sanitizerService
@@ -101,8 +107,9 @@ class Schedule extends Base
      * @param LayoutFactory $layoutFactory
      * @param MediaFactory $mediaFactory
      * @param DayPartFactory $dayPartFactory
+	 * @param ClientVersionFactory $clientVersionFactory
      */
-    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $session, $pool, $scheduleFactory, $displayGroupFactory, $campaignFactory, $commandFactory, $displayFactory, $layoutFactory, $mediaFactory, $dayPartFactory)
+    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $session, $pool, $scheduleFactory, $displayGroupFactory, $campaignFactory, $commandFactory, $displayFactory, $layoutFactory, $mediaFactory, $dayPartFactory, $clientVersionFactory)
     {
         $this->setCommonDependencies($log, $sanitizerService, $state, $user, $help, $date, $config);
 
@@ -116,6 +123,7 @@ class Schedule extends Base
         $this->layoutFactory = $layoutFactory;
         $this->mediaFactory = $mediaFactory;
         $this->dayPartFactory = $dayPartFactory;
+		$this->clientVersionFactory = $clientVersionFactory;
     }
 
     function displayPage()
@@ -602,6 +610,7 @@ class Schedule extends Base
         $groups = array();
         $displays = array();
         $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
+		$versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
 
         foreach ($this->displayGroupFactory->query(['displayGroup'], ['isDisplaySpecific' => -1]) as $displayGroup) {
             /* @var \Xibo\Entity\DisplayGroup $\Xibo\Entity\DisplayGroup */
@@ -625,7 +634,8 @@ class Schedule extends Base
             'commands' => $this->commandFactory->query(),
             'dayParts' => $this->dayPartFactory->allWithSystem(),
             'displayGroupIds' => $this->session->get('displayGroupIds'),
-            'help' => $this->getHelp()->link('Schedule', 'Add')
+            'help' => $this->getHelp()->link('Schedule', 'Add'),
+			'versions' => $versions
         ]);
     }
 
@@ -772,6 +782,11 @@ class Schedule extends Base
         $recurrenceRepeatsOn = $this->getSanitizer()->getIntArray('recurrenceRepeatsOn');
         $schedule->recurrenceRepeatsOn = (empty($recurrenceRepeatsOn)) ? null : implode(',', $recurrenceRepeatsOn);
 
+		if($schedule->commandId == 2)
+		{
+			$schedule->versionFileName = $this->getSanitizer()->getString('versionFileName');
+		}
+
         foreach ($this->getSanitizer()->getIntArray('displayGroupIds') as $displayGroupId) {
             $schedule->assignDisplayGroup($this->displayGroupFactory->getById($displayGroupId));
         }
@@ -835,7 +850,7 @@ class Schedule extends Base
     }
 
     /**
-     * Shows a form to edit an event
+	 * Shows a form to edit an event
      * @param int $eventId
      */
     function editForm($eventId)
@@ -1225,7 +1240,7 @@ class Schedule extends Base
             'help' => $this->getHelp()->link('Schedule', 'ScheduleNow')
         ]);
     }
-    
+
     public function multipleScheduleNowForm($ids)
     {
         $groups = array();

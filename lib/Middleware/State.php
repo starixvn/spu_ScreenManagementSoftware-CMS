@@ -833,7 +833,8 @@ class State extends Middleware
                 $container->displayFactory,
                 $container->layoutFactory,
                 $container->mediaFactory,
-                $container->dayPartFactory
+                $container->dayPartFactory,
+				$container->clientVersionFactory
             );
         });
 
@@ -1002,7 +1003,7 @@ class State extends Middleware
                 $container->userFactory
             );
         });
-        
+
         $app->container->singleton('\Xibo\Controller\ClientVersion', function($container) {
             return new \Xibo\Controller\ClientVersion(
                 $container->logService,
@@ -1491,7 +1492,7 @@ class State extends Middleware
                 $container->sanitizerService
             );
         });
-        
+
         $container->singleton('clientResourceUsageFactory', function($container) {
             return new \Xibo\Factory\ClientResourceUsageFactory(
                 $container->store,
@@ -1499,7 +1500,7 @@ class State extends Middleware
                 $container->sanitizerService
             );
         });
-        
+
         $container->singleton('clientVersionFactory', function($container) {
             return new \Xibo\Factory\ClientVersionFactory(
                 $container->store,
@@ -1510,7 +1511,7 @@ class State extends Middleware
             );
         });
     }
-    
+
     private function getIp()
     {
         $clientIp = '';

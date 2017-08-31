@@ -105,6 +105,10 @@
                         {% set helpText %}{% trans "Please select a command for this Event." %}{% endset %}
                         {{ forms.dropdown("commandId", "single", title, "", [{commandId: "", command: ""}]|merge(commands), "commandId", "command", helpText, "command-control") }}
 
+                        {% set title %}{% trans "Version" %}{% endset %}
+                        {% set helpText %}{% trans "Pick a version to upgrade." %}{% endset %}
+                        {{ forms.dropdown("versionFileName", "single", title, "", versions, "fileName", "version", helpText, "hidden version-control")}}
+
                         {% set title %}{% trans "Display Order" %}{% endset %}
                         {% set helpText %}{% trans "Please select the order this event should appear in relation to others when there is more than one event scheduled" %}{% endset %}
                         {{ forms.number("displayOrder", title, "", helpText) }}
@@ -118,7 +122,7 @@
                         {{ forms.checkbox("syncTimezone", title, 0, helpText) }}
 
                     </div>
-                    
+                   
                     <div class="tab-pane" id="repeats">
                         {% set title %}{% trans "Repeats" %}{% endset %}
                         {% set helpText %}{% trans "What type of repeat is required?" %}{% endset %}
@@ -173,4 +177,17 @@
             </form>
         </div>
     </div>
+
+    <script>
+    $(".command-control").change(function () {            
+            var selected = parseInt($(this).find("select").val());        
+            
+            if (selected == 2) {
+                $(".version-control").removeClass("hidden");
+            }
+            else {
+                $(".version-control").addClass("hidden");
+            }
+        });
+    </script>
 {% endblock %}
