@@ -790,6 +790,8 @@ class Soap
 
         $scheduleXml->appendChild($layoutElements);
 
+		$layoutElements->appendChild($scheduleXml->createElement("test","adfadf"));
+
         // Hour to hour time bands for the query
         // Start at the current hour
         $fromFilter = $this->getDate()->parse()->setTime(0, 0, 0);
