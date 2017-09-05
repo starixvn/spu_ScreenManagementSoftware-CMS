@@ -159,18 +159,18 @@ class ScheduleFactory extends BaseFactory
         // Add file nodes to the $fileElements
         // Firstly get all the scheduled layouts
         $SQL = '
-            SELECT `schedule`.eventTypeId, 
-                layout.layoutId, 
-                `layout`.status, 
-                `command`.code, 
-                schedule.fromDt, 
+            SELECT `schedule`.eventTypeId,
+                layout.layoutId,
+                `layout`.status,
+                `command`.code,
+                schedule.fromDt,
                 schedule.toDt,
                 schedule.recurrence_type AS recurrenceType,
                 schedule.recurrence_detail AS recurrenceDetail,
                 schedule.recurrence_range AS recurrenceRange,
                 schedule.recurrenceRepeatsOn,
                 schedule.lastRecurrenceWatermark,
-                schedule.eventId, 
+                schedule.eventId,
                 schedule.is_priority AS isPriority,
                 `schedule`.displayOrder,
                 schedule.dayPartId,
@@ -179,7 +179,8 @@ class ScheduleFactory extends BaseFactory
                 schedule.syncTimezone,
                 `campaign`.campaign,
                 `command`.command,
-                `lkscheduledisplaygroup`.displayGroupId
+                `lkscheduledisplaygroup`.displayGroupId,
+				`schedule`.commandAdditionalInfo AS AdditionalInfo
         ';
 
         if (!$options['dependentsAsNodes']) {
@@ -221,7 +222,7 @@ class ScheduleFactory extends BaseFactory
             ';
         }
 
-        $SQL .= '    
+        $SQL .= '
                 LEFT OUTER JOIN `campaign`
                 ON `schedule`.CampaignID = campaign.CampaignID
                 LEFT OUTER JOIN `lkcampaignlayout`
@@ -244,15 +245,15 @@ class ScheduleFactory extends BaseFactory
         // Are we requesting a range or a single date/time?
         // only the inclusive range changes, but it is clearer to have the whole statement reprinted.
         // Ranged request
-        $SQL .= ' 
+        $SQL .= '
             AND (
-                  (schedule.FromDT <= :toDt AND IFNULL(`schedule`.toDt, `schedule`.fromDt) >= :fromDt) 
-                  OR `schedule`.recurrence_range >= :fromDt 
+                  (schedule.FromDT <= :toDt AND IFNULL(`schedule`.toDt, `schedule`.fromDt) >= :fromDt)
+                  OR `schedule`.recurrence_range >= :fromDt
                   OR (
-                    IFNULL(`schedule`.recurrence_range, 0) = 0 AND IFNULL(`schedule`.recurrence_type, \'\') <> \'\' 
+                    IFNULL(`schedule`.recurrence_range, 0) = 0 AND IFNULL(`schedule`.recurrence_type, \'\') <> \'\'
                   )
             )
-            
+
             ORDER BY schedule.DisplayOrder, IFNULL(lkcampaignlayout.DisplayOrder, 0), schedule.FromDT, schedule.eventId
         ';
 
@@ -270,7 +271,7 @@ class ScheduleFactory extends BaseFactory
         $params = [];
 
         $sql = '
-        SELECT `schedule`.eventId, 
+        SELECT `schedule`.eventId,
             `schedule`.eventTypeId,
             `schedule`.fromDt,
             `schedule`.toDt,

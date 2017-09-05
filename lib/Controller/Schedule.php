@@ -784,7 +784,7 @@ class Schedule extends Base
 
 		if($schedule->commandId == 2)
 		{
-			$schedule->versionFileName = $this->getSanitizer()->getString('versionFileName');
+			$schedule->commandAdditionalInfo = $this->getSanitizer()->getString('versionFileName');
 		}
 
         foreach ($this->getSanitizer()->getIntArray('displayGroupIds') as $displayGroupId) {

@@ -74,11 +74,11 @@ class Schedule implements \JsonSerializable
 
     /**
 	 * @SWG\Property(
-	 *  description="version file name"
+	 *  description="command's additional info"
 	 * )
 	 * @var string
 	 */
-    public $versionFileName;
+    public $commandAdditionalInfo;
 
     /**
      * @SWG\Property(
@@ -531,8 +531,8 @@ class Schedule implements \JsonSerializable
     private function add()
     {
         $this->eventId = $this->getStore()->insert('
-          INSERT INTO `schedule` (eventTypeId, CampaignId, commandId, userID, is_priority, FromDT, ToDT, DisplayOrder, recurrence_type, recurrence_detail, recurrence_range, `recurrenceRepeatsOn`, `dayPartId`, `syncTimezone`)
-            VALUES (:eventTypeId, :campaignId, :commandId, :userId, :isPriority, :fromDt, :toDt, :displayOrder, :recurrenceType, :recurrenceDetail, :recurrenceRange, :recurrenceRepeatsOn, :dayPartId, :syncTimezone)
+          INSERT INTO `schedule` (eventTypeId, CampaignId, commandId, userID, is_priority, FromDT, ToDT, DisplayOrder, recurrence_type, recurrence_detail, recurrence_range, `recurrenceRepeatsOn`, `dayPartId`, `syncTimezone`, commandAdditionalInfo)
+            VALUES (:eventTypeId, :campaignId, :commandId, :userId, :isPriority, :fromDt, :toDt, :displayOrder, :recurrenceType, :recurrenceDetail, :recurrenceRange, :recurrenceRepeatsOn, :dayPartId, :syncTimezone, :commandAdditionalInfo)
         ', [
             'eventTypeId' => $this->eventTypeId,
             'campaignId' => $this->campaignId,
@@ -547,7 +547,8 @@ class Schedule implements \JsonSerializable
             'recurrenceRange' => $this->recurrenceRange,
             'recurrenceRepeatsOn' => $this->recurrenceRepeatsOn,
             'dayPartId' => $this->dayPartId,
-            'syncTimezone' => $this->syncTimezone
+            'syncTimezone' => $this->syncTimezone,
+			'commandAdditionalInfo' => $this->commandAdditionalInfo
         ]);
     }
 

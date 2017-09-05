@@ -5,7 +5,6 @@
  * (Soap.php)
  */
 
-
 namespace Xibo\Xmds;
 
 define('BLACKLIST_ALL', "All");
@@ -58,13 +57,13 @@ use Xibo\Storage\StorageServiceInterface;
 class Soap
 {
     /**
-     * @var Display
-     */
+	 * @var Display
+	 */
     protected $display;
 
     /**
-     * @var LogProcessor
-     */
+	 * @var LogProcessor
+	 */
     protected $logProcessor;
 
     /** @var  PoolInterface */
@@ -126,35 +125,35 @@ class Soap
 
     /** @var  DayPartFactory */
     protected $dayPartFactory;
-    
+
     /** @var  ClientResourceUsageFactory */
     protected $clientResourceUsageFactory;
 
     /**
-     * Soap constructor.
-     * @param LogProcessor $logProcessor
-     * @param PoolInterface $pool
-     * @param StorageServiceInterface $store
-     * @param LogServiceInterface $log
-     * @param DateServiceInterface $date
-     * @param SanitizerServiceInterface $sanitizer
-     * @param ConfigServiceInterface $config
-     * @param RequiredFileFactory $requiredFileFactory
-     * @param ModuleFactory $moduleFactory
-     * @param LayoutFactory $layoutFactory
-     * @param DataSetFactory $dataSetFactory
-     * @param DisplayFactory $displayFactory
-     * @param UserFactory $userGroupFactory
-     * @param BandwidthFactory $bandwidthFactory
-     * @param MediaFactory $mediaFactory
-     * @param WidgetFactory $widgetFactory
-     * @param RegionFactory $regionFactory
-     * @param NotificationFactory $notificationFactory
-     * @param DisplayEventFactory $displayEventFactory
-     * @param ScheduleFactory $scheduleFactory
-     * @param DayPartFactory $dayPartFactory
-     * @param ClientResourceUsageFactory $clientResourceUsageFactory
-     */
+	 * Soap constructor.
+	 * @param LogProcessor $logProcessor
+	 * @param PoolInterface $pool
+	 * @param StorageServiceInterface $store
+	 * @param LogServiceInterface $log
+	 * @param DateServiceInterface $date
+	 * @param SanitizerServiceInterface $sanitizer
+	 * @param ConfigServiceInterface $config
+	 * @param RequiredFileFactory $requiredFileFactory
+	 * @param ModuleFactory $moduleFactory
+	 * @param LayoutFactory $layoutFactory
+	 * @param DataSetFactory $dataSetFactory
+	 * @param DisplayFactory $displayFactory
+	 * @param UserFactory $userGroupFactory
+	 * @param BandwidthFactory $bandwidthFactory
+	 * @param MediaFactory $mediaFactory
+	 * @param WidgetFactory $widgetFactory
+	 * @param RegionFactory $regionFactory
+	 * @param NotificationFactory $notificationFactory
+	 * @param DisplayEventFactory $displayEventFactory
+	 * @param ScheduleFactory $scheduleFactory
+	 * @param DayPartFactory $dayPartFactory
+	 * @param ClientResourceUsageFactory $clientResourceUsageFactory
+	 */
     public function __construct($logProcessor, $pool, $store, $log, $date, $sanitizer, $config, $requiredFileFactory, $moduleFactory, $layoutFactory, $dataSetFactory, $displayFactory, $userGroupFactory, $bandwidthFactory, $mediaFactory, $widgetFactory, $regionFactory, $notificationFactory, $displayEventFactory, $scheduleFactory, $dayPartFactory)
     {
         $this->logProcessor = $logProcessor;
@@ -182,67 +181,67 @@ class Soap
     }
 
     /**
-     * Get Cache Pool
-     * @return \Stash\Interfaces\PoolInterface
-     */
+	 * Get Cache Pool
+	 * @return \Stash\Interfaces\PoolInterface
+	 */
     protected function getPool()
     {
         return $this->pool;
     }
 
     /**
-     * Get Store
-     * @return StorageServiceInterface
-     */
+	 * Get Store
+	 * @return StorageServiceInterface
+	 */
     protected function getStore()
     {
         return $this->store;
     }
 
     /**
-     * Get Log
-     * @return LogServiceInterface
-     */
+	 * Get Log
+	 * @return LogServiceInterface
+	 */
     protected function getLog()
     {
         return $this->logService;
     }
 
     /**
-     * Get Date
-     * @return DateServiceInterface
-     */
+	 * Get Date
+	 * @return DateServiceInterface
+	 */
     protected function getDate()
     {
         return $this->dateService;
     }
 
     /**
-     * Get Sanitizer
-     * @return SanitizerServiceInterface
-     */
+	 * Get Sanitizer
+	 * @return SanitizerServiceInterface
+	 */
     protected function getSanitizer()
     {
         return $this->sanitizerService;
     }
 
     /**
-     * Get Config
-     * @return ConfigServiceInterface
-     */
+	 * Get Config
+	 * @return ConfigServiceInterface
+	 */
     protected function getConfig()
     {
         return $this->configService;
     }
 
     /**
-     * Get Required Files (common)
-     * @param $serverKey
-     * @param $hardwareKey
-     * @param bool $httpDownloads
-     * @return string
-     * @throws \SoapFault
-     */
+	 * Get Required Files (common)
+	 * @param $serverKey
+	 * @param $hardwareKey
+	 * @param bool $httpDownloads
+	 * @return string
+	 * @throws \SoapFault
+	 */
     protected function doRequiredFiles($serverKey, $hardwareKey, $httpDownloads)
     {
         $this->logProcessor->setRoute('RequiredFiles');
@@ -329,12 +328,12 @@ class Soap
             // Get a list of all layout ids in the schedule right now
             // including any layouts that have been associated to our Display Group
             $SQL = '
-                SELECT layout.layoutID, 
-                    schedule.DisplayOrder, 
-                    lkcampaignlayout.DisplayOrder AS LayoutDisplayOrder, 
-                    schedule.eventId, 
-                    schedule.fromDt, 
-                    schedule.toDt, 
+                SELECT layout.layoutID,
+                    schedule.DisplayOrder,
+                    lkcampaignlayout.DisplayOrder AS LayoutDisplayOrder,
+                    schedule.eventId,
+                    schedule.fromDt,
+                    schedule.toDt,
                     schedule.recurrence_type AS recurrenceType,
                     schedule.recurrence_detail AS recurrenceDetail,
                     schedule.recurrence_range AS recurrenceRange,
@@ -356,21 +355,21 @@ class Soap
                     ON lkdisplaydg.DisplayGroupID = `lkdgdg`.childId
                  WHERE lkdisplaydg.DisplayID = :displayId
                     AND (
-                      (schedule.FromDT < :toDt AND IFNULL(`schedule`.toDt, `schedule`.fromDt) > :fromDt) 
-                      OR `schedule`.recurrence_range >= :fromDt 
+                      (schedule.FromDT < :toDt AND IFNULL(`schedule`.toDt, `schedule`.fromDt) > :fromDt)
+                      OR `schedule`.recurrence_range >= :fromDt
                       OR (
-                        IFNULL(`schedule`.recurrence_range, 0) = 0 AND IFNULL(`schedule`.recurrence_type, \'\') <> \'\' 
+                        IFNULL(`schedule`.recurrence_range, 0) = 0 AND IFNULL(`schedule`.recurrence_type, \'\') <> \'\'
                       )
                     )
                     AND layout.retired = 0
                 UNION
-                SELECT `lklayoutdisplaygroup`.layoutId, 
-                    0 AS DisplayOrder, 
-                    0 AS LayoutDisplayOrder, 
-                    0 AS eventId, 
-                    0 AS fromDt, 
-                    0 AS toDt, 
-                    NULL AS recurrenceType, 
+                SELECT `lklayoutdisplaygroup`.layoutId,
+                    0 AS DisplayOrder,
+                    0 AS LayoutDisplayOrder,
+                    0 AS eventId,
+                    0 AS fromDt,
+                    0 AS toDt,
+                    NULL AS recurrenceType,
                     NULL AS recurrenceDetail,
                     NULL AS recurrenceRange,
                     NULL AS recurrenceRepeatsOn,
@@ -413,7 +412,8 @@ class Soap
 
                     try {
                         $scheduleEvents = $schedule->getEvents($fromFilter, $toFilter);
-                    } catch (XiboException $e) {
+                    }
+					catch (XiboException $e) {
                         $this->getLog()->error('Unable to getEvents for ' . $schedule->eventId);
                         continue;
                     }
@@ -425,7 +425,8 @@ class Soap
                 $layouts[] = $layoutId;
             }
 
-        } catch (\Exception $e) {
+        }
+		catch (\Exception $e) {
             $this->getLog()->error('Unable to get a list of layouts. ' . $e->getMessage());
             return new \SoapFault('Sender', 'Unable to get a list of layouts');
         }
@@ -543,7 +544,8 @@ class Soap
                 // Add to paths added
                 $pathsAdded[] = $path;
             }
-        } catch (\Exception $e) {
+        }
+		catch (\Exception $e) {
             $this->getLog()->error('Unable to get a list of required files. ' . $e->getMessage());
             $this->getLog()->debug($e->getTraceAsString());
             return new \SoapFault('Sender', 'Unable to get a list of files');
@@ -566,7 +568,8 @@ class Soap
             try {
                 $layout = $this->layoutFactory->loadById($layoutId);
                 $layout->loadPlaylists();
-            } catch (NotFoundException $e) {
+            }
+			catch (NotFoundException $e) {
                 $this->getLog()->error('Layout not found - ID: ' . $layoutId . ', skipping.');
                 continue;
             }
@@ -691,7 +694,8 @@ class Soap
 
                 $blackList->appendChild($file);
             }
-        } catch (\Exception $e) {
+        }
+		catch (\Exception $e) {
             $this->getLog()->error('Unable to get a list of blacklisted files. ' . $e->getMessage());
             return new \SoapFault('Sender', 'Unable to get a list of blacklisted files');
         }
@@ -703,7 +707,8 @@ class Soap
 
             try {
                 $this->getStore()->updateWithDeadlockLoop('DELETE FROM `requiredfile` WHERE rfId IN (' . implode(',', array_fill(0, count($rfIds), '?')) . ')', $rfIds);
-            } catch (DeadlockException $deadlockException) {
+            }
+			catch (DeadlockException $deadlockException) {
                 $this->getLog()->error('Deadlock when deleting required files - ignoring and continuing with request');
             }
         }
@@ -713,7 +718,8 @@ class Soap
             $this->getStore()->update('UPDATE `requiredfile` SET bytesRequested = 0 WHERE displayId = :displayId', [
                 'displayId' => $this->display->displayId
             ]);
-        } catch (DeadlockException $deadlockException) {
+        }
+		catch (DeadlockException $deadlockException) {
             $this->getLog()->error('Deadlock when updating required files bytesRequested - ignoring and continuing with request');
         }
 
@@ -741,12 +747,12 @@ class Soap
     }
 
     /**
-     * @param $serverKey
-     * @param $hardwareKey
-     * @param array $options
-     * @return mixed
-     * @throws \SoapFault
-     */
+	 * @param $serverKey
+	 * @param $hardwareKey
+	 * @param array $options
+	 * @return mixed
+	 * @throws \SoapFault
+	 */
     protected function doSchedule($serverKey, $hardwareKey, $options = [])
     {
         $this->logProcessor->setRoute('Schedule');
@@ -775,14 +781,14 @@ class Soap
 
         $output = $cache->get();
 
-        if ($cache->isHit()) {
-            $this->getLog()->info('Returning Schedule from Cache for display %s. Options %s.', $this->display->display, json_encode($options));
+		//if ($cache->isHit()) {
+		//    $this->getLog()->info('Returning Schedule from Cache for display %s. Options %s.', $this->display->display, json_encode($options));
 
-            // Log Bandwidth
-            $this->logBandwidth($this->display->displayId, Bandwidth::$SCHEDULE, strlen($output));
+		//    // Log Bandwidth
+		//    $this->logBandwidth($this->display->displayId, Bandwidth::$SCHEDULE, strlen($output));
 
-            return $output;
-        }
+		//    return $output;
+		//}
 
         // Generate the Schedule XML
         $scheduleXml = new \DOMDocument("1.0");
@@ -802,7 +808,7 @@ class Soap
         $this->getLog()->debug(sprintf('FromDT = %s. ToDt = %s', $fromFilter->toRssString(), $toFilter->toRssString()));
 
         // Add the filter dates to the RF xml document
-        $layoutElements->setAttribute('generated', $this->getDate()->getLocalDate());
+        // $layoutElements->setAttribute('generated', $this->getDate()->getLocalDate());
         $layoutElements->setAttribute('fitlerFrom', $this->getDate()->getLocalDate($fromFilter));
         $layoutElements->setAttribute('fitlerTo', $this->getDate()->getLocalDate($toFilter));
 
@@ -871,7 +877,8 @@ class Soap
 
                 try {
                     $scheduleEvents = $schedule->getEvents($fromFilter, $toFilter);
-                } catch (XiboException $e) {
+                }
+				catch (XiboException $e) {
                     $this->getLog()->error('Unable to getEvents for ' . $schedule->eventId);
                     continue;
                 }
@@ -939,11 +946,18 @@ class Soap
                         $layoutElements->appendChild($layout);
 
                     } else if ($eventTypeId == Schedule::$COMMAND_EVENT) {
+						$additionalInfo = $row["AdditionalInfo"];
+
                         // Add a command node to the schedule
                         $command = $scheduleXml->createElement("command");
                         $command->setAttribute("date", $fromDt);
                         $command->setAttribute("scheduleid", $scheduleId);
                         $command->setAttribute('code', $commandCode);
+
+						if($additionalInfo != null){
+							$command->setAttribute("AdditionalInfo",$additionalInfo);
+						}
+
                         $layoutElements->appendChild($command);
                     } else if ($eventTypeId == Schedule::$OVERLAY_EVENT && $options['includeOverlays']) {
                         // Ensure we have a layoutId (we may not if an empty campaign is assigned)
@@ -981,7 +995,8 @@ class Soap
             if ($overlayNodes != null)
                 $layoutElements->appendChild($overlayNodes);
 
-        } catch (\Exception $e) {
+        }
+		catch (\Exception $e) {
             $this->getLog()->error('Error getting the schedule. ' . $e->getMessage());
             return new \SoapFault('Sender', 'Unable to get the schedule');
         }
@@ -1059,14 +1074,14 @@ class Soap
     }
 
     /**
-     * @param $serverKey
-     * @param $hardwareKey
-     * @param $mediaId
-     * @param $type
-     * @param $reason
-     * @return bool|\SoapFault
-     * @throws \SoapFault
-     */
+	 * @param $serverKey
+	 * @param $hardwareKey
+	 * @param $mediaId
+	 * @param $type
+	 * @param $reason
+	 * @return bool|\SoapFault
+	 * @throws \SoapFault
+	 */
     protected function doBlackList($serverKey, $hardwareKey, $mediaId, $type, $reason)
     {
         $this->logProcessor->setRoute('BlackList');
@@ -1138,7 +1153,8 @@ class Soap
                 if ($this->display->isAuditing())
                     $this->getLog()->debug($mediaId . ' already black listed');
             }
-        } catch (\Exception $e) {
+        }
+		catch (\Exception $e) {
             $this->getLog()->error('Unable to query for Blacklist records. ' . $e->getMessage());
             return new \SoapFault('Sender', "Unable to query for BlackList records.");
         }
@@ -1149,12 +1165,12 @@ class Soap
     }
 
     /**
-     * @param $serverKey
-     * @param $hardwareKey
-     * @param $logXml
-     * @return bool
-     * @throws \SoapFault
-     */
+	 * @param $serverKey
+	 * @param $hardwareKey
+	 * @param $logXml
+	 * @return bool
+	 * @throws \SoapFault
+	 */
     protected function doSubmitLog($serverKey, $hardwareKey, $logXml)
     {
         $this->logProcessor->setRoute('SubmitLog');
@@ -1243,7 +1259,8 @@ class Soap
             try {
                 $date = ($this->display->timeZone != null) ? Date::createFromFormat('Y-m-d H:i:s', $date, $this->display->timeZone)->tz($defaultTimeZone) : Date::createFromFormat('Y-m-d H:i:s', $date);
                 $date = $this->getDate()->getLocalDate($date);
-            } catch (\Exception $e) {
+            }
+			catch (\Exception $e) {
                 // Protect against the date format being inreadable
                 $this->getLog()->debug('Date format unreadable on log message: ' . $date);
 
@@ -1325,12 +1342,12 @@ class Soap
     }
 
     /**
-     * @param $serverKey
-     * @param $hardwareKey
-     * @param $statXml
-     * @return bool
-     * @throws \SoapFault
-     */
+	 * @param $serverKey
+	 * @param $hardwareKey
+	 * @param $statXml
+	 * @return bool
+	 * @throws \SoapFault
+	 */
     protected function doSubmitStats($serverKey, $hardwareKey, $statXml)
     {
         $this->logProcessor->setRoute('SubmitStats');
@@ -1387,8 +1404,8 @@ class Soap
                 $scheduleId = 0;
 
             $layoutId = $node->getAttribute('layoutid');
-            
-            // Slightly confusing behaviour here to support old players without introducting a different call in 
+
+            // Slightly confusing behaviour here to support old players without introducting a different call in
             // xmds v=5.
             // MediaId is actually the widgetId (since 1.8) and the mediaId is looked up by this service
             $widgetId = $node->getAttribute('mediaid');
@@ -1415,7 +1432,7 @@ class Soap
                     $mediaId = $media[0]->mediaId;
                 }
             }
-            
+
             $tag = $node->getAttribute('tag');
 
             if ($tag == 'null')
@@ -1463,12 +1480,12 @@ class Soap
     }
 
     /**
-     * @param $serverKey
-     * @param $hardwareKey
-     * @param $inventory
-     * @return bool
-     * @throws \SoapFault
-     */
+	 * @param $serverKey
+	 * @param $hardwareKey
+	 * @param $inventory
+	 * @return bool
+	 * @throws \SoapFault
+	 */
     protected function doMediaInventory($serverKey, $hardwareKey, $inventory)
     {
         $this->logProcessor->setRoute('MediaInventory');
@@ -1566,14 +1583,14 @@ class Soap
     }
 
     /**
-     * @param $serverKey
-     * @param $hardwareKey
-     * @param $layoutId
-     * @param $regionId
-     * @param $mediaId
-     * @return mixed
-     * @throws \SoapFault
-     */
+	 * @param $serverKey
+	 * @param $hardwareKey
+	 * @param $layoutId
+	 * @param $regionId
+	 * @param $mediaId
+	 * @return mixed
+	 * @throws \SoapFault
+	 */
     protected function doGetResource($serverKey, $hardwareKey, $layoutId, $regionId, $mediaId)
     {
         $this->logProcessor->setRoute('GetResource');
@@ -1626,8 +1643,8 @@ class Soap
     }
 
     /**
-     * PHONE_HOME if required
-     */
+	 * PHONE_HOME if required
+	 */
     protected function phoneHome()
     {
         if ($this->getConfig()->GetSetting('PHONE_HOME') == 'On') {
@@ -1664,7 +1681,8 @@ class Soap
                     if ($this->display->isAuditing())
                         $this->getLog()->notice("audit", "PHONE_HOME [OUT]", "xmds", "RequiredFiles");
 
-                } catch (\Exception $e) {
+                }
+				catch (\Exception $e) {
 
                     $this->getLog()->error($e->getMessage());
 
@@ -1675,10 +1693,10 @@ class Soap
     }
 
     /**
-     * Authenticates the display
-     * @param string $hardwareKey
-     * @return bool
-     */
+	 * Authenticates the display
+	 * @param string $hardwareKey
+	 * @return bool
+	 */
     protected function authDisplay($hardwareKey)
     {
         try {
@@ -1692,16 +1710,17 @@ class Soap
 
             return true;
 
-        } catch (NotFoundException $e) {
+        }
+		catch (NotFoundException $e) {
             $this->getLog()->error($e->getMessage());
             return false;
         }
     }
 
     /**
-     * Alert Display Up
-     * @throws \phpmailerException
-     */
+	 * Alert Display Up
+	 * @throws \phpmailerException
+	 */
     protected function alertDisplayUp()
     {
         $maintenanceEnabled = $this->getConfig()->GetSetting('MAINTENANCE_ENABLED');
@@ -1734,7 +1753,8 @@ class Soap
 
                 try {
                     $notification->save();
-                } catch (\Exception $e) {
+                }
+				catch (\Exception $e) {
                     $this->getLog()->error('Unable to send email alert for display %s with subject %s and body %s', $this->display->display, $subject, $body);
                 }
             } else {
@@ -1744,9 +1764,9 @@ class Soap
     }
 
     /**
-     * Get the Client IP Address
-     * @return string
-     */
+	 * Get the Client IP Address
+	 * @return string
+	 */
     protected function getIp()
     {
         $clientIp = '';
@@ -1763,9 +1783,9 @@ class Soap
     }
 
     /**
-     * Check we haven't exceeded the bandwidth limits
-     *  - Note, display logging doesn't work in here, this is CMS level logging
-     */
+	 * Check we haven't exceeded the bandwidth limits
+	 *  - Note, display logging doesn't work in here, this is CMS level logging
+	 */
     protected function checkBandwidth()
     {
         // Uncomment to enable auditing.
@@ -1813,30 +1833,31 @@ class Soap
 
             return $bandwidthUsage;
 
-        } catch (\Exception $e) {
+        }
+		catch (\Exception $e) {
             $this->getLog()->error($e->getMessage());
             return false;
         }
     }
 
     /**
-     * Log Bandwidth Usage
-     * @param <type> $displayId
-     * @param <type> $type
-     * @param <type> $sizeInBytes
-     */
+	 * Log Bandwidth Usage
+	 * @param <type> $displayId
+	 * @param <type> $type
+	 * @param <type> $sizeInBytes
+	 */
     protected function logBandwidth($displayId, $type, $sizeInBytes)
     {
         $this->bandwidthFactory->createAndSave($type, $displayId, $sizeInBytes);
     }
 
     /**
-     * Generate a file download path for HTTP downloads, taking into account the precence of a CDN.
-     * @param $type
-     * @param $itemId
-     * @param $nonce
-     * @return string
-     */
+	 * Generate a file download path for HTTP downloads, taking into account the precence of a CDN.
+	 * @param $type
+	 * @param $itemId
+	 * @param $nonce
+	 * @return string
+	 */
     protected function generateRequiredFileDownloadPath($type, $itemId, $nonce)
     {
         $saveAsPath = Wsdl::getRoot() . '?file=' . $nonce . '&displayId=' . $this->display->displayId . '&type=' . $type . '&itemId=' . $itemId;
