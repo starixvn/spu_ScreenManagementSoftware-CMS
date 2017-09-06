@@ -71,4 +71,4 @@ UPDATE `pages` SET title = 'Screen Groups' WHERE pageID = 22
 UPDATE `pages` SET title = 'Screen Profiles' WHERE pageID = 30
 
 INSERT INTO `pages`(pageID, name, title, asHome)
-VALUES(40, 'clientversion', 'ClientVersion', 0)
+VALUES(40, 'clientversion', 'Client Versions', 0)
