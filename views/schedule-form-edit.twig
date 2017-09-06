@@ -104,6 +104,10 @@
                         {% set helpText %}{% trans "Please select a command for this Event." %}{% endset %}
                         {{ forms.dropdown("commandId", "single", title, event.commandId, [{commandId: "", command: ""}]|merge(commands), "commandId", "command", helpText, "command-control") }}
 
+                        {% set title %}{% trans "Version" %}{% endset %}
+                        {% set helpText %}{% trans "Pick a version to upgrade." %}{% endset %}
+                        {{ forms.dropdown("versionFileName", "single", title, "", versions, "fileName", "version", helpText, "hidden version-control")}}
+
                         {% set title %}{% trans "Display Order" %}{% endset %}
                         {% set helpText %}{% trans "Please select the order this event should appear in relation to others when there is more than one event scheduled" %}{% endset %}
                         {{ forms.number("displayOrder", title, event.displayOrder, helpText) }}
@@ -172,4 +176,26 @@
             </form>
         </div>
     </div>
+
+    <script>
+        var originalVersion = "{{ event.commandAdditionalInfo }}";
+        var versionDiv = $(".version-control");
+
+        if (originalVersion != null && originalVersion != "") {
+            versionDiv.removeClass("hidden");
+            versionDiv.find("select").val(originalVersion);
+        }
+
+        $(".command-control select").change(function () {   
+                var selectField = $(this);
+                var selected = parseInt(selectField.val());  
+                          
+                if (selected == 2) {
+                    versionDiv.removeClass("hidden");
+                }
+                else {
+                    versionDiv.addClass("hidden");
+                }
+            });
+    </script>
 {% endblock %}

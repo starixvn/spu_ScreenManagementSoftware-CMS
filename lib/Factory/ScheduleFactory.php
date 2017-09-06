@@ -288,7 +288,8 @@ class ScheduleFactory extends BaseFactory
             `command`.commandId,
             `command`.command,
             `schedule`.dayPartId,
-            `schedule`.syncTimezone
+            `schedule`.syncTimezone,
+			`schedule`.commandAdditionalInfo
           FROM `schedule`
             LEFT OUTER JOIN `campaign`
             ON campaign.CampaignID = `schedule`.CampaignID

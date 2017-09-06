@@ -16,7 +16,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Xibo.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Xibo.  If not, see <http://www.gnu.org/licenses />.
  */
 namespace Xibo\Controller;
 use Stash\Interfaces\PoolInterface;
@@ -44,31 +44,31 @@ use Xibo\XMR\CommandAction;
 class Schedule extends Base
 {
     /**
-     * @var Session
-     */
+	 * @var Session
+	 */
     private $session;
 
     /** @var  PoolInterface */
     private $pool;
 
     /**
-     * @var ScheduleFactory
-     */
+	 * @var ScheduleFactory
+	 */
     private $scheduleFactory;
 
     /**
-     * @var DisplayGroupFactory
-     */
+	 * @var DisplayGroupFactory
+	 */
     private $displayGroupFactory;
 
     /**
-     * @var CampaignFactory
-     */
+	 * @var CampaignFactory
+	 */
     private $campaignFactory;
 
     /**
-     * @var CommandFactory
-     */
+	 * @var CommandFactory
+	 */
     private $commandFactory;
 
     /** @var  DisplayFactory */
@@ -89,26 +89,26 @@ class Schedule extends Base
     private $clientVersionFactory;
 
     /**
-     * Set common dependencies.
-     * @param LogServiceInterface $log
-     * @param SanitizerServiceInterface $sanitizerService
-     * @param \Xibo\Helper\ApplicationState $state
-     * @param \Xibo\Entity\User $user
-     * @param \Xibo\Service\HelpServiceInterface $help
-     * @param DateServiceInterface $date
-     * @param ConfigServiceInterface $config
-     * @param Session $session
-     * @param PoolInterface $pool
-     * @param ScheduleFactory $scheduleFactory
-     * @param DisplayGroupFactory $displayGroupFactory
-     * @param CampaignFactory $campaignFactory
-     * @param CommandFactory $commandFactory
-     * @param DisplayFactory $displayFactory
-     * @param LayoutFactory $layoutFactory
-     * @param MediaFactory $mediaFactory
-     * @param DayPartFactory $dayPartFactory
+	 * Set common dependencies.
+	 * @param LogServiceInterface $log
+	 * @param SanitizerServiceInterface $sanitizerService
+	 * @param \Xibo\Helper\ApplicationState $state
+	 * @param \Xibo\Entity\User $user
+	 * @param \Xibo\Service\HelpServiceInterface $help
+	 * @param DateServiceInterface $date
+	 * @param ConfigServiceInterface $config
+	 * @param Session $session
+	 * @param PoolInterface $pool
+	 * @param ScheduleFactory $scheduleFactory
+	 * @param DisplayGroupFactory $displayGroupFactory
+	 * @param CampaignFactory $campaignFactory
+	 * @param CommandFactory $commandFactory
+	 * @param DisplayFactory $displayFactory
+	 * @param LayoutFactory $layoutFactory
+	 * @param MediaFactory $mediaFactory
+	 * @param DayPartFactory $dayPartFactory
 	 * @param ClientVersionFactory $clientVersionFactory
-     */
+	 */
     public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $session, $pool, $scheduleFactory, $displayGroupFactory, $campaignFactory, $commandFactory, $displayFactory, $layoutFactory, $mediaFactory, $dayPartFactory, $clientVersionFactory)
     {
         $this->setCommonDependencies($log, $sanitizerService, $state, $user, $help, $date, $config);
@@ -154,45 +154,45 @@ class Schedule extends Base
     }
 
     /**
-     * Generates the calendar that we draw events on
-     *
-     * @SWG\Get(
-     *  path="/schedule/data/events",
-     *  operationId="scheduleCalendarData",
-     *  tags={"schedule"},
-     *  @SWG\Parameter(
-     *      name="DisplayGroupIds",
-     *      description="The DisplayGroupIds to return the schedule for. Empty for All.",
-     *      in="formData",
-     *      type="array",
-     *      @SWG\Items(
-     *          type="integer"
-     *      )
-     *  ),
-     *  @SWG\Parameter(
-     *      name="from",
-     *      in="formData",
-     *      required=true,
-     *      type="integer",
-     *      description="From Date Timestamp in Microseconds"
-     *  ),
-     *  @SWG\Parameter(
-     *      name="to",
-     *      in="formData",
-     *      required=true,
-     *      type="integer",
-     *      description="To Date Timestamp in Microseconds"
-     *  ),
-     *  @SWG\Response(
-     *      response=200,
-     *      description="successful response",
-     *      @SWG\Schema(
-     *          type="array",
-     *          @SWG\Items(ref="#/definitions/ScheduleCalendarData")
-     *      )
-     *  )
-     * )
-     */
+	 * Generates the calendar that we draw events on
+	 *
+	 * @SWG\Get(
+	 *  path="/schedule/data/events",
+	 *  operationId="scheduleCalendarData",
+	 *  tags={"schedule"},
+	 *  @SWG\Parameter(
+	 *      name="DisplayGroupIds",
+	 *      description="The DisplayGroupIds to return the schedule for. Empty for All.",
+	 *      in="formData",
+	 *      type="array",
+	 *      @SWG\Items(
+	 *          type="integer"
+	 *      )
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="from",
+	 *      in="formData",
+	 *      required=true,
+	 *      type="integer",
+	 *      description="From Date Timestamp in Microseconds"
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="to",
+	 *      in="formData",
+	 *      required=true,
+	 *      type="integer",
+	 *      description="To Date Timestamp in Microseconds"
+	 *  ),
+	 *  @SWG\Response(
+	 *      response=200,
+	 *      description="successful response",
+	 *      @SWG\Schema(
+	 *          type="array",
+	 *          @SWG\Items(ref="#/definitions/ScheduleCalendarData")
+	 *      )
+	 *  )
+	 * )
+	 */
     function eventData()
     {
         $this->getApp()->response()->header('Content-Type', 'application/json');
@@ -251,7 +251,8 @@ class Schedule extends Base
 
             try {
                 $scheduleEvents = $row->getEvents($start, $end);
-            } catch (XiboException $e) {
+            }
+			catch (XiboException $e) {
                 $this->getLog()->error('Unable to getEvents for ' . $row->eventId);
                 continue;
             }
@@ -306,29 +307,29 @@ class Schedule extends Base
                 $this->getLog()->debug('End date is ' . $toDt->toRssString() . ' ' . $scheduleEvent->toDt);
 
                 /**
-                 * @SWG\Definition(
-                 *  definition="ScheduleCalendarData",
-                 *  @SWG\Property(
-                 *      property="id",
-                 *      type="integer",
-                 *      description="Event ID"
-                 *  ),
-                 *  @SWG\Property(
-                 *      property="title",
-                 *      type="string",
-                 *      description="Event Title"
-                 *  ),
-                 *  @SWG\Property(
-                 *      property="sameDay",
-                 *      type="integer",
-                 *      description="Does this event happen only on 1 day"
-                 *  ),
-                 *  @SWG\Property(
-                 *      property="event",
-                 *      ref="#/definitions/Schedule"
-                 *  )
-                 * )
-                 */
+				 * @SWG\Definition(
+				 *  definition="ScheduleCalendarData",
+				 *  @SWG\Property(
+				 *      property="id",
+				 *      type="integer",
+				 *      description="Event ID"
+				 *  ),
+				 *  @SWG\Property(
+				 *      property="title",
+				 *      type="string",
+				 *      description="Event Title"
+				 *  ),
+				 *  @SWG\Property(
+				 *      property="sameDay",
+				 *      type="integer",
+				 *      description="Does this event happen only on 1 day"
+				 *  ),
+				 *  @SWG\Property(
+				 *      property="event",
+				 *      ref="#/definitions/Schedule"
+				 *  )
+				 * )
+				 */
                 $events[] = array(
                     'id' => $row->eventId,
                     'title' => $title,
@@ -347,33 +348,33 @@ class Schedule extends Base
     }
 
     /**
-     * Event List
-     * @param $displayGroupId
-     *
-     * @SWG\Get(
-     *  path="/schedule/:displayGroupId/events",
-     *  operationId="scheduleCalendarData",
-     *  tags={"schedule"},
-     *  @SWG\Parameter(
-     *      name="displayGroupId",
-     *      description="The DisplayGroupId to return the event list for.",
-     *      in="path",
-     *      type="integer",
-     *      required=true
-     *  ),
-     *  @SWG\Parameter(
-     *      name="date",
-     *      in="formData",
-     *      required=true,
-     *      type="string",
-     *      description="Date in Y-m-d H:i:s"
-     *  ),
-     *  @SWG\Response(
-     *      response=200,
-     *      description="successful response"
-     *  )
-     * )
-     */
+	 * Event List
+	 * @param $displayGroupId
+	 *
+	 * @SWG\Get(
+	 *  path="/schedule/:displayGroupId/events",
+	 *  operationId="scheduleCalendarData",
+	 *  tags={"schedule"},
+	 *  @SWG\Parameter(
+	 *      name="displayGroupId",
+	 *      description="The DisplayGroupId to return the event list for.",
+	 *      in="path",
+	 *      type="integer",
+	 *      required=true
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="date",
+	 *      in="formData",
+	 *      required=true,
+	 *      type="string",
+	 *      description="Date in Y-m-d H:i:s"
+	 *  ),
+	 *  @SWG\Response(
+	 *      response=200,
+	 *      description="successful response"
+	 *  )
+	 * )
+	 */
     public function eventList($displayGroupId)
     {
         $displayGroup = $this->displayGroupFactory->getById($displayGroupId);
@@ -435,7 +436,8 @@ class Schedule extends Base
             // Get scheduled events based on recurrence
             try {
                 $scheduleEvents = $schedule->getEvents($date, $date);
-            } catch (XiboException $e) {
+            }
+			catch (XiboException $e) {
                 $this->getLog()->error('Unable to getEvents for ' . $schedule->eventId);
                 continue;
             }
@@ -524,11 +526,11 @@ class Schedule extends Base
     }
 
     /**
-     * @param \Xibo\Entity\Display $display
-     * @param \Xibo\Entity\DisplayGroup $displayGroup
-     * @param int $eventDisplayGroupId
-     * @return array
-     */
+	 * @param \Xibo\Entity\Display $display
+	 * @param \Xibo\Entity\DisplayGroup $displayGroup
+	 * @param int $eventDisplayGroupId
+	 * @return array
+	 */
     private function calculateIntermediates($display, $displayGroup, $eventDisplayGroupId)
     {
         $this->getLog()->debug('Calculating intermediates for events displayGroupId ' . $eventDisplayGroupId . ' viewing displayGroupId ' . $displayGroup->displayGroupId);
@@ -603,8 +605,8 @@ class Schedule extends Base
     }
 
     /**
-     * Shows a form to add an event
-     */
+	 * Shows a form to add an event
+	 */
     function addForm()
     {
         $groups = array();
@@ -640,130 +642,130 @@ class Schedule extends Base
     }
 
     /**
-     * Add Event
-     * @SWG\Post(
-     *  path="/schedule",
-     *  operationId="scheduleAdd",
-     *  tags={"schedule"},
-     *  summary="Add Schedule Event",
-     *  description="Add a new scheduled event for a Campaign/Layout to be shown on a Display Group/Display.",
-     *  @SWG\Parameter(
-     *      name="eventTypeId",
-     *      in="formData",
-     *      description="The Event Type Id to use for this Event. 1=Campaign, 2=Command",
-     *      type="integer",
-     *      required=true
-     *  ),
-     *  @SWG\Parameter(
-     *      name="campaignId",
-     *      in="formData",
-     *      description="The Campaign ID to use for this Event. If a Layout is needed then the Campaign specific ID for that Layout should be used.",
-     *      type="integer",
-     *      required=false
-     *  ),
-     *  @SWG\Parameter(
-     *      name="commandId",
-     *      in="formData",
-     *      description="The Command ID to use for this Event.",
-     *      type="integer",
-     *      required=false
-     *  ),
-     *  @SWG\Parameter(
-     *      name="displayOrder",
-     *      in="formData",
-     *      description="The display order for this event. ",
-     *      type="integer",
-     *      required=true
-     *  ),
-     *  @SWG\Parameter(
-     *      name="isPriority",
-     *      in="formData",
-     *      description="An integer indicating the priority of this event. Normal events have a priority of 0.",
-     *      type="integer",
-     *      required=true
-     *   ),
-     *   @SWG\Parameter(
-     *      name="displayGroupIds",
-     *      in="formData",
-     *      description="The Display Group IDs for this event. Display specific Group IDs should be used to schedule on single displays.",
-     *      type="array",
-     *      required=true,
-     *      @SWG\Items(type="integer")
-     *   ),
-     *   @SWG\Parameter(
-     *      name="dayPartId",
-     *      in="formData",
-     *      description="The Day Part for this event. Overrides supported are 0(custom) and 1(always). Defaulted to 0.",
-     *      type="integer",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="syncTimezone",
-     *      in="formData",
-     *      description="Should this schedule be synced to the resulting Display timezone?",
-     *      type="integer",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="fromDt",
-     *      in="formData",
-     *      description="The from date for this event.",
-     *      type="string",
-     *      format="date-time",
-     *      required=true
-     *   ),
-     *   @SWG\Parameter(
-     *      name="toDt",
-     *      in="formData",
-     *      description="The to date for this event.",
-     *      type="string",
-     *      format="date-time",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="recurrenceType",
-     *      in="formData",
-     *      description="The type of recurrence to apply to this event.",
-     *      type="string",
-     *      required=false,
-     *      enum={"", "Minute", "Hour", "Day", "Week", "Month", "Year"}
-     *   ),
-     *   @SWG\Parameter(
-     *      name="recurrenceDetail",
-     *      in="formData",
-     *      description="The interval for the recurrence.",
-     *      type="integer",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="recurrenceRange",
-     *      in="formData",
-     *      description="The end date for this events recurrence.",
-     *      type="string",
-     *      format="date-time",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="recurrenceRepeatsOn",
-     *      in="formData",
-     *      description="The days of the week that this event repeats - weekly only",
-     *      type="string",
-     *      format="array",
-     *      required=false,
-     *      @SWG\Items(type="integer")
-     *   ),
-     *   @SWG\Response(
-     *      response=201,
-     *      description="successful operation",
-     *      @SWG\Schema(ref="#/definitions/Schedule"),
-     *      @SWG\Header(
-     *          header="Location",
-     *          description="Location of the new record",
-     *          type="string"
-     *      )
-     *  )
-     * )
-     */
+	 * Add Event
+	 * @SWG\Post(
+	 *  path="/schedule",
+	 *  operationId="scheduleAdd",
+	 *  tags={"schedule"},
+	 *  summary="Add Schedule Event",
+	 *  description="Add a new scheduled event for a Campaign/Layout to be shown on a Display Group/Display.",
+	 *  @SWG\Parameter(
+	 *      name="eventTypeId",
+	 *      in="formData",
+	 *      description="The Event Type Id to use for this Event. 1=Campaign, 2=Command",
+	 *      type="integer",
+	 *      required=true
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="campaignId",
+	 *      in="formData",
+	 *      description="The Campaign ID to use for this Event. If a Layout is needed then the Campaign specific ID for that Layout should be used.",
+	 *      type="integer",
+	 *      required=false
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="commandId",
+	 *      in="formData",
+	 *      description="The Command ID to use for this Event.",
+	 *      type="integer",
+	 *      required=false
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="displayOrder",
+	 *      in="formData",
+	 *      description="The display order for this event. ",
+	 *      type="integer",
+	 *      required=true
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="isPriority",
+	 *      in="formData",
+	 *      description="An integer indicating the priority of this event. Normal events have a priority of 0.",
+	 *      type="integer",
+	 *      required=true
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="displayGroupIds",
+	 *      in="formData",
+	 *      description="The Display Group IDs for this event. Display specific Group IDs should be used to schedule on single displays.",
+	 *      type="array",
+	 *      required=true,
+	 *      @SWG\Items(type="integer")
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="dayPartId",
+	 *      in="formData",
+	 *      description="The Day Part for this event. Overrides supported are 0(custom) and 1(always). Defaulted to 0.",
+	 *      type="integer",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="syncTimezone",
+	 *      in="formData",
+	 *      description="Should this schedule be synced to the resulting Display timezone?",
+	 *      type="integer",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="fromDt",
+	 *      in="formData",
+	 *      description="The from date for this event.",
+	 *      type="string",
+	 *      format="date-time",
+	 *      required=true
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="toDt",
+	 *      in="formData",
+	 *      description="The to date for this event.",
+	 *      type="string",
+	 *      format="date-time",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="recurrenceType",
+	 *      in="formData",
+	 *      description="The type of recurrence to apply to this event.",
+	 *      type="string",
+	 *      required=false,
+	 *      enum={"", "Minute", "Hour", "Day", "Week", "Month", "Year"}
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="recurrenceDetail",
+	 *      in="formData",
+	 *      description="The interval for the recurrence.",
+	 *      type="integer",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="recurrenceRange",
+	 *      in="formData",
+	 *      description="The end date for this events recurrence.",
+	 *      type="string",
+	 *      format="date-time",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="recurrenceRepeatsOn",
+	 *      in="formData",
+	 *      description="The days of the week that this event repeats - weekly only",
+	 *      type="string",
+	 *      format="array",
+	 *      required=false,
+	 *      @SWG\Items(type="integer")
+	 *   ),
+	 *   @SWG\Response(
+	 *      response=201,
+	 *      description="successful operation",
+	 *      @SWG\Schema(ref="#/definitions/Schedule"),
+	 *      @SWG\Header(
+	 *          header="Location",
+	 *          description="Location of the new record",
+	 *          type="string"
+	 *      )
+	 *  )
+	 * )
+	 */
     public function add()
     {
         $this->getLog()->debug('Add Schedule');
@@ -851,8 +853,8 @@ class Schedule extends Base
 
     /**
 	 * Shows a form to edit an event
-     * @param int $eventId
-     */
+	 * @param int $eventId
+	 */
     function editForm($eventId)
     {
         $schedule = $this->scheduleFactory->getById($eventId);
@@ -902,139 +904,140 @@ class Schedule extends Base
             'displayGroupIds' => array_map(function($element) {
                 return $element->displayGroupId;
             }, $schedule->displayGroups),
-            'help' => $this->getHelp()->link('Schedule', 'Edit')
+            'help' => $this->getHelp()->link('Schedule', 'Edit'),
+			'versions' => $this->clientVersionFactory->query(null, ['retired' => 0]),
         ]);
     }
 
     /**
-     * Edits an event
-     * @param int $eventId
-     *
-     * @SWG\Put(
-     *  path="/schedule/{eventId}",
-     *  operationId="scheduleEdit",
-     *  tags={"schedule"},
-     *  summary="Edit Schedule Event",
-     *  description="Edit a scheduled event for a Campaign/Layout to be shown on a Display Group/Display.",
-     *  @SWG\Parameter(
-     *      name="eventId",
-     *      in="path",
-     *      description="The Scheduled Event ID",
-     *      type="integer",
-     *      required=true
-     *  ),
-     *  @SWG\Parameter(
-     *      name="eventTypeId",
-     *      in="formData",
-     *      description="The Event Type Id to use for this Event. 1=Campaign, 2=Command",
-     *      type="integer",
-     *      required=true
-     *  ),
-     *  @SWG\Parameter(
-     *      name="campaignId",
-     *      in="formData",
-     *      description="The Campaign ID to use for this Event. If a Layout is needed then the Campaign specific ID for that Layout should be used.",
-     *      type="integer",
-     *      required=false
-     *  ),
-     *  @SWG\Parameter(
-     *      name="commandId",
-     *      in="formData",
-     *      description="The Command ID to use for this Event.",
-     *      type="integer",
-     *      required=false
-     *  ),
-     *  @SWG\Parameter(
-     *      name="displayOrder",
-     *      in="formData",
-     *      description="The display order for this event. ",
-     *      type="integer",
-     *      required=true
-     *  ),
-     *  @SWG\Parameter(
-     *      name="isPriority",
-     *      in="formData",
-     *      description="An integer indicating the priority of this event. Normal events have a priority of 0.",
-     *      type="integer",
-     *      required=true
-     *   ),
-     *   @SWG\Parameter(
-     *      name="displayGroupIds",
-     *      in="formData",
-     *      description="The Display Group IDs for this event. Display specific Group IDs should be used to schedule on single displays.",
-     *      type="array",
-     *      required=true,
-     *      @SWG\Items(type="integer")
-     *   ),
-     *   @SWG\Parameter(
-     *      name="dayPartId",
-     *      in="formData",
-     *      description="The Day Part for this event. Overrides supported are 0(custom) and 1(always). Defaulted to 0.",
-     *      type="integer",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="syncTimezone",
-     *      in="formData",
-     *      description="Should this schedule be synced to the resulting Display timezone?",
-     *      type="integer",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="fromDt",
-     *      in="formData",
-     *      description="The from date for this event.",
-     *      type="string",
-     *      format="date-time",
-     *      required=true
-     *   ),
-     *   @SWG\Parameter(
-     *      name="toDt",
-     *      in="formData",
-     *      description="The to date for this event.",
-     *      type="string",
-     *      format="date-time",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="recurrenceType",
-     *      in="formData",
-     *      description="The type of recurrence to apply to this event.",
-     *      type="string",
-     *      required=false,
-     *      enum={"", "Minute", "Hour", "Day", "Week", "Month", "Year"}
-     *   ),
-     *   @SWG\Parameter(
-     *      name="recurrenceDetail",
-     *      in="formData",
-     *      description="The interval for the recurrence.",
-     *      type="integer",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="recurrenceRange",
-     *      in="formData",
-     *      description="The end date for this events recurrence.",
-     *      type="string",
-     *      format="date-time",
-     *      required=false
-     *   ),
-     *   @SWG\Parameter(
-     *      name="recurrenceRepeatsOn",
-     *      in="formData",
-     *      description="The days of the week that this event repeats - weekly only",
-     *      type="string",
-     *      format="array",
-     *      required=false,
-     *      @SWG\Items(type="integer")
-     *   ),
-     *   @SWG\Response(
-     *      response=200,
-     *      description="successful operation",
-     *      @SWG\Schema(ref="#/definitions/Schedule")
-     *  )
-     * )
-     */
+	 * Edits an event
+	 * @param int $eventId
+	 *
+	 * @SWG\Put(
+	 *  path="/schedule/{eventId}",
+	 *  operationId="scheduleEdit",
+	 *  tags={"schedule"},
+	 *  summary="Edit Schedule Event",
+	 *  description="Edit a scheduled event for a Campaign/Layout to be shown on a Display Group/Display.",
+	 *  @SWG\Parameter(
+	 *      name="eventId",
+	 *      in="path",
+	 *      description="The Scheduled Event ID",
+	 *      type="integer",
+	 *      required=true
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="eventTypeId",
+	 *      in="formData",
+	 *      description="The Event Type Id to use for this Event. 1=Campaign, 2=Command",
+	 *      type="integer",
+	 *      required=true
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="campaignId",
+	 *      in="formData",
+	 *      description="The Campaign ID to use for this Event. If a Layout is needed then the Campaign specific ID for that Layout should be used.",
+	 *      type="integer",
+	 *      required=false
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="commandId",
+	 *      in="formData",
+	 *      description="The Command ID to use for this Event.",
+	 *      type="integer",
+	 *      required=false
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="displayOrder",
+	 *      in="formData",
+	 *      description="The display order for this event. ",
+	 *      type="integer",
+	 *      required=true
+	 *  ),
+	 *  @SWG\Parameter(
+	 *      name="isPriority",
+	 *      in="formData",
+	 *      description="An integer indicating the priority of this event. Normal events have a priority of 0.",
+	 *      type="integer",
+	 *      required=true
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="displayGroupIds",
+	 *      in="formData",
+	 *      description="The Display Group IDs for this event. Display specific Group IDs should be used to schedule on single displays.",
+	 *      type="array",
+	 *      required=true,
+	 *      @SWG\Items(type="integer")
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="dayPartId",
+	 *      in="formData",
+	 *      description="The Day Part for this event. Overrides supported are 0(custom) and 1(always). Defaulted to 0.",
+	 *      type="integer",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="syncTimezone",
+	 *      in="formData",
+	 *      description="Should this schedule be synced to the resulting Display timezone?",
+	 *      type="integer",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="fromDt",
+	 *      in="formData",
+	 *      description="The from date for this event.",
+	 *      type="string",
+	 *      format="date-time",
+	 *      required=true
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="toDt",
+	 *      in="formData",
+	 *      description="The to date for this event.",
+	 *      type="string",
+	 *      format="date-time",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="recurrenceType",
+	 *      in="formData",
+	 *      description="The type of recurrence to apply to this event.",
+	 *      type="string",
+	 *      required=false,
+	 *      enum={"", "Minute", "Hour", "Day", "Week", "Month", "Year"}
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="recurrenceDetail",
+	 *      in="formData",
+	 *      description="The interval for the recurrence.",
+	 *      type="integer",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="recurrenceRange",
+	 *      in="formData",
+	 *      description="The end date for this events recurrence.",
+	 *      type="string",
+	 *      format="date-time",
+	 *      required=false
+	 *   ),
+	 *   @SWG\Parameter(
+	 *      name="recurrenceRepeatsOn",
+	 *      in="formData",
+	 *      description="The days of the week that this event repeats - weekly only",
+	 *      type="string",
+	 *      format="array",
+	 *      required=false,
+	 *      @SWG\Items(type="integer")
+	 *   ),
+	 *   @SWG\Response(
+	 *      response=200,
+	 *      description="successful operation",
+	 *      @SWG\Schema(ref="#/definitions/Schedule")
+	 *  )
+	 * )
+	 */
     public function edit($eventId)
     {
         $schedule = $this->scheduleFactory->getById($eventId);
@@ -1055,6 +1058,13 @@ class Schedule extends Base
         $recurrenceRepeatsOn = $this->getSanitizer()->getIntArray('recurrenceRepeatsOn');
         $schedule->recurrenceRepeatsOn = (empty($recurrenceRepeatsOn)) ? null : implode(',', $recurrenceRepeatsOn);
         $schedule->displayGroups = [];
+
+		if($schedule->commandId == 2){
+			$schedule->commandAdditionalInfo = $this->getSanitizer()->getString('versionFileName');
+		}
+		else{
+			$schedule->commandAdditionalInfo = null;
+		}
 
         foreach ($this->getSanitizer()->getIntArray('displayGroupIds') as $displayGroupId) {
             $schedule->assignDisplayGroup($this->displayGroupFactory->getById($displayGroupId));
@@ -1119,9 +1129,9 @@ class Schedule extends Base
     }
 
     /**
-     * Shows the DeleteEvent form
-     * @param int $eventId
-     */
+	 * Shows the DeleteEvent form
+	 * @param int $eventId
+	 */
     function deleteForm($eventId)
     {
         $schedule = $this->scheduleFactory->getById($eventId);
@@ -1138,28 +1148,28 @@ class Schedule extends Base
     }
 
     /**
-     * Deletes an Event from all displays
-     * @param int $eventId
-     *
-     * @SWG\Delete(
-     *  path="/schedule/{eventId}",
-     *  operationId="scheduleDelete",
-     *  tags={"schedule"},
-     *  summary="Delete Event",
-     *  description="Delete a Scheduled Event",
-     *  @SWG\Parameter(
-     *      name="eventId",
-     *      in="path",
-     *      description="The Scheduled Event ID",
-     *      type="integer",
-     *      required=true
-     *   ),
-     *  @SWG\Response(
-     *      response=204,
-     *      description="successful operation"
-     *  )
-     * )
-     */
+	 * Deletes an Event from all displays
+	 * @param int $eventId
+	 *
+	 * @SWG\Delete(
+	 *  path="/schedule/{eventId}",
+	 *  operationId="scheduleDelete",
+	 *  tags={"schedule"},
+	 *  summary="Delete Event",
+	 *  description="Delete a Scheduled Event",
+	 *  @SWG\Parameter(
+	 *      name="eventId",
+	 *      in="path",
+	 *      description="The Scheduled Event ID",
+	 *      type="integer",
+	 *      required=true
+	 *   ),
+	 *  @SWG\Response(
+	 *      response=204,
+	 *      description="successful operation"
+	 *  )
+	 * )
+	 */
     public function delete($eventId)
     {
         $schedule = $this->scheduleFactory->getById($eventId);
@@ -1180,10 +1190,10 @@ class Schedule extends Base
     }
 
     /**
-     * Is this event editable?
-     * @param array[\Xibo\Entity\DisplayGroup] $displayGroups
-     * @return bool
-     */
+	 * Is this event editable?
+	 * @param array[\Xibo\Entity\DisplayGroup] $displayGroups
+	 * @return bool
+	 */
     private function isEventEditable($displayGroups)
     {
         $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
@@ -1206,10 +1216,10 @@ class Schedule extends Base
     }
 
     /**
-     * Schedule Now Form
-     * @param string $from The object that called this form
-     * @param int $id The Id
-     */
+	 * Schedule Now Form
+	 * @param string $from The object that called this form
+	 * @param int $id The Id
+	 */
     public function scheduleNowForm($from, $id)
     {
         $groups = array();

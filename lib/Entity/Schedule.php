@@ -572,7 +572,8 @@ class Schedule implements \JsonSerializable
             recurrence_range = :recurrenceRange,
             `recurrenceRepeatsOn` = :recurrenceRepeatsOn,
             `dayPartId` = :dayPartId,
-            `syncTimezone` = :syncTimezone
+            `syncTimezone` = :syncTimezone,
+			commandAdditionalInfo = :commandAdditionalInfo
           WHERE eventId = :eventId
         ', [
             'eventTypeId' => $this->eventTypeId,
@@ -589,7 +590,8 @@ class Schedule implements \JsonSerializable
             'recurrenceRepeatsOn' => $this->recurrenceRepeatsOn,
             'dayPartId' => $this->dayPartId,
             'syncTimezone' => $this->syncTimezone,
-            'eventId' => $this->eventId
+            'eventId' => $this->eventId,
+			'commandAdditionalInfo' => $this->commandAdditionalInfo
         ]);
     }
 
