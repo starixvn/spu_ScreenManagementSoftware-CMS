@@ -70,6 +70,27 @@ var xiboNexcel = {
 
 };
 
+function schedulePage(){
+	
+	function screenDefaultPicker(){
+		var allScreen = $(".dropdown-menu .inner li:first a");
+		var parent = allScreen.parent();
+		var parentSiblings = parent.siblings();
+		
+		if(!parent.hasClass("selected") && !parentSiblings.hasClass("selected"))
+		{
+			allScreen.click();
+		}
+	}
+		
+	return {
+		init: function(){
+			screenDefaultPicker();
+		}
+	};
+}
+
 $(function () {
     xiboNexcel.init();
+	schedulePage().init();
 });
