@@ -241,24 +241,22 @@ class Soap5 extends Soap4
         $this->logProcessor->setRoute('CheckAndUpgradeNewVersion');
 
         $upgradeLocation = $this->getConfig()->GetSetting('UPGRADE_LOCATION');
-        $smsClientVersion = $this->getConfig()->GetSetting('SMS_CLIENT_VERSION');
-        $smsClientFilename = $this->getConfig()->GetSetting('SMS_CLIENT_FILENAME');
 
         $file = null;
         $f = null;
-        $upgradeFileName = $fileName == '' ? $smsClientFilename : $fileName;
-        $filename = $upgradeLocation . $upgradeFileName;
-
-        if($currentVersion == null || $isForced == true || $currentVersion != null && $currentVersion != $smsClientVersion)
+        
+        if($fileName != '')
         {
+            $upgradeFileName = $upgradeLocation . $filename;
+
             try {
-                    if (!file_exists($filename))
+                    if (!file_exists($upgradeFileName))
                             throw new NotFoundException('UPGRADE_LOCATION exists but file missing. ' . $upgradeLocation);
 
-                    if (!$f = fopen($filename, 'r'))
+                    if (!$f = fopen($upgradeFileName, 'r'))
                             throw new NotFoundException('Unable to get file pointer');
 
-                    $file = fread($f, filesize($filename));
+                    $file = fread($f, filesize($upgradeFileName));
                     fclose($f);
             }
             catch (NotFoundException $e) {
