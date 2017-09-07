@@ -81,3 +81,5 @@ update setting set helptext = 'Should SMS send future schedule information to cl
 update setting set cat = 'configuration' where settingid = 900;
 delete from setting where settingid = 901;
 delete from setting where settingid = 902;
+
+update setting set userSee = 0 where settingid = 63;
