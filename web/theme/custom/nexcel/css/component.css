@@ -233,7 +233,7 @@ td #tagDiv .btn {
     right: 2px;
 }
 .XiboFilter .form-group .form-control,
-.XiboFilter input[type='text'].form-control,
+.XiboFilter input[type='text'].form-control:not(.use-report),
 .XiboFilter .form-control .btn.btn-default,
 .XiboFilter .bootstrap-tagsinput.form-control {
     border: none;

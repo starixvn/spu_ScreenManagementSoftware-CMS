@@ -296,6 +296,7 @@
         ///
         function usageFormOpen(dialog) {
             var usageTable = $("#usageReportTable").DataTable({
+                "dom": '<"btn-function">t<"bottom"ipl>',
                 "language": dataTablesLanguage,
                 serverSide: true,
                 stateSave: true,
