@@ -72,3 +72,12 @@ UPDATE `pages` SET title = 'Screen Profiles' WHERE pageID = 30
 
 INSERT INTO `pages`(pageID, name, title, asHome)
 VALUES(40, 'clientversion', 'Client Versions', 0)
+
+update setting set helptext = 'Should the server send anonymous statistics back to the SMS project?' where settingid = 36;
+update setting set helptext = 'Key used to distinguish each SMS instance. This is generated randomly based on the time you first installed SMS, and is completely untraceable.' where settingid = 37;
+update setting set helptext = 'Should SMS send an email if a display is in an error state every time the maintenance script runs?' where settingid = 49;
+update setting set helptext = 'Should SMS send future schedule information to clients?' where settingid = 50;
+
+update setting set cat = 'configuration' where settingid = 900;
+delete from setting where settingid = 901;
+delete from setting where settingid = 902;
