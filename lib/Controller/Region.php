@@ -127,13 +127,16 @@ class Region extends Base
             }
         }
 
+		$options = (object)["REGION_OPTIONS_COLOURING" => $this->getConfig()->GetSetting("REGION_OPTIONS_COLOURING")];
+
         // Pass to view
         $this->getState()->template = ($this->session->get('timeLineView') == 'grid') ? 'region-form-grid' : 'region-form-timeline';
         $this->getState()->setData([
             'region' => $region,
             'modules' => $this->moduleFactory->getAssignableModules(),
             'transitions' => $this->transitionData(),
-            'help' => $this->getHelp()->link('Layout', 'RegionOptions')
+            'help' => $this->getHelp()->link('Layout', 'RegionOptions'),
+			'options' => $options
         ]);
     }
 

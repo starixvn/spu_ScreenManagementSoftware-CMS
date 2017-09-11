@@ -55,7 +55,7 @@
                             {% for widget in playlist.widgets %}
                                 {% set name = widget.module.getName() %}
                                 {% set duration = widget.duration %}
-                                {% if options.REGION_OPTIONS_COLOURING == "Permissions" %}
+                                {% if options.REGION_OPTIONS_COLOURING == "Permissions Colouring" %}
                                     {% if currentUser.checkEditable(widget) %}
                                         {% set coloring = "timelineMediaItemColouring_enabled" %}
                                     {% else %}
