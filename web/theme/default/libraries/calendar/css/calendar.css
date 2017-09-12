@@ -256,6 +256,9 @@
   -webkit-box-sizing: border-box;
   border-bottom: thin dashed #e1e1e1;
 }
+.cal-day-hour-part:hover{
+    background-color: #a6b3cd;
+}
 #cal-day-box .cal-day-hour .day-highlight {
   height: 30px;
 }

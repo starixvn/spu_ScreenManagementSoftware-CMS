@@ -1027,7 +1027,7 @@ function SMSHandleShowFormForMultiple(items)
         {
             data.push($(items[i]).data().commitId);
         }
-        
+
         XiboFormRender(url.replace(':ids', data.join(',')));
     }
     else

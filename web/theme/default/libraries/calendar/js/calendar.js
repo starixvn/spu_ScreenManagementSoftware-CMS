@@ -616,6 +616,21 @@ if(!String.prototype.formatNum) {
 		// Return formatted time
 		return moment(time, "HH:mm").format(jsTimeFormat);
 	};
+        
+        Calendar.prototype._get_date = function(hour, part) {
+		var time_start = this.options.time_start.split(":");
+		var time_split = parseInt(this.options.time_split);
+		var h = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
+		var m = "" + time_split * part;
+		
+		var time = this._format_hour(h.formatNum(2) + ":" + m.formatNum(2));
+                time = this.options.position.start;
+                var date = moment(time);
+                date.hours(h);
+                date.minutes(m);
+                
+		return date;
+	};
 
 	Calendar.prototype._week = function(event) {
 		this._loadTemplate('week-days');

@@ -611,8 +611,20 @@ class Schedule extends Base
     {
         $groups = array();
         $displays = array();
+
+        $fromTime = $this->getSanitizer()->getString('from');
+        $toTime = $this->getSanitizer()->getInt('to');
+        if ($fromTime != null || $toTime != null) {
+            $fromTime = $this->getDate()->parse($this->getSanitizer()->getString('from', 1000) / 1000, 'U');
+            $toTime = $this->getDate()->parse($this->getSanitizer()->getString('to', 1000) / 1000, 'U');
+        }
+        else{
+            $fromTime = '';
+            $toTime = '';
+        }
+        
         $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
-		$versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
+        $versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
 
         foreach ($this->displayGroupFactory->query(['displayGroup'], ['isDisplaySpecific' => -1]) as $displayGroup) {
             /* @var \Xibo\Entity\DisplayGroup $\Xibo\Entity\DisplayGroup */
@@ -631,13 +643,16 @@ class Schedule extends Base
         $this->getState()->template = 'schedule-form-add';
         $this->getState()->setData([
             'displays' => $displays,
+            'fromDt' => $fromTime, 
+            //$this->getDate()->getLocalDate($schedule->toDt)
+            'toDt' => $toTime,
             'displayGroups' => $groups,
             'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1, 'retired' => 0]),
             'commands' => $this->commandFactory->query(),
             'dayParts' => $this->dayPartFactory->allWithSystem(),
             'displayGroupIds' => $this->session->get('displayGroupIds'),
             'help' => $this->getHelp()->link('Schedule', 'Add'),
-			'versions' => $versions
+            'versions' => $versions
         ]);
     }
 
@@ -893,6 +908,7 @@ class Schedule extends Base
             }
         }
 
+        $this->getLog()->error($schedule->fromDt);
         $this->getState()->template = 'schedule-form-edit';
         $this->getState()->setData([
             'event' => $schedule,
