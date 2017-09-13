@@ -117,5 +117,3 @@ function daySize(){
         .mousedown(initScaling)
         .mouseup(finishScaling)      
 }
-
-daySize();

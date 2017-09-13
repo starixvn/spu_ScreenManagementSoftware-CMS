@@ -95,7 +95,7 @@
 
 {% endblock %}
 
- {% block javaScript %}
+{% block javaScript %}
     <script type="text/javascript">
         function RenderFormAdd(obj) {
             debugger;
@@ -105,6 +105,8 @@
             XiboFormRender(obj);            
         }
     </script>
+	
+	<script src="../../theme/custom/nexcel/js/schedule-day.js"></script>
 {% endblock %}
     
 {% block javaScriptTemplates %}
@@ -186,7 +188,7 @@
             </div>
             <% }; %>
             </div>
-			 <%= "<script src='/theme/custom/nexcel/js/schedule-day.js'><\/script>" %>
+			 <%= <script>daySize()</script> %>
         </script>
 
         <script type="text/x-handlebars-template" id="calendar-template-events-list">
