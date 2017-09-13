@@ -613,10 +613,16 @@ class Schedule extends Base
         $displays = array();
 
         $fromTime = $this->getSanitizer()->getString('from');
-        $toTime = $this->getSanitizer()->getInt('to');
+        $toTime = $this->getSanitizer()->getString('to');
         if ($fromTime != null || $toTime != null) {
-            $fromTime = $this->getDate()->parse($this->getSanitizer()->getString('from', 1000) / 1000, 'U');
-            $toTime = $this->getDate()->parse($this->getSanitizer()->getString('to', 1000) / 1000, 'U');
+            
+            // Parse our dates into a Date object, so that we convert to local time correctly.
+            $fromTime = $this->getDate()->parse($fromTime / 1000, 'U');
+            $toTime = $this->getDate()->parse($toTime / 1000, 'U');                      
+
+            // Set the row from/to date to be an ISO date for display
+            $fromTime = $this->getDate()->getLocalDate($fromTime);
+            $toTime = $this->getDate()->getLocalDate($toTime);
         }
         else{
             $fromTime = '';
