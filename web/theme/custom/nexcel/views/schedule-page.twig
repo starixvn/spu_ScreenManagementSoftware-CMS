@@ -98,11 +98,10 @@
 {% block javaScript %}
     <script type="text/javascript">
         function RenderFormAdd(obj) {
-            debugger;
-            var timeValue = obj.attr('time-data');
+/*             var timeValue = obj.attr('time-data');
             var href = obj.attr('href') + '?from=' + timeValue + '&to=' + timeValue;
             obj.attr('href', href);
-            XiboFormRender(obj);            
+            XiboFormRender(obj);   */          
         }
     </script>
 	
@@ -188,7 +187,7 @@
             </div>
             <% }; %>
             </div>
-			 <%= <script>daySize()</script> %>
+			 <%= "<script>var daySchedule =new day_schedule(); daySchedule.daySize(); daySchedule.daySelect();</script>" %>
         </script>
 
         <script type="text/x-handlebars-template" id="calendar-template-events-list">
