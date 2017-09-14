@@ -61,14 +61,14 @@
                         </select>
                     </div>
                     <div class="progress pull-right"><span id="calendar-progress"></span></div>
-                </div>         
+                </div>
             </div>
             <div class="row">
                 <!-- Time Slider -->
                 <div class="col-sm-8 col-sm-offset-2 cal-event-time-bar" style="display:none;">
                     <input id="timePicker" data-slider-id='timePickerSlider' type="text" data-slider-min="0" data-slider-max="1439" data-slider-step="1" data-slider-value="0" data-slider-handle="square" />
-                </div> 
-            </div> 
+                </div>
+            </div>
             <h1 class="col-sm-12 page-header"></h1>
             <div class="row">
                 <div id="CalendarContainer" data-event-source="{{ urlFor("schedule.calendar.data") }}" data-agenda-link="{{ urlFor("schedule.events") }}" data-calendar-type="{{ settings.CALENDAR_TYPE }}" class="col-sm-12">
@@ -97,7 +97,7 @@
 
 {% block javaScript %}
     <script type="text/javascript">
-        function UpdateTimeEvent(event, start, end){            
+        function UpdateTimeEvent(event, start, end){
             var eventId = $(event).find('a').attr('data-event-id');
             var date = moment($('h1').text() + ' ' + start);
             var from = date.format("YYYY-MM-DD") + ' '+ start+':00';
@@ -108,18 +108,18 @@
                 data: { eventId: eventId, fromDt: from, toDt: to },
             });
         }
-        
+
         function RenderFormAdd(start, end) {
             var startTime = start.attr('time-data');
             var endTime = end.attr('time-data');
             var href = start.attr('href') + '?from=' + startTime + '&to=' + endTime;
             start.attr('href', href);
-            XiboFormRender(start); 
+            XiboFormRender(start);
         }
     </script>
-	<script src="{{ theme.uri("nexcel/js/schedule-day.js") }}?{{ version }}"></script>
+	<script src="{{ theme.uri("js/schedule-day.js") }}?{{ version }}"></script>
 {% endblock %}
-    
+
 {% block javaScriptTemplates %}
     {% raw %}
         <script type="text/x-handlebars-template" id="calendar-template-day">
@@ -199,7 +199,7 @@
             </div>
             <% }; %>
             </div>
-            <script>var daySchedule =new day_schedule(); daySchedule.daySize(UpdateTimeEvent); daySchedule.daySelect(RenderFormAdd);</script> %>
+            <script>var daySchedule =new day_schedule(); daySchedule.daySize(UpdateTimeEvent); daySchedule.daySelect(RenderFormAdd, console.log, console.log);</script> %>
         </script>
 
         <script type="text/x-handlebars-template" id="calendar-template-events-list">
@@ -466,14 +466,14 @@
             </div>
             <% } %>
         </script>
-        
+
         <script type="text/x-handlebars-template" id="calendar-template-agenda">
-            
+
             <div class="container-fluid">
-                
+
                 <!-- Content panel with tabs -->
                 <div class="panel with-nav-tabs panel-default agenda-panel">
-                
+
                     <!-- Tab Panel -->
                     <% if (typeof agenda.displayGroupList != 'undefined' && agenda.displayGroupList.length > 0) { %>
                         <div class="panel-heading">
@@ -484,26 +484,26 @@
                                         <% } else { %>
                                             <li>
                                         <% }; %>
-                                        
+
                                         <%
-                                            // If it is a simple display show an 
+                                            // If it is a simple display show an
                                             var displayGroupIcon = "";
                                             if (displayGroup['isDisplaySpecific'] == 0)
                                                 displayGroupIcon = "<span class='fa fa-television'></span> ";
                                         %>
-                                        
+
                                         <a data-toggle="tab" data-id="<%= displayGroup['id'] %>" href="#tab_<%= displayGroup['id'] %>">
                                             <%= (displayGroupIcon + displayGroup['name']) %>
                                         </a>
                                         </li>
                                     <% }); %>
-                                </ul> 
+                                </ul>
                         </div>
                     <% } %>
-                
+
                     <!-- Tab Content -->
                     <div class="panel-body">
-                    
+
                     <% if (agenda.errorMessage != '') { %>
                        {% endraw %}
                        <!-- Request failed - Show Error Message -->
@@ -511,7 +511,7 @@
                            <% if (agenda.errorMessage == 'display_not_selected') { %>
                                <p>{% trans "Display not selected!" %}</p>
                            <% } else if (agenda.errorMessage == 'no_events') { %>
-                               <p>{% trans "No events for the chosen Display/Display Group on the selected date!" %}</p>    
+                               <p>{% trans "No events for the chosen Display/Display Group on the selected date!" %}</p>
                            <% } else  if (agenda.errorMessage == 'request_failed') { %>
                                <p>{% trans "Data request failed!" %}</p>
                            <% } %>
@@ -519,18 +519,18 @@
                        {% raw %}
                    <% } else if(!jQuery.isEmptyObject(agenda.results)) { %>
                         <!-- Request successful - Show Data -->
-                            
+
                         <!-- Breadcrumb trail -->
                         <div class="cal-event-breadcrumb-trail col-xs-12">
                             <div id="content"></div>
-                        </div>     
-                        
+                        </div>
+
                         <!-- Agenda Data Content -->
                         <div class="tab-content">
                             <% _.each(agenda.displayGroupList, function(displayGroup){ %>
                                 <% if (typeof agenda.results[(displayGroup['id'])] != 'undefined') { %>
-                                    <% 
-                                        var resultItem = agenda.results[displayGroup['id']]; 
+                                    <%
+                                        var resultItem = agenda.results[displayGroup['id']];
                                         var isActive = (displayGroup['id'] == agenda.selectedDisplayGroup) ? 'active' : '';
                                     %>
                                     <div id="tab_<%= displayGroup['id'] %>" class="tab-pane fade in <%= isActive %> container-fluid">
@@ -542,18 +542,18 @@
                                             <div class="col-lg-3">
                                                 <%= cal._displaygroups(resultItem.events, resultItem.displayGroups) %>
                                                 <%= cal._campaigns(resultItem.events, resultItem.campaigns) %>
-                                            </div> 
+                                            </div>
                                          <% } %>
                                     </div>
                                 <% } %>
                             <% }); %>
                         </div>
-                    <% } %>   
+                    <% } %>
                     </div>
                 </div>
             </div>
         </script>
-        
+
         <script type="text/x-handlebars-template" id="calendar-template-agenda-layouts">
             <table id="layouts" class="table agenda-table">
                 <thead>
@@ -563,7 +563,7 @@
                                 {% endraw %}{% trans "Layouts" %}{% raw %}</span>
                             <% } else if (layouts.type == 3) { %>
                                 {% endraw %}{% trans "Overlay Layouts" %}{% raw %}
-                            <% } %> 
+                            <% } %>
                         </th>
                     </tr>
                     {% endraw %}
@@ -583,14 +583,14 @@
                 </thead>
                 <tbody>
                     <% _.each(layouts, function(layout){ %>
-                        <tr 
+                        <tr
                             class="<%= layout.itemClass %>"
-                            data-elem-id="<%= layout.layoutId %>" 
-                            data-event-id="<%= layout.eventId %>" 
+                            data-elem-id="<%= layout.layoutId %>"
+                            data-event-id="<%= layout.eventId %>"
                             data-toggle="tooltip"
                             <% if (layout.itemClass == 'low-priority') { %>
                                 title="{% endraw %}{% trans "This layout will not be shown as there are higher priority layouts scheduled at this time" %}{% raw %}"
-                            <% } %> 
+                            <% } %>
                         >
                             <td><span class="fa <%= layout.itemIcon %>"></span></td>
                             <td><%= layout.layoutId %></td>
@@ -610,11 +610,11 @@
                             <% if (layout.eventDayPartId == 1) { %>
                                 <td>{% endraw %}{% trans "Always" %}{% raw %}</td>
                                 <td><span class="fa fa-retweet"></span></td>
-                            <% } else { %> 
+                            <% } else { %>
                                 <td><%= layout.eventFromDt %></td>
                                 <td><%= layout.eventToDt %></td>
-                            <% } %> 
-                            
+                            <% } %>
+
                             <td><%= layout.layoutDuration %></td>
                             <td><%= layout.layoutDisplayOrder %></td>
                             <td><%= layout.eventPriority %></td>
@@ -662,7 +662,7 @@
                 </tbody>
             </table>
         </script>
-        
+
         <script type="text/x-handlebars-template" id="calendar-template-agenda-campaigns">
             <table id="campaigns" class="table agenda-table">
                 {% endraw %}
@@ -688,27 +688,27 @@
                 </tbody>
             </table>
         </script>
-        
+
         <script type="text/x-handlebars-template" id="calendar-template-breadcrumb-trail">
             <!-- Layout -->
             <span>
                 <a href="<%= layout.link %>"><%= layout.name %></a>
             </span>
-            
+
             <span>&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;</span>
-            
+
             <!-- Campaign -->
             <% if (typeof campaign != 'undefined') { %>
                 <span>
                     <% if (campaign.link != '') { %>
                       <a href="<%= campaign.link %>"><%= campaign.name %></a>
-                    <% } else { %>   
+                    <% } else { %>
                       <%= campaign.name %>
-                    <% } %> 
+                    <% } %>
                 </span>
                 <span>&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;</span>
-            <% } %> 
-            
+            <% } %>
+
             <!-- Schedule -->
             <span>
                 <a href="<%= schedule.link %>" class="XiboFormButton">
@@ -717,20 +717,20 @@
                     {% raw %}
                 </a>
             </span>
-            
+
             <!-- Display Groups -->
             <% _.each(displayGroups, function(displayGroup){ %>
                 <span>&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;</span>
                 <span>
                   <% if (displayGroup.link != '') { %>
                     <a href="<%= displayGroup.link %>"><%= displayGroup.name %></a>
-                  <% } else { %>   
+                  <% } else { %>
                     <%= displayGroup.name %>
-                  <% } %> 
+                  <% } %>
                 </span>
             <% }); %>
-            
+
         </script>
-        
+
     {% endraw %}
 {% endblock %}

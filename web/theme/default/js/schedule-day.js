@@ -181,10 +181,10 @@ function day_schedule() {
         }
 
         function detectMiddle(e){
-          if(moveCallback != null){
-            var elem = detectElem(e, false);
-            moveCallback($(elem));
-            state.push(elem);
+          if(calendar.start != null && moveCallback != null){
+              var elem = detectElem(e, false);
+              moveCallback($(elem));
+              state.push(elem);
           }
         }
 
@@ -203,7 +203,12 @@ function day_schedule() {
                 }
             }
 
-            calendar.start = null;
+            disposeResouces();
+        }
+
+        function disposeResouces(){
+          calendar.start = null;
+          state = [];
         }
 
         if (day_schedule_counter % 2 == 0) {
