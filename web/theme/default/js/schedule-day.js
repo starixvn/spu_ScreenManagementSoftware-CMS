@@ -154,7 +154,9 @@ function day_schedule() {
     }
 
     this.daySelect = function (renderForm, moveCallback, resetFunc) {
-        var state = [];
+        var state = new Set();
+
+        var state1 = null;
 
         function detectElem(e, earlyReturn) {
             var target = e.target;
@@ -183,8 +185,12 @@ function day_schedule() {
         function detectMiddle(e){
           if(calendar.start != null && moveCallback != null){
               var elem = detectElem(e, false);
-              moveCallback($(elem));
-              state.push(elem);
+
+              if(state1 == null) state1 = elem;
+
+              if(state1 != elem) moveCallback($(elem));
+
+              if(!state.has(elem)) state.add(elem);
           }
         }
 
@@ -199,7 +205,7 @@ function day_schedule() {
                 }
 
                 if(resetFunc != null){
-                  resetFunc(state.map($));
+                  resetFunc([...state].map($));
                 }
             }
 
@@ -208,7 +214,8 @@ function day_schedule() {
 
         function disposeResouces(){
           calendar.start = null;
-          state = [];
+          state.clear();
+          state1 = null;
         }
 
         if (day_schedule_counter % 2 == 0) {
