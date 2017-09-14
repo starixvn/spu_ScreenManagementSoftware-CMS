@@ -650,7 +650,6 @@ class Schedule extends Base
         $this->getState()->setData([
             'displays' => $displays,
             'fromDt' => $fromTime, 
-            //$this->getDate()->getLocalDate($schedule->toDt)
             'toDt' => $toTime,
             'displayGroups' => $groups,
             'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1, 'retired' => 0]),
