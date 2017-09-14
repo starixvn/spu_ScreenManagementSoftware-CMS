@@ -50,8 +50,6 @@ function day_schedule() {
                         $target: $this,
                         $writeTarget: $this.find(".cal-hours")
                     };
-
-                console.log("move " + state.dir);
             }
         }
 
@@ -148,13 +146,10 @@ function day_schedule() {
         }
 
         if (day_schedule_counter % 2 == 0) {
-            console.log("daySize loaded");
-
-            calendar
-		        .mousemove(scale)
-				    .mouseup(finishScaling)
-		        .children(".day-event")
-		        .mousedown(initScaling);
+            calendar.mousemove(scale)
+                .mouseup(finishScaling)
+                .children(".day-event")
+                .mousedown(initScaling);
         }
     }
 
@@ -182,7 +177,6 @@ function day_schedule() {
 
         function detectStart(e) {
             calendar.start = detectElem(e, true);
-            console.log(calendar.start);
         }
 
         function detectEnd(e) {
@@ -190,8 +184,6 @@ function day_schedule() {
 
             if (start != null) {
                 var end = detectElem(e, false);
-
-                console.log(end);
 
                 if (renderForm != null) {
                     renderForm($(start), $(end));
@@ -202,7 +194,6 @@ function day_schedule() {
         }
 
         if (day_schedule_counter % 2 == 0) {
-            console.log("daySelect loaded");
             calendar.mousedown(detectStart).mouseup(detectEnd);
         }
     }

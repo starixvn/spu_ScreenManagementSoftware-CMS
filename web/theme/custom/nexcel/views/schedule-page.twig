@@ -97,9 +97,7 @@
 
 {% block javaScript %}
     <script type="text/javascript">
-        function UpdateTimeEvent(event, start, end){
-            debugger;
-            
+        function UpdateTimeEvent(event, start, end){            
             var eventId = $(event).find('a').attr('data-event-id');
             var date = moment($('h1').text() + ' ' + start);
             var from = date.format("YYYY-MM-DD") + ' '+ start+':00';
@@ -108,11 +106,9 @@
                 url: '{{ urlFor("schedule.time.edit") }}',
                 type: 'post',
                 data: { eventId: eventId, fromDt: from, toDt: to },
-                success: function(result) {
-                    // Do something with the result
-                }
             });
         }
+        
         function RenderFormAdd(start, end) {
             var startTime = start.attr('time-data');
             var endTime = end.attr('time-data');
@@ -121,8 +117,7 @@
             XiboFormRender(start); 
         }
     </script>
-	
-	<script src="../../theme/custom/nexcel/js/schedule-day.js"></script>
+	<script src="{{ theme.uri("nexcel/js/schedule-day.js") }}?{{ version }}"></script>
 {% endblock %}
     
 {% block javaScriptTemplates %}
