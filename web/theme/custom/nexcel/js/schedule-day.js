@@ -1,9 +1,15 @@
+var day_schedule_counter = 0;
+
 function day_schedule() {
     var timeElems = $(".cal-day-hour-part");
     var times = timeElems.map((index, value) => $(value).text().trim()).get();
     var coordinates = timeElems.map((index, value) => $(value).position().top).get();
     var calendar = $("#cal-day-panel");
 
+    day_schedule_counter++;
+
+    console.log("counter " + day_schedule_counter);
+	
     function binarySearch(arr, target) {
         function binarySearchSub(arr, target, start, end) {
             if (end - start + 1 == 2) {
@@ -20,9 +26,7 @@ function day_schedule() {
         return binarySearchSub(arr, target, 0, arr.length - 1);
     }
 
-    this.daySize = function () {
-        var maxheight = calendar.height();
-
+    this.daySize = function (renderForm) {		
         var state = null;
 
         function initScaling(e) {
@@ -55,7 +59,11 @@ function day_schedule() {
         }
 
         function moveDown(diff) {
-            state.$target.css("height", Math.min(state.height + diff, maxheight - state.margin_top) + "px");
+            var maxheight = calendar.height();
+
+            console.log("max height " + maxheight);
+
+            state.$target.css("height", Math.min(state.height + diff, maxheight - 1 - state.margin_top) + "px");
         }
 
         function scale(e) {
@@ -83,6 +91,10 @@ function day_schedule() {
 
                 var $span = $this.find("span")
                 $span.text(startTime + " - " + endTime);
+
+                if (renderForm != null) {
+                    renderForm(startTime, endTime);
+                }
             }
 
             state = null;
@@ -111,15 +123,20 @@ function day_schedule() {
 
             return hh + ":" + mm + ":" + ss;
         }
+		
+        if (day_schedule_counter % 2 == 0) {
+            console.log("daySize loaded");
 
-        calendar
-            .mousemove(scale)
-            .children(".day-event")
-            .mousedown(initScaling)
-            .mouseup(finishScaling)
+            calendar
+		        .mousemove(scale)
+		        .children(".day-event")
+		        .mousedown(initScaling)
+		        .mouseup(finishScaling);
+        }
     }
 
     this.daySelect = function (renderForm) {
+		
         function detectElem(e, earlyReturn) {
             var target = e.target;
             var $target = $(target);
@@ -163,7 +180,10 @@ function day_schedule() {
 
             calendar.start = null;
         }
-
-        calendar.mousedown(detectStart).mouseup(detectEnd);
+				
+        if (day_schedule_counter % 2 == 0) {
+            console.log("daySelect loaded");
+            calendar.mousedown(detectStart).mouseup(detectEnd);   
+        }
     }
 }
