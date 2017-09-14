@@ -99,7 +99,7 @@ function day_schedule() {
               var duration = getTime();
 
               var startTime = duration[0];
-              var startTime = duration[1];
+              var endTime = duration[1];
 
               renderForm(state.$target, startTime, endTime);
             }
@@ -117,7 +117,6 @@ function day_schedule() {
           var endTime = searchTime(margin_top + height);
 
           state.$writeTarget.text(startTime + " - " + endTime);
-          return [startTime, endTime];
         }
 
         function getTime(){
