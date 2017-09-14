@@ -153,7 +153,8 @@ function day_schedule() {
         }
     }
 
-    this.daySelect = function (renderForm) {
+    this.daySelect = function (renderForm, moveCallback, resetFunc) {
+        var state = [];
 
         function detectElem(e, earlyReturn) {
             var target = e.target;
@@ -179,6 +180,14 @@ function day_schedule() {
             calendar.start = detectElem(e, true);
         }
 
+        function detectMiddle(e){
+          if(moveCallback != null){
+            var elem = detectElem(e, false);
+            moveCallback($(elem));
+            state.push(elem);
+          }
+        }
+
         function detectEnd(e) {
             var start = calendar.start;
 
@@ -187,6 +196,10 @@ function day_schedule() {
 
                 if (renderForm != null) {
                     renderForm($(start), $(end));
+                }
+
+                if(resetFunc != null){
+                  resetFunc(state.map($));
                 }
             }
 
