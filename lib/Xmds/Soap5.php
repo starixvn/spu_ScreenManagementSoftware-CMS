@@ -247,7 +247,7 @@ class Soap5 extends Soap4
         
         if($fileName != '')
         {
-            $upgradeFileName = $upgradeLocation . $filename;
+            $upgradeFileName = $upgradeLocation . $fileName;
 
             try {
                     if (!file_exists($upgradeFileName))
