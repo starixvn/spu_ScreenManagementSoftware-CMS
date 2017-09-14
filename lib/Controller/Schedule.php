@@ -1149,6 +1149,76 @@ class Schedule extends Base
             'data' => $schedule
         ]);
     }
+    
+    public function editTimeEvent($eventId)
+    {
+        $schedule = $this->scheduleFactory->getById($eventId);
+        $schedule->load();
+
+        if (!$this->isEventEditable($schedule->displayGroups))
+            throw new AccessDeniedException();
+
+        foreach ($this->getSanitizer()->getIntArray('displayGroupIds') as $displayGroupId) {
+            $schedule->assignDisplayGroup($this->displayGroupFactory->getById($displayGroupId));
+        }
+
+        if ($schedule->dayPartId != \Xibo\Entity\Schedule::$DAY_PART_ALWAYS) {
+            // Handle the dates
+            $fromDt = $this->getSanitizer()->getDate('fromDt');
+            $toDt = $this->getSanitizer()->getDate('toDt');
+            $recurrenceRange = $this->getSanitizer()->getDate('recurrenceRange');
+
+            if ($fromDt === null)
+                throw new \InvalidArgumentException(__('Please enter a from date'));
+
+            $this->getLog()->debug('Times received are: FromDt=' . $this->getDate()->getLocalDate($fromDt) . '. ToDt=' . $this->getDate()->getLocalDate($toDt) . '. recurrenceRange=' . $this->getDate()->getLocalDate($recurrenceRange));
+
+            if ($schedule->dayPartId != \Xibo\Entity\Schedule::$DAY_PART_CUSTOM && $schedule->dayPartId != \Xibo\Entity\Schedule::$DAY_PART_ALWAYS) {
+                // Daypart selected
+                // expect only a start date (no time)
+                $schedule->fromDt = $fromDt->startOfDay()->format('U');
+                $schedule->toDt = null;
+
+                if ($recurrenceRange != null)
+                    $schedule->recurrenceRange = $recurrenceRange->format('U');
+
+            } else if (!($this->isApi() || str_contains($this->getConfig()->GetSetting('DATE_FORMAT'), 's'))) {
+                // In some circumstances we want to trim the seconds from the provided dates.
+                // this happens when the date format provided does not include seconds and when the add
+                // event comes from the UI.
+                $this->getLog()->debug('Date format does not include seconds, removing them');
+                $schedule->fromDt = $fromDt->setTime($fromDt->hour, $fromDt->minute, 0)->format('U');
+
+                // If we have a toDt
+                if ($toDt !== null)
+                    $schedule->toDt = $toDt->setTime($toDt->hour, $toDt->minute, 0)->format('U');
+
+                if ($recurrenceRange != null)
+                    $schedule->recurrenceRange = $recurrenceRange->setTime($recurrenceRange->hour, $recurrenceRange->minute, 0)->format('U');
+            } else {
+                $schedule->fromDt = $fromDt->format('U');
+
+                if ($toDt !== null)
+                    $schedule->toDt = $toDt->format('U');
+
+                if ($recurrenceRange != null)
+                    $schedule->recurrenceRange = $recurrenceRange->format('U');
+            }
+
+            $this->getLog()->debug('Processed start is: FromDt=' . $fromDt->toRssString());
+        }
+
+        // Ready to do the add
+        $schedule->setDisplayFactory($this->displayFactory);
+        $schedule->save();
+
+        // Return
+        $this->getState()->hydrate([
+            'message' => __('Edited Event'),
+            'id' => $schedule->eventId,
+            'data' => $schedule
+        ]);
+    }
 
     /**
 	 * Shows the DeleteEvent form
