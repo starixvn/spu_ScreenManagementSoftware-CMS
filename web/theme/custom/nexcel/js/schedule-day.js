@@ -63,7 +63,7 @@ function day_schedule() {
 
             console.log("max height " + maxheight);
 
-            state.$target.css("height", Math.min(state.height + diff, maxheight - 1 - state.margin_top) + "px");
+            state.$target.css("height", Math.min(state.height + diff, maxheight - 2 - state.margin_top) + "px");
         }
 
         function scale(e) {
@@ -76,7 +76,7 @@ function day_schedule() {
 
         function finishScaling() {
             if (state != null) {
-                var $this = $(this);
+                var $this = state.$target;
 
                 var margin_top = parseInt($this.css("margin-top"));
                 var height = parseInt($this.css("height"));
@@ -129,9 +129,9 @@ function day_schedule() {
 
             calendar
 		        .mousemove(scale)
+				.mouseup(finishScaling)
 		        .children(".day-event")
-		        .mousedown(initScaling)
-		        .mouseup(finishScaling);
+		        .mousedown(initScaling);
         }
     }
 
