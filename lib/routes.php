@@ -82,6 +82,7 @@ $app->get('/schedule/data/events', '\Xibo\Controller\Schedule:eventData')->name(
 $app->get('/schedule/:id/events', '\Xibo\Controller\Schedule:eventList')->name('schedule.events');
 $app->post('/schedule', '\Xibo\Controller\Schedule:add')->name('schedule.add');
 $app->put('/schedule/:id', '\Xibo\Controller\Schedule:edit')->name('schedule.edit');
+$app->post('/schedule/time', '\Xibo\Controller\Schedule:editTimeEvent')->name('schedule.time.edit');
 $app->delete('/schedule/:id', '\Xibo\Controller\Schedule:delete')->name('schedule.delete');
 
 /**

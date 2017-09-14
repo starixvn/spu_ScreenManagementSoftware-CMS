@@ -1150,8 +1150,9 @@ class Schedule extends Base
         ]);
     }
     
-    public function editTimeEvent($eventId)
+    public function editTimeEvent()
     {
+        $eventId = $this->getSanitizer()->getInt('eventId');
         $schedule = $this->scheduleFactory->getById($eventId);
         $schedule->load();
 

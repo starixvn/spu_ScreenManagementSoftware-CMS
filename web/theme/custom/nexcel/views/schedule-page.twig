@@ -97,8 +97,23 @@
 
 {% block javaScript %}
     <script type="text/javascript">
-        function RenderFormAdd(start, end) {
+        function UpdateTimeEvent(event, start, end){
             debugger;
+            
+            var eventId = $(event).find('a').attr('data-event-id');
+            var date = moment($('h1').text() + ' ' + start);
+            var from = date.format("YYYY-MM-DD") + ' '+ start+':00';
+            var to = date.format("YYYY-MM-DD")+ ' ' + end+':00';
+            $.ajax({
+                url: '{{ urlFor("schedule.time.edit") }}',
+                type: 'post',
+                data: { eventId: eventId, fromDt: from, toDt: to },
+                success: function(result) {
+                    // Do something with the result
+                }
+            });
+        }
+        function RenderFormAdd(start, end) {
             var startTime = start.attr('time-data');
             var endTime = end.attr('time-data');
             var href = start.attr('href') + '?from=' + startTime + '&to=' + endTime;
@@ -189,7 +204,7 @@
             </div>
             <% }; %>
             </div>
-            <script>var daySchedule =new day_schedule(); daySchedule.daySize(); daySchedule.daySelect(RenderFormAdd);</script> %>
+            <script>var daySchedule =new day_schedule(); daySchedule.daySize(UpdateTimeEvent); daySchedule.daySelect(RenderFormAdd);</script> %>
         </script>
 
         <script type="text/x-handlebars-template" id="calendar-template-events-list">
