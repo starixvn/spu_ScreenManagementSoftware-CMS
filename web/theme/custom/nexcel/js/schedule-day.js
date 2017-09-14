@@ -207,7 +207,10 @@ function day_schedule() {
         }
 
         if (day_schedule_counter % 2 == 0) {
-            calendar.mousedown(detectStart).mouseup(detectEnd);
+            calendar
+            .mousedown(detectStart)
+            .mousemove(detectMiddle)
+            .mouseup(detectEnd);
         }
     }
 }
