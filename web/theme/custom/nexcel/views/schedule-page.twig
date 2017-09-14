@@ -97,6 +97,18 @@
 
 {% block javaScript %}
     <script type="text/javascript">
+        function HandleMultiSelect(obj){ 
+            if (!obj.hasClass('selected-hour')) {
+                obj.addClass('selected-hour');
+            }
+        }
+        
+        function ResetAfterSelect(selectedItems){
+            for (var i = 0; i < selectedItems.length; i++) {
+                selectedItems[i].removeClass('selected-hour');
+            }
+        }
+        
         function UpdateTimeEvent(event, start, end){
             var eventId = $(event).find('a').attr('data-event-id');
             var date = moment($('h1').text() + ' ' + start);
@@ -199,7 +211,7 @@
             </div>
             <% }; %>
             </div>
-            <script>var daySchedule =new day_schedule(); daySchedule.daySize(UpdateTimeEvent); daySchedule.daySelect(RenderFormAdd, console.log, console.log);</script> %>
+            <script>var daySchedule =new day_schedule(); daySchedule.daySize(UpdateTimeEvent); daySchedule.daySelect(RenderFormAdd,HandleMultiSelect,ResetAfterSelect);</script> %>
         </script>
 
         <script type="text/x-handlebars-template" id="calendar-template-events-list">
