@@ -9,7 +9,7 @@ function day_schedule() {
     day_schedule_counter++;
 
     console.log("counter " + day_schedule_counter);
-	
+
     function binarySearch(arr, target) {
         function binarySearchSub(arr, target, start, end) {
             if (end - start + 1 == 2) {
@@ -26,7 +26,7 @@ function day_schedule() {
         return binarySearchSub(arr, target, 0, arr.length - 1);
     }
 
-    this.daySize = function (renderForm) {		
+    this.daySize = function (renderForm) {
         var state = null;
 
         function initScaling(e) {
@@ -55,15 +55,29 @@ function day_schedule() {
         }
 
         function moveUp(diff) {
-            state.$target.css("margin-top", Math.max((state.margin_top + diff), 0) + "px");
+            var c = state.margin_top + diff;
+
+            var index = binarySearch(coordinates, c);
+
+            c = coordinates[index];
+
+            state.$target.css("margin-top", c + "px");
         }
 
         function moveDown(diff) {
-            var maxheight = calendar.height();
+            var h = state.height + diff;
 
-            console.log("max height " + maxheight);
+            var c = state.margin_top + h;
 
-            state.$target.css("height", Math.min(state.height + diff, maxheight - 2 - state.margin_top) + "px");
+            var index = binarySearch(coordinates, c);
+
+            if(c > coordinates[index + 1]) index++;
+
+            c = coordinates[index]  + $(timeElems[index]).height();
+
+            h = c - state.margin_top;
+
+            state.$target.css("height", h  + "px");
         }
 
         function scale(e) {
@@ -81,9 +95,6 @@ function day_schedule() {
                 var margin_top = parseInt($this.css("margin-top"));
                 var height = parseInt($this.css("height"));
 
-                //console.log("margin-top " + margin_top);
-                //console.log("height " + height);
-
                 var startTime = searchTime(margin_top);
                 var endTime = searchTime(margin_top + height);
 
@@ -93,7 +104,7 @@ function day_schedule() {
                 $span.text(startTime + " - " + endTime);
 
                 if (renderForm != null) {
-                    renderForm(startTime, endTime);
+                    renderForm(state.$target, startTime, endTime);
                 }
             }
 
@@ -115,28 +126,28 @@ function day_schedule() {
 
             var h = nearestTime.getHours();
             var m = nearestTime.getMinutes();
-            var s = nearestTime.getSeconds();
+
+            m = Math.floor(m / 30) * 30;
 
             var hh = (h < 10) ? ("0" + h) : h;
             var mm = (m < 10) ? ("0" + m) : m;
-            var ss = (s < 10) ? ("0" + s) : s;
 
-            return hh + ":" + mm + ":" + ss;
+            return hh + ":" + mm;
         }
-		
+
         if (day_schedule_counter % 2 == 0) {
             console.log("daySize loaded");
 
             calendar
 		        .mousemove(scale)
-				.mouseup(finishScaling)
+				    .mouseup(finishScaling)
 		        .children(".day-event")
 		        .mousedown(initScaling);
         }
     }
 
     this.daySelect = function (renderForm) {
-		
+
         function detectElem(e, earlyReturn) {
             var target = e.target;
             var $target = $(target);
@@ -152,7 +163,7 @@ function day_schedule() {
             }
 
             if (target == null) {
-                var $target = e.target.parent(".day-event");
+                var $target = $(e.target).parent(".day-event");
                 var index = binarySearch(coordinates, parseInt($target.css("margin-top")));
                 target = timeElems[index];
             }
@@ -180,10 +191,10 @@ function day_schedule() {
 
             calendar.start = null;
         }
-				
+
         if (day_schedule_counter % 2 == 0) {
             console.log("daySelect loaded");
-            calendar.mousedown(detectStart).mouseup(detectEnd);   
+            calendar.mousedown(detectStart).mouseup(detectEnd);
         }
     }
 }
