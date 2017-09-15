@@ -173,7 +173,7 @@ function day_schedule() {
           var height = parseInt($this.css("height"));
 
           var startTime = searchTime(margin_top);
-          var endTime = searchTime(margin_top + height);
+          var endTime = searchTime(margin_top + height + 1);
 
           state.$writeTarget.text(startTime + " - " + endTime);
         }
@@ -185,25 +185,7 @@ function day_schedule() {
         function searchTime(coordinate) {
             var index = binarySearch(coordinates, coordinate);
 
-            // console.log("index " + index)
-
-            var percent = (coordinate - coordinates[index]) / $(timeElems[index]).height();
-
-            // console.log("percent " + percent);
-
-            var nearestTime = new Date(Date.parse("1/1/1 " + times[index]));
-
-            nearestTime.setMinutes(nearestTime.getMinutes() + 30 * percent);
-
-            var h = nearestTime.getHours();
-            var m = nearestTime.getMinutes();
-
-            m = Math.floor(m / 30) * 30;
-
-            var hh = (h < 10) ? ("0" + h) : h;
-            var mm = (m < 10) ? ("0" + m) : m;
-
-            return hh + ":" + mm;
+            return times[index];
         }
 
         function detectElem(e, earlyReturn) {
