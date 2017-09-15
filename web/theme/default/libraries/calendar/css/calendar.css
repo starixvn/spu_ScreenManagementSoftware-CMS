@@ -256,9 +256,6 @@
   -webkit-box-sizing: border-box;
   border-bottom: thin dashed #e1e1e1;
 }
-.selected-hour {
-    background-color: #a6b3cd;
-}
 #cal-day-box .cal-day-hour .day-highlight {
   height: 30px;
 }
@@ -506,4 +503,8 @@ a.cal-event-week {
 }
 .badge-important {
   background-color: #b94a48;
+}
+.selected-hour{
+    background-color: rgba(221, 221, 221, 0.4);
+    border: 1px dashed;
 }

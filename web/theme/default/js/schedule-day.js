@@ -59,7 +59,7 @@ function day_schedule() {
 
             if($target != null){
               var div =
-                "<div class='pull-left day-event day-highlight dh-' style='margin-top:{0}px; height: {1}px' data-time='{2}'><span class='cal-hours'></span></div>"
+                "<div class='selected-hour' style='position:relative; margin-top:{0}px; height: {1}px' data-time='{2}'><span class='cal-hours'></span></div>"
                 .replace("{0}", $target.position().top)
                 .replace("{1}", $target.height())
                 .replace("{2}", $target.text().trim());
@@ -72,7 +72,7 @@ function day_schedule() {
                 margin_top : $target.position().top,
                 y : e.pageY,
                 $target : $div,
-                $writeTarget: $div.find(".cal-hours"),
+                $writeTarget: $div.find("span"),
                 isTmp : true,
               }
 

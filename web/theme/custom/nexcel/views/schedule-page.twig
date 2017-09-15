@@ -120,6 +120,15 @@
                 url: '{{ urlFor("schedule.time.edit") }}',
                 type: 'post',
                 data: { eventId: eventId, fromDt: from, toDt: to },
+                success: function(xhr, textStatus, error) {
+                    debugger;
+                    if (xhr.success) {
+                        SystemMessage(xhr.message, true);
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    SystemMessage(xhr.responseText, false);
+                }
             });
         }
 

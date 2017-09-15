@@ -1215,11 +1215,10 @@ class Schedule extends Base
         $schedule->setDisplayFactory($this->displayFactory);
         $schedule->save();
 
-        // Return
+        // Return        
         $this->getState()->hydrate([
-            'message' => __('Edited Event'),
-            'id' => $schedule->eventId,
-            'data' => $schedule
+                'httpStatus' => 204,
+                'message' => sprintf(__('Edited Event'))
         ]);
     }
 
