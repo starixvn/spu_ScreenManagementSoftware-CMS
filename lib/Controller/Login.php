@@ -44,6 +44,11 @@ class Login extends Base
      * @var UserFactory
      */
     private $userFactory;
+    
+    /**
+     * @var SessionFactory
+     */
+    private $sessionFactory;
 
     /**
      * Set common dependencies.
@@ -57,12 +62,13 @@ class Login extends Base
      * @param Session $session
      * @param UserFactory $userFactory
      */
-    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $session, $userFactory)
+    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $session, $userFactory, $sessionFactory)
     {
         $this->setCommonDependencies($log, $sanitizerService, $state, $user, $help, $date, $config);
 
         $this->session = $session;
         $this->userFactory = $userFactory;
+        $this->sessionFactory = $sessionFactory;
     }
 
     /**
@@ -99,7 +105,10 @@ class Login extends Base
 
                 // Check password
                 $user->checkPassword($password);
-
+                    
+                // Single Login
+                $this->sessionFactory->expireSessions($user->userId);
+                
                 // We are logged in!
                 $user->loggedIn = 1;
 

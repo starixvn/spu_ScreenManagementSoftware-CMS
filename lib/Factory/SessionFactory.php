@@ -144,4 +144,9 @@ class SessionFactory extends BaseFactory
 
         return $entries;
     }
+    
+    public function expireSessions($userId)
+    {        
+        $this->getStore()->update('UPDATE `session` SET IsExpired = 1 WHERE userID = :userId ', ['userId' => $userId]);
+    }
 }
