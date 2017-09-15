@@ -26,7 +26,7 @@ function day_schedule() {
         return binarySearchSub(arr, target, 0, arr.length - 1);
     }
 
-    this.daySize = function (renderForm) {
+    this.daySize = function (renderForm, standaloneReg) {
         var state = null;
 
         function initScaling(e) {
@@ -153,10 +153,12 @@ function day_schedule() {
         }
     }
 
-    this.daySelect = function (renderForm, moveCallback, resetFunc) {
-        var state = new Set();
+    this.daySelect = function (renderForm) {
+        var $state = null;
+        var highlightCss = "selected-hour";
 
-        var state1 = null;
+        var outState = null;
+        var directionStates = [];
 
         function detectElem(e, earlyReturn) {
             var target = e.target;
@@ -175,37 +177,53 @@ function day_schedule() {
                 target = timeElems[index];
             }
 
-            return target;
+            return $target;
         }
 
         function detectStart(e) {
-            calendar.start = detectElem(e, true);
+            $state = detectElem(e, true);
+
+            if($state != null && !$state.hasClass(highlightCss)) $state.addClass(highlightCss);
         }
 
-        function detectMiddle(e){
-          if(calendar.start != null && moveCallback != null){
-              var elem = detectElem(e, false);
+        function detectIn(e){
+          if($state != null){
+            var $target = detectElem(e, false);
 
-              if(state1 == null) state1 = elem;
+            var inKey = $target.position().top ;
 
-              if(state1 != elem) moveCallback($(elem));
+            if(outState != null && inKey != outState.key){
+              if(directionStates[inKey + "-" + outState.key] != null){
+                outState.$target.removeClass(highlightCss);
+                delete directionStates[inKey + "-" + outState.key];
+              }
+              else{
+                directionStates[outState.key + "-" + inKey] = 1;
+              }
+            }
 
-              if(!state.has(elem)) state.add(elem);
+            if(!$target.hasClass(highlightCss)) $target.addClass(highlightCss);
+          }
+        }
+
+        function detectOut(e){
+          if($state != null){
+            var $target = detectElem(e, false);
+
+            outState = { key: $target.position().top, $target: $target };
+
+            console.log($target.text().trim());
           }
         }
 
         function detectEnd(e) {
-            var start = calendar.start;
+            var $start = $state;
 
-            if (start != null) {
-                var end = detectElem(e, false);
+            if ($start != null) {
+                var $end = detectElem(e, false);
 
                 if (renderForm != null) {
-                    renderForm($(start), $(end));
-                }
-
-                if(resetFunc != null){
-                  resetFunc([...state].map($));
+                    renderForm($start, $end);
                 }
             }
 
@@ -213,16 +231,18 @@ function day_schedule() {
         }
 
         function disposeResouces(){
-          calendar.start = null;
-          state.clear();
-          state1 = null;
+          $state = null;
+          timeElems.removeClass(highlightCss);
+          outState = null;
+          directionStates = [];
         }
 
         if (day_schedule_counter % 2 == 0) {
             calendar
             .mousedown(detectStart)
-            .mousemove(detectMiddle)
             .mouseup(detectEnd);
+
+            timeElems.mouseenter(detectIn).mouseleave(detectOut);
         }
     }
 }
