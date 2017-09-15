@@ -206,6 +206,7 @@ class ClientVersion extends Base
             else {
                 // Return the file with PHP
                 readfile($upgradeFileName);
+                $this->setNoOutput(true);
             }
         } catch (Exception $ex) {
             throw new ConfigurationException(__('Could not download file.'));
