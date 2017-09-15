@@ -155,7 +155,11 @@ function day_schedule() {
               var endTime = duration[1];
 
               if(state.isTmp){
-                if(renderForm2 != null) renderForm2(startTime, endTime);
+                if(renderForm2 != null){
+                  var $start = $(timeElems[times.indexOf(startTime)]);
+                  var $end = $(timeElems[times.indexOf(endTime)]);
+                  renderForm2($start, $end);
+                }
                 state.$target.remove();
               }
               else {
