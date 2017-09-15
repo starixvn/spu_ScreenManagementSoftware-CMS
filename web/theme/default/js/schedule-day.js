@@ -41,16 +41,15 @@ function day_schedule() {
 
             if (offset <= allowed || height - offset <= allowed) {
                 state =
-                    {
-                        height: height,
-                        margin_top: margin_top,
-                        y: y,
-                        dir: (offset <= allowed) ? "up" : "down",
-                        target: this,
-                        $target: $this,
-                        $writeTarget: $this.find(".cal-hours"),
-                        isTmp: false
-                    };
+                {
+                    height: height,
+                    margin_top: margin_top,
+                    y: y,
+                    dir: (offset <= allowed) ? "up" : "down",
+                    $target: $this,
+                    $writeTarget: $this.find(".cal-hours"),
+                    isTmp: false
+                };
             }
         }
 
@@ -59,10 +58,9 @@ function day_schedule() {
 
             if($target != null){
               var div =
-                "<div class='selected-hour' style='position:relative; margin-top:{0}px; height: {1}px' data-time='{2}'><span class='cal-hours'></span></div>"
+                "<div class='selected-hour' style='position:relative; margin-top:{0}px; height: {1}px'><span class='cal-hours'></span></div>"
                 .replace("{0}", $target.position().top)
-                .replace("{1}", $target.height())
-                .replace("{2}", $target.text().trim());
+                .replace("{1}", $target.height());
 
               var $div = $(div);
 
