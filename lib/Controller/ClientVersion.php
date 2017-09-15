@@ -111,6 +111,14 @@ class ClientVersion extends Base
         foreach ($versions as $version) {
             $version->includeProperty('buttons');            
             
+            // Download
+            $version->buttons[] = array( 
+                'id' => 'content_button_download',
+                'linkType' => '_self', 'external' => true,
+                'url' => $this->urlFor('clientversion.download', ['id' => $version->versionId]),
+                'text' => __('Download')
+            );
+            
             // Edit
             $version->buttons[] = array( 
                 'id' => 'content_button_edit',
@@ -129,6 +137,79 @@ class ClientVersion extends Base
         $this->getState()->template = 'grid';
         $this->getState()->recordsTotal = $this->clientVersionFactory->countLast();
         $this->getState()->setData($versions);
+    }
+    
+    /**
+     * Gets a file from the library
+     * @param int $versionId
+     *
+     * @SWG\Get(
+     *  path="/clientversion/download/{versionId}",
+     *  operationId="download",
+     *  tags={"clientversion"},
+     *  summary="Download Client Version",
+     *  description="Download a Version file from the Client Version's pool",
+     *  produces={"application/octet-stream"},
+     *  @SWG\Parameter(
+     *      name="versionId",
+     *      in="path",
+     *      description="The Version ID to Download",
+     *      type="integer",
+     *      required=true
+     *   ),
+     *  @SWG\Response(
+     *      response=200,
+     *      description="successful operation",
+     *      @SWG\Schema(type="file"),
+     *      @SWG\Header(
+     *          header="X-Sendfile",
+     *          description="Apache Send file header - if enabled.",
+     *          type="string"
+     *      ),
+     *      @SWG\Header(
+     *          header="X-Accel-Redirect",
+     *          description="nginx send file header - if enabled.",
+     *          type="string"
+     *      )
+     *  )
+     * )
+     */
+    public function download($versionId)
+    {
+        $this->getLog()->debug('Download request for versionId %d', $versionId);
+
+        $version = $this->clientVersionFactory->getById($versionId);
+        $upgradeLocation = $this->getConfig()->GetSetting('UPGRADE_LOCATION');
+        $upgradeFileName = $upgradeLocation . $version->fileName;
+        
+        try {
+            if (!file_exists($upgradeFileName))
+                throw new NotFoundException('UPGRADE_LOCATION exists but file missing. ' . $upgradeLocation);
+            
+            $size = filesize($upgradeFileName);
+            
+            // Issue some headers
+            $this->getApp()->expires('+1 week');
+            header('Content-Type: application/octet-stream');
+            header('Content-Transfer-Encoding: Binary');
+            header('Content-disposition: attachment; filename="' . $version->fileName . '"');
+            header('Content-Length: ' . $size);
+            
+            // Send via Apache X-Sendfile header?
+            if ($this->getConfig()->GetSetting('SENDFILE_MODE') == 'Apache') {
+                header("X-Sendfile: $upgradeFileName");
+            }
+            // Send via Nginx X-Accel-Redirect?
+            else if ($this->getConfig()->GetSetting('SENDFILE_MODE') == 'Nginx') {
+                header("X-Accel-Redirect: /download/version");
+            }
+            else {
+                // Return the file with PHP
+                readfile($upgradeFileName);
+            }
+        } catch (Exception $ex) {
+            throw new ConfigurationException(__('Could not download file.'));
+        }
     }
 
     public function deleteForm($versionId)

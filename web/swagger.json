@@ -3182,6 +3182,46 @@
                 }
             }
         },
+        "/clientversion/download/{versionId}": {
+            "get": {
+                "tags": [
+                    "clientversion"
+                ],
+                "summary": "Download Client Version",
+                "description": "Download a Version file from the Client Version's pool",
+                "operationId": "download",
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "parameters": [
+                    {
+                        "name": "versionId",
+                        "in": "path",
+                        "description": "The Version ID to Download",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "file"
+                        },
+                        "headers": {
+                            "X-Sendfile": {
+                                "description": "Apache Send file header - if enabled.",
+                                "type": "string"
+                            },
+                            "X-Accel-Redirect": {
+                                "description": "nginx send file header - if enabled.",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/about": {
             "get": {
                 "tags": [
