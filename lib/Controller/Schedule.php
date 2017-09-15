@@ -618,7 +618,10 @@ class Schedule extends Base
             
             // Parse our dates into a Date object, so that we convert to local time correctly.
             $fromTime = $this->getDate()->parse($fromTime / 1000, 'U');
-            $toTime = $this->getDate()->parse($toTime / 1000, 'U');                      
+            $toTime = $this->getDate()->parse($toTime / 1000, 'U');
+            if ($fromTime->diffInHours($toTime) == 0) {
+                $toTime->addMinutes(30);
+            }
 
             // Set the row from/to date to be an ISO date for display
             $fromTime = $this->getDate()->getLocalDate($fromTime);
