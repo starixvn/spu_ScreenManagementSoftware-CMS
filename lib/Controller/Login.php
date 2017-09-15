@@ -104,10 +104,7 @@ class Login extends Base
                 $user = $this->userFactory->getByName($username);
 
                 // Check password
-                $user->checkPassword($password);
-                    
-                // Single Login
-                //$this->sessionFactory->expireSessions($user->userId);
+                $user->checkPassword($password);                    
                 
                 // We are logged in!
                 $user->loggedIn = 1;
@@ -123,7 +120,7 @@ class Login extends Base
                 // Switch Session ID's
                 $session = $this->session;
                 $session->setIsExpired(0);
-                $session->regenerateSessionId();
+                $session->regenerateSessionIdAndExpireOlds($user->userId);
                 $session->setUser($user->userId);
 
                 // Audit Log

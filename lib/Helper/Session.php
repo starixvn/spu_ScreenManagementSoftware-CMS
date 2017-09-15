@@ -328,6 +328,32 @@ class Session implements \SessionHandlerInterface
             return false;
         }
     }
+    
+    /**
+     * Updates the session ID with a new one
+     */
+    public function regenerateSessionIdAndExpireOlds($userId)
+    {
+        session_regenerate_id(false);
+
+        $newKey = session_id();
+
+        try {
+            // Swap the ID's
+            $this->getDb()->update('UPDATE `session` SET session_id = :new_session_id WHERE session_id = :session_id', array('session_id' => $this->key, 'new_session_id' => $newKey));
+            
+            // Support Single Login
+            $this->getDb()->update('UPDATE `session` SET IsExpired = 1 WHERE userID = :userId AND session_id != :current_session_id', array('userId' => $userId, 'current_session_id' => $newKey));
+
+            $this->key = $newKey;
+
+            return true;
+
+        } catch (\PDOException $e) {
+            $this->log->error('Error regenerating session: %s', $e->getMessage());
+            return false;
+        }
+    }
 
     /**
      * Set this session to expired
