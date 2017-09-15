@@ -94,7 +94,6 @@ function day_schedule() {
 
         function moveupTmp(diff){
           var c = state.margin_top + diff;
-          var maxheight = calendar.height();
 
           var index = binarySearch(coordinates, c + state.height);
 
@@ -158,11 +157,10 @@ function day_schedule() {
                   var $end = $(timeElems[times.indexOf(endTime)]);
                   renderForm2($start, $end);
                 }
+
                 state.$target.remove();
               }
-              else {
-                if(renderForm1 != null) renderForm1(state.$target, startTime, endTime);
-              }
+              else if(renderForm1 != null) renderForm1(state.$target, startTime, endTime);
             }
 
             state = null;
