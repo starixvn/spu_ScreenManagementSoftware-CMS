@@ -26,7 +26,7 @@ function day_schedule() {
         return binarySearchSub(arr, target, 0, arr.length - 1);
     }
 
-    this.daySize = function (renderForm, standaloneReg) {
+    this.daySize = function (renderForm1, renderForm2) {
         var state = null;
 
         function initScaling(e) {
@@ -48,8 +48,35 @@ function day_schedule() {
                         dir: (offset <= allowed) ? "up" : "down",
                         target: this,
                         $target: $this,
-                        $writeTarget: $this.find(".cal-hours")
+                        $writeTarget: $this.find(".cal-hours"),
+                        isTmp: false
                     };
+            }
+        }
+
+        function detectStart(e) {
+            $target = detectElem(e, true);
+
+            if($target != null){
+              var div =
+                "<div class='pull-left day-event day-highlight dh-' style='margin-top:{0}px; height: {1}px' data-time='{2}'><span class='cal-hours'></span></div>"
+                .replace("{0}", $target.position().top)
+                .replace("{1}", $target.height())
+                .replace("{2}", $target.text().trim());
+
+              var $div = $(div);
+
+              state =
+              {
+                height : $target.height(),
+                margin_top : $target.position().top,
+                y : e.pageY,
+                $target : $div,
+                $writeTarget: $div.find(".cal-hours"),
+                isTmp : true,
+              }
+
+              console.log(state);
             }
         }
 
@@ -65,6 +92,27 @@ function day_schedule() {
 
             state.$target.css("margin-top", c + "px");
             updateTime();
+        }
+
+        function moveupTmp(diff){
+          var c = state.margin_top + diff;
+          var maxheight = calendar.height();
+
+          var index = binarySearch(coordinates, c + state.height);
+
+          c = coordinates[index];
+
+          state.$target.css("margin-top", c + "px");
+
+          c1 = c - diff;
+
+          var index1 = binarySearch(coordinates, c1);
+
+          var h = coordinates[index1] - c + state.height;
+
+          state.$target.css("height", h + "px");
+
+          updateTime();
         }
 
         function moveDown(diff) {
@@ -88,18 +136,31 @@ function day_schedule() {
             if (state != null) {
                 var diff = e.pageY - state.y;
 
-                (state.dir == "up") ? moveUp(diff) : moveDown(diff);
+                if(state.isTmp) scaleTmp(diff);
+                else (state.dir == "up") ? moveUp(diff) : moveDown(diff);
             }
         }
 
+        function scaleTmp(diff){
+          (diff <= 0) ? moveupTmp(diff) : moveDown(diff);
+
+          calendar.append(state.$target);
+        }
+
         function finishScaling() {
-            if (state != null && renderForm != null) {
+            if (state != null) {
               var duration = getTime();
 
               var startTime = duration[0];
               var endTime = duration[1];
 
-              renderForm(state.$target, startTime, endTime);
+              if(state.isTmp){
+                if(renderForm2 != null) renderForm2(startTime, endTime);
+                state.$target.remove();
+              }
+              else {
+                if(renderForm1 != null) renderForm1(state.$target, startTime, endTime);
+              }
             }
 
             state = null;
@@ -145,21 +206,6 @@ function day_schedule() {
             return hh + ":" + mm;
         }
 
-        if (day_schedule_counter % 2 == 0) {
-            calendar.mousemove(scale)
-                .mouseup(finishScaling)
-                .children(".day-event")
-                .mousedown(initScaling);
-        }
-    }
-
-    this.daySelect = function (renderForm) {
-        var $state = null;
-        var highlightCss = "selected-hour";
-
-        var outState = null;
-        var directionStates = [];
-
         function detectElem(e, earlyReturn) {
             var target = e.target;
             var $target = $(target);
@@ -180,69 +226,13 @@ function day_schedule() {
             return $target;
         }
 
-        function detectStart(e) {
-            $state = detectElem(e, true);
-
-            if($state != null && !$state.hasClass(highlightCss)) $state.addClass(highlightCss);
-        }
-
-        function detectIn(e){
-          if($state != null){
-            var $target = detectElem(e, false);
-
-            var inKey = $target.position().top ;
-
-            if(outState != null && inKey != outState.key){
-              if(directionStates[inKey + "-" + outState.key] != null){
-                outState.$target.removeClass(highlightCss);
-                delete directionStates[inKey + "-" + outState.key];
-              }
-              else{
-                directionStates[outState.key + "-" + inKey] = 1;
-              }
-            }
-
-            if(!$target.hasClass(highlightCss)) $target.addClass(highlightCss);
-          }
-        }
-
-        function detectOut(e){
-          if($state != null){
-            var $target = detectElem(e, false);
-
-            outState = { key: $target.position().top, $target: $target };
-
-            console.log($target.text().trim());
-          }
-        }
-
-        function detectEnd(e) {
-            var $start = $state;
-
-            if ($start != null) {
-                var $end = detectElem(e, false);
-
-                if (renderForm != null) {
-                    renderForm($start, $end);
-                }
-            }
-
-            disposeResouces();
-        }
-
-        function disposeResouces(){
-          $state = null;
-          timeElems.removeClass(highlightCss);
-          outState = null;
-          directionStates = [];
-        }
-
         if (day_schedule_counter % 2 == 0) {
-            calendar
-            .mousedown(detectStart)
-            .mouseup(detectEnd);
+            calendar.mousemove(scale)
+                .mouseup(finishScaling)
+                .children(".day-event")
+                .mousedown(initScaling);
 
-            timeElems.mouseenter(detectIn).mouseleave(detectOut);
+            timeElems.mousedown(detectStart);
         }
     }
 }
