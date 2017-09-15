@@ -107,7 +107,7 @@ class Login extends Base
                 $user->checkPassword($password);
                     
                 // Single Login
-                $this->sessionFactory->expireSessions($user->userId);
+                //$this->sessionFactory->expireSessions($user->userId);
                 
                 // We are logged in!
                 $user->loggedIn = 1;
