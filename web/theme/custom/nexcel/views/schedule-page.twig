@@ -98,24 +98,13 @@
 {% block javaScript %}
     <script type="text/javascript">
         var urlAddForm = '{{ urlFor("schedule.add.form") }}';
-        function HandleMultiSelect(obj){
-            obj.toggleClass('selected-hour');
-            {#if (!obj.hasClass('selected-hour')) {
-                obj.addClass('selected-hour');
-            }#}
-        }
-
-        function ResetAfterSelect(selectedItems){
-            for (var i = 0; i < selectedItems.length; i++) {
-                selectedItems[i].removeClass('selected-hour');
-            }
-        }
 
         function UpdateTimeEvent(event, start, end){
             var eventId = $(event).find('a').attr('data-event-id');
             var date = moment($('h1').text() + ' ' + start);
-            var from = date.format("YYYY-MM-DD") + ' '+ start+':00';
-            var to = date.format("YYYY-MM-DD")+ ' ' + end+':00';
+            var from = date.format("YYYY-MM-DD HH:mm:ss");
+            date = moment($('h1').text() + ' ' + end);
+            var to = date.format("YYYY-MM-DD HH:mm:ss");
             $.ajax({
                 url: '{{ urlFor("schedule.time.edit") }}',
                 type: 'post',
