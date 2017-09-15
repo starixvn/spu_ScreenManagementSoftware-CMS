@@ -8,6 +8,8 @@ function day_schedule() {
 
     day_schedule_counter++;
 
+    coordinates.push(coordinates[coordinates.length - 1] + timeElems.height());
+
     console.log("counter " + day_schedule_counter);
 
     function binarySearch(arr, target) {
@@ -105,6 +107,8 @@ function day_schedule() {
 
           var index1 = binarySearch(coordinates, c1);
 
+          if(index == timeElems.length - 2 && index == binarySearch(coordinates, c)) index++;
+
           var h = coordinates[index1] - c + state.height;
 
           state.$target.css("height", h + "px");
@@ -146,21 +150,30 @@ function day_schedule() {
 
         function finishScaling() {
             if (state != null) {
-              var duration = getTime();
-
-              var startTime = duration[0];
-              var endTime = duration[1];
-
               if(state.isTmp){
                 if(renderForm2 != null){
-                  var $start = $(timeElems[times.indexOf(startTime)]);
-                  var $end = $(timeElems[times.indexOf(endTime)]);
+                  var c = parseInt(state.$target.css("margin-top"));
+                  var ch = parseInt(state.$target.css("height")) + c;
+
+                  var startIndex = binarySearch(coordinates, c);
+                  var endIndex = binarySearch(coordinates, ch)
+
+                  var $start = timeElems.eq(startIndex);
+                  var $end = timeElems.eq(endIndex);
+                  
                   renderForm2($start, $end);
                 }
 
                 state.$target.remove();
               }
-              else if(renderForm1 != null) renderForm1(state.$target, startTime, endTime);
+              else if(renderForm1 != null){
+                var duration = getTime();
+
+                var startTime = duration[0];
+                var endTime = duration[1];
+
+                renderForm1(state.$target, startTime, endTime)
+              };
             }
 
             state = null;
@@ -185,7 +198,23 @@ function day_schedule() {
         function searchTime(coordinate) {
             var index = binarySearch(coordinates, coordinate);
 
-            return times[index];
+            var percent = (coordinate - coordinates[index]) / $(timeElems[index]).height();
+
+            var nearestTime = new Date(parseInt(timeElems.eq(index).attr("time-data")));
+
+            console.log(nearestTime);
+
+            nearestTime.setMinutes(nearestTime.getMinutes() + 30 * percent);
+
+            var h = nearestTime.getHours();
+            var m = nearestTime.getMinutes();
+
+            m = Math.floor(m / 30) * 30;
+
+            var hh = (h < 10) ? ("0" + h) : h;
+            var mm = (m < 10) ? ("0" + m) : m;
+
+            return hh + ":" + mm;
         }
 
         function detectElem(e, earlyReturn) {
@@ -206,6 +235,21 @@ function day_schedule() {
             }
 
             return $target;
+        }
+
+        function formatTime(date){
+          var h = date.getHours();
+          var m = date.getMinutes();
+
+          m = Math.floor(m / 30) * 30;
+
+          var hh = (h < 10) ? ("0" + h) : h;
+          var mm = (m < 10) ? ("0" + m) : m;
+
+          time = hh + ":" + mm;
+
+
+          return time;
         }
 
         if (day_schedule_counter % 2 == 0) {
