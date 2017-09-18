@@ -10,8 +10,6 @@ function day_schedule() {
 
     day_schedule_counter++;
 
-    console.log("counter " + day_schedule_counter);
-
     function binarySearch(arr, target) {
         function binarySearchSub(arr, target, start, end) {
             if (end - start + 1 == 2) {
@@ -111,8 +109,6 @@ function day_schedule() {
                 $writeTarget: $div.find("span"),
                 isTmp : true,
               }
-
-              console.log(state);
             }
         }
 
