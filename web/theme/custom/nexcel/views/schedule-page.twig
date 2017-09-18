@@ -103,6 +103,9 @@
             var eventId = $(event).find('a').attr('data-event-id');
             var date = moment($('h1').text() + ' ' + start);
             var from = date.format("YYYY-MM-DD HH:mm:ss");
+            if (end == "00:00") {
+                end = "24:00";
+            }
             date = moment($('h1').text() + ' ' + end);
             var to = date.format("YYYY-MM-DD HH:mm:ss");
             $.ajax({
@@ -110,9 +113,11 @@
                 type: 'post',
                 data: { eventId: eventId, fromDt: from, toDt: to },
                 success: function(xhr, textStatus, error) {
-                    debugger;
                     if (xhr.success) {
                         SystemMessage(xhr.message, true);
+                    }
+                    else{
+                        SystemMessage(xhr.message, false);
                     }
                 },
                 error: function(xhr, textStatus, errorThrown) {

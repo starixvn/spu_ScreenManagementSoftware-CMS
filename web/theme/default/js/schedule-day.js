@@ -61,7 +61,7 @@ function day_schedule() {
 
             var allowed = 10;
 
-            if (offset <= allowed || height - offset <= allowed) {
+            if (offset <= allowed || height - offset <= allowed) {             
                 state =
                 {
                     height: height,
@@ -69,9 +69,27 @@ function day_schedule() {
                     y: y,
                     dir: (offset <= allowed) ? "up" : "down",
                     $target: $this,
-                    $writeTarget: $this.find(".cal-hours"),
+                    $writeTarget: $this.find(".cal-hours"), 
                     isTmp: false
                 };
+            }
+        }
+        
+        function detectBorder(e){
+            var offset = e.offsetY;           
+            var allowed = 10;
+            var elm = $(e.target);
+            
+            if (elm.hasClass('day-event')) {                
+                var height = parseInt(elm.css("height"));
+                if (offset <= allowed || height - offset <= allowed || state != null) {                             
+                    if (!elm.hasClass('resize-event')) {
+                        elm.addClass('resize-event');
+                    }
+                }
+                else{
+                    elm.removeClass('resize-event');
+                }
             }
         }
 
@@ -152,6 +170,8 @@ function day_schedule() {
         }
 
         function scale(e) {
+            var $this = $(e.target);
+            detectBorder(e);
             if (state != null) {
                 var diff = e.pageY - state.y;
 
