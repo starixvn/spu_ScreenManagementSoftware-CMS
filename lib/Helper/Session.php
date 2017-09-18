@@ -343,7 +343,7 @@ class Session implements \SessionHandlerInterface
             $this->getDb()->update('UPDATE `session` SET session_id = :new_session_id WHERE session_id = :session_id', array('session_id' => $this->key, 'new_session_id' => $newKey));
             
             // Support Single Login
-            $this->getDb()->update('UPDATE `session` SET IsExpired = 1 WHERE userID = :userId AND session_id != :current_session_id', array('userId' => $userId, 'current_session_id' => $newKey));
+            //$this->getDb()->update('UPDATE `session` SET IsExpired = 1 WHERE userID = :userId AND session_id != :current_session_id', array('userId' => $userId, 'current_session_id' => $newKey));
 
             $this->key = $newKey;
 
