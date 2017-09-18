@@ -38,12 +38,10 @@ function day_schedule() {
       date.setMinutes(date.getMinutes() + 30);
 
       var div =
-        "<div class='cal-day-hour-part' style='margin-top:{0}px; height: {1}px' time-data='{2}'><span class='cal-hours'></span></div>"
+        "<div class='cal-day-hour-part' style='margin-top: {0}px; height: {1}px' time-data='{2}'><span class='cal-hours'></span></div>"
         .replace("{0}", $last.position().top + $last.height())
         .replace("{1}", $last.height())
         .replace("{2}", date.getTime());
-
-      var $div = $(div);
 
       timeElems.push(div);
     }
@@ -98,7 +96,7 @@ function day_schedule() {
 
             if($target != null){
               var div =
-                "<div class='selected-hour' style='position:relative; margin-top:{0}px; height: {1}px'><span class='cal-hours'></span></div>"
+                "<div class='selected-hour' style='position:relative; margin-top: {0}px; height: {1}px'><span class='cal-hours'></span></div>"
                 .replace("{0}", $target.position().top)
                 .replace("{1}", $target.height());
 
@@ -225,7 +223,7 @@ function day_schedule() {
           var margin_top = parseInt($this.css("margin-top"));
           var height = parseInt($this.css("height"));
 
-          var startTime = searchTime(margin_top, true);
+          var startTime = searchTime(margin_top);
           var endTime = searchTime(margin_top + height);
 
           state.$writeTarget.text(startTime + " - " + endTime);
@@ -246,8 +244,6 @@ function day_schedule() {
 
             var h = nearestTime.getHours();
             var m = nearestTime.getMinutes();
-
-            if (!exact) m = Math.floor(m / 30) * 30;
 
             var hh = (h < 10) ? ("0" + h) : h;
             var mm = (m < 10) ? ("0" + m) : m;

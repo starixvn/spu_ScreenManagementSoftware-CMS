@@ -5,7 +5,8 @@
     "browser"
   ],
   "loadEagerly": [
-    "web/theme/custom/nexcel/js/*.js"
+    "web/theme/custom/nexcel/js/*.js",
+    "web/theme/default/js/*.js"
   ],
   "dontLoad": [
     "node_modules/**"
