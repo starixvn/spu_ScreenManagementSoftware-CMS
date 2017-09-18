@@ -59,7 +59,7 @@ function day_schedule() {
 
             var allowed = 10;
 
-            if (offset <= allowed || height - offset <= allowed) {             
+            if ((offset <= allowed || height - offset <= allowed) && e.which == 1) {
                 state =
                 {
                     height: height,
@@ -67,20 +67,20 @@ function day_schedule() {
                     y: y,
                     dir: (offset <= allowed) ? "up" : "down",
                     $target: $this,
-                    $writeTarget: $this.find(".cal-hours"), 
+                    $writeTarget: $this.find(".cal-hours"),
                     isTmp: false
                 };
             }
         }
-        
+
         function detectBorder(e){
-            var offset = e.offsetY;           
+            var offset = e.offsetY;
             var allowed = 10;
             var elm = $(e.target);
-            
-            if (elm.hasClass('day-event')) {                
+
+            if (elm.hasClass('day-event')) {
                 var height = parseInt(elm.css("height"));
-                if (offset <= allowed || height - offset <= allowed || state != null) {                             
+                if (offset <= allowed || height - offset <= allowed || state != null) {
                     if (!elm.hasClass('resize-event')) {
                         elm.addClass('resize-event');
                     }
@@ -94,7 +94,7 @@ function day_schedule() {
         function detectStart(e) {
             $target = detectElem(e, true);
 
-            if($target != null){
+            if($target != null && e.which == 1){
               var div =
                 "<div class='selected-hour' style='position:relative; margin-top: {0}px; height: {1}px'><span class='cal-hours'></span></div>"
                 .replace("{0}", $target.position().top)
@@ -168,8 +168,8 @@ function day_schedule() {
         }
 
         function scale(e) {
-            var $this = $(e.target);
             detectBorder(e);
+
             if (state != null) {
                 var diff = e.pageY - state.y;
 
@@ -184,8 +184,8 @@ function day_schedule() {
           calendar.append(state.$target);
         }
 
-        function finishScaling() {
-            if (state != null) {
+        function finishScaling(e) {
+            if (state != null && e.which == 1) {
               if(state.isTmp){
                 if(renderForm2 != null){
                   var c = parseInt(state.$target.css("margin-top"));
@@ -233,7 +233,7 @@ function day_schedule() {
           return state.$writeTarget.text().split("-").map(str => str.trim());
         }
 
-        function searchTime(coordinate, exact) {
+        function searchTime(coordinate) {
             var index = binarySearch(coordinates, coordinate);
 
             var percent = (coordinate - coordinates[index]) / $(timeElems[index]).height();
