@@ -6,9 +6,9 @@ function day_schedule() {
     var coordinates = timeElems.map((index, value) => $(value).position().top).get();
     var calendar = $("#cal-day-panel");
 
-    day_schedule_counter++;
+    createLastElem();
 
-    coordinates.push(coordinates[coordinates.length - 1] + timeElems.height());
+    day_schedule_counter++;
 
     console.log("counter " + day_schedule_counter);
 
@@ -26,6 +26,26 @@ function day_schedule() {
         }
 
         return binarySearchSub(arr, target, 0, arr.length - 1);
+    }
+
+    function createLastElem(){
+      coordinates.push(coordinates[coordinates.length - 1] + timeElems.height());
+
+      var $last = timeElems.eq(timeElems.length - 1);
+
+      var date = new Date(parseInt($last.attr("time-data")));
+
+      date.setMinutes(date.getMinutes() + 30);
+
+      var div =
+        "<div class='cal-day-hour-part' style='margin-top:{0}px; height: {1}px' time-date='{2}'><span class='cal-hours'></span></div>"
+        .replace("{0}", $last.position().top + $last.height())
+        .replace("{1}", $last.height())
+        .replace("{2}", date.getTime());
+
+      var $div = $(div);
+
+      timeElems.push($div);
     }
 
     this.daySize = function (renderForm1, renderForm2) {
@@ -123,8 +143,6 @@ function day_schedule() {
 
             var index = binarySearch(coordinates, c);
 
-            if(c > coordinates[index + 1]) index++;
-
             c = coordinates[index]  + $(timeElems[index]).height();
 
             h = c - state.margin_top;
@@ -160,7 +178,7 @@ function day_schedule() {
 
                   var $start = timeElems.eq(startIndex);
                   var $end = timeElems.eq(endIndex);
-                  
+
                   renderForm2($start, $end);
                 }
 
@@ -185,8 +203,8 @@ function day_schedule() {
           var margin_top = parseInt($this.css("margin-top"));
           var height = parseInt($this.css("height"));
 
-          var startTime = searchTime(margin_top);
-          var endTime = searchTime(margin_top + height + 1);
+          var startTime = searchTime(margin_top, true);
+          var endTime = searchTime(margin_top + height);
 
           state.$writeTarget.text(startTime + " - " + endTime);
         }
@@ -195,21 +213,19 @@ function day_schedule() {
           return state.$writeTarget.text().split("-").map(str => str.trim());
         }
 
-        function searchTime(coordinate) {
+        function searchTime(coordinate, exact) {
             var index = binarySearch(coordinates, coordinate);
 
             var percent = (coordinate - coordinates[index]) / $(timeElems[index]).height();
 
             var nearestTime = new Date(parseInt(timeElems.eq(index).attr("time-data")));
 
-            console.log(nearestTime);
-
             nearestTime.setMinutes(nearestTime.getMinutes() + 30 * percent);
 
             var h = nearestTime.getHours();
             var m = nearestTime.getMinutes();
 
-            m = Math.floor(m / 30) * 30;
+            if (!exact) m = Math.floor(m / 30) * 30;
 
             var hh = (h < 10) ? ("0" + h) : h;
             var mm = (m < 10) ? ("0" + m) : m;
