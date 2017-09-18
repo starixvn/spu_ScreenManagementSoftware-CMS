@@ -174,11 +174,11 @@ function day_schedule() {
                   var ch = parseInt(state.$target.css("height")) + c;
 
                   var startIndex = binarySearch(coordinates, c);
-                  var endIndex = binarySearch(coordinates, ch)
+                  var endIndex = binarySearch(coordinates, ch + 1)
 
                   if(ch >= coordinates[coordinates.length - 1]) endIndex++;
 
-                  var $start = $(timeElems(startIndex));
+                  var $start = $(timeElems[startIndex]);
                   var $end = $(timeElems[endIndex]);
 
                   renderForm2($start, $end);
@@ -276,7 +276,7 @@ function day_schedule() {
                 .children(".day-event")
                 .mousedown(initScaling);
 
-            timeElems.mousedown(detectStart);
+            timeElems.mousedown(detectStart).dblclick(() => state = null);
         }
     }
 }
