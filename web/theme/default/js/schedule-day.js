@@ -38,14 +38,14 @@ function day_schedule() {
       date.setMinutes(date.getMinutes() + 30);
 
       var div =
-        "<div class='cal-day-hour-part' style='margin-top:{0}px; height: {1}px' time-date='{2}'><span class='cal-hours'></span></div>"
+        "<div class='cal-day-hour-part' style='margin-top:{0}px; height: {1}px' time-data='{2}'><span class='cal-hours'></span></div>"
         .replace("{0}", $last.position().top + $last.height())
         .replace("{1}", $last.height())
         .replace("{2}", date.getTime());
 
       var $div = $(div);
 
-      timeElems.push($div);
+      timeElems.push(div);
     }
 
     this.daySize = function (renderForm1, renderForm2) {
@@ -176,8 +176,10 @@ function day_schedule() {
                   var startIndex = binarySearch(coordinates, c);
                   var endIndex = binarySearch(coordinates, ch)
 
-                  var $start = timeElems.eq(startIndex);
-                  var $end = timeElems.eq(endIndex);
+                  if(ch >= coordinates[coordinates.length - 1]) endIndex++;
+
+                  var $start = $(timeElems(startIndex));
+                  var $end = $(timeElems[endIndex]);
 
                   renderForm2($start, $end);
                 }
