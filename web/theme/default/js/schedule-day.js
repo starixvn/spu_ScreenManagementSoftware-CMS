@@ -236,7 +236,7 @@ function day_schedule() {
 
             var nearestTime = new Date(parseInt(timeElems.eq(index).attr("time-data")));
 
-            nearestTime.setMinutes(nearestTime.getMinutes() + 30 * percent);
+            nearestTime.setMinutes(nearestTime.getMinutes() + Math.round(30 * percent));
 
             var h = nearestTime.getHours();
             var m = nearestTime.getMinutes();
