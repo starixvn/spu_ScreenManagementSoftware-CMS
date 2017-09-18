@@ -1,5 +1,9 @@
 var day_schedule_counter = 0;
 
+$.fn.getHeight = function(){
+  return parseInt(this.css("height"));
+}
+
 function day_schedule() {
     var timeElems = $(".cal-day-hour-part");
     var times = timeElems.map((index, value) => $(value).text().trim()).get();
@@ -27,7 +31,7 @@ function day_schedule() {
     }
 
     function createLastElem(){
-      coordinates.push(coordinates[coordinates.length - 1] + timeElems.height());
+      coordinates.push(coordinates[coordinates.length - 1] + timeElems.getHeight());
 
       var $last = timeElems.eq(timeElems.length - 1);
 
@@ -37,8 +41,8 @@ function day_schedule() {
 
       var div =
         "<div class='cal-day-hour-part' style='margin-top: {0}px; height: {1}px' time-data='{2}'><span class='cal-hours'></span></div>"
-        .replace("{0}", $last.position().top + $last.height())
-        .replace("{1}", $last.height())
+        .replace("{0}", $last.position().top + $last.getHeight())
+        .replace("{1}", $last.getHeight())
         .replace("{2}", date.getTime());
 
       timeElems.push(div);
@@ -96,13 +100,13 @@ function day_schedule() {
               var div =
                 "<div class='selected-hour' style='position:relative; margin-top: {0}px; height: {1}px'><span class='cal-hours'></span></div>"
                 .replace("{0}", $target.position().top)
-                .replace("{1}", $target.height());
+                .replace("{1}", $target.getHeight());
 
               var $div = $(div);
 
               state =
               {
-                height : $target.height(),
+                height : $target.getHeight(),
                 margin_top : $target.position().top,
                 y : e.pageY,
                 $target : $div,
@@ -114,7 +118,7 @@ function day_schedule() {
 
         function moveUp(diff) {
             var c = state.margin_top + diff;
-            var maxheight = calendar.height();
+            var maxheight = calendar.getHeight();
 
             if(c + state.height >= maxheight) c = maxheight - state.height;
 
@@ -155,7 +159,7 @@ function day_schedule() {
 
             var index = binarySearch(coordinates, c);
 
-            c = coordinates[index]  + $(timeElems[index]).height();
+            c = coordinates[index]  + $(timeElems[index]).getHeight();
 
             h = c - state.margin_top;
 
@@ -232,11 +236,11 @@ function day_schedule() {
         function searchTime(coordinate) {
             var index = binarySearch(coordinates, coordinate);
 
-            var percent = (coordinate - coordinates[index]) / $(timeElems[index]).height();
+            var percent = (coordinate - coordinates[index]) / $(timeElems[index]).getHeight();
 
             var nearestTime = new Date(parseInt(timeElems.eq(index).attr("time-data")));
 
-            nearestTime.setMinutes(nearestTime.getMinutes() + Math.round(30 * percent));
+            nearestTime.setMinutes(nearestTime.getMinutes() + 30 * percent);
 
             var h = nearestTime.getHours();
             var m = nearestTime.getMinutes();
