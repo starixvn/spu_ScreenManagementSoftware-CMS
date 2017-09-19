@@ -51,6 +51,13 @@ function day_schedule() {
     this.daySize = function (renderForm1, renderForm2) {
         var state = null;
 
+        var isClick = true;
+        var cancelClick = null;
+
+        function detectClick(){
+          isClick = false;
+        }
+
         function initScaling(e) {
             var $this = $(this);
 
@@ -95,6 +102,8 @@ function day_schedule() {
 
         function detectStart(e) {
             $target = detectElem(e, true);
+
+            cancelClick = setTimeout(detectClick, 200);
 
             if($target != null && e.which == 1){
               var div =
@@ -185,7 +194,9 @@ function day_schedule() {
         }
 
         function finishScaling(e) {
-            if (state != null && e.which == 1) {
+            clearTimeout(cancelClick);
+
+            if (state != null && e.which == 1  && !isClick) {
               if(state.isTmp){
                 if(renderForm2 != null){
                   var c = parseInt(state.$target.css("margin-top"));
@@ -215,6 +226,7 @@ function day_schedule() {
             }
 
             state = null;
+            isClick = true;
         }
 
         function updateTime(){
@@ -292,7 +304,7 @@ function day_schedule() {
                 .children(".day-event")
                 .mousedown(initScaling);
 
-            timeElems.mousedown(detectStart).dblclick(() => state = null);
+            timeElems.mousedown(detectStart);
         }
     }
 }
