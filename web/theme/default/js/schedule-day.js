@@ -59,6 +59,7 @@ function day_schedule() {
         }
 
         function initScaling(e) {
+            cancelClick = setTimeout(detectClick, 200);
             var $this = $(this);
 
             var offset = e.offsetY;
@@ -224,8 +225,8 @@ function day_schedule() {
                 renderForm1(state.$target, startTime, endTime)
               };
             }
-            else if (state != null && e.which != 1 && state.isTmp) state.$target.remove();
-            
+            else if (state != null && state.isTmp) state.$target.remove();
+
             state = null;
             isClick = true;
         }
