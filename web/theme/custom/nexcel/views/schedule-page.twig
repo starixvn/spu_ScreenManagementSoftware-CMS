@@ -180,7 +180,7 @@
                         <% for(i = 0; i < hours; i++){ %>
                         <div class="cal-day-hour">
                             <% for(l = 0; l < cal._hour_min(i); l++){ %>
-                            <div class="row-fluid cal-day-hour-part" time-data="<%= cal._get_date(i, l) %>" href="<%= urlAddForm %>" onclick="RenderFormAdd($(this),$(this))">
+                            <div class="row-fluid cal-day-hour-part" time-data="<%= cal._get_date(i, l) %>" href="" onclick="RenderFormAdd($(this),$(this))">
                                 <div class="span1 col-xs-1"><b><%= cal._hour(i, l) %></b></div>
                                 <div class="span11 col-xs-11"></div>
                             </div>
