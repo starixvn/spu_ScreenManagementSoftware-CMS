@@ -129,7 +129,7 @@
         function RenderFormAdd(start, end) {
             var startTime = start.attr('time-data');
             var endTime = end.attr('time-data');
-            var href = start.attr('href') + '?from=' + startTime + '&to=' + endTime;
+            var href = urlAddForm + '?from=' + startTime + '&to=' + endTime;
             start.attr('href', href);
             XiboFormRender(start);
         }
