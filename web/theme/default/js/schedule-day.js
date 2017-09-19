@@ -224,7 +224,8 @@ function day_schedule() {
                 renderForm1(state.$target, startTime, endTime)
               };
             }
-
+            else if (state != null && e.which != 1 && state.isTmp) state.$target.remove();
+            
             state = null;
             isClick = true;
         }

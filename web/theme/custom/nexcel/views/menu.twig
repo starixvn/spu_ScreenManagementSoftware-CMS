@@ -21,7 +21,7 @@
                             </ul>
                         </li>
                     {% endif %}
-                     
+
                     {% if currentUser.routeViewable("/library") or currentUser.routeViewable("/dataset") %}
                         <li class="menu-item">
                             <a class="menu-title" {#data-toggle="collapse"#}{# href="#collapseLibrary" #}href="{{ urlFor("library.view") }}">
@@ -30,7 +30,7 @@
                                 {#<span class="fa fa-angle-down"></span>#}
                             </a>
                             {#<ul class="sub-menu collapse in" id="collapseLibrary">
-                                <li class="menu-title collapse hidden">{% trans "Library" %}</li>                                
+                                <li class="menu-title collapse hidden">{% trans "Library" %}</li>
                                 {% if currentUser.routeViewable("/library") %}
                                     <li class="sidebar-list"><a href="{{ urlFor("library.view") }}"><span class="fa fa-circle-o"></span>{% trans "Media" %}</a></li>
                                 {% endif %}
@@ -41,7 +41,7 @@
                             </ul>#}
                         </li>
                     {% endif %}
-                    
+
                      {% if currentUser.routeViewable("/display") or currentUser.routeViewable("/displaygroup") or currentUser.routeViewable("/stats") or currentUser.routeViewable("/displayprofile") %}
                         <li class="menu-item">
                             <a class="menu-title" data-toggle="collapse" href="#collapseDisplays">
@@ -80,7 +80,7 @@
                         {% set userMenuViewable = false %}
                     {% endif %}
 
-                    {% if userMenuViewable or currentUser.routeViewable("/usergroup") or currentUser.routeViewable("/admin") or currentUser.routeViewable("/application") or currentUser.routeViewable("/module") or currentUser.routeViewable("/transition") %}
+                    {% if userMenuViewable or currentUser.routeViewable("/usergroup") or currentUser.routeViewable("/admin") or currentUser.routeViewable("/application") or currentUser.routeViewable("/module") or currentUser.routeViewable("/transition") or currentUser.routeViewable("/clientversion") %}
                         <li class="menu-item">
                             <a class="menu-title" data-toggle="collapse" href="#collapseAdmin">
                                 <span class="fa fa-address-card-o menu-item-icon"></span>
@@ -100,7 +100,7 @@
                                 {% if currentUser.routeViewable("/admin") %}
                                 <li class="sidebar-list"><a href="{{ urlFor("admin.view") }}"><span class="fa fa-circle-o"></span>{% trans "Settings" %}</a></li>
                                 {% endif %}
-                                
+
                                 {% if currentUser.routeViewable("/clientversion") %}
                                 <li class="sidebar-list"><a href="{{ urlFor("clientversion.view") }}"><span class="fa fa-circle-o"></span>{% trans "Client Versions" %}</a></li>
                                 {% endif %}
@@ -122,7 +122,7 @@
                                 <li class="sidebar-list"><a href="{{ urlFor("task.view") }}">{% trans "Tasks" %}</a></li>
                                 {% endif %} #}
                             </ul>
-                        </li>                        
+                        </li>
                     {% endif %}
 
                     {% if currentUser.routeViewable("/log") or currentUser.routeViewable("/sessions") or currentUser.routeViewable("/auditlog") or currentUser.routeViewable("/fault") or currentUser.routeViewable("/help") %}
