@@ -197,9 +197,9 @@ function day_schedule() {
         function finishScaling(e) {
             clearTimeout(cancelClick);
 
-            if (state != null && e.which == 1  && !isClick) {
+            if (state != null && !isClick) {
               if(state.isTmp){
-                if(renderForm2 != null){
+                if(renderForm2 != null && e.which == 1){
                   var c = parseInt(state.$target.css("margin-top"));
                   var ch = parseInt(state.$target.css("height")) + c;
 
@@ -213,8 +213,6 @@ function day_schedule() {
 
                   renderForm2($start, $end);
                 }
-
-                state.$target.remove();
               }
               else if(renderForm1 != null){
                 var duration = getTime();
@@ -225,7 +223,8 @@ function day_schedule() {
                 renderForm1(state.$target, startTime, endTime)
               };
             }
-            else if (state != null && state.isTmp) state.$target.remove();
+
+            if (state != null && state.isTmp) state.$target.remove();
 
             state = null;
             isClick = true;
@@ -283,21 +282,6 @@ function day_schedule() {
             }
 
             return $target;
-        }
-
-        function formatTime(date){
-          var h = date.getHours();
-          var m = date.getMinutes();
-
-          m = Math.floor(m / 30) * 30;
-
-          var hh = (h < 10) ? ("0" + h) : h;
-          var mm = (m < 10) ? ("0" + m) : m;
-
-          time = hh + ":" + mm;
-
-
-          return time;
         }
 
         if (day_schedule_counter % 2 == 0) {
