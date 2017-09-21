@@ -239,7 +239,10 @@ function day_schedule() {
           var startTime = searchTime(margin_top);
           var endTime = searchTime(margin_top + height);
 
-          state.$writeTarget.text(startTime + " - " + endTime);
+          var duration = startTime + " - " + endTime;
+
+          state.$writeTarget.text(duration);
+          state.$target.attr("data-original-title", duration);
         }
 
         function getTime(){
