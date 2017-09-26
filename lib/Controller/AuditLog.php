@@ -120,17 +120,19 @@ class AuditLog extends Base
         if ($filterFromDt == null || $filterToDt == null)
             throw new \InvalidArgumentException(__('Please provide a from/to date.'));
 
-        $search = [
-            ['fromTimeStamp', $filterFromDt->setTime(0, 0, 0)->format('U')],
-            ['toTimeStamp', $filterToDt->setTime(0, 0, 0)->format('U')]
-        ];
+        $search['fromTimeStamp'] = $filterFromDt->setTime(0, 0, 0)->format('U');
+        $search['toTimeStamp'] = $filterToDt->setTime(0, 0, 0)->format('U');
+//        $search = [
+//            ['fromTimeStamp', $filterFromDt->setTime(0, 0, 0)->format('U')],
+//            ['toTimeStamp', $filterToDt->setTime(0, 0, 0)->format('U')]
+//        ];
 
         // Build the search string
-        $search = implode(' ', array_map(function ($element) {
-            return implode('|', $element);
-        }, $search));
+        //$search = implode(' ', array_map(function ($element) {
+        //    return implode('|', $element);
+        //}, $search));
 
-        $rows = $this->auditLogFactory->query('logId', ['search' => $search]);
+        $rows = $this->auditLogFactory->query('logId', $search);
 
         $out = fopen('php://output', 'w');
         fputcsv($out, ['ID', 'Date', 'User', 'Entity', 'Message', 'Object']);

@@ -40,11 +40,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="XiboGrid" id="{{ random() }}">
-                <div class="FilterDiv assign-file">
+                {#<div class="FilterDiv assign-file">
                     <form onsubmit="false">
                     {{ inline.dropdown("type", "single", "Type", "", [{type: null, module: ""}]|merge(modules), "type", "name") }}
                     </form>
-                </div>
+                </div>#}
                 <div class="XiboData">
                     <table id="mediaAssignments" data-url="{{ urlFor("library.search") }}" class="table table-striped">
                         <thead>

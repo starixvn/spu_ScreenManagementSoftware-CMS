@@ -901,10 +901,10 @@ class DisplayGroup extends Base
         $displayGroup->setChildObjectDependencies($this->displayFactory, $this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
         $displayGroup->load();
 
-        $this->getState()->template = 'displaygroup-form-media';
+        $this->getState()->template = 'displaygroup-form-media';        
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
-            'modules' => $this->moduleFactory->query(null, ['regionSpecific' => 0]),
+            //'modules' => $this->moduleFactory->query(null, ['regionSpecific' => 0]),
             'media' => $this->mediaFactory->getByDisplayGroupId($displayGroup->displayGroupId),
             'help' => $this->getHelp()->link('DisplayGroup', 'FileAssociations')
         ]);
