@@ -133,6 +133,12 @@
             start.attr('href', href);
             XiboFormRender(start);
         }
+
+        function isFireFox(){
+          return navigator.userAgent.toLowerCase().includes("firefox");
+        }
+
+        if(isFireFox()) $("#dateInput").parent().click((e) => $(e.target).find("span").click());
     </script>
 	<script src="{{ theme.uri("js/schedule-day.js") }}?{{ version }}"></script>
 {% endblock %}
