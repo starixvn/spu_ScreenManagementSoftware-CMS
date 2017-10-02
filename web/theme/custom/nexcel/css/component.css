@@ -661,3 +661,6 @@ th.dow {
         margin-bottom: 0;
     }
 }
+#Calendar .event-info {
+    margin-right: 4px;
+}
