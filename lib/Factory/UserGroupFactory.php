@@ -146,7 +146,7 @@ class UserGroupFactory extends BaseFactory
      */
     public function getByDisplayGroupId($displayGroupId)
     {
-        return $this->query(null, array('disableUserCheck' => 1, 'displayGroupId' => [$displayGroupId]));
+        return $this->query(null, array('disableUserCheck' => 1, 'displayGroupId' => $displayGroupId, 'isUserSpecific' => -1, 'isUserSpecific' => -1));
     }
 
     /**
@@ -214,7 +214,7 @@ class UserGroupFactory extends BaseFactory
             }
 
             // Filter by Group Name
-            if ($this->getSanitizer()->getString('group', $filterBy) != null) {
+            if ($this->getSanitizer()->getString('group', $filterBy) !== null) {
                 // Convert into commas
                 foreach (explode(',', $this->getSanitizer()->getString('group', $filterBy)) as $term) {
 
@@ -250,12 +250,12 @@ class UserGroupFactory extends BaseFactory
                 $params['userId'] = $this->getSanitizer()->getInt('userId', $filterBy);
             }
 
-            if ($this->getSanitizer()->getInt('isUserSpecific', $filterBy) != -1) {
+            if ($this->getSanitizer()->getInt('isUserSpecific', $filterBy) !== -1) {
                 $body .= ' AND isUserSpecific = :isUserSpecific ';
                 $params['isUserSpecific'] = $this->getSanitizer()->getInt('isUserSpecific', 0, $filterBy);
             }
 
-            if ($this->getSanitizer()->getInt('isEveryone', $filterBy) != -1) {
+            if ($this->getSanitizer()->getInt('isEveryone', $filterBy) !== -1) {
                 $body .= ' AND isEveryone = :isEveryone ';
                 $params['isEveryone'] = $this->getSanitizer()->getInt('isEveryone', 0, $filterBy);
             }
@@ -276,7 +276,7 @@ class UserGroupFactory extends BaseFactory
                   FROM `permission`
                     INNER JOIN `permissionentity`
                     ON `permissionentity`.entityId = permission.entityId
-                        AND `permissionentity`.entity = \'Xibo\\Entity\\DisplayGroup\'
+                        AND `permissionentity`.entity = \'Xibo\\\\Entity\\\\DisplayGroup\'
                  WHERE `permission`.objectId = :displayGroupId
             ) ';
                 $params['displayGroupId'] = $this->getSanitizer()->getInt('displayGroupId', $filterBy);
