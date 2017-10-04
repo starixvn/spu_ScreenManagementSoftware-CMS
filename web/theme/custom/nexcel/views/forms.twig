@@ -105,6 +105,16 @@
     </div>
 {% endmacro %}
 
+{% macro multipleEmail(name, title, value, helpText, groupClass, validation, accessKey) %}
+    <div class="form-group {{ groupClass }}">
+        <label class="col-md-3 col-lg-2 control-label" for="{{ name }}" accesskey="{{ accessKey }}">{{ title }}</label>
+        <div class="col-sm-6">
+            <input class="form-control" name="{{ name }}" type="text" id="{{ name }}" value="{{ value }}" {{ validation }}/>
+            <span class="help-block">{{ helpText }}</span>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro password(name, title, value, helpText, groupClass, validation, accessKey) %}
     <div class="form-group {{ groupClass }}">
         <label class="col-md-3 col-lg-2 control-label" for="{{ name }}" accesskey="{{ accessKey }}">{{ title }}</label>

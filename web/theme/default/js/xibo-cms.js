@@ -146,6 +146,23 @@ function XiboInitialise(scope) {
         }
     );
 
+    jQuery.validator.addMethod(
+        "multiemails",
+         function(value, element) {
+            if (this.optional(element)) // return true on optional element
+                 return true;
+             var emails = value.split(/[;,]+/); // split element by , and ;
+             valid = true;
+             for (var i in emails) {
+                 value = emails[i];
+                 valid = valid &&
+                         jQuery.validator.methods.email.call(this, $.trim(value), element);
+             }
+             return valid;
+         },
+         "Please enter a valid email address."
+    );
+
     // Search for any forms that will need submitting
     // NOTE: The validation plugin does not like binding to multiple forms at once.
     $(scope + ' .XiboForm').validate({
@@ -160,6 +177,9 @@ function XiboInitialise(scope) {
         invalidHandler: function() {
             // Remove the spinner
             $(this).closest(".modal-dialog").find(".saving").remove();
+        },
+        rules: {
+                mail_to: { multiemails: true }
         }
     });
 
@@ -1109,7 +1129,6 @@ function XiboClockUpdate(time)
  * @param callBack
  */
 function XiboFormSubmit(form, e, callBack) {
-
     // Get the URL from the action part of the form)
     var url = $(form).attr("action");
 

@@ -53,6 +53,8 @@
                                     {{ forms.number(field.name, field.title, field.value, field.helpText) }}
                                 {% elseif field.fieldType == "email" %}
                                     {{ forms.email(field.name, field.title, field.value, field.helpText) }}
+                                {% elseif field.fieldType == "emails" %}
+                                    {{ forms.multipleEmail(field.name, field.title, field.value, field.helpText) }}
                                 {% elseif field.fieldType == "checkbox" %}
                                     {{ forms.checkbox(field.name, field.title, field.value, field.helpText) }}
                                 {% elseif field.fieldType == "dropdown" %}

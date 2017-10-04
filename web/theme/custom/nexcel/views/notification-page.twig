@@ -52,6 +52,7 @@
 {% block javaScript %}
     <script type="text/javascript">
         var table = $("#notifications").DataTable({ "language": dataTablesLanguage,
+            "dom": '<"auto-refresh-box"><"btn-function">t<"bottom"ipl>',
             serverSide: true, stateSave: true,
             filter: false,
             searchDelay: 3000,

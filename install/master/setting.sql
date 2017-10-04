@@ -21,6 +21,7 @@ UPDATE `module` SET `Enabled`='0' WHERE `ModuleID` <> 5;
 UPDATE `module` SET `Enabled`='1' WHERE `ModuleID` IN (5);
 UPDATE `pages` SET `asHome` = 0 WHERE name IN ('application','transition','dataset','template','task','module','help','mediamanager');
 UPDATE setting SET userSee='0' WHERE settingid='67';
+UPDATE `setting` SET `fieldType`='emails' WHERE `settingid`='18';
 
 INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
 (900, 'UPGRADE_LOCATION', 'SMS_Upgrade/', 'text', 'The fully qualified path to the CMS upgrade location.', NULL, 'upgrade', 1, 'Upgrade Location', 'required', 10, '', 1, 'string');
