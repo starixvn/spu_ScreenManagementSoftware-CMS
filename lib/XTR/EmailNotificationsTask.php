@@ -57,7 +57,7 @@ class EmailNotificationsTask implements TaskInterface
                 $mail->FromName = $this->config->getThemeConfig('theme_name');
                 $mail->Subject = $notification->subject;
                 
-                foreach (preg_split('/[,\ \;]/', $notification->email) as $email)
+                foreach (preg_split('/[,;]/', $notification->email) as $email)
                     $mail->addAddress($email);
 
                 // Body

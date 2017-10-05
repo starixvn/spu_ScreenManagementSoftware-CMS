@@ -86,4 +86,4 @@ delete from setting where settingid = 902;
 
 update setting set userSee = 0 where settingid = 63;
 
-UPDATE `setting` SET `userSee`= 0 WHERE `settingid` in (900,33,64,65,47,48,36,38,59,60,71,72,73,77,78,79,84,89,93,74);
+UPDATE `setting` SET `userSee`= 0 WHERE `settingid` in (900,33,64,65,47,48,36,38,59,60,71,72,73,77,78,79,84,89,93,74,62);
