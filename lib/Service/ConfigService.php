@@ -294,7 +294,7 @@ class ConfigService implements ConfigServiceInterface
     {
         $item = null;
 
-        if ($this->getPool() != null) {
+        /*if ($this->getPool() != null) {
             $item = $this->getPool()->getItem('config/' . $setting);
 
             $data = $item->get();
@@ -302,7 +302,7 @@ class ConfigService implements ConfigServiceInterface
             if ($item->isHit()) {
                 return $data;
             }
-        }
+        }*/
 
         $sth = $this->getStore()->getConnection()->prepare('SELECT `value` FROM `setting` WHERE `setting` = :setting');
         $sth->execute(array('setting' => $setting));
@@ -312,7 +312,7 @@ class ConfigService implements ConfigServiceInterface
         else
             $data = $result['value'];
 
-        if ($this->getPool() != null) {
+        /*if ($this->getPool() != null) {
 
             if ($setting == 'ELEVATE_LOG_UNTIL' && intval($data) > time())
                 $item->expiresAfter(intval($data) - time());
@@ -320,7 +320,7 @@ class ConfigService implements ConfigServiceInterface
                 $item->expiresAfter(60 * 5);
 
             $this->getPool()->saveDeferred($item->set($data));
-        }
+        }*/
 
         return $data;
     }

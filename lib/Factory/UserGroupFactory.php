@@ -146,7 +146,7 @@ class UserGroupFactory extends BaseFactory
      */
     public function getByDisplayGroupId($displayGroupId)
     {
-        return $this->query(null, array('disableUserCheck' => 1, 'displayGroupId' => $displayGroupId, 'isUserSpecific' => -1, 'isUserSpecific' => -1));
+        return $this->query(null, array('disableUserCheck' => 1, 'displayGroupId' => $displayGroupId, 'isUserSpecific' => -1, 'isEveryone' => -1));
     }
 
     /**
