@@ -339,8 +339,12 @@ class DisplayGroup extends Base
 
         if (!$this->getUser()->checkDeleteable($displayGroup))
             throw new AccessDeniedException();
-
-        $this->getState()->template = 'displaygroup-form-delete';
+        
+        if($displayGroupId != 1)
+            $this->getState()->template = 'displaygroup-form-delete';
+        else
+            $this->getState()->template = 'displaygroup-form-delete-master-group';
+        
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
             'help' => $this->getHelp()->link('DisplayGroup', 'Delete')

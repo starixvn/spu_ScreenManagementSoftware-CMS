@@ -1037,6 +1037,15 @@ class Display extends Base
             $display->xmrChannel = null;
             $display->xmrPubKey = null;
         }
+        
+        if($display->licensed == 1){
+            //New requirement: assign to the MASTER GROUP, hard code the groupid = 1!
+            $displayGroup = $this->displayGroupFactory->getById(1);
+            $displayGroup->setChildObjectDependencies($this->displayFactory, $this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
+
+            $displayGroup->assignDisplay($display);
+            $displayGroup->save(['validate' => false]);
+        }
 
         $display->setChildObjectDependencies($this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
         $display->save();
@@ -1307,6 +1316,13 @@ class Display extends Base
             if($display->loggedIn){
                 $this->playerAction->sendAction($display, new CollectNowAction());
             }
+            
+            //New requirement: assign to the MASTER GROUP, hard code the groupid = 1!
+            $displayGroup = $this->displayGroupFactory->getById(1);
+            $displayGroup->setChildObjectDependencies($this->displayFactory, $this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
+
+            $displayGroup->assignDisplay($display);
+            $displayGroup->save(['validate' => false]);
         }
 
         // Return
