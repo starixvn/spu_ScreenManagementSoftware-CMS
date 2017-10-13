@@ -180,7 +180,7 @@ function day_schedule() {
         function scale(e) {
             detectBorder(e);
 
-            if (state != null) {
+            if (state != null && !isClick) {
                 var diff = e.pageY - state.y;
 
                 if(state.isTmp) scaleTmp(diff);
