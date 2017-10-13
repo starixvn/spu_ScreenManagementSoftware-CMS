@@ -1,5 +1,5 @@
-update setting
-set value = 'SMS_Library/' where settingid=33;
+UPDATE setting 
+SET value = '/var/www/web/SMS_Library/' WHERE settingid =33
 
 update setting
 set value = '123456' where settingid=34;
