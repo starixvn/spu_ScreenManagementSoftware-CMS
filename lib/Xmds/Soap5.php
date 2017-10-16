@@ -64,7 +64,8 @@ class Soap5 extends Soap4
         $return = new \DOMDocument('1.0');
         $displayElement = $return->createElement('display');
         $return->appendChild($displayElement);
-
+        $isNewDisplay = false;
+        
         // Check in the database for this hardwareKey
         try {
             $display = $this->displayFactory->getByLicence($hardwareKey);
@@ -182,6 +183,7 @@ class Soap5 extends Soap4
 
             // Add a new display
             try {
+                $isNewDisplay = true;
                 $display = $this->displayFactory->createEmpty();
                 $this->display = $display;
                 $display->display = $displayName;
@@ -213,7 +215,9 @@ class Soap5 extends Soap4
         $display->clientCode = $clientCode;
         //$display->operatingSystem = $operatingSystem;
         $display->save(Display::$saveOptionsMinimum);
-
+        
+        if($isNewDisplay) $this->AutoPulicDisplay ($display);
+        
         // Log Bandwidth
         $returnXml = $return->saveXML();
         $this->logBandwidth($display->displayId, Bandwidth::$REGISTER, strlen($returnXml));
@@ -315,5 +319,27 @@ class Soap5 extends Soap4
         }
           
         return false;
+    }
+    
+    /**
+     * 
+     * @param Display $display
+     */
+    function AutoPulicDisplay($display)
+    {       
+        $default = $this->getConfig()->GetSetting("SCREEN_DEFAULT", "public write");
+        
+        if($default != "private"){
+            $display = $this->displayFactory->getByLicence($display->license);
+            
+            $view = 1;
+            $edit = 0;
+            $delete = 0;
+            
+            if($default == "public write") $edit = 1;
+            
+            $permission = $this->permissionFactory->createForEveryone($this->userGroupFactory, "Xibo\\Entity\\DisplayGroup", $display->displayGroupId, $view, $edit, $delete);
+            $permission->save();
+        }       
     }
 }

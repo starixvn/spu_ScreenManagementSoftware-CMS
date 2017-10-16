@@ -42,6 +42,8 @@ use Xibo\Factory\ScheduleFactory;
 use Xibo\Factory\UserFactory;
 use Xibo\Factory\UserGroupFactory;
 use Xibo\Factory\WidgetFactory;
+use Xibo\Factory\PermissionFactory;
+use Xibo\Factory\SettingsFactory;
 use Xibo\Helper\ByteFormatter;
 use Xibo\Helper\Random;
 use Xibo\Service\ConfigServiceInterface;
@@ -128,6 +130,12 @@ class Soap
 
     /** @var  ClientResourceUsageFactory */
     protected $clientResourceUsageFactory;
+    
+    /** @var PermissionFactory */
+    protected $permissionFactory;
+    
+    /** @var SettingsFactory*/
+    protected $settingsFactory;
 
     /**
 	 * Soap constructor.
@@ -152,7 +160,6 @@ class Soap
 	 * @param DisplayEventFactory $displayEventFactory
 	 * @param ScheduleFactory $scheduleFactory
 	 * @param DayPartFactory $dayPartFactory
-	 * @param ClientResourceUsageFactory $clientResourceUsageFactory
 	 */
     public function __construct($logProcessor, $pool, $store, $log, $date, $sanitizer, $config, $requiredFileFactory, $moduleFactory, $layoutFactory, $dataSetFactory, $displayFactory, $userGroupFactory, $bandwidthFactory, $mediaFactory, $widgetFactory, $regionFactory, $notificationFactory, $displayEventFactory, $scheduleFactory, $dayPartFactory)
     {
@@ -178,6 +185,8 @@ class Soap
         $this->scheduleFactory = $scheduleFactory;
         $this->dayPartFactory = $dayPartFactory;
         $this->clientResourceUsageFactory = new ClientResourceUsageFactory($store, $log, $sanitizer);
+        $this->permissionFactory = new PermissionFactory($store, $log, $sanitizer);
+        $this->settingsFactory = new SettingsFactory($store, $log, $sanitizer);
     }
 
     /**
