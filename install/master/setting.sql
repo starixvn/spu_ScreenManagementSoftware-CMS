@@ -87,3 +87,28 @@ delete from setting where settingid = 902;
 update setting set userSee = 0 where settingid = 63;
 
 UPDATE `setting` SET `userSee`= 0 WHERE `settingid` in (900,33,64,65,47,48,36,38,59,60,71,72,73,77,78,79,84,89,93,74,62);
+
+##################Insert a group of all screens###############################
+
+SELECT @DisplayGroupId := MIN(DisplayGroupId) FROM displaygroup;
+
+INSERT INTO displaygroup (DisplayGroup, IsDisplaySpecific, Description, `isDynamic`, `dynamicCriteria`, `userId`)
+SELECT DISTINCT 'All Screens', 0, 'The group of all screens. Can not be modified!', 0, '', 0
+FROM displaygroup
+WHERE @DisplayGroupId <> 1;
+
+SELECT @DisplayGroupId := MAX(DisplayGroupId) FROM displaygroup WHERE DisplayGroup = 'All Screens';
+
+INSERT INTO `lkdgdg` (`parentId`, `childId`, `depth`) 
+SELECT DISTINCT 1, 1, 0
+FROM lkdgdg
+WHERE @DisplayGroupId <> 1;
+
+UPDATE displaygroup
+SET DisplayGroupId = 1
+WHERE DisplayGroupId = @DisplayGroupId AND @DisplayGroupId <> 1;
+
+UPDATE displaygroup
+SET DisplayGroup = 'All Screens', IsDisplaySpecific = 0, Description = 'The group of all screens. Can not be modified!', isDynamic = 0, dynamicCriteria = '', userId = 0
+WHERE DisplayGroupId = 1;
+######################end###############################
