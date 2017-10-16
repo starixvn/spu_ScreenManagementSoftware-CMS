@@ -112,3 +112,20 @@ UPDATE displaygroup
 SET DisplayGroup = 'All Screens', IsDisplaySpecific = 0, Description = 'The group of all screens. Can not be modified!', isDynamic = 0, dynamicCriteria = '', userId = 0
 WHERE DisplayGroupId = 1;
 ######################end###############################
+
+##################Insert screen permission setting###############################
+INSERT INTO `xibo`.`setting` 
+	(`setting`, 
+	`value`, 
+	`fieldType`, 
+	`options`, 
+	`cat`, 
+	`userChange`, 
+	`title`, 
+	`validation`, 
+	`ordering`, 
+	`default`, 
+	`userSee`, 
+	`type`) 
+	VALUES ('SCREEN_DEFAULT', 'public write', 'dropdown', 'public|public write|private', 'permissions', '1', 'Screens Permission', '', '25', 'public write', '1', 'word')
+######################end###############################
