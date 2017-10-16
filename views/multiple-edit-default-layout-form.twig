@@ -1,0 +1,37 @@
+{#
+/*
+ * Spring Signage Ltd - http://www.springsignage.com
+ * Copyright (C) 2015 Spring Signage Ltd
+ * (${FILE_NAME})
+ */
+
+It is done, I mean this twig is probably fine, the 'name' in the settings at the end isn't quite right, but it's not a problem with this form.
+
+#}
+
+{% extends "form-base.twig" %}
+{% import "forms.twig" as forms %}
+
+{% block formTitle %}
+    {% trans "Edit Default Layout" %}
+{% endblock %}
+
+{% block formButtons %}
+    {% trans "Help" %}, XiboHelpRender("{{ help }}")
+    {% trans "Cancel" %}, XiboDialogClose()
+    {% trans "Save" %}, $("#displayEditForm").submit()
+{% endblock %}
+
+{% block formHtml %}
+    <div class="row">
+        <div class="col-md-12">
+            <form id="displayEditForm" class="XiboForm form-horizontal" method="put" action="{{ urlFor("display.edit.defaultLayout", {"ids": displayIds}) }}" >
+                <div class="tab-pane active" id="general">                  
+                    {% set title %}{% trans "Default Layout" %}{% endset %}
+                    {% set helpText %}{% trans "The Default Layout to Display where there is no other content." %}{% endset %}
+                    {{ forms.dropdown("defaultLayoutId", "single", title, null, layouts, "layoutId", "layout", helpText) }}
+                </div>                                          
+            </form>
+        </div>
+    </div>
+{% endblock %}

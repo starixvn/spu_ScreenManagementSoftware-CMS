@@ -911,7 +911,13 @@ function XiboMultiSelectFormRender(button) {
         SMSHandleShowFormForMultiple(matches);        
         return;
     }
-
+    
+    if(buttonId === 'display_button_edit_default_layout')
+    {
+        SMSHandleShowFormForMultiple(matches);        
+        return;
+    }
+    
     var message;
 
     if (matches.length > 0)
@@ -953,7 +959,6 @@ function XiboMultiSelectFormRender(button) {
                 // continue processing the queue once the AJAX request's callback executes.
                 callback: function( item ) {
                     var data = $(item).data();
-
                     // Make an AJAX call
                     $.ajax({
                         type: data.commitMethod,

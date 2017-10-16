@@ -646,7 +646,21 @@ class Display extends Base
                         array('name' => 'text', 'value' => __('Schedule Now')),
                         array('name' => 'rowtitle', 'value' => $display->display)
                     )
-                );               
+                );     
+                
+                // Edit Default Layout
+                $display->buttons[] = array(
+                    'id' => 'display_button_multiple_no_display display_button_edit_default_layout',
+                    'multi-select' => true,
+                    'dataAttributes' => array(
+                        array('name' => 'commit-url', 'value' => $this->urlFor('display.edit.default.layout.multiple.form')),
+                        array('name' => 'commit-method', 'value' => 'get'),
+                        array('name' => 'commit-id', 'value' => $display->displayId),
+                        array('name' => 'id', 'value' => 'display_button_edit_default_layout'),
+                        array('name' => 'text', 'value' => __('Edit Default Layout')),
+                        array('name' => 'rowtitle', 'value' => $display->display)
+                    )
+                );   
                                
                 $display->buttons[] = ['divider' => true];
             }
@@ -798,6 +812,52 @@ class Display extends Base
             'timeZones' => $timeZones,
             'displayLockName' => ($this->getConfig()->GetSetting('DISPLAY_LOCK_NAME_TO_DEVICENAME') == 1),
             'help' => $this->getHelp()->link('Display', 'Edit')
+        ]);
+    }
+    
+    /**
+     * Edit Default Layout Form (Multiple)
+     * @param int $displayIds
+     */
+    function editDefaultLayoutMultipleForm($ids)
+    {
+        $displayIds = explode(',', $ids);
+        $display = $this->displayFactory->getById($displayIds[0]);
+
+        if (!$this->getUser()->checkEditable($display))
+            throw new AccessDeniedException();
+
+        $layouts = $this->layoutFactory->query(null, ['retired' => 0]);
+        
+        $this->getState()->template = 'multiple-edit-default-layout-form';
+        $this->getState()->setData([
+            'displayIds' => $ids,
+            'layouts' => $layouts
+        ]);
+    }
+    
+    function editDefaultLayoutMultiple($ids)
+    {
+        $displayIds = explode(',', $ids);
+        foreach ($displayIds as $displayId) {
+            $display = $this->displayFactory->getById($displayId);
+
+            if (!$this->getUser()->checkEditable($display))
+                throw new AccessDeniedException();
+
+            // Update properties        
+            $display->defaultLayoutId = $this->getSanitizer()->getInt('defaultLayoutId');                       
+
+            $display->setChildObjectDependencies($this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
+            $display->save();            
+        }
+
+        // Return
+        $this->getState()->hydrate([
+            //'message' => sprintf(__('Edited %s'), $display->display),
+            'message' => 'Update OK'
+            //'id' => $display->displayId,
+            //'data' => $display
         ]);
     }
 

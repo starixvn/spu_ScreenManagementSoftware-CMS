@@ -158,6 +158,7 @@ $app->get('/display/form/delete/:id', '\Xibo\Controller\Display:deleteForm')->na
 $app->get('/display/form/membership/:id', '\Xibo\Controller\Display:membershipForm')->name('display.membership.form');
 $app->get('/display/form/screenshot/:id', '\Xibo\Controller\Display:requestScreenShotForm')->name('display.screenshot.form');
 $app->get('/display/form/wol/:id', '\Xibo\Controller\Display:wakeOnLanForm')->name('display.wol.form');
+$app->get('/display/form/edit/multiple/layout/:ids', '\Xibo\Controller\Display:editDefaultLayoutMultipleForm')->name('display.edit.default.layout.multiple.form');
 
 //
 // user
