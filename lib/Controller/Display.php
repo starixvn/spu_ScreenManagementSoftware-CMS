@@ -854,10 +854,7 @@ class Display extends Base
 
         // Return
         $this->getState()->hydrate([
-            //'message' => sprintf(__('Edited %s'), $display->display),
-            'message' => 'Update OK'
-            //'id' => $display->displayId,
-            //'data' => $display
+            'message' => 'Update Successfully!'
         ]);
     }
 
