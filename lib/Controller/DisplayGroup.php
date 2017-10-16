@@ -223,19 +223,20 @@ class DisplayGroup extends Base
                         'url' => $this->urlFor('displayGroup.members.form', ['id' => $group->displayGroupId]),
                         'text' => __('Members')
                     );
-
-                    $group->buttons[] = ['divider' => true];
+                    
+                    if($group->displayGroupId != 1)
+                        $group->buttons[] = ['divider' => true];
                 }
-
-                // Edit
-                $group->buttons[] = array(
-                    'id' => 'displaygroup_button_edit',
-                    'url' => $this->urlFor('displayGroup.edit.form', ['id' => $group->displayGroupId]),
-                    'text' => __('Edit')
-                );
+                if($group->displayGroupId != 1)
+                    // Edit
+                    $group->buttons[] = array(
+                        'id' => 'displaygroup_button_edit',
+                        'url' => $this->urlFor('displayGroup.edit.form', ['id' => $group->displayGroupId]),
+                        'text' => __('Edit')
+                    );
             }
 
-            if ($this->getUser()->checkDeleteable($group)) {
+            if ($this->getUser()->checkDeleteable($group) && $group->displayGroupId != 1) {
                 // Show the delete button
                 $group->buttons[] = array(
                     'id' => 'displaygroup_button_delete',
