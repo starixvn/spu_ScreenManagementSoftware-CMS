@@ -844,9 +844,29 @@ class Display extends Base
 
             if (!$this->getUser()->checkEditable($display))
                 throw new AccessDeniedException();
+            
+            // Track the default layout
+            $defaultLayoutId = $display->defaultLayoutId;
+        
+            // Update properties
+            $display->defaultLayoutId = $this->getSanitizer()->getInt('defaultLayoutId');                                  
 
-            // Update properties        
-            $display->defaultLayoutId = $this->getSanitizer()->getInt('defaultLayoutId');                       
+            // Should we invalidate this display?
+            if ($defaultLayoutId != $display->defaultLayoutId) {
+                $display->notify();
+            } else if ($this->getSanitizer()->getCheckbox('clearCachedData', 1) == 1) {
+                // Remove the cache if the display licenced state has changed
+                $this->pool->deleteItem($display->getCacheKey());
+            }
+
+            if($display->licensed == 1){
+                //New requirement: assign to the MASTER GROUP, hard code the groupid = 1!
+                $displayGroup = $this->displayGroupFactory->getById(1);
+                $displayGroup->setChildObjectDependencies($this->displayFactory, $this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
+
+                $displayGroup->assignDisplay($display);
+                $displayGroup->save(['validate' => false]);
+            }
 
             $display->setChildObjectDependencies($this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
             $display->save();            
