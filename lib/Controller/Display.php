@@ -657,7 +657,7 @@ class Display extends Base
                         array('name' => 'commit-method', 'value' => 'get'),
                         array('name' => 'commit-id', 'value' => $display->displayId),
                         array('name' => 'id', 'value' => 'display_button_edit_default_layout'),
-                        array('name' => 'text', 'value' => __('Edit Default Layout')),
+                        array('name' => 'text', 'value' => __('Change Default Layout')),
                         array('name' => 'rowtitle', 'value' => $display->display)
                     )
                 );   
@@ -854,19 +854,10 @@ class Display extends Base
             // Should we invalidate this display?
             if ($defaultLayoutId != $display->defaultLayoutId) {
                 $display->notify();
-            } else if ($this->getSanitizer()->getCheckbox('clearCachedData', 1) == 1) {
+            } else {
                 // Remove the cache if the display licenced state has changed
                 $this->pool->deleteItem($display->getCacheKey());
-            }
-
-            if($display->licensed == 1){
-                //New requirement: assign to the MASTER GROUP, hard code the groupid = 1!
-                $displayGroup = $this->displayGroupFactory->getById(1);
-                $displayGroup->setChildObjectDependencies($this->displayFactory, $this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
-
-                $displayGroup->assignDisplay($display);
-                $displayGroup->save(['validate' => false]);
-            }
+            }           
 
             $display->setChildObjectDependencies($this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
             $display->save();            

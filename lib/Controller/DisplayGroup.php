@@ -1666,11 +1666,18 @@ class DisplayGroup extends Base
             throw new AccessDeniedException();
         
         $commands = $this->commandFactory->query();
-        $versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
+        $commandUpgradeVersionId = 0;
+        foreach ($commands as $command) {
+            if ($command->code == "UpgradeVersion") {
+                $commandUpgradeVersionId = $command->commandId;
+            }
+        }
+        $versions = $this->clientVersionFactory->query(['`versionId` DESC'], ['retired' => 0]);
         $this->getState()->template = 'displaygroup-form-command';
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
             'commands' => $commands,
+            'commandUpgradeVersionId' => $commandUpgradeVersionId,
             'versions' => $versions
         ]);
     }
@@ -1684,13 +1691,21 @@ class DisplayGroup extends Base
             throw new AccessDeniedException();
 
         $commands = $this->commandFactory->query();
-        $versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
+        $commandUpgradeVersionId = 0;
+        foreach ($commands as $command) {
+            if ($command->code == "UpgradeVersion") {
+                $commandUpgradeVersionId = $command->commandId;
+            }
+        }
+        
+        $versions = $this->clientVersionFactory->query(['`versionId` DESC'], ['retired' => 0]);
         $this->getState()->template = 'displaygroup-form-command-multiple';
         $this->getState()->setData([
             'displayGroup' => $displayGroup,
             'displayGroupIds' => $ids,
             'screenQuantity' => count($displayGroupIds),
             'commands' => $commands,
+            'commandUpgradeVersionId' => $commandUpgradeVersionId,
             'versions' => $versions
         ]);
     }

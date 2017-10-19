@@ -114,7 +114,7 @@ WHERE DisplayGroupId = 1;
 ######################end###############################
 
 ##################Insert screen permission setting###############################
-INSERT INTO `xibo`.`setting` 
+INSERT INTO `setting` 
 	(`setting`, 
 	`value`, 
 	`fieldType`, 

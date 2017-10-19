@@ -968,9 +968,10 @@ function regionEditFormSubmit() {
 }
 
 function changeVersionCommand() {
+    commandVersionId = $('#commandUpgradeVersionId').val();
     $("#commandId").change(function() {
-        var text = $("#commandId option:selected").text().trim();
-        if(text == "UpgradeVersion") {
+        var value = $("#commandId option:selected").val();
+        if(value == commandVersionId) {
             $(".upgrade-version").removeClass("hidden").addClass("show");
         }
         else {

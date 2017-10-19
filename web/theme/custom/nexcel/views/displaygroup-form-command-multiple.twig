@@ -31,6 +31,7 @@
                 {{ forms.dropdown("commandId", "single", title, "", commands, "commandId", "command", helpText) }}
                 {{ forms.dropdown("versionFileName", "single", "Version", "", versions, "fileName", "version", "Pick a version to upgrade.", "hidden upgrade-version") }}
                 {{ forms.numberWithReadonly("multicommand", "Selected Screens", screenQuantity) }}
+                {{ forms.hidden("commandUpgradeVersionId", commandUpgradeVersionId ) }}
             </form>
         </div>
     </div>
