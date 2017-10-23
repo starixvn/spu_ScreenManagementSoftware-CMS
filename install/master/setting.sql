@@ -21,6 +21,7 @@ UPDATE `module` SET `Enabled`='0' WHERE `ModuleID` <> 5;
 UPDATE `module` SET `Enabled`='1' WHERE `ModuleID` IN (5);
 UPDATE `pages` SET `asHome` = 0 WHERE name IN ('application','transition','dataset','template','task','module','help','mediamanager');
 UPDATE setting SET userSee='0' WHERE settingid='67';
+UPDATE `setting` SET `userSee`='0' WHERE `settingid`='69';
 UPDATE `setting` SET `fieldType`='emails' WHERE `settingid`='18';
 
 INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
