@@ -306,9 +306,13 @@ class Soap5 extends Soap4
         $this->logProcessor->setRoute('StoreClientCpuRamUsage');
 
         // Sanitize
-        $hardwareKeySanitized = $this->getSanitizer()->string($hardwareKey);
+        $hardwareKey = $this->getSanitizer()->string($hardwareKey);
+        $cpuUsage = $this->getSanitizer()->int($cpuUsage);
+        $ramTotal = $this->getSanitizer()->int($ramTotal);
+        $ramAvailable = $this->getSanitizer()->int($ramAvailable);
+        
         try {
-            $display = $this->displayFactory->getByLicence($hardwareKeySanitized);
+            $display = $this->displayFactory->getByLicence($hardwareKey);
             $clientResourceUsage = $this->clientResourceUsageFactory->create($display->displayId, $cpuUsage, $ramTotal, $ramAvailable);
             $clientResourceUsage->add();
             

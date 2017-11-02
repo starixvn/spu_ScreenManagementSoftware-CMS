@@ -92,7 +92,7 @@ class ClientResourceUsage implements \JsonSerializable
                 'displayid' => $this->displayId,
                 'cpuusage' => $this->cpuUsage,
                 'ramtotal' => $this->ramTotal,
-                'ramavailable' => $this->ramAvailable,
+                'ramavailable' => $this->ramAvailable
             ]);
     }
 

@@ -32,8 +32,8 @@
     <message name="StoreClientCpuRamUsageRequest">
         <part name="hardwareKey" type="xsd:string" />
         <part name="cpuUsage" type="xsd:int" />
-        <part name="ramTotal" type="xsd:long" />
-        <part name="ramAvailable" type="xsd:long" />
+        <part name="ramTotal" type="xsd:int" />
+        <part name="ramAvailable" type="xsd:int" />
     </message>
     <message name="StoreClientCpuRamUsageResponse">	
         <part name="success" type="xsd:boolean" />
