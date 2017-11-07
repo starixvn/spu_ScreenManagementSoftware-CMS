@@ -318,8 +318,8 @@ class Soap5 extends Soap4
             
             return true;
         }
-        catch (NotFoundException $e){
-            throw new XiboException('Unable to store Client CPU and RAM usage');
+        catch (Exception $e){
+            throw new XiboException('Unable to store Client CPU and RAM usage. Error: ' .$e->getMessage() );
         }
           
         return false;
