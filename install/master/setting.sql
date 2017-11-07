@@ -21,11 +21,10 @@ UPDATE `module` SET `Enabled`='0' WHERE `ModuleID` <> 5;
 UPDATE `module` SET `Enabled`='1' WHERE `ModuleID` IN (5);
 UPDATE `pages` SET `asHome` = 0 WHERE name IN ('application','transition','dataset','template','task','module','help','mediamanager');
 UPDATE setting SET userSee='0' WHERE settingid='67';
-UPDATE `setting` SET `userSee`='0' WHERE `settingid`='69';
 UPDATE `setting` SET `fieldType`='emails' WHERE `settingid`='18';
 
 INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
-(900, 'UPGRADE_LOCATION', 'SMS_Upgrade/', 'text', 'The fully qualified path to the CMS upgrade location.', NULL, 'upgrade', 1, 'Upgrade Location', 'required', 10, '', 1, 'string');
+(900, 'UPGRADE_LOCATION', '/var/www/web/SMS_Upgrade/', 'text', 'The fully qualified path to the CMS upgrade location.', NULL, 'upgrade', 1, 'Upgrade Location', 'required', 10, '', 1, 'string');
 
 INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
 (901, 'SMS_CLIENT_VERSION', '1.8.1.130', 'text', 'The upgrade package version.', NULL, 'upgrade', 1, 'Upgrade Version', 'required', 10, '', 1, 'string');
@@ -130,3 +129,6 @@ INSERT INTO `setting`
 	`type`) 
 	VALUES ('SCREEN_DEFAULT', 'public write', 'dropdown', 'public|public write|private', 'permissions', '1', 'Screens Permission', '', '25', 'public write', '1', 'word')
 ######################end###############################
+
+UPDATE setting 
+SET value = '/var/www/web/SMS_Upgrade/' WHERE settingid = 900
