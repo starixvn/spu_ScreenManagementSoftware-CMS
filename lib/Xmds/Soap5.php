@@ -207,7 +207,7 @@ class Soap5 extends Soap4
 
 
         $display->lastAccessed = time();
-        $display->loggedIn = 1;
+        $display->loggedIn = 0;
         $display->clientAddress = $clientAddress;
         $display->macAddress = $macAddress;
         $display->clientType = $clientType;
