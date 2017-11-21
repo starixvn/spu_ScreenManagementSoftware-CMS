@@ -1,14 +1,14 @@
 UPDATE setting 
-SET value = '/var/www/web/SMS_Library/' WHERE settingid =33
+SET value = '/var/www/library/Data/' WHERE settingid =33;
 
 update setting
 set value = '123456' where settingid=34;
 
 update setting
-set value = 'tcp://sms-xmr:50001' where settingid=87;
+set value = 'tcp://10.70.70.210:50001' where settingid=87;
 
 update setting
-set value = 'tcp://10.18.200.109:9505' where settingid=88;
+set value = 'tcp://10.70.70.210:9505' where settingid=88;
 
 update setting
 set value = 'nexcel' where settingid=63;
@@ -19,6 +19,7 @@ where userid=1;
 
 UPDATE `module` SET `Enabled`='0' WHERE `ModuleID` <> 5;
 UPDATE `module` SET `Enabled`='1' WHERE `ModuleID` IN (5);
+
 UPDATE `pages` SET `asHome` = 0 WHERE name IN ('application','transition','dataset','template','task','module','help','mediamanager');
 UPDATE setting SET userSee='0' WHERE settingid='67';
 UPDATE `setting` SET `fieldType`='emails' WHERE `settingid`='18';
@@ -48,12 +49,12 @@ CREATE TABLE `clientresourceusage` (
 
 UPDATE `module`
 SET defaultDuration = 86399
-WHERE ModuleID = 5
+WHERE ModuleID = 5;
 
 INSERT INTO `command` (`commandId`, `command`, `code`, `description`, `userId`) 
-VALUES (1, 'RestartPlayer', 'RestartPlayer', 'RestartPlayer', 1);
+VALUES (1, 'Restart Player', 'RestartPlayer', 'Restart Player', 1);
 INSERT INTO `command` (`commandId`, `command`, `code`, `description`, `userId`) 
-VALUES (2, 'UpgradeVersion', 'UpgradeVersion', 'UpgradeVersion', 1);
+VALUES (2, 'Upgrade Version', 'UpgradeVersion', 'Upgrade Version', 1);
 
 CREATE TABLE IF NOT EXISTS `clientversion` (
   `versionId` int(11) NOT NULL AUTO_INCREMENT,
@@ -68,12 +69,12 @@ CREATE TABLE IF NOT EXISTS `clientversion` (
   PRIMARY KEY (`versionId`,`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 
-UPDATE `pages` SET title = 'Screens' WHERE pageID = 6
-UPDATE `pages` SET title = 'Screen Groups' WHERE pageID = 22
-UPDATE `pages` SET title = 'Screen Profiles' WHERE pageID = 30
+UPDATE `pages` SET title = 'Screens' WHERE pageID = 6;
+UPDATE `pages` SET title = 'Screen Groups' WHERE pageID = 22;
+UPDATE `pages` SET title = 'Screen Profiles' WHERE pageID = 30;
 
 INSERT INTO `pages`(pageID, name, title, asHome)
-VALUES(40, 'clientversion', 'Client Versions', 0)
+VALUES(40, 'clientversion', 'Client Versions', 0);
 
 update setting set helptext = 'Should the server send anonymous statistics back to the SMS project?' where settingid = 36;
 update setting set helptext = 'Key used to distinguish each SMS instance. This is generated randomly based on the time you first installed SMS, and is completely untraceable.' where settingid = 37;
@@ -127,8 +128,13 @@ INSERT INTO `setting`
 	`default`, 
 	`userSee`, 
 	`type`) 
-	VALUES ('SCREEN_DEFAULT', 'public write', 'dropdown', 'public|public write|private', 'permissions', '1', 'Screens Permission', '', '25', 'public write', '1', 'word')
+	VALUES ('SCREEN_DEFAULT', 'public write', 'dropdown', 'public|public write|private', 'permissions', '1', 'Screens Permission', '', '25', 'public write', '1', 'word');
 ######################end###############################
 
 UPDATE setting 
-SET value = '/var/www/web/SMS_Upgrade/' WHERE settingid = 900
+SET value = '/var/www/library/Client/' WHERE settingid = 900;
+
+ALTER TABLE `schedule` 
+ADD COLUMN `commandAdditionalInfo` VARCHAR(2000) NULL AFTER `syncTimezone`;
+
+UPDATE `module` SET `Enabled`='1' WHERE `ModuleID`='2';
