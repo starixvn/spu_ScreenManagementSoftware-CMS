@@ -566,10 +566,15 @@ class Display implements \JsonSerializable
         if ($options['validate'])
             $this->validate();
 
-        if ($this->displayId == null || $this->displayId == 0)
+        if ($this->displayId == null || $this->displayId == 0){
+            $this->getLog()->error('Add new Display - Logged status: ' . $this->loggedIn);
             $this->add();
+        }
         else
+        {
+            $this->getLog()->error('Edit Display - Logged status: ' . $this->loggedIn);
             $this->edit();
+        }
 
         if ($options['audit'])
             $this->getLog()->audit('Display', $this->displayId, 'Display Saved', $this->getChangedProperties());
@@ -624,6 +629,7 @@ class Display implements \JsonSerializable
 
     private function add()
     {
+        $this->getLog()->error('Add new display');
         $this->displayId = $this->getStore()->insert('
             INSERT INTO display (display, auditingUntil, defaultlayoutid, license, licensed, inc_schedule, email_alert, alert_timeout, xmrChannel, xmrPubKey, lastCommandSuccess, macAddress)
               VALUES (:display, :auditingUntil, :defaultlayoutid, :license, :licensed, :inc_schedule, :email_alert, :alert_timeout, :xmrChannel, :xmrPubKey, :lastCommandSuccess, :macAddress)
