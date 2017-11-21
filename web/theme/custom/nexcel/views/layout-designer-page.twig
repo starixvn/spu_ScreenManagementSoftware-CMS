@@ -135,11 +135,13 @@
         </div>
     </div>
 
-    <div id="emptyWarning" class="row hidden">
+    <div id="emptyWarning" class="row">
       <div class="col-md-4"></div>
-      <div class="col-md-4 alert alert-danger text-center">
-          There's an empty region in the layout<br/>
-          Empty region(s) will be deleted after leaving the page
+      <div class="col-md-4 alert alert-info text-center" role="alert">
+          <strong>
+            Heads up!<br/>
+            Empty region(s) will be deleted after leaving the page
+          </strong>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -587,15 +589,6 @@
         <script>
             var $layout = $("#layout");
             var $warning = $("#emptyWarning");
-            var $status = $("#layout-status");
-
-            function init(){
-              if($status.hasClass("alert-danger")){
-                $("#emptyWarning").removeClass("hidden");
-              }
-
-              if($status.text() == "") setTimeout(init, 50);
-            }
 
             function getUrl(regionId){
               return "{{ urlFor("region.delete") }}".replace(":id", regionId);
@@ -613,12 +606,6 @@
               return empties.length != 0;
             }
 
-            function onRemoveRegion(){
-              if(!checkHasEmpty(this)){
-                $warning.addClass("hidden");
-              }
-            }
-
             function deleteEmptyRegion($region){
               $.ajax({
                 url: getUrl($region.attr("regionid")),
@@ -634,10 +621,6 @@
                   if(isEmpty($region, null)) deleteEmptyRegion($region);
                 });
             }
-
-            $layout.children().on("remove",onRemoveRegion);
-
-            init();
 
             window.onbeforeunload = onUnloadPage;
         </script>
