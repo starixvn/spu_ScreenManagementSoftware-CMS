@@ -105,8 +105,8 @@
                 {{ forms.checkbox("useDuration", title, module.getUseDuration(), helpText) }}
 
                 {% set title %}{% trans "Duration" %}{% endset %}
-                {% set helpText %}{% trans "The duration in seconds this should be displayed" %}{% endset %}
-                {{ forms.number("duration", title, module.getDuration(), helpText, "duration-fields", "required") }}
+                {% set helpText %}{% trans "The duration in seconds this item should be displayed" %}{% endset %}
+                {{ forms.number("duration", title, module.getDuration(), helpText, "duration-fields", "required min=1 max=86399") }}
 
                 {% set title %}{% trans "Scale type" %}{% endset %}
                 {% set helpText %}
