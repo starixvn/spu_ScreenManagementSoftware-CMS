@@ -631,14 +631,16 @@ class Display implements \JsonSerializable
     {
         $this->getLog()->error('Add new display');
         $this->displayId = $this->getStore()->insert('
-            INSERT INTO display (display, auditingUntil, defaultlayoutid, license, licensed, inc_schedule, email_alert, alert_timeout, xmrChannel, xmrPubKey, lastCommandSuccess, macAddress)
-              VALUES (:display, :auditingUntil, :defaultlayoutid, :license, :licensed, :inc_schedule, :email_alert, :alert_timeout, :xmrChannel, :xmrPubKey, :lastCommandSuccess, :macAddress)
+            INSERT INTO display (display, auditingUntil, defaultlayoutid, license, licensed, loggedin, lastaccessed, inc_schedule, email_alert, alert_timeout, xmrChannel, xmrPubKey, lastCommandSuccess, macAddress)
+              VALUES (:display, :auditingUntil, :defaultlayoutid, :license, :licensed, :loggedin, :lastaccessed, :inc_schedule, :email_alert, :alert_timeout, :xmrChannel, :xmrPubKey, :lastCommandSuccess, :macAddress)
         ', [
             'display' => $this->display,
             'auditingUntil' => 0,
             'defaultlayoutid' => $this->defaultLayoutId,
             'license' => $this->license,
             'licensed' => 0,
+            'loggedin' => $this->loggedIn,
+            'lastaccessed' => $this->lastAccessed,
             'inc_schedule' => 0,
             'email_alert' => 0,
             'alert_timeout' => 0,

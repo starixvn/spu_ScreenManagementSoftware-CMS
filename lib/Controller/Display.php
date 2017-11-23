@@ -1486,14 +1486,18 @@ class Display extends Base
             // Should we test against the collection interval or the preset alert timeout?
             if ($display->alertTimeout == 0 && $display->clientType != '') {
                 $timeoutToTestAgainst = ((double)$display->getSetting('collectInterval', $globalTimeout)) * 1.1;
+                $this->getLog()->error('$timeoutToTestAgainst - true: ' . $timeoutToTestAgainst);
             }
             else {
                 $timeoutToTestAgainst = $globalTimeout;
+                $this->getLog()->error('$timeoutToTestAgainst - false: ' . $timeoutToTestAgainst);
             }
 
             // Store the time out to test against
             $timeOut = $display->lastAccessed + $timeoutToTestAgainst;
-
+            
+            $this->getLog()->error('Timed out display. Last Accessed: ' . date('Y-m-d h:i:s', $display->lastAccessed) . '. Time out: ' . date('Y-m-d h:i:s', $timeOut));
+            
             // If the last time we accessed is less than now minus the time out
             if ($timeOut < time()) {
                 $this->getLog()->debug('Timed out display. Last Accessed: ' . date('Y-m-d h:i:s', $display->lastAccessed) . '. Time out: ' . date('Y-m-d h:i:s', $timeOut));
