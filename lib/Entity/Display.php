@@ -566,13 +566,10 @@ class Display implements \JsonSerializable
         if ($options['validate'])
             $this->validate();
 
-        if ($this->displayId == null || $this->displayId == 0){
-            $this->getLog()->error('Add new Display - Logged status: ' . $this->loggedIn);
+        if ($this->displayId == null || $this->displayId == 0) {
             $this->add();
         }
-        else
-        {
-            $this->getLog()->error('Edit Display - Logged status: ' . $this->loggedIn);
+        else {
             $this->edit();
         }
 
@@ -629,10 +626,9 @@ class Display implements \JsonSerializable
 
     private function add()
     {
-        $this->getLog()->error('Add new display');
         $this->displayId = $this->getStore()->insert('
-            INSERT INTO display (display, auditingUntil, defaultlayoutid, license, licensed, loggedin, lastaccessed, inc_schedule, email_alert, alert_timeout, xmrChannel, xmrPubKey, lastCommandSuccess, macAddress)
-              VALUES (:display, :auditingUntil, :defaultlayoutid, :license, :licensed, :loggedin, :lastaccessed, :inc_schedule, :email_alert, :alert_timeout, :xmrChannel, :xmrPubKey, :lastCommandSuccess, :macAddress)
+            INSERT INTO display (display, auditingUntil, defaultlayoutid, license, licensed, loggedin, lastaccessed, inc_schedule, email_alert, alert_timeout, client_type, xmrChannel, xmrPubKey, lastCommandSuccess, macAddress)
+              VALUES (:display, :auditingUntil, :defaultlayoutid, :license, :licensed, :loggedin, :lastaccessed, :inc_schedule, :email_alert, :alert_timeout, :client_type, :xmrChannel, :xmrPubKey, :lastCommandSuccess, :macAddress)
         ', [
             'display' => $this->display,
             'auditingUntil' => 0,
@@ -644,6 +640,7 @@ class Display implements \JsonSerializable
             'inc_schedule' => 0,
             'email_alert' => 0,
             'alert_timeout' => 0,
+            'client_type' => $this->clientType,
             'xmrChannel' => $this->xmrChannel,
             'xmrPubKey' => $this->xmrPubKey,
             'lastCommandSuccess' => $this->lastCommandSuccess,
