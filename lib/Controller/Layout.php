@@ -635,6 +635,11 @@ class Layout extends Base
         // Embed?
         $embed = ($this->getSanitizer()->getString('embed') != null) ? explode(',', $this->getSanitizer()->getString('embed')) : [];
 
+        $isRunLayout = 1;
+        if($this->getSanitizer()->getString('retired') != null){
+            $isRunLayout = null;
+        }
+                
         // Get all layouts
         $layouts = $this->layoutFactory->query($this->gridRenderSort(), $this->gridRenderFilter([
             'layout' => $this->getSanitizer()->getString('layout'),
@@ -643,7 +648,8 @@ class Layout extends Base
             'tags' => $this->getSanitizer()->getString('tags'),
             'filterLayoutStatusId' => $this->getSanitizer()->getInt('layoutStatusId'),
             'layoutId' => $this->getSanitizer()->getInt('layoutId'),
-            'ownerUserGroupId' => $this->getSanitizer()->getInt('ownerUserGroupId')
+            'ownerUserGroupId' => $this->getSanitizer()->getInt('ownerUserGroupId'),
+            'isRunLayout' => $isRunLayout
         ]));
 
         foreach ($layouts as $layout) {
@@ -1454,7 +1460,7 @@ class Layout extends Base
     public function assignToCampaignForm($layoutId)
     {
         // Get the layout
-        $layout = $this->layoutFactory->getById($layoutId);
+        $layout = $this->layoutFactory->getByIdToAssignCampaign($layoutId);
 
         // Check Permissions
         if (!$this->getUser()->checkViewable($layout))

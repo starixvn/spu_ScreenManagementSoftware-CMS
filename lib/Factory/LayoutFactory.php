@@ -282,6 +282,21 @@ class LayoutFactory extends BaseFactory
         // Set our layout
         return $layouts[0];
     }
+    
+    public function getByIdToAssignCampaign($layoutId)
+    {
+        if ($layoutId == 0)
+            throw new NotFoundException();
+
+        $layouts = $this->query(null, array('disableUserCheck' => 1, 'layoutId' => $layoutId, 'excludeTemplates' => -1, 'retired' => -1, 'isRunLayout' => 1));
+
+        if (count($layouts) <= 0) {
+            throw new NotFoundException(\__('Layout not found'));
+        }
+
+        // Set our layout
+        return $layouts[0];
+    }
 
     /**
      * Get by OwnerId
@@ -971,6 +986,10 @@ class LayoutFactory extends BaseFactory
         if ($this->getSanitizer()->getInt('status', $filterBy) !== null) {
             $body .= " AND layout.status = :status ";
             $params['status'] = $this->getSanitizer()->getInt('status', $filterBy);
+        }
+        
+        if ($this->getSanitizer()->getString('isRunLayout', $filterBy) != null) {
+            $body .= " AND (layout.status = 1 OR layout.status = 2) ";
         }
 
         // Background Image

@@ -145,7 +145,7 @@ class Settings extends Base
                 // convert to a dropdown
                 $setting['fieldType'] = 'dropdown';
 
-                foreach ($this->layoutFactory->query(null, ['disableUserCheck' => 1]) as $layout) {
+                foreach ($this->layoutFactory->query(null, ['disableUserCheck' => 1, 'isRunLayout' => 1]) as $layout) {
                     /** @var \Xibo\Entity\Layout $layout */
                     $options[] = ['id' => $layout->layoutId, 'value' => $layout->layout];
                 }

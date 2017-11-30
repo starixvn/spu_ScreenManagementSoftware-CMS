@@ -197,6 +197,10 @@ class CampaignFactory extends BaseFactory
             $body .= " AND `campaign`.isLayoutSpecific = :isLayoutSpecific ";
             $params['isLayoutSpecific'] = $this->getSanitizer()->getString('isLayoutSpecific', 0, $filterBy);
         }
+        
+        if ($this->getSanitizer()->getString('isRunCampaign', $filterBy) != null) {
+            $body .= " AND (layout.status = 1 OR layout.status = 2) ";
+        }
 
         if ($this->getSanitizer()->getString('campaignId', 0, $filterBy) != 0) {
             // Join Campaign back onto it again
@@ -324,8 +328,7 @@ class CampaignFactory extends BaseFactory
         }
 
         $sql = $select . $body . $group . $order . $limit;
-
-
+ 
         foreach ($this->getStore()->select($sql, $params) as $row) {
             $campaigns[] = $this->createEmpty()->hydrate($row, $intProperties);
         }

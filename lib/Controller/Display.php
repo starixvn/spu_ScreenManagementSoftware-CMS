@@ -827,7 +827,7 @@ class Display extends Base
         if (!$this->getUser()->checkEditable($display))
             throw new AccessDeniedException();
 
-        $layouts = $this->layoutFactory->query(null, ['retired' => 0]);
+        $layouts = $this->layoutFactory->query(null, ['retired' => 0, 'isRunLayout' => 1]);
         
         $this->getState()->template = 'multiple-edit-default-layout-form';
         $this->getState()->setData([

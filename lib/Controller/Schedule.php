@@ -655,7 +655,7 @@ class Schedule extends Base
             'fromDt' => $fromTime, 
             'toDt' => $toTime,
             'displayGroups' => $groups,
-            'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1, 'retired' => 0]),
+            'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1, 'retired' => 0, 'isRunCampaign' => 1]),
             'commands' => $this->commandFactory->query(),
             'dayParts' => $this->dayPartFactory->allWithSystem(),
             'displayGroupIds' => $this->session->get('displayGroupIds'),
@@ -922,7 +922,7 @@ class Schedule extends Base
             'event' => $schedule,
             'displays' => $displays,
             'displayGroups' => $groups,
-            'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1, 'retired' => 0, 'includeCampaignId' => $schedule->campaignId]),
+            'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1, 'retired' => 0, 'includeCampaignId' => $schedule->campaignId, 'isRunCampaign' => 1]),
             'commands' => $this->commandFactory->query(),
             'dayParts' => $this->dayPartFactory->allWithSystem(),
             'displayGroupIds' => array_map(function($element) {
