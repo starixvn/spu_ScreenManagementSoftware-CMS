@@ -916,7 +916,6 @@ class Schedule extends Base
             }
         }
 
-        $this->getLog()->error($schedule->fromDt);
         $this->getState()->template = 'schedule-form-edit';
         $this->getState()->setData([
             'event' => $schedule,
