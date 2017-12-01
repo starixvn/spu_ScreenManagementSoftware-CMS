@@ -1,5 +1,5 @@
 UPDATE setting 
-SET value = '/var/www/library/Data/' WHERE settingid =33;
+SET value = '/var/www/library/data/Library/' WHERE settingid =33;
 
 update setting
 set value = '123456' where settingid=34;
@@ -132,9 +132,11 @@ INSERT INTO `setting`
 ######################end###############################
 
 UPDATE setting 
-SET value = '/var/www/library/Client/' WHERE settingid = 900;
+SET value = '/var/www/library/data/Upgrade/' WHERE settingid = 900;
 
 ALTER TABLE `schedule` 
 ADD COLUMN `commandAdditionalInfo` VARCHAR(2000) NULL AFTER `syncTimezone`;
 
 UPDATE `module` SET `Enabled`='1' WHERE `ModuleID`='2';
+
+ALTER TABLE `daypart` AUTO_INCREMENT = 2;
