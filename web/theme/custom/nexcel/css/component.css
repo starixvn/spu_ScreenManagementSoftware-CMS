@@ -313,7 +313,8 @@ td #tagDiv .btn {
     color: #444;
 }
 
- .dateTimePicker.starttime-control div[class^='col']:before {
+.dateTimePicker.starttime-control div[class^='col']:before,
+.dateTimePicker.endtime-control div[class^='col']:before {
      content: '\f073';
     font-family: 'FontAwesome';
     position: absolute;
@@ -323,7 +324,12 @@ td #tagDiv .btn {
     font-size: 16px;
  }
 
-  .dateTimePicker.starttime-control div[class^='col']:after {
+.dateTimePicker.time-add-event div[class^='col']:before {
+    left: 44%;
+}
+
+.dateTimePicker.starttime-control div[class^='col']:after,
+.dateTimePicker.endtime-control div[class^='col']:after  {
     font-family: 'FontAwesome';
     position: absolute;
     color: #2b77d6;
@@ -332,6 +338,14 @@ td #tagDiv .btn {
     left: 385px;
     font-size: 18px;
   }
+.dateTimePicker.time-add-event div[class^='col']:after {
+    left: 90%;
+}
+
+.time-add-event .form-control {
+    width: 49%;
+}
+
   /**********select box *************/
   .form-group .bootstrap-select.form-control {
       border: none;
@@ -599,6 +613,7 @@ textarea {
  .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
      font-size: 14px;
      color: #545454;
+     white-space: nowrap;
  }
 
 .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,

@@ -15,10 +15,10 @@ global $dbuser;
 global $dbpass;
 global $dbname;
 
-$dbhost = '10.23.10.7';
-$dbuser = 'xibo';
-$dbpass = 'xibo';
-$dbname = 'xibo';
+$dbhost = '10.18.200.119:33309';
+$dbuser = 'sms';
+$dbpass = 'sms_@1234aa';
+$dbname = 'sms';
 
 define('SECRET_KEY', '7kCmh1do7Uq4');
 

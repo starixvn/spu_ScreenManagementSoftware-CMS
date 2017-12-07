@@ -1071,7 +1071,9 @@ li.active.tab-design {
     font-weight: 300;
     float: right;
 }
-
+.notification-date.notification-show-form {
+    float: unset;
+}
 .display_button_multiple_no_display {
     display: none;
 }
