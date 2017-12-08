@@ -171,7 +171,7 @@
 
                         {% set title %}{% trans "Until" %}{% endset %}
                         {% set helpText %}{% trans "When should this event stop repeating? Leave empty to repeat forever." %}{% endset %}
-                        {{ forms.dateTime("recurrenceRange", title, "", helpText, "repeat-control-group", "", "") }}
+                        {{ forms.dateTime("recurrenceRange", title, "", helpText, "repeat-control-group time-add-event", "", "") }}
                     </div>
                 </div>
             </form>
