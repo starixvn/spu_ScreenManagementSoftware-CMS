@@ -793,7 +793,7 @@ class Display extends Base
             $timeZones[] = ['id' => $key, 'value' => $value];
         }
 
-        $layouts = $this->layoutFactory->query(null, ['retired' => 0]);
+        $layouts = $this->layoutFactory->query(null, ['retired' => 0, 'isRunLayout' => 1]);
 
         if ($display->defaultLayoutId != null) {
             try {

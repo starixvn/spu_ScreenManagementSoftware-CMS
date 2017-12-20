@@ -88,11 +88,11 @@
                             {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
 
                             {% set title %}{% trans "Layout" %}{% endset %}
-                            {% set layoutFilterOptions = [{layoutId: null, layout: ""}]|merge(layouts) %}
+                            {% set layoutFilterOptions = [{layoutId: "", layout: ""}]|merge(layouts) %}
                             {{ inline.dropdown("layoutId[]", "dropdownmulti", title, "", layoutFilterOptions, "layoutId", "layout", "", "selectPicker", "", "m", "", [{name: "data-live-search", value:"true"}, {name: "data-selected-text-format", value: "count > 3"}]) }}
 
                             {% set title %}{% trans "Media" %}{% endset %}
-                            {% set mediaFilterOptions = [{mediaId: null, name: ""}]|merge(media) %}
+                            {% set mediaFilterOptions = [{mediaId: "", name: ""}]|merge(media) %}
                             {{ inline.dropdown("mediaId[]", "dropdownmulti", title, "", mediaFilterOptions, "mediaId", "name", "", "selectPicker", "", "m", "", [{name: "data-live-search", value:"true"}, {name: "data-selected-text-format", value: "count > 3"}]) }}
                         </form>
                     </div>
