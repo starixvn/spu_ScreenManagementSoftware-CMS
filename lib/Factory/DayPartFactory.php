@@ -89,7 +89,7 @@ class DayPartFactory extends BaseFactory
      */
     public function allWithSystem()
     {
-        $dayParts = $this->query();
+        $dayParts = $this->query(null, ['isRetired' => 0]);
 
         // Add system and custom
         array_unshift($dayParts, ['dayPartId' => 1, 'name' => __('Always')]);
@@ -125,9 +125,14 @@ class DayPartFactory extends BaseFactory
             $params['dayPartId'] = $this->getSanitizer()->getInt('dayPartId', $filterBy);
         }
 
-        if ($this->getSanitizer()->getString('name', $filterBy) != null) {
+        if ($this->getSanitizer()->getString('name', $filterBy) !== null) {
             $body .= ' AND `daypart`.name = :name ';
             $params['name'] = $this->getSanitizer()->getString('name', $filterBy);
+        }
+        
+        if ($this->getSanitizer()->getInt('isRetired', $filterBy) !== null) {
+            $body .= " AND daypart.isRetired = :isRetired ";
+            $params['isRetired'] = $this->getSanitizer()->getInt('isRetired', $filterBy);
         }
 
         // Sorting?

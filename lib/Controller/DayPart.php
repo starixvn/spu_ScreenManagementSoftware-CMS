@@ -402,7 +402,7 @@ class DayPart extends Base
         $dayPart->userId = $this->getUser()->userId;
         $dayPart->name = $this->getSanitizer()->getString('name');
         $dayPart->description = $this->getSanitizer()->getString('description');
-        $dayPart->isRetired = $this->getSanitizer()->getCheckbox('isRetired');
+        $dayPart->isRetired = $this->getSanitizer()->getCheckbox('retired');
         $dayPart->startTime = $this->getSanitizer()->getString('startTime');
         $dayPart->endTime = $this->getSanitizer()->getString('endTime');
 
