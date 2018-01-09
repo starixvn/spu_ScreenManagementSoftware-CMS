@@ -670,7 +670,7 @@ class State extends Middleware
                 $container->dateService,
                 $container->configService,
                 $container->session,
-                $container->userFactory,                    
+                $container->userFactory,
                 $container->sessionFactory
             );
         });
@@ -1240,7 +1240,8 @@ class State extends Middleware
                 $container->configService,
                 $container->permissionFactory,
                 $container->tagFactory,
-                $container->playlistFactory
+                $container->playlistFactory,
+                $container->widgetFactory
             );
         });
 

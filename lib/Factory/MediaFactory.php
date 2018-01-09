@@ -34,6 +34,8 @@ use Xibo\Service\LogServiceInterface;
 use Xibo\Service\SanitizerServiceInterface;
 use Xibo\Storage\StorageServiceInterface;
 
+use Xibo\Factory\WidgetFactory;
+
 /**
  * Class MediaFactory
  * @package Xibo\Factory
@@ -64,6 +66,11 @@ class MediaFactory extends BaseFactory
     private $playlistFactory;
 
     /**
+     * @var WidgetFactory
+     */
+    private $widgetFactory;
+
+    /**
      * Construct a factory
      * @param StorageServiceInterface $store
      * @param LogServiceInterface $log
@@ -74,8 +81,9 @@ class MediaFactory extends BaseFactory
      * @param PermissionFactory $permissionFactory
      * @param TagFactory $tagFactory
      * @param PlaylistFactory $playlistFactory
+     * @param widgetFactory $widgetFactory
      */
-    public function __construct($store, $log, $sanitizerService, $user, $userFactory, $config, $permissionFactory, $tagFactory, $playlistFactory)
+    public function __construct($store, $log, $sanitizerService, $user, $userFactory, $config, $permissionFactory, $tagFactory, $playlistFactory, $widgetFactory)
     {
         $this->setCommonDependencies($store, $log, $sanitizerService);
         $this->setAclDependencies($user, $userFactory);
@@ -84,6 +92,7 @@ class MediaFactory extends BaseFactory
         $this->permissionFactory = $permissionFactory;
         $this->tagFactory = $tagFactory;
         $this->playlistFactory = $playlistFactory;
+        $this->widgetFactory = $widgetFactory;
     }
 
     /**
@@ -92,7 +101,7 @@ class MediaFactory extends BaseFactory
      */
     public function createEmpty()
     {
-        return new Media($this->getStore(), $this->getLog(), $this->config, $this, $this->permissionFactory, $this->tagFactory, $this->playlistFactory);
+        return new Media($this->getStore(), $this->getLog(), $this->config, $this, $this->permissionFactory, $this->tagFactory, $this->playlistFactory, $this->widgetFactory);
     }
 
     /**
@@ -176,7 +185,7 @@ class MediaFactory extends BaseFactory
 
         foreach (array_diff(scandir($folder), array('..', '.')) as $file) {
             if (is_dir($folder . DIRECTORY_SEPARATOR . $file)) continue;
-            
+
             $file = $this->createModuleSystemFile($file, $folder . DIRECTORY_SEPARATOR . $file);
             $file->moduleSystemFile = true;
 
