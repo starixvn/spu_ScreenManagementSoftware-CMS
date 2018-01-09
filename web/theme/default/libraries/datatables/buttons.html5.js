@@ -315,12 +315,14 @@ var _exportData = function ( dt, config )
 		return s;
 	};
 
-	var header = config.header ? join( data.header )+newLine : '';
+    var removeIdx = data.header.findIndex(h => h == "");
+
+	var header = config.header ? join( data.header.filter(h => h != "") )+newLine : '';
 	var footer = config.footer ? newLine+join( data.footer ) : '';
 	var body = [];
 
 	for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
-		body.push( join( data.body[i] ) );
+		body.push( join( data.body[i].filter((d,i) => i != removeIdx) ) );
 	}
 
 	return {
