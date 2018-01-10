@@ -235,9 +235,6 @@ class Media implements \JsonSerializable
     /** @var  ScheduleFactory */
     private $scheduleFactory;
 
-    /** @var  WidgetFactory */
-    private $widgetFactory;
-
     /**
      * Entity constructor.
      * @param StorageServiceInterface $store
@@ -247,9 +244,8 @@ class Media implements \JsonSerializable
      * @param PermissionFactory $permissionFactory
      * @param TagFactory $tagFactory
      * @param PlaylistFactory $playlistFactory
-     * @param WidgetFactory $widgetFactory
      */
-    public function __construct($store, $log, $config, $mediaFactory, $permissionFactory, $tagFactory, $playlistFactory, $widgetFactory)
+    public function __construct($store, $log, $config, $mediaFactory, $permissionFactory, $tagFactory, $playlistFactory)
     {
         $this->setCommonDependencies($store, $log);
 
@@ -258,7 +254,6 @@ class Media implements \JsonSerializable
         $this->permissionFactory = $permissionFactory;
         $this->tagFactory = $tagFactory;
         $this->playlistFactory = $playlistFactory;
-        $this->widgetFactory = $widgetFactory;
     }
 
     /**
