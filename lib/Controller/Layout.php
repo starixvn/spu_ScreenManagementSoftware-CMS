@@ -814,7 +814,7 @@ class Layout extends Base
                     // Permissions button
                     $layout->buttons[] = array(
                         'id' => 'layout_button_permissions',
-                        'url' => $this->urlFor('user.permissions.form', ['entity' => 'Campaign', 'id' => $layout->campaignId]),
+                        'url' => $this->urlFor('user.permissions.form', ['entity' => 'Layout', 'id' => $layout->layoutId]),
                         'text' => __('Permissions')
                     );
                 }

@@ -1,17 +1,30 @@
-UPDATE setting 
-SET value = '/var/www/library/data/Library/' WHERE settingid =33;
+UPDATE setting
+SET value = '/var/www/library/data/Library/'
+WHERE settingid = 33;
 
-update setting
-set value = '123456' where settingid=34;
+UPDATE setting
+SET value = '123456'
+WHERE settingid = 34;
 
-update setting
-set value = 'tcp://10.70.70.210:50001' where settingid=87;
+UPDATE setting
+SET value = 'tcp://10.70.70.210:50001'
+WHERE settingid = 87;
 
-update setting
-set value = 'tcp://10.70.70.210:9505' where settingid=88;
+UPDATE setting
+SET value = 'tcp://10.70.70.210:9505'
+WHERE settingid = 88;
 
-update setting
-set value = 'nexcel' where settingid=63;
+UPDATE setting
+SET value = 'nexcel'
+WHERE settingid = 63;
+
+UPDATE `setting`
+SET `value` = 'Asia/Ho_Chi_Minh'
+WHERE `settingid` = '11';
+
+UPDATE `setting` 
+SET `userSee`='0' 
+WHERE `settingid`='11';
 
 update user
 set username= 'admin', userpassword=MD5('admin')
