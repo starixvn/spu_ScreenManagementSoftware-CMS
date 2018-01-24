@@ -24,7 +24,7 @@ WHERE `settingid` = '11';
 
 UPDATE `setting` 
 SET `userSee`='0' 
-WHERE `settingid`='11';
+WHERE `settingid` IN (11,70,82,67,63);
 
 update user
 set username= 'admin', userpassword=MD5('admin')
@@ -34,7 +34,6 @@ UPDATE `module` SET `Enabled`='0' WHERE `ModuleID` <> 5;
 UPDATE `module` SET `Enabled`='1' WHERE `ModuleID` IN (5);
 
 UPDATE `pages` SET `asHome` = 0 WHERE name IN ('application','transition','dataset','template','task','module','help','mediamanager');
-UPDATE setting SET userSee='0' WHERE settingid='67';
 UPDATE `setting` SET `fieldType`='emails' WHERE `settingid`='18';
 
 INSERT INTO `setting` (`settingid`, `setting`, `value`, `fieldType`, `helptext`, `options`, `cat`, `userChange`, `title`, `validation`, `ordering`, `default`, `userSee`, `type`) VALUES
@@ -97,8 +96,6 @@ update setting set helptext = 'Should SMS send future schedule information to cl
 update setting set cat = 'configuration' where settingid = 900;
 delete from setting where settingid = 901;
 delete from setting where settingid = 902;
-
-update setting set userSee = 0 where settingid = 63;
 
 UPDATE `setting` SET `userSee`= 0 WHERE `settingid` in (900,33,64,65,47,48,36,38,59,60,71,72,73,77,78,79,84,89,93,74,62);
 
