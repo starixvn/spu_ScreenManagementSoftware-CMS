@@ -1,3 +1,4 @@
+################### Step 1 ###########################
 UPDATE setting
 SET value = '/var/www/library/data/Library/'
 WHERE settingid = 33;
@@ -29,9 +30,6 @@ WHERE `settingid` IN (11,70,82,67,63);
 update user
 set username= 'admin', userpassword=MD5('admin')
 where userid=1;
-
-UPDATE `module` SET `Enabled`='0' WHERE `ModuleID` <> 5;
-UPDATE `module` SET `Enabled`='1' WHERE `ModuleID` IN (5);
 
 UPDATE `pages` SET `asHome` = 0 WHERE name IN ('application','transition','dataset','template','task','module','help','mediamanager');
 UPDATE `setting` SET `fieldType`='emails' WHERE `settingid`='18';
@@ -99,6 +97,36 @@ delete from setting where settingid = 902;
 
 UPDATE `setting` SET `userSee`= 0 WHERE `settingid` in (900,33,64,65,47,48,36,38,59,60,71,72,73,77,78,79,84,89,93,74,62);
 
+## Insert screen permission setting ###############################
+INSERT INTO `setting` 
+	(`setting`, 
+	`value`, 
+	`fieldType`, 
+	`options`, 
+	`cat`, 
+	`userChange`, 
+	`title`, 
+	`validation`, 
+	`ordering`, 
+	`default`, 
+	`userSee`, 
+	`type`) 
+	VALUES ('SCREEN_DEFAULT', 'public write', 'dropdown', 'public|public write|private', 'permissions', '1', 'Screens Permission', '', '25', 'public write', '1', 'word');
+## end ###############################
+
+UPDATE setting 
+SET value = '/var/www/library/data/Upgrade/' WHERE settingid = 900;
+
+ALTER TABLE `schedule` 
+ADD COLUMN `commandAdditionalInfo` VARCHAR(2000) NULL AFTER `syncTimezone`;
+
+ALTER TABLE `daypart` AUTO_INCREMENT = 2;
+
+################### Step 2. Run this query after login on web admin ###########################
+UPDATE `module` SET `Enabled`='0' WHERE `ModuleID` <> 5;
+UPDATE `module` SET `Enabled`='1' WHERE `ModuleID` IN (5);
+UPDATE `module` SET `Enabled`='1' WHERE `ModuleID`='2';
+
 ##################Insert a group of all screens###############################
 
 SELECT @DisplayGroupId := MIN(DisplayGroupId) FROM displaygroup;
@@ -123,30 +151,3 @@ UPDATE displaygroup
 SET DisplayGroup = 'All Screens', IsDisplaySpecific = 0, Description = 'The group of all screens. Can not be modified!', isDynamic = 0, dynamicCriteria = '', userId = 0
 WHERE DisplayGroupId = 1;
 ######################end###############################
-
-##################Insert screen permission setting###############################
-INSERT INTO `setting` 
-	(`setting`, 
-	`value`, 
-	`fieldType`, 
-	`options`, 
-	`cat`, 
-	`userChange`, 
-	`title`, 
-	`validation`, 
-	`ordering`, 
-	`default`, 
-	`userSee`, 
-	`type`) 
-	VALUES ('SCREEN_DEFAULT', 'public write', 'dropdown', 'public|public write|private', 'permissions', '1', 'Screens Permission', '', '25', 'public write', '1', 'word');
-######################end###############################
-
-UPDATE setting 
-SET value = '/var/www/library/data/Upgrade/' WHERE settingid = 900;
-
-ALTER TABLE `schedule` 
-ADD COLUMN `commandAdditionalInfo` VARCHAR(2000) NULL AFTER `syncTimezone`;
-
-UPDATE `module` SET `Enabled`='1' WHERE `ModuleID`='2';
-
-ALTER TABLE `daypart` AUTO_INCREMENT = 2;
