@@ -41,11 +41,11 @@
                             {{ inline.dropdown("retired", "single", title, 0, values, "id", "value") }}
 
                             {% set title %}{% trans "Show" %}{% endset %}
-                            {% set values = [{id: 1, value: "All"}, {id: 2, value: "Only Used"}, {id: 3, value: "Only Unused"}] %}
+                            {% set values = [{id: 1, value: "Tất cả"}, {id: 2, value: "Đang sử dụng"}, {id: 3, value: "Không sử dụng"}] %}
                             {{ inline.dropdown("layoutStatusId", "single", title, 1, values, "id", "value") }}
 
                             {% set title %}{% trans "Description" %}{% endset %}
-                            {% set values = [{id: 1, value: "All"}, {id: 2, value: "1st line"}] %}
+                            {% set values = [{id: 1, value: "Tất cả"}, {id: 2, value: "Dòng đầu tiên"}] %}
                             {{ inline.dropdown("showDescriptionId", "single", title, 2, values, "id", "value") }}
                         </form>
                     </div>

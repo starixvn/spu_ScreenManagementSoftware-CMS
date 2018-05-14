@@ -44,7 +44,7 @@ This is the template for the campaign page
                                 <th>{% trans "Name" %}</th>
                                 <th>{% trans "# Layouts" %}</th>
                                 <th>{% trans "Tags" %}</th>
-                                <th>{% trans "Duration" %}</th>
+                                <th>{% trans "DURATION" %}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -141,7 +141,7 @@ This is the template for the campaign page
 
                     // Append to our layouts list
                     // We are adding a new layout, so the display order should be the highest display order
-                    var order = nextDisplayOrder();
+                    var order = nextScreenOrder();
 
                     // Construct a new item for the assigned box
                     var newItem = $("<li/>", {

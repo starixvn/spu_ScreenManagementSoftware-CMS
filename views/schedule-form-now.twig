@@ -72,21 +72,21 @@
                 {% set title %}{% trans %}Your event will be scheduled from [fromDt] to [toDt] in the CMS timezone, please check this covers each of your Displays in their respective timezones.{% endtrans %}{% endset %}
                 <div class="alert alert-info scheduleNowMessage hidden" data-template="{{ title }}"></div>
 
-                {% set title %}{% trans "Display" %}{% endset %}
-                {% set helpText %}{% trans "Please select one or more displays / groups for this event to be shown on." %}{% endset %}
+                {% set title %}{% trans "Screen" %}{% endset %}
+                {% set helpText %}{% trans "Please select one or more screens / groups for this event to be shown on." %}{% endset %}
                 {% set attributes = [
                 { name: "data-live-search", value: "true" },
                 { name: "data-selected-text-format", value: "count > 4" }
                 ] %}
                 {% set transGroups %}{% trans "Groups" %}{% endset %}
-                {% set transDisplays %}{% trans "Display" %}{% endset %}
+                {% set transDisplays %}{% trans "Screen" %}{% endset %}
                 {% set optionGroups = [
                 {id: "group", label: transGroups},
                 {id: "display", label: transDisplays}
                 ] %}
                 {{ forms.dropdown("displayGroupIds[]", "dropdownmulti", title, [displayGroupId], {group: displayGroups, display: displays}, "displayGroupId", "displayGroup", helpText, "", "", "", "", attributes, optionGroups) }}
 
-                {% set title %}{% trans "Display Order" %}{% endset %}
+                {% set title %}{% trans "Screen Order" %}{% endset %}
                 {% set helpText %}{% trans "Should this event have an order?" %}{% endset %}
                 {{ forms.number("displayOrder", title, displayOrder, helpText) }}
                 

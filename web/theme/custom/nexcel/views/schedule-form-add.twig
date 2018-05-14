@@ -47,14 +47,14 @@
                         ] %}
                         {{ forms.dropdown("eventTypeId", "single", title, "", eventTypes, "id", "label", helpText) }}
 
-                        {% set title %}{% trans "Display" %}{% endset %}
+                        {% set title %}{% trans "Screen" %}{% endset %}
                         {% set helpText %}{% trans "Please select one or more displays / groups for this event to be shown on." %}{% endset %}
                         {% set attributes = [
                             { name: "data-live-search", value: "true" },
                             { name: "data-selected-text-format", value: "count > 4" }
                         ] %}
                         {% set transGroups %}{% trans "Groups" %}{% endset %}
-                        {% set transDisplays %}{% trans "Display" %}{% endset %}
+                        {% set transDisplays %}{% trans "Screen" %}{% endset %}
                         {% set optionGroups = [
                             {id: "group", label: transGroups},
                             {id: "display", label: transDisplays}
@@ -109,7 +109,7 @@
                         {% set helpText %}{% trans "Pick a version to upgrade." %}{% endset %}
                         {{ forms.dropdown("versionFileName", "single", title, "", versions, "fileName", "version", helpText, "hidden version-control")}}
 
-                        {% set title %}{% trans "Display Order" %}{% endset %}
+                        {% set title %}{% trans "Screen Order" %}{% endset %}
                         {% set helpText %}{% trans "Please select the order this event should appear in relation to others when there is more than one event scheduled" %}{% endset %}
                         {{ forms.number("displayOrder", title, "", helpText) }}
 
