@@ -8,11 +8,11 @@ SET value = '123456'
 WHERE settingid = 34;
 
 UPDATE setting
-SET value = 'tcp://10.70.70.210:50001'
+SET value = 'tcp://10.70.70.213:50001'
 WHERE settingid = 87;
 
 UPDATE setting
-SET value = 'tcp://10.70.70.210:9505'
+SET value = 'tcp://10.70.70.213:9505'
 WHERE settingid = 88;
 
 UPDATE setting

@@ -18,7 +18,7 @@ global $dbname;
 $dbhost = '10.70.70.213:33309';
 $dbuser = 'sms';
 $dbpass = 'sms_@1234aa';
-$dbname = 'smsdev';
+$dbname = 'sms';
 
 define('SECRET_KEY', '7kCmh1do7Uq4');
 
