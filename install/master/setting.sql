@@ -95,7 +95,7 @@ update setting set cat = 'configuration' where settingid = 900;
 delete from setting where settingid = 901;
 delete from setting where settingid = 902;
 
-UPDATE `setting` SET `userSee`= 0 WHERE `settingid` in (900,33,64,65,47,48,36,38,59,60,71,72,73,77,78,79,84,89,93,74,62);
+UPDATE `setting` SET `userSee`= 0 WHERE `settingid` in (900,33,64,65,47,48,36,38,59,60,69,71,72,73,77,78,79,84,89,93,74,62);
 
 ## Insert screen permission setting ###############################
 INSERT INTO `setting` 
