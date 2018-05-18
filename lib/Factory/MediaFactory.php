@@ -603,6 +603,7 @@ class MediaFactory extends BaseFactory
 
             $body .= '    )
                 AND media.type <> \'module\'
+                AND media.type <> \'font\'
             ';
             $params['layoutId'] = $this->getSanitizer()->getInt('layoutId', $filterBy);
         }
