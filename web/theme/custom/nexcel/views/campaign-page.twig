@@ -137,11 +137,12 @@ This is the template for the campaign page
                 // Clicky on the +spans
                 $(".assignItem", "#layoutAssignments").click(function() {
                     // Get the row that this is in.
+                    debugger;
                     var data = layoutTable.row($(this).closest("tr")).data();
 
                     // Append to our layouts list
                     // We are adding a new layout, so the display order should be the highest display order
-                    var order = nextScreenOrder();
+                    var order = nextDisplayOrder();
 
                     // Construct a new item for the assigned box
                     var newItem = $("<li/>", {
