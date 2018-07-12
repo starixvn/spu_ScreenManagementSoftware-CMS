@@ -240,6 +240,13 @@ class Soap5 extends Soap4
         return $this->doSchedule($serverKey, $hardwareKey, ['dependentsAsNodes' => true, 'includeOverlays' => true]);
     }
 	
+    /**
+     * Use for upgrade client version
+     * @return zip file for installation
+     * @param string $serverKey
+     * @param string $hardwareKey
+     * @throws \SoapFault
+     */
     function CheckAndUpgradeNewVersion($currentVersion = null, $fileName = '', $isForced = false)
     {
         $this->logProcessor->setRoute('CheckAndUpgradeNewVersion');
@@ -261,7 +268,7 @@ class Soap5 extends Soap4
                             throw new NotFoundException('Unable to get file pointer');
 
                     $file = fread($f, filesize($upgradeFileName));
-                    fclose($f);
+                    fclose($f); 
             }
             catch (NotFoundException $e) {
                     throw new \SoapFault('Receiver', 'Requested an invalid file.');

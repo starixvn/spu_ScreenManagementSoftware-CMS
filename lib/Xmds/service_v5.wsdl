@@ -157,7 +157,7 @@
             <input message="tns:GetFileRequest"/>
             <output message="tns:GetFileResponse"/>
         </operation>
-		    <operation name="CheckAndUpgradeNewVersion">
+        <operation name="CheckAndUpgradeNewVersion">
             <documentation>Gets the upgrade file</documentation>
             <input message="tns:UpgradeRequest"/>
             <output message="tns:UpgradeResponse"/>
