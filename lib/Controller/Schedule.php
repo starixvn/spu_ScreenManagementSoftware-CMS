@@ -628,8 +628,10 @@ class Schedule extends Base
             $toTime = $this->getDate()->getLocalDate($toTime);
         }
         else{
-            $fromTime = '';
-            $toTime = '';
+            $fromTime = date('Y-m-d H:i:00',strtotime('+2 minute'));
+            $toTime = date('Y-m-d H:i:00',strtotime('+4 minute'));
+           // $fromTime = "";
+           // $toTime = "";
         }
         
         $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
