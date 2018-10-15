@@ -63,12 +63,7 @@ class ClientResourceUsageFactory extends BaseFactory
     public function getByDisplayIds($displayIds)
     {
         $queryString = 'SELECT cru.displayId, cru.logdate , cru.cpuUsage, cru.ramAvailable, cru.ramTotal
-            FROM `clientresourceusage` cru
-                INNER JOIN (
-                SELECT displayId, MAX(logdate) AS logdate
-                FROM `clientresourceusage`
-                GROUP BY displayId
-            ) AS max USING (displayId, logdate)
+            FROM `clientresourceusage` cru               
             WHERE displayId IN ('.$displayIds.')';
         $result = $this->getStore()->select($queryString, []);
         

@@ -321,7 +321,17 @@ class Soap5 extends Soap4
         try {
             $display = $this->displayFactory->getByLicence($hardwareKey);
             $clientResourceUsage = $this->clientResourceUsageFactory->create($display->displayId, $cpuUsage, $ramTotal, $ramAvailable);
-            $clientResourceUsage->add();
+            
+            $existingDisplayCounter = $clientResourceUsage->checkExistingDisplay();
+            //$this->getLog()->error(count($existingDisplayCounter));
+            if(count($existingDisplayCounter) != 0)
+            {
+                $clientResourceUsage->update();                        
+            }
+            else
+            {
+                $clientResourceUsage->add();
+            }           
             
             return true;
         }

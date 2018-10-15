@@ -95,7 +95,27 @@ class ClientResourceUsage implements \JsonSerializable
                 'ramavailable' => $this->ramAvailable
             ]);
     }
+    
+    public function update()
+    {
+         $this->getStore()->update('UPDATE `clientresourceusage` SET logdate = UNIX_TIMESTAMP(NOW()), cpuusage = :cpuusage, ramtotal= :ramtotal, ramavailable=:ramavailable'
+                 . ' WHERE displayid = :displayid', [
+            'cpuusage' => $this->cpuUsage,
+            'ramtotal' => $this->ramTotal,
+            'ramavailable' => $this->ramAvailable,
+            'displayid' => $this->displayId
+        ]);        
+    }
 
+    public function checkExistingDisplay()
+    {
+        $result = $this->getStore()->select('SELECT displayId FROM clientresourceusage WHERE displayid = :displayid', [
+            'displayid' => $this->displayId
+        ]);
+        
+        return $result;
+    }
+    
     private function getByDisplayId($displayId)
     {
          $result = $this->getStore()->select('SELECT * FROM clientresourceusage WHERE displayid = :displayid', [
