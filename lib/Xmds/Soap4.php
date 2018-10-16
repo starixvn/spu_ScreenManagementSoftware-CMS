@@ -448,6 +448,7 @@ class Soap4 extends Soap
             $item->expiresAfter(new \DateInterval('P1W'));
 
             $this->getPool()->saveDeferred($item);
+            $this->getLog()->info($this->display->deviceName . ': changes current layout to ' . $currentLayoutId);
         }
 
         // Touch the display record
