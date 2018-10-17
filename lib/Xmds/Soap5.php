@@ -298,8 +298,9 @@ class Soap5 extends Soap4
         $result = false;
         try {
             $display = $this->displayFactory->getByLicence($hardwareKey);
+            $display->setOnlineStatus(1);
             
-  			    $result = $display->licensed;
+            $result = $display->licensed;
         }
         catch (NotFoundException $e){
                 throw new NotFoundException('Unable to get status');
