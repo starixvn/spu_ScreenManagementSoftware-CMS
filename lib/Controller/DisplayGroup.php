@@ -1157,7 +1157,7 @@ class DisplayGroup extends Base
         }
 
         // Check for unassign
-        foreach ($this->getSanitizer()->getIntArray('unassignLayoutsId') as $layoutId) {
+        foreach ($this->getSanitizer()->getIntArray('unassignLayoutId') as $layoutId) {
             // Get the layout record
             $layout = $this->layoutFactory->getById($layoutId);
 
