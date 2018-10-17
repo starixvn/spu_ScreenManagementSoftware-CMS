@@ -839,4 +839,12 @@ class Display implements \JsonSerializable
             $this->getLog()->debug('Cache miss for setCurrentLayoutId on display ' . $this->display);
         }
     }
+    
+    public function setOnlineStatus($status)
+    {
+        $this->getStore()->update('UPDATE `display` SET loggedin = :onlineStatus WHERE displayid = :displayid', [
+            'onlineStatus' => $status,
+            'displayid' => $this->displayId
+        ]);
+    }
 }
