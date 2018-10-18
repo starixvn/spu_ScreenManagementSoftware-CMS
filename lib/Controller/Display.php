@@ -717,6 +717,9 @@ class Display extends Base
                     )
                 );
             }
+            
+            $currentTime = strtotime(date());
+            $display->loggedIn = ($currentTime - $display->lastAccessed) > 1 ? 0 : $display->loggedIn;
         }
         
         if(is_int(strpos($gridSortArray[0], 'Usage')))
