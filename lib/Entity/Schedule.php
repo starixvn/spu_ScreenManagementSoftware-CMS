@@ -340,8 +340,10 @@ class Schedule implements \JsonSerializable
         if ($this->recurrenceType != '') {
             // If we are a recurring schedule and our recurring date is out after the required files lookahead
             $this->getLog()->debug('Checking look ahead based on recurrence');
-            return ($this->fromDt <= $currentDate->format('U') && ($this->recurrenceRange == 0 || $this->recurrenceRange > $rfLookAhead->format('U')));
-        } else if ($this->dayPartId != self::$DAY_PART_CUSTOM) {
+            return (
+                      $this->fromDt <= $rfLookAhead->format('U') 
+                      && ($this->recurrenceRange == 0 || $this->recurrenceRange > $currentDate->format('U')));
+        } else if ($this->dayPartId != self::$DAY_PART_CUSTOM || $this->eventTypeId == self::$COMMAND_EVENT) {
             // Day parting event (non recurring)
             // only test the from date.
             $this->getLog()->debug('Checking look ahead based from date ' . $currentDate->toRssString());

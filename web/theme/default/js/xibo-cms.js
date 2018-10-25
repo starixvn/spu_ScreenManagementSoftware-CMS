@@ -933,7 +933,7 @@ function XiboMultiSelectFormRender(button) {
         });
 
     // Append a footer to the dialog
-    var dialogContent = dialog.find(".modal-body");
+    var dialogContent = dialog.find(".modal-body").append("<div style='max-height:300px;overflow-y:scroll;' id='model-box-message'>");
     var footer = $("<div>").addClass("modal-footer");
     dialog.find(".modal-content").append(footer);
 
@@ -970,7 +970,7 @@ function XiboMultiSelectFormRender(button) {
 
                             if (response.success) {
 
-                                dialogContent.append($("<div>").html(data.rowtitle + ": " + translations.success));
+                                dialogContent.find('#model-box-message').append($("<div>").html("-> " + data.rowtitle + ": " + translations.success));
 
                                 // Process the next item
                                 queue.next();
@@ -999,6 +999,8 @@ function XiboMultiSelectFormRender(button) {
                 complete: function() {
                     // Remove the save button
                     footer.find(".saving").parent().remove();
+
+                   // dialog.modal('hide');
 
                     // Refresh the grids
                     // (this is a global refresh)
@@ -1156,26 +1158,88 @@ function XiboFormSubmit(form, e, callBack) {
         // Set the appropriate text editor field with this data.
         $("#" + editor).val(data);
     }
-
-    $.ajax({
+    
+    var id = $(form).attr("id");
+    if(id=='displayEditForm')
+    {
+         EditSingleDefaultLayout(form);
+    }
+    else
+    {
+       $.ajax({
         type:$(form).attr("method"),
         url:url,
         cache:false,
         dataType:"json",
         data:$(form).serialize(),
-        success: function(xhr, textStatus, error) {
-            
+        beforeSend: function(){
+          bootbox.hideAll();
+          HoldOn.open({
+               theme:"sk-cube-grid",
+               backgroundColor:"#1e2338"
+          });
+       },
+        success: function(xhr, textStatus, error) {                    
             XiboSubmitResponse(xhr, form);
-
             if (callBack != null && callBack != undefined)
-                callBack(xhr, form);
+                callBack(xhr, form);            
+        },
+        complete: function(){
+               HoldOn.close();         
         },
         error: function(xhr, textStatus, errorThrown) {
             SystemMessage(xhr.responseText, false);
         }
-    });
-
+        }); 
+    }  
+      
     return false;
+}
+
+function EditSingleDefaultLayout(form)
+{
+    var action = $(form).attr("action");
+    var param = action.substr(action.lastIndexOf('/') + 1);
+    var ids = param.split(',');
+    var url = action.substr(0,action.lastIndexOf('/'));
+    bootbox.hideAll();
+    HoldOn.open({
+                     theme:"sk-cube-grid",
+                     backgroundColor:"#1e2338"});
+                 
+                     
+    for(var id in ids)
+    {
+          $.ajax({
+            type:$(form).attr("method"),
+            url:url + '/' + ids[id],
+            cache:false,
+            asyn:true,
+            dataType:"json",
+            data:$(form).serialize(),
+            beforeSend: function(){
+                
+             },
+            success: function(xhr, textStatus, error) { 
+                                              
+            },
+            complete: function(){
+                
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                SystemMessage(xhr.responseText, false);
+            }
+        });      
+    }
+    
+    sleep(2500).then(()=>{
+        XiboRefreshAllGrids();
+        HoldOn.close();
+    });   
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
@@ -1361,7 +1425,7 @@ function XiboSwapDialog(formUrl) {
 
 function XiboRefreshAllGrids() {
     // We should refresh the grids (this is a global refresh)
-    $(" .XiboGrid table").each(function() {
+    $(".XiboGrid table").each(function() {
         // Render
         $(this).DataTable().ajax.reload(null, false);
     });

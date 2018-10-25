@@ -76,7 +76,7 @@ class Soap4 extends Soap
             $display = $this->displayFactory->getByLicence($hardwareKey);
             $this->display = $display;
             
-            $this->display->setOnlineStatus(1);
+            //$this->display->setOnlineStatus(1);
             $this->logProcessor->setDisplay($display->displayId, ($display->isAuditing()));
 
             // Audit in

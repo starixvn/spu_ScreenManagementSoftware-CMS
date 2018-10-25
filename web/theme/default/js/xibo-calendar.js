@@ -391,7 +391,14 @@ var setupScheduleForm = function(dialog) {
             url: $(this).attr("action"),
             data: $(this).serialize(),
             cache: false,
-            dataType: "json",
+            dataType: "json",            
+            beforeSend: function(){
+              bootbox.hideAll();
+              HoldOn.open({
+                   theme:"sk-cube-grid",
+                   backgroundColor:"#1e2338"
+              });
+           },
             success: function(xhr, textStatus, error) {
 
                 XiboSubmitResponse(xhr, form);
@@ -401,6 +408,9 @@ var setupScheduleForm = function(dialog) {
                     calendar.options['clearCache'] = true;
                     calendar.view();
                 }
+            },
+            complete: function(){
+                   HoldOn.close();         
             }
         });
     });

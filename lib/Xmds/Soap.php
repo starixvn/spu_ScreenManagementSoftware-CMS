@@ -393,7 +393,7 @@ class Soap
                     ON `layout`.layoutID = `lklayoutdisplaygroup`.layoutId
                  WHERE lkdisplaydg.DisplayID = :displayId
                 ORDER BY DisplayOrder, LayoutDisplayOrder, eventId
-            ';
+            ';            
 
             $params = array(
                 'displayId' => $this->display->displayId,

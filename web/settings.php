@@ -16,6 +16,7 @@ global $dbpass;
 global $dbname;
 
 $dbhost = '10.70.70.213:33309';
+//$dbhost = '10.23.10.9:4040';
 $dbuser = 'sms';
 $dbpass = 'sms_@1234aa';
 $dbname = 'sms';
