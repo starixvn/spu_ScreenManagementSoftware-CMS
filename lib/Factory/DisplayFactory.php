@@ -131,13 +131,15 @@ class DisplayFactory extends BaseFactory
      * @return Display[]
      * @throws NotFoundException
      */
-    public function getByDisplayGroupId($displayGroupId, $IsCollectNow)
+    public function getByDisplayGroupId($displayGroupId)
     {
         if ($IsCollectNow == 1)
         {
             $this->getStore()->update('UPDATE display AS d INNER JOIN lkdisplaydg AS dg ON d.displayid = dg.DisplayID SET d.loggedin = 0 WHERE dg.DisplayGroupID = :displayGroupID', [
                 'displayGroupID' => $displayGroupId
             ]);
+            
+            $this->getLog()->error("Set offline for groupid: " . $displayGroupId);
         }
         
         return $this->query(null, ['disableUserCheck' => 1, 'displayGroupId' => $displayGroupId]);
@@ -150,11 +152,6 @@ class DisplayFactory extends BaseFactory
      */
     public function query($sortOrder = null, $filterBy = null)
     {
-        /*
-        $clientTimeLap = 1000
-        $this->getStore()->update('UPDATE `display` SET loggedin = 0 WHERE (UNIX_TIMESTAMP(NOW()) - lastaccessed) > : clientTimelap', [
-            'clientTimelap' => $clientTimeLap]);
-          */      
         if ($sortOrder === null)
             $sortOrder = ['display'];
 

@@ -32,8 +32,8 @@ interface ConfigServiceInterface
      * @return mixed
      */
     public function setPool($pool);
-
-    /**
+    
+     /**
      * Get Database Config
      * @return array
      */

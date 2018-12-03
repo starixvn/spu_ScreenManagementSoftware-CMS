@@ -136,6 +136,8 @@ class Soap
     
     /** @var SettingsFactory*/
     protected $settingsFactory;
+    
+    protected $memCached;
 
     /**
 	 * Soap constructor.
@@ -161,7 +163,7 @@ class Soap
 	 * @param ScheduleFactory $scheduleFactory
 	 * @param DayPartFactory $dayPartFactory
 	 */
-    public function __construct($logProcessor, $pool, $store, $log, $date, $sanitizer, $config, $requiredFileFactory, $moduleFactory, $layoutFactory, $dataSetFactory, $displayFactory, $userGroupFactory, $bandwidthFactory, $mediaFactory, $widgetFactory, $regionFactory, $notificationFactory, $displayEventFactory, $scheduleFactory, $dayPartFactory)
+    public function __construct($logProcessor, $pool, $store, $log, $date, $sanitizer, $config, $requiredFileFactory, $moduleFactory, $layoutFactory, $dataSetFactory, $displayFactory, $userGroupFactory, $bandwidthFactory, $mediaFactory, $widgetFactory, $regionFactory, $notificationFactory, $displayEventFactory, $scheduleFactory, $dayPartFactory, $memCached)
     {
         $this->logProcessor = $logProcessor;
         $this->pool = $pool;
@@ -187,6 +189,7 @@ class Soap
         $this->clientResourceUsageFactory = new ClientResourceUsageFactory($store, $log, $sanitizer);
         $this->permissionFactory = new PermissionFactory($store, $log, $sanitizer);
         $this->settingsFactory = new SettingsFactory($store, $log, $sanitizer);
+        $this->memCached = $memCached;
     }
 
     /**
@@ -197,6 +200,11 @@ class Soap
     {
         return $this->pool;
     }
+
+    protected function getMemCached(){
+        return $this->memCached;
+    }
+
 
     /**
 	 * Get Store
@@ -393,7 +401,7 @@ class Soap
                     ON `layout`.layoutID = `lklayoutdisplaygroup`.layoutId
                  WHERE lkdisplaydg.DisplayID = :displayId
                 ORDER BY DisplayOrder, LayoutDisplayOrder, eventId
-            ';            
+            ';
 
             $params = array(
                 'displayId' => $this->display->displayId,

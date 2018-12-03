@@ -366,6 +366,7 @@ class Display implements \JsonSerializable
      * @var $ramUsage
      */
     public $ramUsage;
+       
 
     /**
      * Entity constructor.
@@ -391,7 +392,8 @@ class Display implements \JsonSerializable
         $this->ramUsage = 0;
 
         // Initialise extra validation rules
-        v::with('Xibo\\Validation\\Rules\\');
+        v::with('Xibo\\Validation\\Rules\\');        
+       
     }
 
     /**
@@ -823,12 +825,12 @@ class Display implements \JsonSerializable
     public function setCurrentLayoutId($pool)
     {
         $item = $pool->getItem($this->getCacheKey() . '/currentLayoutId');
-
+       
         $data = $item->get();
 
         if ($item->isHit()) {
             $this->currentLayoutId = $data;
-
+            
             try {
                 $this->currentLayout = $this->layoutFactory->getById($this->currentLayoutId)->layout;
             }
@@ -836,6 +838,20 @@ class Display implements \JsonSerializable
                 // This is ok
             }
         } else {
+            $this->getLog()->debug('Cache miss for setCurrentLayoutId on display ' . $this->display);
+        }
+    }
+    
+    public function getCurrentLayoutId($memCache)
+    {
+        $data = $memCache->get($this->getCacheKey() . '/currentLayoutId');  
+        
+        if (array_key_exists('data', $data)) {
+            $this->currentLayoutId = $data["data"];
+            $this->currentLayout = $this->layoutFactory->getById($this->currentLayoutId)->layout;            
+        }    
+        else
+        {
             $this->getLog()->debug('Cache miss for setCurrentLayoutId on display ' . $this->display);
         }
     }

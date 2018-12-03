@@ -77,7 +77,7 @@ class PlayerActionService implements PlayerActionServiceInterface
 
         if ($this->xmrAddress == '')
             throw new \InvalidArgumentException(__('XMR address is not set'));
-        
+
         // Send a message to all displays
         foreach ($displays as $display) {
             /* @var Display $display */
@@ -86,7 +86,7 @@ class PlayerActionService implements PlayerActionServiceInterface
 
             $displayAction = clone $action;
             $displayAction->setIdentity($display->xmrChannel, $display->xmrPubKey);
-            
+
             // Add to collection
             $this->actions[] = $displayAction;
         }

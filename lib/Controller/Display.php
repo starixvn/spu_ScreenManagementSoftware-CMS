@@ -117,6 +117,8 @@ class Display extends Base
      */
     private $clientVersionFactory;
 
+    private $memCached;        
+    
     /**
      * Set common dependencies.
      * @param LogServiceInterface $log
@@ -139,7 +141,7 @@ class Display extends Base
      * @param DisplayEventFactory $displayEventFactory
      * @param RequiredFileFactory $requiredFileFactory
      */
-    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $store, $pool, $playerAction, $displayFactory, $displayGroupFactory, $logFactory, $layoutFactory, $displayProfileFactory, $mediaFactory, $scheduleFactory, $displayEventFactory, $requiredFileFactory, $clientResourceUsageFactory)
+    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $store, $pool, $playerAction, $displayFactory, $displayGroupFactory, $logFactory, $layoutFactory, $displayProfileFactory, $mediaFactory, $scheduleFactory, $displayEventFactory, $requiredFileFactory, $clientResourceUsageFactory, $memcached)
     {
         $this->setCommonDependencies($log, $sanitizerService, $state, $user, $help, $date, $config);
 
@@ -156,6 +158,7 @@ class Display extends Base
         $this->displayEventFactory = $displayEventFactory;
         $this->requiredFileFactory = $requiredFileFactory;
         $this->clientResourceUsageFactory = $clientResourceUsageFactory;
+        $this->memcached = $memcached;        
     }
 
     /**
@@ -418,6 +421,8 @@ class Display extends Base
      */
     function grid()
     {
+        $this->getLog()->error('mem cached -> '. $this->memcached->get("foo"));
+        
         // Embed?
         $embed = ($this->getSanitizer()->getString('embed') != null) ? explode(',', $this->getSanitizer()->getString('embed')) : [];
 
@@ -479,8 +484,9 @@ class Display extends Base
 
             // Current layout from cache
             $display->setChildObjectDependencies($this->layoutFactory, $this->mediaFactory, $this->scheduleFactory);
-            $display->setCurrentLayoutId($this->pool);
-
+            // $display->setCurrentLayoutId($this->pool);
+            $display->getCurrentLayoutId($this->memcached);
+                    
             if ($this->isApi())
                 break;
 
@@ -717,9 +723,6 @@ class Display extends Base
                     )
                 );
             }
-            
-            $currentTime = strtotime(date());
-            $display->loggedIn = ($currentTime - $display->lastAccessed) > 1 ? 0 : $display->loggedIn;
         }
         
         if(is_int(strpos($gridSortArray[0], 'Usage')))

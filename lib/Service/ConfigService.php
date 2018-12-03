@@ -79,6 +79,8 @@ class ConfigService implements ConfigServiceInterface
     /** @var bool Has a theme been loaded? */
     private $themeLoaded = false;
 
+    public $memCached;
+    
     /**
      * @inheritdoc
      */
@@ -109,8 +111,8 @@ class ConfigService implements ConfigServiceInterface
     private function getPool()
     {
         return $this->pool;
-    }
-
+    }   
+    
     /**
      * Get Store
      * @return StorageServiceInterface

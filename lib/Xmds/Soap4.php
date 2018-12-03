@@ -75,8 +75,7 @@ class Soap4 extends Soap
         try {
             $display = $this->displayFactory->getByLicence($hardwareKey);
             $this->display = $display;
-            
-            //$this->display->setOnlineStatus(1);
+
             $this->logProcessor->setDisplay($display->displayId, ($display->isAuditing()));
 
             // Audit in
@@ -442,14 +441,16 @@ class Soap4 extends Soap
 
         if ($currentLayoutId !== null) {
             // Cache it
-            $this->getLog()->debug('Caching currentLayoutId with Pool');
+            /*$this->getLog()->debug('Caching currentLayoutId with Pool');
 
             $item = $this->getPool()->getItem($this->display->getCacheKey() . '/currentLayoutId');
             $item->set($currentLayoutId);
             $item->expiresAfter(new \DateInterval('P1W'));
 
-            $this->getPool()->saveDeferred($item);
-            $this->getLog()->info($this->display->deviceName . ': changes current layout to ' . $currentLayoutId);
+            $this->getPool()->saveDeferred($item);*/
+            $memCached = $this->getMemCached();
+            $nexDay = time() + (60*60*24*7);
+            $memCached->set($this->display->getCacheKey() . '/currentLayoutId', $currentLayoutId, $nexDay);
         }
 
         // Touch the display record

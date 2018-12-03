@@ -333,6 +333,13 @@ class State extends Middleware
             $configService->setPool($pool);
             return $pool;
         });
+        
+        $container->singleton('memcached', function() {
+
+            $memcached = new \Stash\Driver\Sub\Memcache(array(array('10.70.70.210', '11211')));                       
+                        
+            return $memcached;
+        });
     }
 
     /**
@@ -498,7 +505,8 @@ class State extends Middleware
                 $container->scheduleFactory,
                 $container->displayEventFactory,
                 $container->requiredFileFactory,
-                $container->clientResourceUsageFactory
+                $container->clientResourceUsageFactory,
+                $container->memcached
             );
         });
 

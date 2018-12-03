@@ -1412,7 +1412,7 @@ class DisplayGroup extends Base
         if (!$this->getUser()->checkEditable($displayGroup))
             throw new AccessDeniedException();
 
-        $this->playerAction->sendAction($this->displayFactory->getByDisplayGroupId($displayGroupId, 1), new CollectNowAction());
+        $this->playerAction->sendAction($this->displayFactory->getByDisplayGroupId($displayGroupId), new CollectNowAction());
 
         // Return
         $this->getState()->hydrate([

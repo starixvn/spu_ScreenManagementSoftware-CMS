@@ -298,9 +298,8 @@ class Soap5 extends Soap4
         $result = false;
         try {
             $display = $this->displayFactory->getByLicence($hardwareKey);
-            $display->setOnlineStatus(1);
             
-            $result = $display->licensed;
+  			    $result = $display->licensed;
         }
         catch (NotFoundException $e){
                 throw new NotFoundException('Unable to get status');
@@ -311,7 +310,7 @@ class Soap5 extends Soap4
     
     function StoreClientCpuRamUsage($hardwareKey, $cpuUsage, $ramTotal, $ramAvailable)
     {
-       // $this->getLog()->error('hardwarekey=' . $hardwareKey);
+    //$this->getLog()->error('hardwarekey=' . $hardwareKey);
         $this->logProcessor->setRoute('StoreClientCpuRamUsage');
 
         // Sanitize
@@ -325,7 +324,7 @@ class Soap5 extends Soap4
             $clientResourceUsage = $this->clientResourceUsageFactory->create($display->displayId, $cpuUsage, $ramTotal, $ramAvailable);
             
             $existingDisplayCounter = $clientResourceUsage->checkExistingDisplay();
-            
+            //$this->getLog()->error(count($existingDisplayCounter));
             if(count($existingDisplayCounter) != 0)
             {
                 $clientResourceUsage->update();                        
