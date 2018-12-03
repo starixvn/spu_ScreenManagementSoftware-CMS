@@ -421,7 +421,7 @@ class Display extends Base
      */
     function grid()
     {
-        $this->getLog()->error('mem cached -> '. $this->memcached->get("foo"));
+        //$this->getLog()->error('mem cached -> '. $this->memcached->get("foo"));
         
         // Embed?
         $embed = ($this->getSanitizer()->getString('embed') != null) ? explode(',', $this->getSanitizer()->getString('embed')) : [];
