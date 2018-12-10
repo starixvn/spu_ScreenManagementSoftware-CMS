@@ -1372,6 +1372,7 @@ class Schedule extends Base
             'campaignId' => 0,
             'displayGroupId' => $displayGroupIds,
             'displays' => $displays,
+            'displayGroups' => $groups,
             'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1]),
             'help' => $this->getHelp()->link('Schedule', 'ScheduleNow')
         ]);

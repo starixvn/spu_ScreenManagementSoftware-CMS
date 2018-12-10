@@ -433,10 +433,15 @@ class Display extends Base
             'macAddress' => $this->getSanitizer()->getString('macAddress'),
             'license' => $this->getSanitizer()->getString('hardwareKey'),
             'displayGroupId' => $this->getSanitizer()->getInt('displayGroupId'),
+            'isMember' => $this->getSanitizer()->getInt('isMember'),
             'clientVersion' => $this->getSanitizer()->getString('clientVersion'),
             'authorised' => $this->getSanitizer()->getInt('authorised'),
             'displayProfileId' => $this->getSanitizer()->getInt('displayProfileId'),
-        ];
+        ];       
+        
+        if ($this->getSanitizer()->getInt('isMember') === -1) {
+            $filter['displayGroupId'] = null;
+        }
 
         // Get a list of displays
         $gridSortArray = $this->gridRenderSort();

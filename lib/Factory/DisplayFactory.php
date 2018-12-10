@@ -221,11 +221,20 @@ class DisplayFactory extends BaseFactory
 
         // Restrict to members of a specific display group
         if ($this->getSanitizer()->getInt('displayGroupId', $filterBy) !== null) {
-            $body .= '
+            if ($this->getSanitizer()->getInt('isMember', $filterBy) === 0) {
+                $body .= '
+                LEFT JOIN `lkdisplaydg` othergroups
+                ON othergroups.displayId = `display`.displayId
+                    AND othergroups.displayGroupId = :displayGroupId
+                ';
+            }
+            else{
+                $body .= '
                 INNER JOIN `lkdisplaydg` othergroups
                 ON othergroups.displayId = `display`.displayId
                     AND othergroups.displayGroupId = :displayGroupId
-            ';
+                ';
+            }            
 
             $params['displayGroupId'] = $this->getSanitizer()->getInt('displayGroupId', $filterBy);
         }
@@ -234,6 +243,11 @@ class DisplayFactory extends BaseFactory
 
         $this->viewPermissionSql('Xibo\Entity\DisplayGroup', $body, $params, 'displaygroup.displayGroupId', null, $filterBy);
 
+        // Filter is member in group
+        if ($this->getSanitizer()->getInt('isMember', $filterBy) === 0) {
+            $body .= ' AND othergroups.DisplayID is null ';
+        }
+        
         // Filter by Display ID?
         if ($this->getSanitizer()->getInt('displayId', $filterBy) !== null) {
             $body .= ' AND display.displayid = :displayId ';

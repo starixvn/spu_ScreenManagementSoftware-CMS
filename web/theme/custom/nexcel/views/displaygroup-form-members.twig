@@ -58,6 +58,12 @@
                                         {% set title %}{% trans "Authorised" %}{% endset %}
                                         {% set values = [{id: -1, value: ""}, {id: 1, value: "Yes"}, {id: 0, value: "No"}] %}
                                         {{ inline.dropdown("authorised", "single", title, -1, values, "id", "value") }}
+                                        
+                                        {% set title %}{% trans "Is Member" %}{% endset %}
+                                        {% set values = [{id: -1, value: ""}, {id: 1, value: "Yes"}, {id: 0, value: "No"}] %}
+                                        {{ inline.dropdown("isMember", "single", title, -1, values, "id", "value") }}
+                                        
+                                        {{ inline.hidden("displayGroupId", displayGroup.displayGroupId) }}
                                     </form>
                                 </div>
                             </div>

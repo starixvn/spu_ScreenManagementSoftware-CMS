@@ -84,7 +84,7 @@
                 {id: "group", label: transGroups},
                 {id: "display", label: transDisplays}
                 ] %}
-                {{ forms.dropdown("displayGroupIds[]", "dropdownmulti", title, displayGroupId, {display: displays}, "displayGroupId", "displayGroup", helpText, "", "", "", "", attributes, optionGroups) }}
+                {{ forms.dropdown("displayGroupIds[]", "dropdownmulti", title, displayGroupId, {group: displayGroups, display: displays}, "displayGroupId", "displayGroup", helpText, "", "", "", "", attributes, optionGroups) }}
 
                 {% set title %}{% trans "Display Order" %}{% endset %}
                 {% set helpText %}{% trans "Should this event have an order?" %}{% endset %}

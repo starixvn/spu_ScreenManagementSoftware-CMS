@@ -374,7 +374,8 @@ class DisplayGroup extends Base
             'displayGroup' => $displayGroup,
             'extra' => [
                 'displaysAssigned' => $displaysAssigned,
-                'displayGroupsAssigned' => $groupsAssigned
+                'displayGroupsAssigned' => $groupsAssigned,
+                'displayGroupId' => $displayGroupId
             ],
             'tree' => $this->displayGroupFactory->getRelationShipTree($displayGroupId),
             'help' => $this->getHelp()->link('DisplayGroup', 'Members')

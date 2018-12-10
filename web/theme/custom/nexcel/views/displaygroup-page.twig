@@ -174,8 +174,11 @@
         }
 
         function displayGroupMembersFormOpen(dialog) {
-            
             var control = $(dialog).find(".controlDiv");
+
+            if (dialog.data().extra) {
+                $('#displayGroupId').val(dialog.data().extra.displayGroupId);
+            }
 
             // This contains the changes made since the form open
             if (control.data().members == undefined)
@@ -234,6 +237,7 @@
                         "name": "member",
                         "orderable": false,
                         "data": function (data, type, row) {
+                            
                             if (type != "display")
                                 return data;
 
