@@ -9,6 +9,7 @@
 
 {% extends "form-base.twig" %}
 {% import "forms.twig" as forms %}
+{% import "inline.twig" as inline %}
 
 {% block formTitle %}
     {% trans "Set Instructions for Upgrading this Player" %}
@@ -20,6 +21,8 @@
     {% trans "Save" %}, $("#displayGroupVersionForm").submit()
 {% endblock %}
 
+{% block callBack %}displayVersionsFormOpen{% endblock %}
+    
 {% block formHtml %}
     <div class="row">
         <div class="col-md-12">
@@ -28,12 +31,13 @@
                 {% set helpText %}{% trans "Select the Installer File that should be pushed to the Players listed and installed." %}{% endset %}
                 {{ forms.dropdown("versionFileName", "single", title, "", versions, "fileName", "version", helpText) }}
             </form>
+            {{ inline.hidden("displayGroupId", displayGroup.displayGroupId) }}
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <h3>{% trans "Current Player Version" %}</h3>
-            <table class="table table-striped">
+            <table id="displayVersionsTable" class="table table-striped">
                 <thead>
                     <tr>
                         <th>{% trans "Display" %}</th>
@@ -43,14 +47,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for display in displays %}
-                    <tr>
-                        <td>{{ display.display }}</td>
-                        <td>{{ display.clientType }}</td>
-                        <td>{{ display.clientVersion }}</td>
-                        <td>{{ display.clientCode }}</td>
-                    </tr>
-                    {% endfor %}
                 </tbody>
             </table>
         </div>

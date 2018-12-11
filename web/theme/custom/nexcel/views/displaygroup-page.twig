@@ -471,5 +471,35 @@
                 queue.start();
             }
         }
+        
+        function displayVersionsFormOpen() {           
+            debugger;
+            var table = $("#displayVersionsTable").DataTable({ 
+                "dom": 't<"bottom"ipl>',
+                "language": dataTablesLanguage,
+                serverSide: true, 
+                stateSave: true,
+                filter: false,
+                searchDelay: 3000,
+                "order": [[1, "asc"]],
+                ajax: {
+                    "url": "{{ urlFor("display.search") }}",
+                    "data": function(dataDisplay) {
+                        debugger;
+                        dataDisplay.displayGroupId = $("#displayGroupId").val();
+                        return dataDisplay;
+                    }
+                },
+                "columns": [
+                    { "data": "display"},
+                    { "data": "clientType" },
+                    { "data": "clientVersion" },
+                    { "data": "clientCode" }
+                ]
+            });
+
+            table.on('draw', dataTableDraw);
+            table.on('processing.dt', dataTableProcessing);                        
+        }
     </script>
 {% endblock %}
