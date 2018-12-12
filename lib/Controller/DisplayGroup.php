@@ -38,6 +38,7 @@ use Xibo\Service\PlayerActionServiceInterface;
 use Xibo\Service\SanitizerServiceInterface;
 use Xibo\XMR\ChangeLayoutAction;
 use Xibo\XMR\CollectNowAction;
+use Xibo\XMR\UpdateSettingsAction;
 use Xibo\XMR\CommandAction;
 use Xibo\XMR\OverlayLayoutAction;
 use Xibo\XMR\RevertToSchedule;
@@ -1421,6 +1422,17 @@ class DisplayGroup extends Base
             'message' => sprintf(__('Command Sent to %s'), $displayGroup->displayGroup),
             'id' => $displayGroup->displayGroupId
         ]);
+    }
+    
+    public function updateSettingsForAllScreens()
+    {
+        // Check permission on All Screen groups
+        $displayGroup = $this->displayGroupFactory->getById(1);
+        
+        if (!$this->getUser()->checkEditable($displayGroup))
+            throw new AccessDeniedException();
+
+        $this->playerAction->sendAction($this->displayFactory->query(null, ['disableUserCheck' => 1]), new UpdateSettingsAction());
     }
 
     /**

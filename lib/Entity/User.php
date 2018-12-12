@@ -1013,7 +1013,7 @@ class User implements \JsonSerializable
     }
 
     /**
-     * Check that this object can be used with the permissions sytem
+     * Check that this object can be used with the permissions system
      * @param object $object
      */
     private function checkObjectCompatibility($object)

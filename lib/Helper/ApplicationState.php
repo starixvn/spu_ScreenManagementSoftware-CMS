@@ -32,6 +32,7 @@ class ApplicationState
     public $success;
     public $html;
     public $updateToken;
+    public $updateConfigClient;
     public $buttons;
     public $fieldActions;
     public $dialogTitle;
@@ -99,6 +100,7 @@ class ApplicationState
         $response['dialogTitle'] = $this->dialogTitle;
         $response['callBack'] = $this->callBack;
         $response['updateToken'] = $this->updateToken;
+        $response['updateConfigClient'] = $this->updateConfigClient;
 
         $response['success'] = $this->success;
         $response['message'] = $this->message;

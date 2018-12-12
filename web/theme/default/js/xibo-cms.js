@@ -1260,6 +1260,7 @@ function XiboSubmitResponse(response, form) {
 
     // Did we actually succeed
     if (response.success) {
+        debugger;
         // Success - what do we do now?
         if (response.message != '')
             SystemMessage(response.message, true);
@@ -1271,6 +1272,18 @@ function XiboSubmitResponse(response, form) {
                     dataType: "json",
                     success: function(){        
                         console.log('Update token successfully !');
+                    }
+                });
+            }
+            
+            if(response.updateConfigClient){
+                $.ajax({
+                    type: "post",
+                    url: '../displaygroup/update/config',
+                    cache: false,
+                    dataType: "json",
+                    success: function(){        
+                        console.log('Update config successfully !');
                     }
                 });
             }

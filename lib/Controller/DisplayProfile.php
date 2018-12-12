@@ -317,6 +317,9 @@ class DisplayProfile extends Base
     {
         // Create a form out of the config object.
         $displayProfile = $this->displayProfileFactory->getById($displayProfileId);
+        
+        // Handle for update config file
+        $updateConfig = false;
 
         if ($this->getUser()->userTypeId != 1 && $this->getUser()->userId != $displayProfile->userId)
             throw new AccessDeniedException(__('You do not have permission to edit this profile'));
@@ -371,6 +374,7 @@ class DisplayProfile extends Base
                 $command->commandString = $this->getSanitizer()->getString('commandString_' . $command->commandId);
                 $command->validationString = $this->getSanitizer()->getString('validationString_' . $command->commandId);
                 $displayProfile->assignCommand($command);
+                $updateConfig = true;
             } else {
                 $displayProfile->unassignCommand($command);
             }
@@ -386,7 +390,8 @@ class DisplayProfile extends Base
         $this->getState()->hydrate([
             'message' => sprintf(__('Edited %s'), $displayProfile->name),
             'id' => $displayProfile->displayProfileId,
-            'data' => $displayProfile
+            'data' => $displayProfile,
+            'updateConfigClient' => $updateConfig
         ]);
     }
 

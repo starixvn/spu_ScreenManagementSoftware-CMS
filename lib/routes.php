@@ -242,6 +242,7 @@ $app->post('/displaygroup', '\Xibo\Controller\DisplayGroup:add')->name('displayG
 $app->put('/displaygroup/:id', '\Xibo\Controller\DisplayGroup:edit')->name('displayGroup.edit');
 $app->delete('/displaygroup/:id', '\Xibo\Controller\DisplayGroup:delete')->name('displayGroup.delete');
 $app->post('/displaygroup/:id/version', '\Xibo\Controller\DisplayGroup:version')->name('displayGroup.version');
+$app->post('/displaygroup/update/config', '\Xibo\Controller\DisplayGroup:updateSettingsForAllScreens')->name('displayGroup.update.config');
 
 $app->post('/displaygroup/:id/display/assign', '\Xibo\Controller\DisplayGroup:assignDisplay')->name('displayGroup.assign.display');
 $app->post('/displaygroup/:id/display/unassign', '\Xibo\Controller\DisplayGroup:unassignDisplay')->name('displayGroup.unassign.display');
