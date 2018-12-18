@@ -309,4 +309,26 @@ class DisplayGroupFactory extends BaseFactory
 
         return $entries;
     }
+    
+    public function queryDropdownList()
+    {
+       // $sql = 'SELECT dg.DisplayGroupID as groupId, dg.DisplayGroup as groupName, lkdg2.DisplayGroupID as displayId, dg2.DisplayGroup as displayName
+        //        FROM `displaygroup` as dg 
+        //        inner join `lkdisplaydg` as lkdg on dg.DisplayGroupID = lkdg.DisplayGroupID
+        //        inner join `lkdisplaydg` as lkdg2 on lkdg2.DisplayID = lkdg.DisplayID and lkdg2.DisplayGroupID not in (select DisplayGroupID from `displaygroup` where IsDisplaySpecific = 0)
+        //        inner join `displaygroup` as dg2 on dg2.DisplayGroupID = lkdg2.DisplayGroupID
+        //        where dg.IsDisplaySpecific = 0 and dg.DisplayGroupID != lkdg2.DisplayGroupID
+        //        group by dg.DisplayGroupID, lkdg2.DisplayGroupID';
+        $group = 'Groups';
+        $screens = 'Screens';
+        
+        $sql = 'SELECT DisplayGroupID, DisplayGroup, (case when IsDisplaySpecific=0 then "'.$group.'" else "'.$screens.'" end) as GroupName FROM `displaygroup` order by IsDisplaySpecific';
+        $entries = array();
+        $data = $this->getStore()->select($sql, $params);
+        foreach ( $data as $row) {
+            $entries[$row['GroupName']][] = $row;
+        }
+        
+        return $entries;
+    }
 }

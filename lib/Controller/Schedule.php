@@ -636,6 +636,8 @@ class Schedule extends Base
         
         $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
         $versions = $this->clientVersionFactory->query(null, ['retired' => 0]);
+        
+        $displayGroupMultipleSelect = $this->displayGroupFactory->queryDropdownList();
 
         foreach ($this->displayGroupFactory->query(['displayGroup'], ['isDisplaySpecific' => -1]) as $displayGroup) {
             /* @var \Xibo\Entity\DisplayGroup $\Xibo\Entity\DisplayGroup */
@@ -662,7 +664,8 @@ class Schedule extends Base
             'dayParts' => $this->dayPartFactory->allWithSystem(),
             'displayGroupIds' => $this->session->get('displayGroupIds'),
             'help' => $this->getHelp()->link('Schedule', 'Add'),
-            'versions' => $versions
+            'versions' => $versions,
+            'multipleSelect' => $displayGroupMultipleSelect            
         ]);
     }
 
@@ -806,15 +809,17 @@ class Schedule extends Base
         $schedule->syncTimezone = $this->getSanitizer()->getCheckbox('syncTimezone', 0);
         $schedule->recurrenceType = $this->getSanitizer()->getString('recurrenceType');
         $schedule->recurrenceDetail = $this->getSanitizer()->getInt('recurrenceDetail');
-        $recurrenceRepeatsOn = $this->getSanitizer()->getIntArray('recurrenceRepeatsOn');
+        $recurrenceRepeatsOn = $this->getSanitizer()->getIntArray('recurrenceRepeatsOn');               
         $schedule->recurrenceRepeatsOn = (empty($recurrenceRepeatsOn)) ? null : implode(',', $recurrenceRepeatsOn);
 
 		if($schedule->commandId == 2)
 		{
 			$schedule->commandAdditionalInfo = $this->getSanitizer()->getString('versionFileName');
 		}
-
-        foreach ($this->getSanitizer()->getIntArray('displayGroupIds') as $displayGroupId) {
+                
+        $multipleGroupIds = $this->getSanitizer()->getIntArray('multipleGroupIds');         
+        
+        foreach ($multipleGroupIds as $displayGroupId) {
             $schedule->assignDisplayGroup($this->displayGroupFactory->getById($displayGroupId));
         }
 
@@ -903,6 +908,8 @@ class Schedule extends Base
         $groups = array();
         $displays = array();
         $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
+        
+        $displayGroupMultipleSelect = $this->displayGroupFactory->queryDropdownList();
 
         foreach ($this->displayGroupFactory->query(null, ['isDisplaySpecific' => -1]) as $displayGroup) {
             /* @var \Xibo\Entity\DisplayGroup $displayGroup */
@@ -923,6 +930,7 @@ class Schedule extends Base
             'event' => $schedule,
             'displays' => $displays,
             'displayGroups' => $groups,
+            'multipleSelect' => $displayGroupMultipleSelect,  
             'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1, 'retired' => 0, 'includeCampaignId' => $schedule->campaignId, 'isRunCampaign' => 1]),
             'commands' => $this->commandFactory->query(),
             'dayParts' => $this->dayPartFactory->allWithSystem(),
@@ -1090,8 +1098,9 @@ class Schedule extends Base
 		else{
 			$schedule->commandAdditionalInfo = null;
 		}
-
-        foreach ($this->getSanitizer()->getIntArray('displayGroupIds') as $displayGroupId) {
+        $displayGroupIds = $this->getSanitizer()->getIntArray('multipleGroupIds');   
+        
+        foreach ($displayGroupIds as $displayGroupId) {
             $schedule->assignDisplayGroup($this->displayGroupFactory->getById($displayGroupId));
         }
 
