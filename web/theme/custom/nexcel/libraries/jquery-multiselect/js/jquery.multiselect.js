@@ -804,9 +804,12 @@
             
             pagingWrap.each(function(index,element)
             {
-                var counter = index + 1;
+                var pageIndex = element.attributes["pageIndex"].value;
+                var itemIndex = index + 1;
+                var prevPage = parseInt(page) - 2;
+                var nextPage = parseInt(page) + 2;
                 
-                if(counter >= page - 2 && counter <= page + 2)
+                if((itemIndex >= prevPage) && (itemIndex <= nextPage))
                 {
                     $(element).removeClass('hide');
                 }
@@ -815,7 +818,7 @@
                     $(element).addClass('hide');
                 }
                 
-                if(page == element.attributes["pageIndex"].value)
+                if(page == pageIndex)
                 {
                     $(element).addClass('active');
                 }
