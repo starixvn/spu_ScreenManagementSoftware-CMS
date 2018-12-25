@@ -64,13 +64,18 @@
         showCheckbox       : true,  // display the checkbox to the user
         checkboxAutoFit    : false,  // auto calc checkbox padding
         optionAttributes   : [],    // attributes to copy to the checkbox from the option element        
+        recordsPerPage     : 12,
         // Callbacks
         onLoad        : function( element ){},           // fires at end of list initialization
         onOptionClick : function( element, option ){},   // fires when an option is clicked
         onControlClose: function( element ){},           // fires when the options list is closed
         onSelectAll   : function( element, selected ){}, // fires when (un)select all is clicked
     };
-
+    
+    var currentPage = 1;
+    var itemPerPage = 0;
+    var itemNumber = 0;
+    
     var msCounter    = 1; // counter for each select list
     var msOptCounter = 1; // counter for each option on page
 
@@ -314,8 +319,9 @@
                             optionsList.find('li[data-search-term*="'+ searchString +'"]:not(.optgroup)').removeClass('ms-hidden');
                             optionsList.find('li:not([data-search-term*="'+ searchString +'"], .optgroup)').addClass('ms-hidden');
                         }
-                        else {
-                            optionsList.find('.ms-hidden').removeClass('ms-hidden');
+                        else {                            
+                            optionsList.find('.ms-hidden').removeClass('ms-hidden');     
+                            instance.changePage(1);
                         }
 
                         // show/hide optgroups based on if there are items visible within
@@ -419,13 +425,13 @@
                             name   : $(this).text(),
                             value  : $(this).val(),
                             checked: $(this).prop( 'selected' ),
-                            attributes: thisOptionAtts
+                            attributes: thisOptionAtts,
+                            groupId   : $(this).attr('groupid')
                         });
                     });
 
                     options.push({
-                        label  : $(this).attr('label'),
-                        groupvalue  : $(this).attr('value'),
+                        label  : $(this).attr('label'),                        
                         options: groupOptions
                     });
                 }
@@ -443,7 +449,7 @@
                         name      : $(this).text(),
                         value     : $(this).val(),
                         checked   : $(this).prop( 'selected' ),
-                        attributes: thisOptionAtts
+                        attributes: thisOptionAtts                        
                     });
                 }
                 else {
@@ -451,6 +457,15 @@
                     return true;
                 }
             });
+            
+            if(options[1].options.length > instance.options.recordsPerPage)
+            {                
+               options.push({
+                        label  : "Page",
+                        counter : options[1].options.length
+                    });               
+            }
+            
             instance.loadOptions( options, true, false );
 
             // BIND SELECT ACTION
@@ -478,6 +493,19 @@
                 $(this).closest('label').addClass('focused');
             }).on('focusout', 'input[type="checkbox"]', function(){
                 $(this).closest('label').removeClass('focused');
+            });
+
+            optionsWrap.on('click','li.next',function(){                
+                instance.nextPage();                
+            }); 
+            
+            optionsWrap.on('click','li.previous',function(){                
+                instance.prevPage();                
+            });
+            
+            optionsWrap.on('click','li.paginate_button',function(){   
+                var pageIndex = this.attributes['pageindex'].value;
+                instance.changePage(pageIndex);                
             });
 
             // USER CALLBACK
@@ -619,16 +647,44 @@
                             optGroup.append( selOption );
                         }
                     }
+                                        
+                  
                 }
                 else {
                     // no clue what this is we hit (skip)
-                    continue;
-                }
-
+                    itemPerPage = instance.options.recordsPerPage;
+                    itemNumber = thisOption.counter;
+                    
+                    container.addClass('optgroup');
+                    var pagingHTML = '<ul class="pagination">';
+                        pagingHTML +='<li class="paginate_button previous"><a href="#">Prev</a></li>';                      
+                    var numberOfPage = instance.numPages();
+                    
+                    for(var i=1;i<=numberOfPage;i++)
+                    {
+                        if(i<=3)
+                        {
+                            pagingHTML +='<li class="paginate_button" pageIndex="'+ i +'"><a href="#">'+ i +'</a></li>';
+                        }
+                        else
+                        {
+                            pagingHTML +='<li class="paginate_button hide" pageIndex="'+ i +'"><a href="#">'+ i +'</a></li>';
+                        }
+                    }
+                    
+                    pagingHTML +='<li class="paginate_button next"><a href="#">Next</a></li>';
+                    pagingHTML +='</ul>';
+                    container.append(pagingHTML);
+                    
+                    
+                   // continue;
+                }                 
+               
                 if( appendContainer ) {
                     containers.push( container );
                 }
             }
+            
             optionsList.append( containers );
 
             // pad out label for room for the checkbox
@@ -671,7 +727,7 @@
                 // add CSS3 column styles
                 optionsList.find('li.optgroup').css({
                     clear: 'both'
-                }).find('> ul').css({
+                }).find('> ul:not(.pagination)').css({
                     'column-count'        : instance.options.columns,
                     'column-gap'          : 0,
                     '-webkit-column-count': instance.options.columns,
@@ -709,9 +765,88 @@
             }
 
             // update un/select all logic
-            instance._updateSelectAllText();
+            //instance._updateSelectAllText();
+            
+            instance.changePage(1);           
+           
         },
-
+        
+        changePage: function(page){
+            currentPage = page;
+            var items = $("[group-id='1']");
+            items.addClass('ms-hidden');
+            
+            if (page < 1) page = 1;
+            if (page > this.numPages()) page = this.numPages();
+            
+            for (var i = (page-1) * itemPerPage; i < (page * itemPerPage) && i < itemNumber; i++) 
+            {
+                $(items[i]).removeClass('ms-hidden');
+            }
+            
+            if(page == 1){
+                $('li.previous').addClass('disabled');
+            }
+            else
+            {
+                $('li.previous').removeClass('disabled');
+            }
+            
+            if(page == this.numPages()){
+                $('li.next').addClass('disabled');
+            }
+            else
+            {
+                $('li.next').removeClass('disabled');
+            }
+            
+            var pagingWrap = $('.pagination').find('li:not(.previous):not(.next)');
+            
+            pagingWrap.each(function(index,element)
+            {
+                var counter = index + 1;
+                
+                if(counter >= page - 2 && counter <= page + 2)
+                {
+                    $(element).removeClass('hide');
+                }
+                else
+                {
+                    $(element).addClass('hide');
+                }
+                
+                if(page == element.attributes["pageIndex"].value)
+                {
+                    $(element).addClass('active');
+                }
+                else
+                {
+                    $(element).removeClass('active');
+                }
+            });
+            
+            this._updateSelectAllText();
+            
+        },
+        numPages: function(){
+            return Math.ceil(itemNumber / itemPerPage);
+        },        
+        nextPage: function(){
+            if(currentPage < this.numPages())
+            {
+                currentPage++;
+                this.changePage(currentPage);
+            }
+        },
+        prevPage: function(){
+            if(currentPage > 1)
+            {
+                currentPage--;
+                this.changePage(currentPage);
+            }
+        },
+        
+        
         /* UPDATE MULTISELECT CONFIG OPTIONS */
         settings: function( options ) {
             this.options = $.extend( true, {}, this.options, options );
@@ -875,11 +1010,13 @@
             if( instance.options.searchOptions.searchValue ) {
                 searchTerm += ' ' + option.value.toLowerCase();
             }
-
+            
+            container.attr( 'group-id', option.groupId );            
             container.attr( 'data-search-term', $.trim( searchTerm ) ).prepend( thisOption );
 
             msOptCounter = msOptCounter + 1;
         },
+               
 
         // check ie version
         _ieVersion: function() {

@@ -322,11 +322,12 @@ class DisplayGroupFactory extends BaseFactory
         $group = 'Groups';
         $screens = 'Screens';
         
-        $sql = 'SELECT DisplayGroupID, DisplayGroup, (case when IsDisplaySpecific=0 then "'.$group.'" else "'.$screens.'" end) as GroupName FROM `displaygroup` order by IsDisplaySpecific';
+        //$sql = 'SELECT DisplayGroupID, DisplayGroup, (case when IsDisplaySpecific=0 then "'.$group.'" else "'.$screens.'" end) as GroupName FROM `displaygroup` order by IsDisplaySpecific';
+        $sql = 'SELECT DisplayGroupID, DisplayGroup, IsDisplaySpecific as GroupId FROM `displaygroup` order by IsDisplaySpecific';
         $entries = array();
         $data = $this->getStore()->select($sql, $params);
         foreach ( $data as $row) {
-            $entries[$row['GroupName']][] = $row;
+            $entries[$row['GroupId']][] = $row;
         }
         
         return $entries;
