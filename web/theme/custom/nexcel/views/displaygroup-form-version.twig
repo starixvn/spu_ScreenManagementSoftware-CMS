@@ -31,7 +31,7 @@
                 {% set helpText %}{% trans "Select the Installer File that should be pushed to the Players listed and installed." %}{% endset %}
                 {{ forms.dropdown("versionFileName", "single", title, "", versions, "fileName", "version", helpText) }}
             </form>
-            {{ inline.hidden("displayGroupId", displayGroup.displayGroupId) }}
+            {{ inline.hidden("displayGroupIdForPaging", displayGroup.displayGroupId) }}
         </div>
     </div>
     <div class="row">

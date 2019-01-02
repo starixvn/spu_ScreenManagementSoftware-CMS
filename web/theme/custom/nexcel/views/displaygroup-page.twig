@@ -473,7 +473,6 @@
         }
         
         function displayVersionsFormOpen() {           
-            debugger;
             var table = $("#displayVersionsTable").DataTable({ 
                 "dom": 't<"bottom"ipl>',
                 "language": dataTablesLanguage,
@@ -485,8 +484,7 @@
                 ajax: {
                     "url": "{{ urlFor("display.search") }}",
                     "data": function(dataDisplay) {
-                        debugger;
-                        dataDisplay.displayGroupId = $("#displayGroupId").val();
+                        dataDisplay.displayGroupId = $("#displayGroupIdForPaging").val();
                         return dataDisplay;
                     }
                 },
