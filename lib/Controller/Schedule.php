@@ -817,7 +817,7 @@ class Schedule extends Base
 			$schedule->commandAdditionalInfo = $this->getSanitizer()->getString('versionFileName');
 		}
                 
-        $multipleGroupIds = $this->getSanitizer()->getIntArray('multipleGroupIds');         
+        $multipleGroupIds = $this->getSanitizer()->getIntArray('displayGroupIds');         
         
         foreach ($multipleGroupIds as $displayGroupId) {
             $schedule->assignDisplayGroup($this->displayGroupFactory->getById($displayGroupId));
@@ -1098,7 +1098,7 @@ class Schedule extends Base
 		else{
 			$schedule->commandAdditionalInfo = null;
 		}
-        $displayGroupIds = $this->getSanitizer()->getIntArray('multipleGroupIds');   
+        $displayGroupIds = $this->getSanitizer()->getIntArray('displayGroupIds');   
         
         foreach ($displayGroupIds as $displayGroupId) {
             $schedule->assignDisplayGroup($this->displayGroupFactory->getById($displayGroupId));
@@ -1329,6 +1329,8 @@ class Schedule extends Base
         $groups = array();
         $displays = array();
         $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
+        
+        $displayGroupMultipleSelect = $this->displayGroupFactory->queryDropdownList();
 
         foreach ($this->displayGroupFactory->query(null, ['isDisplaySpecific' => -1]) as $displayGroup) {
             /* @var \Xibo\Entity\DisplayGroup $\Xibo\Entity\DisplayGroup */
@@ -1351,7 +1353,8 @@ class Schedule extends Base
             'displays' => $displays,
             'displayGroups' => $groups,
             'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1]),
-            'help' => $this->getHelp()->link('Schedule', 'ScheduleNow')
+            'help' => $this->getHelp()->link('Schedule', 'ScheduleNow'),
+            'multipleSelect' => $displayGroupMultipleSelect
         ]);
     }
 
@@ -1362,6 +1365,8 @@ class Schedule extends Base
         $displayGroupIds = explode(',', $ids);
         $scheduleWithView = ($this->getConfig()->GetSetting('SCHEDULE_WITH_VIEW_PERMISSION') == 'Yes');
 
+        $displayGroupMultipleSelect = $this->displayGroupFactory->queryDropdownList();
+        
         foreach ($this->displayGroupFactory->query(null, ['isDisplaySpecific' => -1]) as $displayGroup) {
             /* @var \Xibo\Entity\DisplayGroup $\Xibo\Entity\DisplayGroup */
 
@@ -1383,7 +1388,8 @@ class Schedule extends Base
             'displays' => $displays,
             'displayGroups' => $groups,
             'campaigns' => $this->campaignFactory->query(null, ['isLayoutSpecific' => -1]),
-            'help' => $this->getHelp()->link('Schedule', 'ScheduleNow')
+            'help' => $this->getHelp()->link('Schedule', 'ScheduleNow'),
+            'multipleSelect' => $displayGroupMultipleSelect
         ]);
     }
 }

@@ -65,6 +65,7 @@
         checkboxAutoFit    : false,  // auto calc checkbox padding
         optionAttributes   : [],    // attributes to copy to the checkbox from the option element        
         recordsPerPage     : 12,
+        singleSelect       : false,
         // Callbacks
         onLoad        : function( element ){},           // fires at end of list initialization
         onOptionClick : function( element, option ){},   // fires when an option is clicked
@@ -133,6 +134,7 @@
     }
 
     MultiSelect.prototype = {
+        
         /* LOAD CUSTOM MULTISELECT DOM/ACTIONS */
         load: function() {
             var instance = this;
@@ -217,7 +219,7 @@
                             thisInst.options.onControlClose( thisInst.element );
                         }
                     });
-                }
+                }                
             // hide open option lists if escape key pressed
             }).on('keydown', function( event ){
                 if( (event.keyCode || event.which) == 27 ) { // esc key
@@ -469,16 +471,38 @@
             instance.loadOptions( options, true, false );
 
             // BIND SELECT ACTION
-            optionsWrap.on( 'click', 'input[type="checkbox"]', function(){
-                $(this).closest( 'li' ).toggleClass( 'selected' );
-
+            optionsWrap.on( 'click', 'input[type="checkbox"]', function(){                               
+                
+                if(instance.options.singleSelect)
+                {
+                    $(this).closest('li').siblings().removeClass('selected');
+                    $(this).closest( 'li' ).addClass( 'selected' );
+                }
+                else
+                {
+                    $(this).closest( 'li' ).toggleClass( 'selected' );
+                }                
+                
                 var select = optionsWrap.parent().siblings('.ms-list-'+ instance.listNumber +'.jqmsLoaded');
-
-                // toggle clicked option
-                select.find('option[value="'+ $(this).val() +'"]').prop(
-                    'selected', $(this).is(':checked')
-                ).closest('select').trigger('change');
-
+                
+                if(instance.options.singleSelect)
+                {
+                    select.find('option[value!="'+ $(this).val() +'"]').prop(
+                        'selected', false
+                    ).closest('select').trigger('change'); 
+            
+                    select.find('option[value="'+ $(this).val() +'"]').prop(
+                        'selected', true
+                    ).closest('select').trigger('change');
+                }
+                else
+                {
+                    // toggle clicked option
+                    select.find('option[value="'+ $(this).val() +'"]').prop(
+                        'selected', $(this).is(':checked')
+                    ).closest('select').trigger('change');             
+                }
+                
                 // USER CALLBACK
                 if( typeof instance.options.onOptionClick == 'function' ) {
                     instance.options.onOptionClick(instance.element, this);
@@ -486,11 +510,15 @@
 
                 instance._updateSelectAllText();
                 instance._updatePlaceholderText();
+                
+                if(instance.options.singleSelect){                    
+                    instance.close(event);
+                }
             });
 
             // BIND FOCUS EVENT
-            optionsWrap.on('focusin', 'input[type="checkbox"]', function(){
-                $(this).closest('label').addClass('focused');
+            optionsWrap.on('focusin', 'input[type="checkbox"]', function(event){
+                $(this).closest('label').addClass('focused');                                           
             }).on('focusout', 'input[type="checkbox"]', function(){
                 $(this).closest('label').removeClass('focused');
             });
@@ -516,7 +544,24 @@
             // hide native select list
             $(instance.element).hide();
         },
+        
+        close : function(event){
+            if( $(event.target).closest('.ms-options-wrap').length ) {
+                    $('.ms-options-wrap.ms-active > .ms-options').each(function(){
+                        $(this).closest('.ms-options-wrap').removeClass('ms-active');
 
+                        var listID = $(this).closest('.ms-options-wrap').attr('id');
+
+                        var thisInst = $(this).parent().siblings('.'+ listID +'.jqmsLoaded').data('plugin_multiselect-instance');
+
+                        // USER CALLBACK
+                        if( typeof thisInst.options.onControlClose == 'function' ) {
+                            thisInst.options.onControlClose( thisInst.element );
+                        }
+                    });
+                }
+        },
+        
         /* LOAD SELECT OPTIONS */
         loadOptions: function( options, overwrite, updateSelect ) {
             overwrite    = (typeof overwrite == 'boolean') ? overwrite : true;
@@ -607,8 +652,12 @@
 
                         container.append('<ul/>');
                     }
-
-                    for( var gKey in thisOption.options ) {
+                    
+                    var sortArray = thisOption.options.sort(function(a, b){
+                        return (a.checked === b.checked) ? 0 : a.checked ? -1 : 1; 
+                    }); 
+                    
+                    for( var gKey in sortArray) {
                         // Prevent prototype methods injected into options from
                         // being iterated over.
                         if( !thisOption.options.hasOwnProperty( gKey ) ) {
@@ -656,7 +705,7 @@
                     itemNumber = thisOption.counter;
                     
                     container.addClass('optgroup');
-                    var pagingHTML = '<ul class="pagination">';
+                    var pagingHTML = '<ul id="pagingdropdown" class="pagination">';
                         pagingHTML +='<li class="paginate_button previous"><a href="#">Prev</a></li>';                      
                     var numberOfPage = instance.numPages();
                     
@@ -769,8 +818,7 @@
             
             instance.changePage(1);           
            
-        },
-        
+        },        
         changePage: function(page){
             currentPage = page;
             var items = $("[group-id='1']");
@@ -800,7 +848,7 @@
                 $('li.next').removeClass('disabled');
             }
             
-            var pagingWrap = $('.pagination').find('li:not(.previous):not(.next)');
+            var pagingWrap = $('#pagingdropdown').find('li:not(.previous):not(.next)');
             
             pagingWrap.each(function(index,element)
             {

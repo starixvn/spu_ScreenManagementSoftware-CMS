@@ -1260,7 +1260,7 @@ function XiboSubmitResponse(response, form) {
 
     // Did we actually succeed
     if (response.success) {
-        debugger;
+        //debugger;
         // Success - what do we do now?
         if (response.message != '')
             SystemMessage(response.message, true);

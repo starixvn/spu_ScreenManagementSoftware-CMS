@@ -61,7 +61,7 @@
                         ] %}
                         
                         {#{{ forms.dropdown("displayGroupIds[]", "dropdownmulti", title, displayGroupIds, {group: displayGroups, display: displays}, "displayGroupId", "displayGroup", helpText, "", "", "", "", attributes, optionGroups) }}#}
-                        {{ forms.multipleselect("multipleGroupIds[]", "multipleGroupIds[]", title, multipleSelect, "" , helpText, "", "") }}
+                        {{ forms.multipleselect("displayGroupIds[]", "displayGroupIds[]", title, multipleSelect, "" , helpText, "", "") }}
                         
                         {% set title %}{% trans "Dayparting" %}{% endset %}
                         {% set helpText %}{% trans "Select the dayparting information for this event. To set your own times select custom and to have the event run constantly select Always." %}{% endset %}
@@ -197,6 +197,7 @@
             placeholder: 'Select Screens',
             search: true,            
             showCheckbox: false,
+            singleSelect: false,
             searchOptions: {
                 'default': 'Search Screens'
             },

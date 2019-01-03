@@ -168,13 +168,13 @@
         <div class="col-sm-6">
              <select name="{{ name }}" id="{{ id }}" multiple="multiple" class="3col active">
                 {% for group in groupDisplays %}
-                    {%if group[0].GroupId == 0%}
+                    {% if group[0].GroupId == 0 %}
                         <optgroup label="Group">                        
-                    {%else%}    
+                    {% else %}    
                         <optgroup label="Screens">
-                    {%endif%}
+                    {% endif %}
                     
-                    {% for display in group%}
+                    {% for display in group %}
                         {% set selected = (display.DisplayGroupID in displayGroupIds) %}
                         <option groupId="{{display.GroupId}}" {% if selected %} selected {% endif %} value="{{display.DisplayGroupID}}">{{display.DisplayGroup}}</option>
                     {% endfor %}

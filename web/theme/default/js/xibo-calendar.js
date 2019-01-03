@@ -369,7 +369,7 @@ var setupScheduleForm = function(dialog) {
 
     // Select lists
     $('#campaignId', dialog).selectpicker();
-    $('select[name="displayGroupIds[]"]', dialog).selectpicker();
+    //$('select[name="displayGroupIds[]"]', dialog).selectpicker();
     $('select[name="recurrenceRepeatsOn[]"]', dialog).selectpicker();
     
     // Hide/Show form elements according to the selected options
@@ -506,7 +506,7 @@ var setupScheduleNowForm = function(form) {
     
     // We submit this form ourselves (outside framework)
     $('#campaignId', form).selectpicker();
-    $('select[name="displayGroupIds[]"]', form).selectpicker();
+    //$('select[name="displayGroupIds[]"]', form).selectpicker();
 
     // Hide the seconds input option unless seconds are enabled in the date format
     if (dateFormat.indexOf("s") <= -1) {
