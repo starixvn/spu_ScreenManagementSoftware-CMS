@@ -73,7 +73,7 @@
         onSelectAll   : function( element, selected ){}, // fires when (un)select all is clicked
     };
     
-    var currentPage = 1;
+    
     var itemPerPage = 0;
     var itemNumber = 0;
     
@@ -97,12 +97,12 @@
     }
 
     function MultiSelect( element, options )
-    {
+    {       
         this.element           = element;
         this.options           = $.extend( true, {}, defaults, options );
         this.updateSelectAll   = true;
         this.updatePlaceholder = true;
-        this.listNumber        = msCounter;
+        this.listNumber        = msCounter;        
 
         msCounter = msCounter + 1; // increment counter
 
@@ -460,6 +460,7 @@
                 }
             });
             
+            
             if(options[1].options.length > instance.options.recordsPerPage)
             {                
                options.push({
@@ -467,6 +468,7 @@
                         counter : options[1].options.length
                     });               
             }
+                
             
             instance.loadOptions( options, true, false );
 
@@ -581,6 +583,7 @@
             }
 
             var containers = [];
+            var firstGroupCounter = true;
             for( var key in options ) {
                 // Prevent prototype methods injected into options from being iterated over.
                 if( !options.hasOwnProperty( key ) ) {
@@ -639,7 +642,13 @@
 
                     // setup container
                     if( appendContainer ) {
-                        container.addClass('optgroup');
+                        container.addClass('optgroup' + (firstGroupCounter ? ' first' : ' second'));
+                        
+                        if( instance.options.singleSelect && firstGroupCounter ) {
+                            container.addClass('hide');                            
+                        }
+                        
+                        firstGroupCounter = false;
                         container.append('<span class="label">'+ thisOption.label +'</span>');
                         container.find('> .label').css({
                             clear: 'both'
@@ -704,8 +713,8 @@
                     itemPerPage = instance.options.recordsPerPage;
                     itemNumber = thisOption.counter;
                     
-                    container.addClass('optgroup');
-                    var pagingHTML = '<ul id="pagingdropdown" class="pagination">';
+                    container.addClass('optgroup paging');
+                    var pagingHTML = '<ul id="pagingdropdown-'+ instance.listNumber +'" class="pagination">';
                         pagingHTML +='<li class="paginate_button previous"><a href="#">Prev</a></li>';                      
                     var numberOfPage = instance.numPages();
                     
@@ -723,6 +732,7 @@
                     
                     pagingHTML +='<li class="paginate_button next"><a href="#">Next</a></li>';
                     pagingHTML +='</ul>';
+                    pagingHTML +='<input type="hidden" id="currentPage-'+ instance.listNumber +'" value="1">';
                     container.append(pagingHTML);
                     
                     
@@ -819,9 +829,13 @@
             instance.changePage(1);           
            
         },        
-        changePage: function(page){
-            currentPage = page;
-            var items = $("[group-id='1']");
+        changePage: function(page){            
+            var select = $(this.element);
+            var items = select.siblings('#ms-list-'+ this.listNumber +'.ms-options-wrap').find('> .ms-options > ul > .second > ul > li');
+            
+            $('#currentPage-' + this.listNumber).val(page);
+            
+            //var items = $("[group-id='1']");
             items.addClass('ms-hidden');
             
             if (page < 1) page = 1;
@@ -848,7 +862,7 @@
                 $('li.next').removeClass('disabled');
             }
             
-            var pagingWrap = $('#pagingdropdown').find('li:not(.previous):not(.next)');
+            var pagingWrap = $('#pagingdropdown-' + this.listNumber).find('li:not(.previous):not(.next)');
             
             pagingWrap.each(function(index,element)
             {
@@ -883,17 +897,19 @@
             return Math.ceil(itemNumber / itemPerPage);
         },        
         nextPage: function(){
-            if(currentPage < this.numPages())
+            var currentPath = $('#currentPage-' + this.listNumber).val();
+            if(currentPath < this.numPages())
             {
-                currentPage++;
-                this.changePage(currentPage);
+                currentPath++;
+                this.changePage(currentPath);
             }
         },
         prevPage: function(){
-            if(currentPage > 1)
+            var currentPath = $('#currentPage-' + this.listNumber).val();
+            if(currentPath > 1)
             {
-                currentPage--;
-                this.changePage(currentPage);
+                currentPath--;
+                this.changePage(currentPath);
             }
         },
         

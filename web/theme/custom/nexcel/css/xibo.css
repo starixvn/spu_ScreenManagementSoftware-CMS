@@ -1295,3 +1295,30 @@ li.active.tab-design {
     vertical-align: bottom;
 }
 
+.custom-multiple-select
+{
+    position: relative;
+}
+
+.custom-multiple-select > .ms-options-wrap > .ms-options{
+    position: absolute;
+    left: 6px;
+    width: 100%;
+    margin-top: 1px;
+    margin-bottom: 20px;
+    background: white;
+    z-index: 2000;
+    border: 1px solid #aaa;
+    overflow: auto;    
+}
+
+.custom-multiple-select > .ms-options-wrap{
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
+    border-radius: 0;
+}
+
+.custom-multiple-select > .ms-options-wrap > button{
+    border:none;    
+}

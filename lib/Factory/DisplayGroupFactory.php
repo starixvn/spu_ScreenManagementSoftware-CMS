@@ -310,25 +310,38 @@ class DisplayGroupFactory extends BaseFactory
         return $entries;
     }
     
-    public function queryDropdownList()
-    {
-       // $sql = 'SELECT dg.DisplayGroupID as groupId, dg.DisplayGroup as groupName, lkdg2.DisplayGroupID as displayId, dg2.DisplayGroup as displayName
-        //        FROM `displaygroup` as dg 
-        //        inner join `lkdisplaydg` as lkdg on dg.DisplayGroupID = lkdg.DisplayGroupID
-        //        inner join `lkdisplaydg` as lkdg2 on lkdg2.DisplayID = lkdg.DisplayID and lkdg2.DisplayGroupID not in (select DisplayGroupID from `displaygroup` where IsDisplaySpecific = 0)
-        //        inner join `displaygroup` as dg2 on dg2.DisplayGroupID = lkdg2.DisplayGroupID
-        //        where dg.IsDisplaySpecific = 0 and dg.DisplayGroupID != lkdg2.DisplayGroupID
-        //        group by dg.DisplayGroupID, lkdg2.DisplayGroupID';
-        $group = 'Groups';
-        $screens = 'Screens';
-        
-        //$sql = 'SELECT DisplayGroupID, DisplayGroup, (case when IsDisplaySpecific=0 then "'.$group.'" else "'.$screens.'" end) as GroupName FROM `displaygroup` order by IsDisplaySpecific';
-        $sql = 'SELECT DisplayGroupID, DisplayGroup, IsDisplaySpecific as GroupId FROM `displaygroup` order by IsDisplaySpecific';
+    public function queryDropdownList($excludeGroup = false)
+    {                      
         $entries = array();
-        $data = $this->getStore()->select($sql, $params);
-        foreach ( $data as $row) {
-            $entries[$row['GroupId']][] = $row;
+        
+        if($excludeGroup)
+        {
+            $sql = 'SELECT DisplayGroupID, DisplayGroup, IsDisplaySpecific as GroupId FROM `displaygroup` WHERE IsDisplaySpecific = 0';
+            
+            $data = $this->getStore()->select($sql, $params);
+            
+            foreach ( $data as $row) {
+                $entries[$row['GroupId']][] = $row;
+            }
+            
+            $sql = 'SELECT displayid as DisplayGroupID, display as DisplayGroup, 1 as GroupId FROM `display`';
+            
+            $data = $this->getStore()->select($sql, $params);
+            
+            foreach ( $data as $row) {
+                $entries[$row['GroupId']][] = $row;
+            }
+            
         }
+        else
+        {
+            $sql = 'SELECT DisplayGroupID, DisplayGroup, IsDisplaySpecific as GroupId FROM `displaygroup` order by IsDisplaySpecific';
+            
+            $data = $this->getStore()->select($sql, $params);
+            foreach ( $data as $row) {
+                $entries[$row['GroupId']][] = $row;
+            }            
+        }     
         
         return $entries;
     }

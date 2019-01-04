@@ -8,6 +8,7 @@
 #}
 {% extends "authed.twig" %}
 {% import "inline.twig" as inline %}
+{% import "forms.twig" as forms %}
 
 {% block actionMenu %}
     <ul class="nav nav-pills pull-right">
@@ -32,11 +33,13 @@
                             ] %}
                             {% set title %}{% trans "Display" %}{% endset %}
                             {% set helpText %}{% trans "Return Display Groups that directly contain the selected Display." %}{% endset %}
-                            {{ inline.dropdown("displayId", "single", title, "", [{displayId:null, display: null}]|merge(displays), "displayId", "display", helpText, "selectPicker", "", "", "", attributes) }}
+                            {#{{ inline.dropdown("displayId", "single", title, "", [{displayId:null, display: null}]|merge(displays), "displayId", "display", helpText, "selectPicker", "", "", "", attributes) }}#}
+                            {{ forms.singleselect("displayId", "displayId", title, groupDisplays, "" , helpText, "selectPicker", "") }}
 
                             {% set title %}{% trans "Nested Display" %}{% endset %}
                             {% set helpText %}{% trans "Return Display Groups that contain the selected Display somewhere in the nested Display Group relationship tree." %}{% endset %}
-                            {{ inline.dropdown("nestedDisplayId", "single", title, "", [{displayId:null, display: null}]|merge(displays), "displayId", "display", helpText, "selectPicker", "", "", "", attributes) }}
+                            {#{{ inline.dropdown("nestedDisplayId", "single", title, "", [{displayId:null, display: null}]|merge(displays), "displayId", "display", helpText, "selectPicker", "", "", "", attributes) }}#}
+                            {{ forms.singleselect("nestedDisplayId", "nestedDisplayId", title, groupDisplays, "" , helpText, "selectPicker", "") }}
 
                             {% set title %}{% trans "Dynamic Criteria" %}{% endset %}
                             {{ inline.input("dynamicCriteria", title) }}
@@ -499,5 +502,26 @@
             table.on('draw', dataTableDraw);
             table.on('processing.dt', dataTableProcessing);                        
         }
+        
+        $('select[multiple].active.3col').multiselect({
+            columns: 1,
+            placeholder: 'Select Screens',
+            search: true,            
+            showCheckbox: false,
+            singleSelect: true,
+            searchOptions: {
+                'default': 'Search Screens'
+            },
+            selectAll: false,
+            selectGroup: false,
+            texts: {
+            placeholder    : 'Select options', // text to use in dummy input
+            search         : 'Search',         // search input placeholder text
+            selectedOptions: ' selected',      // selected suffix text
+            selectAll      : 'Select all',     // select all text
+            unselectAll    : 'Unselect all',   // unselect all text
+            noneSelected   : 'None Selected'   // None selected text
+            }
+        });
     </script>
 {% endblock %}

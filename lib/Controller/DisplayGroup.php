@@ -133,8 +133,12 @@ class DisplayGroup extends Base
     public function displayPage()
     {
         $this->getState()->template = 'displaygroup-page';
+        $data = $this->displayFactory->query();
+        $displayGroupMultipleSelect = $this->displayGroupFactory->queryDropdownList(true);
+        
         $this->getState()->setData([
-            'displays' => $this->displayFactory->query()
+            'displays' => $data,
+            'groupDisplays' => $displayGroupMultipleSelect
         ]);
     }
 

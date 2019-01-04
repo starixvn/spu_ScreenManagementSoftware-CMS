@@ -185,6 +185,28 @@
     </div>
 {% endmacro %}
 
+{% macro singleselect(name, id, title, groupDisplays, displayGroupIds, helpText, groupClass, accessKey ) %}
+    <div class="form-group {{ groupClass }}">
+        <label class="control-label" for="{{ name }}" title="{{ helpText }}" accesskey="{{ accessKey }}">{{ title }}</label>
+        <div class="custom-multiple-select">
+             <select name="{{ name }}" id="{{ id }}" multiple="multiple" class="3col active">
+                {% for group in groupDisplays %}
+                    {% if group[0].GroupId == 0 %}
+                        <optgroup label="Group">                        
+                    {% else %}    
+                        <optgroup label="Screens">
+                        <option selected="true" groupId="1" value="">All Screens</option>
+                    {% endif %}
+                    
+                    {% for display in group %}
+                        {% set selected = (display.DisplayGroupID in displayGroupIds) %}
+                        <option groupId="{{display.GroupId}}" {% if selected %} selected {% endif %} value="{{display.DisplayGroupID}}">{{display.DisplayGroup}}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>         
+        </div>
+    </div>
+{% endmacro %}
 
 {% macro dropdown(name, type, title, value, options, optionId, optionValue, helpText, groupClass, validation, accessKey, callBack, dataAttributes, optionGroups, baseUrl, optionImageValue) %}
     <div class="form-group {{ groupClass }}">
