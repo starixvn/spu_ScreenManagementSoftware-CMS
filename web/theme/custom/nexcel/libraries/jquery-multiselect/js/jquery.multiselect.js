@@ -533,6 +533,14 @@
                 instance.prevPage();                
             });
             
+            optionsWrap.on('click','li.first',function(){                
+                instance.firsPage();                
+            });
+            
+            optionsWrap.on('click','li.last',function(){                
+                instance.lastPage();                
+            });
+            
             optionsWrap.on('click','li.paginate_button',function(){   
                 var pageIndex = this.attributes['pageindex'].value;
                 instance.changePage(pageIndex);                
@@ -715,6 +723,7 @@
                     
                     container.addClass('optgroup paging');
                     var pagingHTML = '<ul id="pagingdropdown-'+ instance.listNumber +'" class="pagination">';
+                        pagingHTML +='<li class="paginate_button first"><a href="#">First</a></li>';
                         pagingHTML +='<li class="paginate_button previous"><a href="#">Prev</a></li>';                      
                     var numberOfPage = instance.numPages();
                     
@@ -731,6 +740,7 @@
                     }
                     
                     pagingHTML +='<li class="paginate_button next"><a href="#">Next</a></li>';
+                    pagingHTML +='<li class="paginate_button last"><a href="#">Last</a></li>';
                     pagingHTML +='</ul>';
                     pagingHTML +='<input type="hidden" id="currentPage-'+ instance.listNumber +'" value="1">';
                     container.append(pagingHTML);
@@ -848,21 +858,25 @@
             
             if(page == 1){
                 $('li.previous').addClass('disabled');
+                $('li.first').addClass('disabled');
             }
             else
             {
                 $('li.previous').removeClass('disabled');
+                $('li.first').removeClass('disabled');
             }
             
             if(page == this.numPages()){
                 $('li.next').addClass('disabled');
+                $('li.last').addClass('disabled');
             }
             else
             {
                 $('li.next').removeClass('disabled');
+                $('li.last').removeClass('disabled');
             }
             
-            var pagingWrap = $('#pagingdropdown-' + this.listNumber).find('li:not(.previous):not(.next)');
+            var pagingWrap = $('#pagingdropdown-' + this.listNumber).find('li:not(.previous):not(.next):not(.first):not(.last)');
             
             pagingWrap.each(function(index,element)
             {
@@ -911,8 +925,13 @@
                 currentPath--;
                 this.changePage(currentPath);
             }
+        },        
+        firsPage: function(){
+            this.changePage(1);
+        },        
+        lastPage: function(){
+            this.changePage(this.numPages());
         },
-        
         
         /* UPDATE MULTISELECT CONFIG OPTIONS */
         settings: function( options ) {

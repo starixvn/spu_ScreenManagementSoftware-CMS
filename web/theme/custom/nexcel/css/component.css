@@ -133,12 +133,16 @@ table.dataTable thead .sorting_desc:after {
 .pagination .paginate_button a {
     padding: 2px 9px 3px;
 }
+.pagination .paginate_button.last a,
+.pagination .paginate_button.first a,
 .pagination .paginate_button.next a,
 .pagination .paginate_button.previous a
  {
     font-size: 0;
     padding: 0 8px;
 }
+.pagination .paginate_button.first a:before,
+.pagination .paginate_button.last a:after,
 .pagination .paginate_button.previous a:before,
 .pagination .paginate_button.next a:after {
     position: relative;
@@ -146,8 +150,14 @@ table.dataTable thead .sorting_desc:after {
     font-family: 'FontAwesome';
     font-size: 16px;
 }
+.pagination .paginate_button.first a:before {
+    content: '\f100';
+}
 .pagination .paginate_button.next a:after {
     content: '\f105';
+}
+.pagination .paginate_button.last a:after {
+    content: '\f101';
 }
 .pagination .paginate_button.previous a:before {
     content: '\f104';

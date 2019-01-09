@@ -69,7 +69,7 @@ class Stats extends Base
      * @param LayoutFactory $layoutFactory
      * @param MediaFactory $mediaFactory
      */
-    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $store, $displayFactory, $layoutFactory, $mediaFactory)
+    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $store, $displayFactory, $layoutFactory, $mediaFactory, $displayGroupFactory)
     {
         $this->setCommonDependencies($log, $sanitizerService, $state, $user, $help, $date, $config);
 
@@ -77,6 +77,7 @@ class Stats extends Base
         $this->displayFactory = $displayFactory;
         $this->layoutFactory = $layoutFactory;
         $this->mediaFactory = $mediaFactory;
+        $this->displayGroupFactory = $displayGroupFactory;
     }
 
     /**
@@ -91,6 +92,7 @@ class Stats extends Base
             'media' => $this->mediaFactory->query(),
             // List of Layouts this user has permission for
             'layouts' => $this->layoutFactory->query(),
+            'groupDisplays' => $this->displayGroupFactory->queryDropdownList(true),
             'defaults' => [
                 'fromDate' => $this->getDate()->getLocalDate(time() - (86400 * 35)),
                 'fromDateOneDay' => $this->getDate()->getLocalDate(time() - 86400),

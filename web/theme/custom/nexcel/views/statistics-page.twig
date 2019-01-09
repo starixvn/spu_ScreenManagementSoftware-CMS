@@ -8,6 +8,7 @@
 #}
 {% extends "authed.twig" %}
 {% import "inline.twig" as inline %}
+{% import "forms.twig" as forms %}
 
 {% block actionMenu %}
     <ul class="nav nav-pills pull-right">
@@ -34,7 +35,8 @@
                             {{ inline.dateMonth("bandwidthToDt", title, defaults.toDate, "", "", "", "") }}
 							
 							{% set title %}{% trans "Display" %}{% endset %}
-                            {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
+                          {#  {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}#}
+                          {{ forms.singleselect("displayId", "displayId", title, groupDisplays, "" , helpText, "selectPicker", "") }}
                         </form>
                     </div>
                 </div>
@@ -58,7 +60,8 @@
                             {{ inline.date("availabilityToDt", title, defaults.toDate, "", "", "", "") }}
 
                             {% set title %}{% trans "Display" %}{% endset %}
-                            {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
+                            {#{{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}#}
+                            {{ forms.singleselect("displayId", "displayId", title, groupDisplays, "" , helpText, "selectPicker", "") }}
 
                             {% set title %}{% trans "Only show currently logged in?" %}{% endset %}
                             {{ inline.checkbox("onlyLoggedIn", title) }}
@@ -86,6 +89,7 @@
 
                             {% set title %}{% trans "Display" %}{% endset %}
                             {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
+                            {#{{ forms.singleselect("displayId", "displayId", title, groupDisplays, "" , helpText, "selectPicker", "") }}#}
 
                             {% set title %}{% trans "Layout" %}{% endset %}
                             {% set layoutFilterOptions = [{layoutId: "", layout: ""}]|merge(layouts) %}
@@ -198,16 +202,7 @@
                 }
             });
         }
-
-        $(document).ready(function() {
-            setBandwidthChart();
-
-            // Bind to form change
-            $("#bandwidthFilter input, #bandwidthFilter select").change(function() {
-                setBandwidthChart();
-            });
-        });
-
+        
         var availabilityChart = null;
         var availabilityChartOptions = {
             element: 'availabilityChart',
@@ -241,11 +236,67 @@
         }
 
         $(document).ready(function() {
+        
+            setBandwidthChart();
+
+            // Bind to form change
+            $("#bandwidthFilter input").change(function() {
+                setBandwidthChart();
+            });
+            
             setAvailabilityChart();
 
             // Bind to form change
-            $("#availabilityFilter input, #availabilityFilter select").change(function() {
+            $("#availabilityFilter input").change(function() {
                 setAvailabilityChart();
+            });
+            
+            $('#bandwidthFilter select[multiple].active.3col').multiselect({
+                columns: 1,
+                placeholder: 'Select Screens',
+                search: true,            
+                showCheckbox: false,
+                singleSelect: true,
+                searchOptions: {
+                    'default': 'Search Screens'
+                },
+                selectAll: false,
+                selectGroup: false,
+                texts: {
+                placeholder    : 'Select options', // text to use in dummy input
+                search         : 'Search',         // search input placeholder text
+                selectedOptions: ' selected',      // selected suffix text
+                selectAll      : 'Select all',     // select all text
+                unselectAll    : 'Unselect all',   // unselect all text
+                noneSelected   : 'None Selected'   // None selected text
+                },
+                onOptionClick: function(element, option){
+                    setBandwidthChart();
+                }
+            });
+            
+            $('#availabilityFilter select[multiple].active.3col').multiselect({
+                columns: 1,
+                placeholder: 'Select Screens',
+                search: true,            
+                showCheckbox: false,
+                singleSelect: true,
+                searchOptions: {
+                    'default': 'Search Screens'
+                },
+                selectAll: false,
+                selectGroup: false,
+                texts: {
+                placeholder    : 'Select options', // text to use in dummy input
+                search         : 'Search',         // search input placeholder text
+                selectedOptions: ' selected',      // selected suffix text
+                selectAll      : 'Select all',     // select all text
+                unselectAll    : 'Unselect all',   // unselect all text
+                noneSelected   : 'None Selected'   // None selected text
+                },
+                onOptionClick: function(element, option){
+                    setAvailabilityChart();
+                }
             });
         });
 
