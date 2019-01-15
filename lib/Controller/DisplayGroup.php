@@ -1430,13 +1430,13 @@ class DisplayGroup extends Base
     
     public function updateSettingsForAllScreens()
     {
-        // Check permission on All Screen groups
-        $displayGroup = $this->displayGroupFactory->getById(1);
+        $displayGroups = $this->displayGroupFactory->query();
         
-        if (!$this->getUser()->checkEditable($displayGroup))
-            throw new AccessDeniedException();
-
-        $this->playerAction->sendAction($this->displayFactory->query(null, ['disableUserCheck' => 1]), new UpdateSettingsAction());
+        foreach ($displayGroups as $group) {
+            $display = $this->displayFactory->getByDisplayGroupId($group->displayGroupId, 0);
+            
+            $this->playerAction->sendAction($display, new UpdateSettingsAction());
+        }               
     }
 
     /**
