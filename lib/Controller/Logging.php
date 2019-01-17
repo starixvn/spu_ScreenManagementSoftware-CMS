@@ -67,7 +67,7 @@ class Logging extends Base
      * @param DisplayFactory $displayFactory
      * @param UserFactory $userFactory
      */
-    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $store, $logFactory, $displayFactory, $userFactory)
+    public function __construct($log, $sanitizerService, $state, $user, $help, $date, $config, $store, $logFactory, $displayFactory, $userFactory, $displayGroupFactory)
     {
         $this->setCommonDependencies($log, $sanitizerService, $state, $user, $help, $date, $config);
 
@@ -75,6 +75,7 @@ class Logging extends Base
         $this->logFactory = $logFactory;
         $this->displayFactory = $displayFactory;
         $this->userFactory = $userFactory;
+        $this->displayGroupFactory = $displayGroupFactory;
     }
 
     public function displayPage()
@@ -82,7 +83,8 @@ class Logging extends Base
         $this->getState()->template = 'log-page';
         $this->getState()->setData([
             'displays' => $this->displayFactory->query(),
-            'users' => $this->userFactory->query()
+            'users' => $this->userFactory->query(),
+            'groupDisplays' => $this->displayGroupFactory->queryDropdownList(true)
         ]);
     }
 

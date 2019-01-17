@@ -8,6 +8,7 @@
 #}
 {% extends "authed.twig" %}
 {% import "inline.twig" as inline %}
+{% import "forms.twig" as forms %}
 
 {% block actionMenu %}
     <ul class="nav nav-pills pull-right">
@@ -83,7 +84,8 @@
 
                                     {% set title %}{% trans "Display" %}{% endset %}
                                     {% set displays = [{displayId: null, display: ""}]|merge(displays) %}
-                                    {{ inline.dropdown("displayId", "single", title, "", displays, "displayId", "display") }}
+                                    {#{{ inline.dropdown("displayId", "single", title, "", displays, "displayId", "display") }}#}
+                                    {{ forms.singleselect("displayId", "displayId", title, groupDisplays, "" , helpText, "selectPicker", "") }}
 
                                     {% set title %}{% trans "Message" %}{% endset %}
                                     {{ inline.input("message", title) }}
@@ -152,6 +154,27 @@
 
             $("#refreshLog").click(function () {
                 table.ajax.reload();
+            });
+            
+            $('.selectPicker select[multiple].active.3col').multiselect({
+                columns: 1,
+                placeholder: 'Select Screens',
+                search: true,            
+                showCheckbox: false,
+                singleSelect: true,
+                searchOptions: {
+                    'default': 'Search Screens'
+                },
+                selectAll: false,
+                selectGroup: false,
+                texts: {
+                placeholder    : 'Select options', // text to use in dummy input
+                search         : 'Search',         // search input placeholder text
+                selectedOptions: ' selected',      // selected suffix text
+                selectAll      : 'Select all',     // select all text
+                unselectAll    : 'Unselect all',   // unselect all text
+                noneSelected   : 'None Selected'   // None selected text
+                }
             });
         });
     </script>

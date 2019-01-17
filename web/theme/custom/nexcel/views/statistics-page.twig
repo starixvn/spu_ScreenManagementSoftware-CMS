@@ -88,8 +88,8 @@
                             {{ inline.date("statsToDt", title, defaults.toDate, "", "", "", "") }}
 
                             {% set title %}{% trans "Display" %}{% endset %}
-                            {{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}
-                            {#{{ forms.singleselect("displayId", "displayId", title, groupDisplays, "" , helpText, "selectPicker", "") }}#}
+                            {#{{ inline.dropdown("displayId", "single", title, "", displayFilterOptions, "displayId", "display") }}#}
+                            {{ forms.singleselect("displayId", "displayId", title, groupDisplays, "" , helpText, "selectPicker", "") }}
 
                             {% set title %}{% trans "Layout" %}{% endset %}
                             {% set layoutFilterOptions = [{layoutId: "", layout: ""}]|merge(layouts) %}
@@ -298,6 +298,28 @@
                     setAvailabilityChart();
                 }
             });
+            
+            $('#Filter form select[multiple].active.3col').multiselect({
+                columns: 1,
+                placeholder: 'Select Screens',
+                search: true,            
+                showCheckbox: false,
+                singleSelect: true,
+                searchOptions: {
+                    'default': 'Search Screens'
+                },
+                selectAll: false,
+                selectGroup: false,
+                texts: {
+                placeholder    : 'Select options', // text to use in dummy input
+                search         : 'Search',         // search input placeholder text
+                selectedOptions: ' selected',      // selected suffix text
+                selectAll      : 'Select all',     // select all text
+                unselectAll    : 'Unselect all',   // unselect all text
+                noneSelected   : 'None Selected'   // None selected text
+                }
+            });
+            
         });
 
         function statsExportFormSubmit() {
