@@ -1,0 +1,27 @@
+version: "2.1"
+
+services:
+    sms-mysql:
+        container_name: sms-mysql
+        hostname: sms-mysql
+        image: regdocker.nexdev.net/spu-sms/mysql:5.5.57
+        ports:
+            - "8808:80"
+            - "2344:22"
+            - "33309:3306"
+        restart: always
+        network_mode: bridge
+    sms-xmr:
+        container_name: sms-xmr
+        hostname: sms-xmr
+        image: regdocker.nexdev.net/spu-sms/xmr:latest
+        volumes:
+            - "/var/www/sms/xmr/:/var/www/xmr/"
+        working_dir: /var/www/xmr
+        ports:
+            - "9505:9505"
+            - "50001:50001"
+            - "2343:22"
+        restart: always        
+        command: sh entrypoint.sh
+        network_mode: bridge

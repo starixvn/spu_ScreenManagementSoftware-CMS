@@ -1,0 +1,17 @@
+version: "2.1"
+
+services:
+    sms-web1:
+        container_name: sms-web1
+        hostname: sms-web1
+        image: regdocker.nexdev.net/spu-sms/web1:latest
+        volumes:
+            - "/var/www/sms/codes/:/var/www"
+            - "/etc/localtime:/etc/localtime:ro"
+        working_dir: /var/www
+        privileged: true
+        restart: always
+        ports:
+            - "7710:80"
+            - "2322:22"
+        network_mode: bridge
