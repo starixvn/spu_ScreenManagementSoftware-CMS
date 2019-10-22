@@ -334,10 +334,12 @@ class State extends Middleware
             return $pool;
         });
         
-        $container->singleton('memcached', function() {
+        $container->singleton('memcached', function()use ($configService) {
 
-            $memcached = new \Stash\Driver\Sub\Memcache(array(array('10.70.70.210', '11211')));                       
+           // $memcached = new \Stash\Driver\Sub\Memcache(array(array('10.70.70.210', '11211')));                       
                         
+			 $memcached = new \Stash\Driver\Sub\Memcache(array(array($configService->getCacheServer(), $configService->getCachePort())));                       
+			 			
             return $memcached;
         });
     }

@@ -21,6 +21,12 @@ $dbuser = 'sms';
 $dbpass = 'sms_@1234aa';
 $dbname = 'sms';
 
+global $cacheServer;
+global $cachePort;
+
+$cacheServer = '10.23.10.210';
+$cacheServer = '11221';
+
 define('SECRET_KEY', '7kCmh1do7Uq4');
 
 // Additional Monolog handlers/processors to be registered

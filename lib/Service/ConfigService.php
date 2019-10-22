@@ -71,6 +71,8 @@ class ConfigService implements ConfigServiceInterface
     public $cacheDrivers = null;
     public $cacheNamespace = 'Xibo';
 
+	public $cacheServer= null;
+	public $cachePort= null;
     /**
      * Theme Specific Config
      * @var array
@@ -160,6 +162,16 @@ class ConfigService implements ConfigServiceInterface
     {
         return $this->cacheNamespace;
     }
+	
+	 public function getCacheServer()
+    {
+        return $this->cacheServer;
+    }
+	
+	 public function getCachePort()
+    {
+        return $this->cachePort;
+    }
 
     /**
      * Loads the settings from file.
@@ -210,6 +222,12 @@ class ConfigService implements ConfigServiceInterface
 
         if (isset($cacheNamespace))
             $config->cacheNamespace = $cacheNamespace;
+			
+		 if (isset($cacheServerConfig))
+            $config->cacheServer = $cacheServerConfig;	
+			
+		 if (isset($cachePortConfig))
+            $config->cachePort = $cachePortConfig;
 
         // Set this as the global config
         return $config;

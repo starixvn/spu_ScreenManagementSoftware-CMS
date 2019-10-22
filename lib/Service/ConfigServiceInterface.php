@@ -141,4 +141,17 @@ interface ConfigServiceInterface
      * @return string
      */
     public function getCacheNamespace();
+	
+	 /**
+     * Get the cache config server
+     * @return string
+     */
+    public function getCacheServer();
+	
+	 /**
+     * Get the cache config port
+     * @return string
+     */
+    public function getCachePort();
+	
 }
